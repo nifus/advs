@@ -7,20 +7,81 @@ html, body {
     margin: 0;
 }
 
-#main-menu{
-    width: 100%;
-    text-align: center;
+#head {
+    padding: 20px;
+    background-color: #203864
 }
-#main-menu ul{
-    margin: 0 auto;
-    width: 50%;
+
+#head div.right {
+    position: absolute;
+    right: 0;
+    width: 180px
 }
-#main-menu ul li{
+
+#head ul {
     list-style-type: none;
-    float: left;
-    width: 300px;
+    float: right
 }
-#main-menu ul li a{
+
+#head li {
+    float: left;
+    width: 70px
+}
+
+#head h1 {
+    width: 15%;
+    margin: 0 auto;
+    padding: 50px;
+    color: #ffffff;
+    padding-bottom: 0px;
+}
+
+#main-menu {
+    background-color: #4472c4;
+    height: 80px;
+}
+
+#main-menu div.row {
+    width: 40%;
+    text-align: center;
+    margin: 0 auto;
+    height: 80px;
+    font-size: 20px;
     text-transform: uppercase;
-    color:#000000;
+    color: #ffffff;
+    position: relative;
+}
+
+#main-menu div.item {
+    height: 80px
+}
+
+#main-menu a {
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+}
+
+#content {
+    margin: 30px;
+    min-height: 65%
+}
+
+#footer-menu ul {
+    list-style-type: none;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    width: 250px
+
+}
+
+#footer-menu li {
+    float: left;
+    width: 70px;
+    text-align:center;
+}
+
+#content div.panel-heading{
+    text-transform: uppercase;
 }
