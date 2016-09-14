@@ -7,6 +7,13 @@ Route::get('/', ['as'=>'main','uses'=>function () {
 }]);
 
 
+Route::get('/register/private', ['as'=>'register.private','uses'=> 'UserController@privateAccountForm']);
+
+Route::get('/register/business', ['as'=>'register.business','uses'=> 'UserController@businessAccountForm']);
+
+Route::post('/register', ['as'=>'register','uses'=> 'UserController@store']);
+
+
 
 Route::get('/rent', ['as'=>'adv.rent','uses'=>function () {
     return view('frontApp');

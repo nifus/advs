@@ -7,6 +7,9 @@ html, body {
     margin: 0;
 }
 
+div.alert a{
+    text-decoration: underline;
+}
 #head {
     padding: 20px;
     background-color: #203864
@@ -67,6 +70,10 @@ html, body {
     min-height: 65%
 }
 
+#content h4{
+    border-bottom: 3px solid #00b3ee;
+    font-weight: bold;
+}
 #footer-menu ul {
     list-style-type: none;
     margin-left: auto;

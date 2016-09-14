@@ -9,8 +9,8 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-    <link href="css/app.css" rel="stylesheet" type="text/css">
-    <link href="components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/app.css" rel="stylesheet" type="text/css">
+    <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
 
 
@@ -21,7 +21,7 @@
     <div class="right" >
         <ul>
             <li><a href="#">{{ trans('main.login')  }}</a></li>
-            <li><a href="#">{{ trans('main.register')  }}</a></li>
+            <li><a href="{{route('register.private')}}">{{ trans('main.register')  }}</a></li>
         </ul>
     </div>
 
