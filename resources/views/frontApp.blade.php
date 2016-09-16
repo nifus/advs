@@ -11,11 +11,16 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="/css/app.css" rel="stylesheet" type="text/css">
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="/components/angular/angular.min.js"></script>
 
 
+    <script src="/components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
+    <script src="/apps/frontApp/frontApp.js"></script>
+    <script src="/apps/core/core.js"></script>
+    <script src="/apps/core/user/userFactory.js"></script>
 
 </head>
-<body>
+<body ng-app="frontApp">
 
 <div id="head">
     <div class="right" >
@@ -47,5 +52,8 @@
         <li><a href="{{ route('disclaimer') }}">{{ trans('main.disclaimer')  }}</a></li>
     </ul>
 </div>
+
+
+
 </body>
 </html>

@@ -4,11 +4,14 @@
 
     angular.module('core')
         .factory('userFactory', userFactory);
-    userFactory.$inject = ['userService', '$http', '$auth', '$rootScope',  'cacheService'];
+    userFactory.$inject = [ '$http', '$rootScope'];
 
-    function userFactory(userService, $http, $auth, $rootScope, cacheService) {
+    function userFactory( $http, $rootScope) {
 
         return {
+            createPrivateAccount: createPrivateAccount,
+
+
             refresh: refresh,
             getStatus: getStatus,
             isAuthenticated: isAuthenticated,
@@ -20,6 +23,13 @@
             getById:getById,
             store:store
         };
+
+
+        function createPrivateAccount(data) {
+            return $http.post('/api/user/private-account', data).then( function(response){
+                return response.data;
+            })
+        }
 
         function getStatus(user_id){
             return $http.get(window.SERVER+'/backend/user/get-status/'+user_id)

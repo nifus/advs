@@ -2,16 +2,36 @@
 
 
 
+Route::get('/test', ['as'=>'main','uses'=>function () {
+    $user = App\User::find(1);
+    dispatch(new ActivatePrivateAccountJob($user));
+}]);
+
+
 Route::get('/', ['as'=>'main','uses'=>function () {
     return view('frontApp');
 }]);
 
 
-Route::get('/register/private', ['as'=>'register.private','uses'=> 'UserController@privateAccountForm']);
 
-Route::get('/register/business', ['as'=>'register.business','uses'=> 'UserController@businessAccountForm']);
+Route::group(['prefix'=>'register'], function () {
+    Route::get('/private', ['as'=>'register.private','uses'=> 'UserController@privateAccountForm']);
+    Route::get('/business', ['as'=>'register.business','uses'=> 'UserController@businessAccountForm']);
 
-Route::post('/register', ['as'=>'register','uses'=> 'UserController@store']);
+    Route::get('/activate/{user_id}/{key}', ['as'=>'register.activate','uses'=> 'UserController@activateAccount']);
+
+});
+
+
+
+
+Route::group(['prefix'=>'api'], function () {
+    Route::post('/user/private-account', 'UserController@createPrivateAccount' );
+    Route::post('/user/business-account', 'UserController@createBusinessAccount' );
+
+});
+
+
 
 
 

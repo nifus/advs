@@ -113,5 +113,11 @@ return [
     */
 
     'attributes' => [],
+    'captcha'=> 'The captcha invalid',
+    'exist_email' => 'This E-mail already exists in our site',
+    'user_not_found'=> 'User not found',
+    'user_is_activated'=> 'This user already activated',
+    'user_activate_key_invalid'=> 'This key is invalid',
+
 
 ];
