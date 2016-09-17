@@ -10,7 +10,8 @@
         "tymon/jwt-auth": "^0.5.9",
         "anhskohbo/no-captcha": "^2.1",
         "cartalyst/sentry": "2.1.*",
-        "anlutro/curl": "^1.4"
+        "anlutro/curl": "^1.4",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

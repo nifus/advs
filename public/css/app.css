@@ -10,6 +10,34 @@ html, body {
 div.alert a{
     text-decoration: underline;
 }
+
+#login{
+    height: auto;
+    padding:20px;
+}
+#login div.hide{
+    display: none
+}
+#login div.show{
+    display: block
+}
+
+#login span.close{
+    top: 10px;
+    position: absolute;
+    right: 10px;
+}
+
+div.login-form{
+    margin-left:auto;margin-right:auto;width:50%
+}
+
+div.login-form button{
+    margin-left: 30px;
+}
+
+
+
 #head {
     padding: 20px;
     background-color: #203864
@@ -91,4 +119,8 @@ div.alert a{
 
 #content div.panel-heading{
     text-transform: uppercase;
+}
+
+.link{
+    cursor: pointer;
 }

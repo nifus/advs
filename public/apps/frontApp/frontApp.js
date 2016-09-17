@@ -1,7 +1,19 @@
 (function (angular) {
     'use strict';
-    angular.module('frontApp', ['core','vcRecaptcha']);
-    var compareTo = function() {
+    angular.module('frontApp', ['core','vcRecaptcha','ngCookies','satellizer']).
+    config(function ( $authProvider) {
+
+
+        // $authProvider.httpInterceptor = false;
+        $authProvider.loginUrl = '/api/user/authenticate';
+
+
+
+
+
+    });
+
+        var compareTo = function() {
         return {
             require: "ngModel",
             scope: {

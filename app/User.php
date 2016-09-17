@@ -77,4 +77,11 @@ class User extends Authenticatable
         return self::create($data);
 
     }
+
+    static function getUserByLogin($login){
+        return self::where('email', $login)
+            ->where('is_activated', 1)
+            ->get()->first();
+
+    }
 }

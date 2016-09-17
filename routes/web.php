@@ -26,6 +26,8 @@ Route::group(['prefix'=>'register'], function () {
 
 
 Route::group(['prefix'=>'api'], function () {
+    Route::post('/user/authenticate', 'UserController@authenticate' );
+
     Route::post('/user/private-account', 'UserController@createPrivateAccount' );
     Route::post('/user/business-account', 'UserController@createBusinessAccount' );
 
