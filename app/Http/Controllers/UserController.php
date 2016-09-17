@@ -17,27 +17,15 @@ class UserController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
         try {
             $user = User::getUserByLogin($credentials['email']);
             if ( is_null($user) ){
                 throw new JWTException( 'Пользователь не найден' );
             }
             $token = JWTAuth::fromUser($user);
-
-            //dd($token);
-            //if (! $token = JWTAuth::attempt($credentials)) {
-
-            //    event( new SignInErrorEvent($credentials['email'], 'Пользователь не найден' ) );
-            // return response()->json(['error' => trans('app.signIn.invalid_credentials')], 401);
-            //}
         } catch (JWTException $e) {
-            //  event( new SignInErrorEvent($credentials['email'],$e->getMessage()) );
             return response()->json(['success'=>false,'error' => $e->getMessage()], 500);
         }
-        //event( new SignInSuccessEvent($credentials['email']) );
-        //$user->updateLastLogin();
-
         return response()->json(['success'=>true,'token'=>$token]);
     }
 
@@ -46,6 +34,9 @@ class UserController extends Controller
         return view('controller.user.privateAccountForm');
     }
 
+    public function businessAccountForm(){
+        return view('controller.user.businessAccountForm');
+    }
 
     public function createPrivateAccount(Request $request){
         try{
@@ -58,7 +49,6 @@ class UserController extends Controller
         }catch( \Exception $e ){
             return response()->json(['success'=>false,'error'=>$e->getMessage()]);
         }
-
     }
 
     public function activateAccount($user_id, $key){

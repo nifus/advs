@@ -1,7 +1,6 @@
 <?php
 
-use JWTAuth;
-use Illuminate\Http\Request;
+use App\User;
 
 Route::get('/test', ['as'=>'main','uses'=>function () {
     $user = App\User::find(1);
@@ -63,3 +62,9 @@ Route::get('/disclaimer', ['as'=>'disclaimer','uses'=>function () {
     return view('static.disclaimer');
 }]);
 
+
+
+View::composer(['frontApp'], function ($view) {
+    $user = User::getUser();
+    $view->with('composer_header_menu', View::make('composer.headerMenu', ['user' => $user]));
+});
