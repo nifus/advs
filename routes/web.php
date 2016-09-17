@@ -1,6 +1,7 @@
 <?php
 
-
+use JWTAuth;
+use Illuminate\Http\Request;
 
 Route::get('/test', ['as'=>'main','uses'=>function () {
     $user = App\User::find(1);
@@ -8,9 +9,7 @@ Route::get('/test', ['as'=>'main','uses'=>function () {
 }]);
 
 
-Route::get('/', ['as'=>'main','uses'=>function () {
-    return view('frontApp');
-}]);
+Route::get('/', ['as'=>'main','uses'=>'DashboardController@index']);
 
 
 

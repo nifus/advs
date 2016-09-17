@@ -26,6 +26,7 @@
 
 </head>
 <body ng-app="frontApp" >
+@if(is_null($user))
     <div ng-controller="loginController">
         <nav id="login" class="navbar navbar-default navbar-fixed-top hide"  ng-class="{'show':env.display_form}">
             <div class="container">
@@ -64,7 +65,17 @@
             <h1>ImmoStern</h1>
         </div>
     </div>
+    @else
+    <div id="head" ng-controller="loginController">
+        <div class="right" >
+            <ul>
+                <li><a ng-click="logout()" class="link">{{ trans('main.logout')  }}</a></li>
+            </ul>
+        </div>
 
+        <h1>ImmoStern</h1>
+    </div>
+@endif
 
 <div id="main-menu" >
     <div class="row">

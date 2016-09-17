@@ -2,12 +2,12 @@
     'use strict';
     angular.module('frontApp').controller('loginController', loginController);
 
-    loginController.$inject = ['$scope','userFactory','vcRecaptchaService'];
+    loginController.$inject = ['$scope','userFactory','vcRecaptchaService','$cookies'];
 
-    function loginController($scope, userFactory, vcRecaptchaService) {
+    function loginController($scope, userFactory, vcRecaptchaService, $cookies) {
 
         $scope.env = {
-            display_form: true,
+            display_form: false,
             submit: false,
             error: false
         };
@@ -28,10 +28,10 @@
                 if (response.success==false){
                     $scope.env.error=response.error
                 }else{
-                    window.location.reload(true)
+                    $cookies.put('token', response.token);
+                    window.location.reload(true);
                 }
                 $scope.env.submit = false;
-
             })
         }
 
@@ -62,6 +62,11 @@
             vcRecaptchaService.reload($scope.widgetId);
             $scope.form.captcha = null;
         };
+
+        $scope.logout = function(){
+            userFactory.logout();
+            window.location.reload(true)
+        }
     }
 })();
 

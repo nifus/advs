@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use JWTAuth;
 
 class User extends Authenticatable
 {
@@ -82,6 +83,18 @@ class User extends Authenticatable
         return self::where('email', $login)
             ->where('is_activated', 1)
             ->get()->first();
+
+    }
+
+    static function getUser(){
+        if (!isset($_COOKIE['token'])){
+            return null;
+        }
+        try{
+            return JWTAuth::setToken( $_COOKIE['token'] )->authenticate();
+        }catch( \Exception $e){
+            return null;
+        }
 
     }
 }

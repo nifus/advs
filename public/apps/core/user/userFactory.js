@@ -4,9 +4,9 @@
 
     angular.module('core')
         .factory('userFactory', userFactory);
-    userFactory.$inject = [ '$http', '$rootScope','$auth','$q'];
+    userFactory.$inject = [ '$http', '$rootScope','$auth','$q','$cookies'];
 
-    function userFactory( $http, $rootScope,$auth,$q) {
+    function userFactory( $http, $rootScope,$auth,$q,$cookies) {
 
         return {
             createPrivateAccount: createPrivateAccount,
@@ -31,6 +31,7 @@
         }
 
         function logout() {
+            $cookies.put('token',null)
             $auth.logout();
             $rootScope.$broadcast('logout');
         }
@@ -41,8 +42,8 @@
 
             $auth.login(credentials).then(function (response) {
                // $rootScope.$broadcast('login');
-                deferred.resolve({success: true, data: response.data});
-x
+                deferred.resolve({success: true, token: response.data.token});
+
             }).catch(function (response) {
                 deferred.resolve({success: false, error: response.data.error});
 

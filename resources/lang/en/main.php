@@ -12,6 +12,7 @@ return [
 
 
     'login'=>'Login',
+    'logout'=>'Logout',
     'register'=>'Register',
     'address'=>'Anschrift',
     'agb-head'=>'Allgemeine Geschäftsbedingungen (AGB)',
