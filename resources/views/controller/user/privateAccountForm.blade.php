@@ -14,19 +14,23 @@
     <div class="panel panel-info" ng-controller="registerController">
         <div class="panel-heading"><h3>REGISTER</h3></div>
         <div class="panel-body">
-            <div class="alert alert-info" role="alert">If you are a real estate agent / agency please create a <a
-                        href="{{route('register.business')}}">business account</a></div>
+
 
             <div class="col-md-9"  ng-show="step=='last'">
+
                 <h4>Thank you for registration.</h4>
                 We have send an email to your email address.<br>
                 Please click on the activation link inside this email.<br>
                 Otherwise you are not able to login to your account.<br>
                 This activation link is valid for the next 24 hours.<br>
             </div>
+
             <div class="col-md-9" ng-show="step=='first'">
+                <div class="alert alert-info" role="alert">If you are a real estate agent / agency please create a <a
+                            href="{{route('register.business')}}">business account</a></div>
                 <h4>Account type: PRIVATE</h4>
 
+                <div class="alert alert-danger" role="alert" ng-show="error" ng-bind="error"></div>
 
                 <form class="form-horizontal" name="register" >
 
@@ -57,11 +61,10 @@
                         </div>
                     </div>
 
-                    <div class="form-group" ng-class="{ 'has-error': (register.email.$invalid && submit==true ) || errors.email!=undefined }">
+                    <div class="form-group" ng-class="{ 'has-error': (register.email.$invalid && submit==true )  }">
                         <label class="col-sm-2 control-label">Email address</label>
                         <div class="col-sm-10">
                             <input type="email" class="form-control" ng-model="form.email" name="email" placeholder="pushkin@gmail.com" required>
-                            <p class="help-block" ng-show="errors.email!=undefined">errors.email</p>
 
                         </div>
                     </div>
@@ -96,6 +99,8 @@
                         <div class="col-sm-10">
                             <div
                                     on-create="setWidgetId(widgetId)"
+                                    on-expire="cbExpiration()"
+
                                     ng-model="form.captcha"
                                     vc-recaptcha
                                     key="'6LfvECoTAAAAAPIObIeKOUQhEi6v2IB1ezIgac9j'"

@@ -11,7 +11,7 @@
         };
         $scope.submit = false;
         $scope.send = false;
-        $scope.errors = {};
+        $scope.error = undefined;
         $scope.step = 'first';
         $scope.widgetId = null;
         $scope.sendRegisterForm = function(data){
@@ -21,6 +21,8 @@
                 userFactory.createPrivateAccount(data).then( function(response){
                     if (response.success==true){
                         $scope.step = 'last'
+                    }else{
+                        $scope.error = response.error;
                     }
                     $scope.send = false;
                     vcRecaptchaService.reload($scope.widgetId);
@@ -33,8 +35,11 @@
 
 
         $scope.setWidgetId = function (widgetId) {
-            console.info('Created widget ID: %s', widgetId);
             $scope.widgetId = widgetId;
+        };
+        $scope.cbExpiration = function() {
+            vcRecaptchaService.reload($scope.widgetId);
+            $scope.form.captcha = null;
         };
     }
 })();
