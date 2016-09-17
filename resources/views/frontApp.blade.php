@@ -43,7 +43,7 @@
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="model.remember"> Remember me
+                                <input type="checkbox" ng-model="form.remember"> Remember me
                             </label>
                         </div>
                         <button type="button" class="btn btn-primary" ng-click="loginSubmit()" ng-disabled="login_orm.$invalid || env.submit">Login</button>

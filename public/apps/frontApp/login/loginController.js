@@ -12,7 +12,7 @@
             error: false
         };
         $scope.form = {
-
+            email: $cookies.get('email')
         };
 
         $scope.displayLoginForm = function(){
@@ -23,12 +23,23 @@
         };
 
         $scope.loginSubmit = function(){
+
             $scope.env.submit = true;
             userFactory.login($scope.form).then( function(response){
                 if (response.success==false){
                     $scope.env.error=response.error
                 }else{
-                    $cookies.put('token', response.token);
+
+                    if ($scope.form.remember===true){
+                        var expireDate = new Date();
+                        expireDate.setDate(expireDate.getDate() + 99);
+                        $cookies.put('token', response.token, {'expires': expireDate});
+                        $cookies.put('email', $scope.form.email, {'expires': expireDate});
+                    }else{
+                        $cookies.put('token', response.token);
+
+                    }
+
                     window.location.reload(true);
                 }
                 $scope.env.submit = false;
