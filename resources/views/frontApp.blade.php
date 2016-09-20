@@ -50,6 +50,8 @@
 </div>
 
 
+    <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
+
 
 </body>
 </html>

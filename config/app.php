@@ -2,6 +2,15 @@
 
 return [
 
+    'tariffs'=>[
+        ['id'=>1, 'name'=>'Pack 1', 'slots'=>1, 'price'=>30, 'additional'=>30],
+        ['id'=>2, 'name'=>'Pack 2', 'slots'=>2, 'price'=>55, 'additional'=>27,5],
+        ['id'=>3, 'name'=>'Pack 5', 'slots'=>5, 'price'=>125, 'additional'=>25],
+        ['id'=>4, 'name'=>'Pack 10', 'slots'=>10, 'price'=>225, 'additional'=>22,5],
+        ['id'=>5, 'name'=>'Pack 20', 'slots'=>20, 'price'=>400, 'additional'=>20],
+        ['id'=>6, 'name'=>'Pack 30', 'slots'=>30, 'price'=>525, 'additional'=>17,5],
+        ['id'=>7, 'name'=>'Pack 40', 'slots'=>40, 'price'=>600, 'additional'=>15],
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -12,7 +21,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'ADv',
+    'name' => 'Adv',
 
     /*
     |--------------------------------------------------------------------------

@@ -7,13 +7,33 @@
     function registerController($scope, userFactory, vcRecaptchaService) {
 
         $scope.form = {
+            commercial:{
 
+            },
+            address:{
+
+            }
         };
         $scope.submit = false;
         $scope.send = false;
         $scope.error = undefined;
         $scope.step = 'first';
         $scope.widgetId = null;
+        $scope.autocomplete = {
+
+        }
+
+        $scope.$watch('autocomplete', function(value){
+            if (value.details && value.details.address_components.length==7){
+                console.log(value)
+                $scope.form.address.street = value.details.address_components[1].short_name
+                $scope.form.address.number = value.details.address_components[0].short_name
+                $scope.form.address.zip = value.details.address_components[6].short_name
+                $scope.form.address.city = value.details.vicinity;
+
+            }
+        },true);
+
         $scope.sendRegisterForm = function(data){
             $scope.submit = true;
             if (!$scope.register.$invalid){
@@ -32,7 +52,14 @@
             }
 
         };
-
+        $scope.$on('gmPlacesAutocomplete::placeChanged', function(){
+            console.log($scope.autocomplete)
+            console.log($scope.autocomplete.getPlace())
+            var location = $scope.autocomplete.getPlace().geometry.location;
+            //$scope.lat = location.lat();
+            //$scope.lng = location.lng();
+            //$scope.$apply();
+        });
 
         $scope.setWidgetId = function (widgetId) {
             $scope.widgetId = widgetId;

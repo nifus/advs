@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('frontApp', ['core','vcRecaptcha','ngCookies','satellizer']).
+    angular.module('frontApp', ['core','vcRecaptcha','ngCookies','satellizer','ngAutocomplete']).
     config(function ( $authProvider) {
 
 
