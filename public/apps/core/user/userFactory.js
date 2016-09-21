@@ -10,6 +10,8 @@
 
         return {
             createPrivateAccount: createPrivateAccount,
+            createBusinessAccount: createBusinessAccount,
+            forgot: forgot,
 
             login: login,
             logout: logout,
@@ -24,11 +26,23 @@
         };
 
 
+        function forgot(email) {
+            return $http.post('/api/user/forgot-password', {email:email}).then( function(response){
+                return response.data;
+            })
+        }
         function createPrivateAccount(data) {
             return $http.post('/api/user/private-account', data).then( function(response){
                 return response.data;
             })
         }
+
+        function createBusinessAccount(data) {
+            return $http.post('/api/user/business-account', data).then( function(response){
+                return response.data;
+            })
+        }
+
 
         function logout() {
             $cookies.put('token',null)

@@ -29,8 +29,12 @@ div.alert a{
 }
 
 div.login-form{
-    margin-left:auto;margin-right:auto;width:50%
+    margin-left:auto;margin-right:auto;width:60%
 }
+div.login-form div.form-group{
+    height: 50px
+}
+
 
 div.login-form button{
     margin-left: 30px;

@@ -21,7 +21,21 @@
                 <h4>Thank you for registration.</h4>
                 We have send an email to your email address.<br>
                 Please click on the activation link inside this email.<br>
-                Otherwise you are not able to login to your account.<br>
+                Otherwise you are not able to login to your account.<br><br>
+
+                <strong>After you click on this required
+                activation
+                can and start
+                the are
+                activation
+                process for you.</strong>
+                This link
+                email we
+                address
+                password
+                later your login
+                This process takes one or two credentials<br><br>
+
                 This activation link is valid for the next 24 hours.<br>
             </div>
 
@@ -50,14 +64,14 @@
 
 
 
-                            <select class="form-control" name="country" ng-model="form.commercial.country">
+                            <select class="form-control" name="country" ng-model="form.commercial_country">
                                 <option value="germany">DE</option>
                                 <option value="austria">CHE</option>
                                 <option value="switzerland">SW</option>
                             </select>
-                            <input type="text" class="form-control" ng-model="form.commercial.id" name="commercial_id"  placeholder="DE000000000" required >
+                            <input type="text" class="form-control" ng-model="form.commercial_id" name="commercial_id"  placeholder="DE000000000" required >
 
-                            <select class="form-control" name="additional" ng-model="form.commercial.additional" ng-show="form.commercial.country=='switzerland'">
+                            <select class="form-control" name="additional" ng-model="form.commercial_additional" ng-show="form.commercial.country=='switzerland'">
                                 <option value="HR">HR</option>
                                 <option value="MWST">MWST</option>
                                 <option value="HR/MWST">HR/MWST</option>
@@ -76,7 +90,7 @@
                         <label class="col-sm-2 control-label">Address</label>
                         <div class="col-sm-10">
 
-                            <input type="text" class="form-control"  name="autocomplete" placeholder="Street"
+                            <input type="text" class="form-control"  name="autocomplete" placeholder="Address"
                                    ng-autocomplete ng-model="autocomplete.value"  details="autocomplete.details"
                                    required >
 
@@ -93,17 +107,17 @@
                          ng-class="{ 'has-error': (register.zip.$invalid || register.city.$invalid || register.no.$invalid || register.street.$invalid) && submit==true }">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10 form-inline">
-                            <input type="text" class="form-control" ng-model="form.address.street" name="street" placeholder="Street" required>
-                            <input type="text" class="form-control" ng-model="form.address.number" name="no" placeholder="No." required>
-                            <input type="text" class="form-control" ng-model="form.address.zip" name="zip" placeholder="Zip" required>
-                            <input type="text" class="form-control" ng-model="form.address.city" name="city" placeholder="City" required>
+                            <input type="text" class="form-control" ng-model="form.address_street" name="street" placeholder="Street" required>
+                            <input type="text" class="form-control" ng-model="form.address_number" name="no" placeholder="No." required>
+                            <input type="text" class="form-control" ng-model="form.address_zip" name="zip" placeholder="Zip" required>
+                            <input type="text" class="form-control" ng-model="form.address_city" name="city" placeholder="City" required>
                         </div>
                     </div>
 
                     <div class="form-group" >
                         <label class="col-sm-2 control-label">Additional address</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" ng-model="form.address.additional" name="additional" >
+                            <input type="text" class="form-control" ng-model="form.address_additional" name="additional" >
                         </div>
                     </div>
 
@@ -111,7 +125,7 @@
                     <div class="form-group" ng-class="{ 'has-error': register.country.$invalid  && submit==true }">
                         <label class="col-sm-2 control-label">Country</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="country" ng-model="form.commercial.country" required>
+                            <select class="form-control" name="country" ng-model="form.commercial_country" required>
                                 <option value="germany">Germany</option>
                                 <option value="austria">Austria</option>
                                 <option value="switzerland">Switzerland</option>
@@ -142,13 +156,13 @@
                     <div class="form-group" ng-class="{ 'has-error': register.password.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" ng-model="form.password" name="password" placeholder="******" required >
+                            <input type="password" class="form-control" ng-model="form.password" name="password"  required >
                         </div>
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': register.re_password.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">Repeat password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" ng-model="form.re_password" name="re_password" placeholder="******" required ng-match="password">
+                            <input type="password" class="form-control" ng-model="form.re_password" name="re_password" required ng-match="password">
                         </div>
                     </div>
 
@@ -193,7 +207,7 @@
                     <div class="form-group" >
                         <label class="col-sm-2 control-label">Email address</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" ng-model="form.contact_email"  >
+                            <input type="text" class="form-control" ng-model="form.contact_email"  >
                             <p class="help-block">This is the personal email address of the contact
                                 person (not the login email address)</p>
                         </div>
@@ -208,25 +222,30 @@
 
 
                     <h4>Subscription</h4>
-                    <div class="form-group" >
+
+                    <div class="form-group" ng-class="{ 'has-error': register.tariff.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">Select you subscription</label>
                         <div class="col-sm-10">
                             <table class="table  table-hover">
                                 <thead>
                                 <tr>
-                                    <td>Package</td>
-                                    <td>Slots per month</td>
-                                    <td>Price per month</td>
-                                    <td>Each extra slot</td>
+                                    <th></th>
+                                    <th>Package</th>
+                                    <th>Slots per month</th>
+                                    <th>Price per month</th>
+                                    <th>Each extra slot</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>Pack 1</td>
-                                    <td>1</td>
-                                    <td>30.00</td>
+                                @foreach($tariffs as $tariff)
+                                <tr ng-click="form.tariff={{$tariff['id']}}" style="cursor: pointer">
+                                    <td><input type="radio" value="{{$tariff['id']}}" name="tariff" ng-model="form.tariff" required></td>
+                                    <td>{{$tariff['name']}}</td>
+                                    <td>{{$tariff['slots']}}</td>
+                                    <td>{{$tariff['price']}}</td>
+                                    <td>{{$tariff['additional']}}</td>
                                 </tr>
+                                    @endforeach
                                 </tbody>
 
 
@@ -236,46 +255,49 @@
 
 
                     <h4>Payment</h4>
-                    <div class="form-group" ng-class="{ 'has-error': form.captcha==undefined && submit==true }">
+                    <div class="form-group" ng-class="{ 'has-error': (form.payment_type==undefined || (form.payment_type=='paypal' && form.paypal_email==undefined )|| (form.payment_type=='giropay' && form.giro_account==undefined )) && submit==true }">
                         <label class="col-sm-2 control-label">Select your Payment</label>
                         <div class="col-sm-10">
 
                             <div class="radio">
                                 <label>
-                                    <input type="radio" value="">
+                                    <input type="radio" value="paypal" ng-model="form.payment_type">
                                     PayPal <br>
                                     (you will be forwarded to PayPal by clicking on "Next")
                                 </label>
-
                                 <div class="form-inline">
-                                    <label class="col-sm-2 ">Paypal email</label>
+                                    <label class="col-sm-2 ">PayPal email</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" ng-model="form.contact_email"  >
-
+                                        <input type="email" class="form-control" ng-model="form.paypal_email"  ng-disabled="form.payment_type!='paypal'"  ng-required="form.payment_type=='paypal'">
                                     </div>
                                 </div>
                             </div>
 
+                            <br>
+                            <br>
+
 
                             <div class="radio">
                                 <label>
-                                    <input type="radio" value="">
+                                    <input type="radio"  value="giropay" ng-model="form.payment_type">
                                     GiroPay <br>
                                     (you will be forwarded to you Bank)
                                 </label>
 
                                 <div class="form-inline">
-                                    <label class="col-sm-2 ">Paypal email</label>
+                                    <label class="col-sm-2">GiroPay account</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" ng-model="form.contact_email"  >
+                                        <input type="text" class="form-control" ng-model="form.giro_account"  ng-disabled="form.payment_type!='giropay'" ng-required="form.payment_type=='giropay'" >
 
                                     </div>
                                 </div>
                             </div>
 
+                            <br>
+                            <br>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" value="">
+                                    <input type="radio" value="prepayment" ng-model="form.payment_type">
                                     Prepyment
                                 </label>
 
@@ -284,7 +306,7 @@
                         </div>
                     </div>
 
-                    <h4>Other</h4>
+                    <h4>Finish</h4>
                     <div class="form-group" ng-class="{ 'has-error': form.captcha==undefined && submit==true }">
                         <label class="col-sm-2 control-label">Captcha validate</label>
                         <div class="col-sm-10">
@@ -322,7 +344,7 @@ zugerechnet werden können. Unternehmer im Sinne dieser AGB ist jede
                     <div style="text-align: center">
                         <button
                                 ng-disabled="send==true"
-                                type="button" ng-click="sendRegisterForm(form)" class="btn btn-primary btn-lg">Create Account</button>
+                                type="button" ng-click="sendRegisterBusinessForm(form)" class="btn btn-primary btn-lg">Create Account</button>
                     </div>
 
                 </form>

@@ -118,6 +118,7 @@ return [
     'user_not_found'=> 'User not found',
     'user_is_activated'=> 'This user already activated',
     'user_activate_key_invalid'=> 'This key is invalid',
+    'invalid_reset_link'=> 'This reset link is invalid',
 
 
 ];

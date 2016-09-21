@@ -1,6 +1,9 @@
 (function (angular) {
     'use strict';
-    angular.module('frontApp', ['core','vcRecaptcha','ngCookies','satellizer','ngAutocomplete']).
+    angular.module('frontApp', ['core','vcRecaptcha','ngCookies','satellizer','ngAutocomplete'], function ($interpolateProvider) {
+        $interpolateProvider.startSymbol('%');
+        $interpolateProvider.endSymbol('%');
+    }).
     config(function ( $authProvider) {
 
 

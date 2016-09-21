@@ -2,26 +2,39 @@
     <div ng-controller="loginController">
         <nav id="login" class="navbar navbar-default navbar-fixed-top hide"  ng-class="{'show':env.display_form}">
             <div class="container">
-                <span class="glyphicon glyphicon-remove link close" aria-hidden="true"  ng-click="hideLoginForm()"></span>
+                <span class="glyphicon glyphicon-remove link close" aria-hidden="true"  ng-click="hideForm()"></span>
                 <div class="login-form">
                     <div class="alert alert-danger" role="alert" ng-show="env.error" ng-bind="env.error"></div>
+                    <div class="alert alert-success" role="alert" ng-show="env.message" ng-bind="env.message"></div>
 
-                    <form class="form-inline" name="login_orm">
-                        <div class="form-group">
+                    <form class="form-inline" name="login_form" ng-show="env.form=='login'">
+                        <div class="form-group" style="">
                             <input type="email" class="form-control" name="email" ng-model="form.email"  placeholder="Email" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="height: 50px">
                             <input type="password" class="form-control" name="password" ng-model="form.password"  placeholder="Password" required>
+                            <br>
+                            <a class="link" ng-click="displayForgotForm()">Forgot password</a>
                         </div>
-                        <div class="checkbox">
+                        <div class="checkbox" style="height: 50px">
                             <label>
                                 <input type="checkbox" ng-model="form.remember"> Remember me
                             </label>
                         </div>
-                        <button type="button" class="btn btn-primary" ng-click="loginSubmit()" ng-disabled="login_orm.$invalid || env.submit">Login</button>
+                        <div class="form-group" style="height: 50px">
 
+                            <button type="button" class="btn btn-primary" ng-click="loginSubmit()" ng-disabled="login_form.$invalid || env.submit">Login</button>
+                        </div>
                     </form>
+                    <form class="form-inline" name="forgot_form" ng-show="env.form=='forgot' && env.display_reset_form==true">
+                        <div class="form-group" style="">
+                            <input type="email" class="form-control" name="email" ng-model="form.email"  placeholder="Email" required>
+                        </div>
 
+                        <div class="form-group" style="height: 50px">
+                            <button type="button" class="btn btn-primary" ng-click="forgotSubmit()" ng-disabled="forgot_form.$invalid || env.submit">Forgot password</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </nav>

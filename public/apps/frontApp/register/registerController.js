@@ -26,10 +26,10 @@
         $scope.$watch('autocomplete', function(value){
             if (value.details && value.details.address_components.length==7){
                 console.log(value)
-                $scope.form.address.street = value.details.address_components[1].short_name
-                $scope.form.address.number = value.details.address_components[0].short_name
-                $scope.form.address.zip = value.details.address_components[6].short_name
-                $scope.form.address.city = value.details.vicinity;
+                $scope.form.address_street = value.details.address_components[1].short_name;
+                $scope.form.address_number = value.details.address_components[0].short_name;
+                $scope.form.address_zip = value.details.address_components[6].short_name;
+                $scope.form.address_city = value.details.vicinity;
 
             }
         },true);
@@ -48,18 +48,25 @@
                     vcRecaptchaService.reload($scope.widgetId);
 
                 });
-
             }
-
         };
-        $scope.$on('gmPlacesAutocomplete::placeChanged', function(){
-            console.log($scope.autocomplete)
-            console.log($scope.autocomplete.getPlace())
-            var location = $scope.autocomplete.getPlace().geometry.location;
-            //$scope.lat = location.lat();
-            //$scope.lng = location.lng();
-            //$scope.$apply();
-        });
+        $scope.sendRegisterBusinessForm = function(data){
+            $scope.submit = true;
+            if (!$scope.register.$invalid){
+                $scope.send = true;
+                userFactory.createBusinessAccount(data).then( function(response){
+                    if (response.success==true){
+                        $scope.step = 'last'
+                    }else{
+                        $scope.error = response.error;
+                    }
+                    $scope.send = false;
+                    vcRecaptchaService.reload($scope.widgetId);
+
+                });
+            }
+        };
+
 
         $scope.setWidgetId = function (widgetId) {
             $scope.widgetId = widgetId;

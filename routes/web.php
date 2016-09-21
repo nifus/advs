@@ -20,18 +20,11 @@ Route::group(['prefix'=>'register'], function () {
 
 });
 
+Route::group(['prefix'=>'user'], function () {
+    Route::get('/reset/{user_id}/{key}', ['as'=>'user.reset','uses'=> 'UserController@resetPassword']);
 
-
-
-Route::group(['prefix'=>'api'], function () {
-    Route::post('/user/authenticate', 'UserController@authenticate' );
-
-    Route::post('/user/private-account', 'UserController@createPrivateAccount' );
-    Route::post('/user/business-account', 'UserController@createBusinessAccount' );
 
 });
-
-
 
 
 
@@ -49,7 +42,7 @@ Route::get('/offer', ['as'=>'adv.offer','uses'=>function () {
 
 
 
-    //  static pages
+//  static pages
 Route::get('/agb', ['as'=>'agb','uses'=>function () {
     return view('static.agb');
 }]);
@@ -61,6 +54,22 @@ Route::get('/contacts', ['as'=>'contacts','uses'=>function () {
 Route::get('/disclaimer', ['as'=>'disclaimer','uses'=>function () {
     return view('static.disclaimer');
 }]);
+
+
+
+
+
+
+Route::group(['prefix'=>'api'], function () {
+    Route::post('/user/authenticate', 'UserController@authenticate' );
+    Route::post('/user/forgot-password', 'UserController@forgotPassword' );
+
+    Route::post('/user/private-account', 'UserController@createPrivateAccount' );
+    Route::post('/user/business-account', 'UserController@createBusinessAccount' );
+
+});
+
+
 
 
 

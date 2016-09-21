@@ -9,7 +9,10 @@
         $scope.env = {
             display_form: false,
             submit: false,
-            error: false
+            error: false,
+            message: false,
+            form: 'login',
+            display_reset_form: true
         };
         $scope.form = {
             email: $cookies.get('email')
@@ -18,8 +21,11 @@
         $scope.displayLoginForm = function(){
             $scope.env.display_form = true
         };
-        $scope.hideLoginForm = function(){
-            $scope.env.display_form = false
+        $scope.hideForm = function(){
+            $scope.env.display_form = false;
+            $scope.env.form = 'login';
+            $scope.env.message = null;
+            $scope.env.error = null;
         };
 
         $scope.loginSubmit = function(){
@@ -44,25 +50,23 @@
                 }
                 $scope.env.submit = false;
             })
-        }
+        };
 
-        $scope.sendRegisterForm = function(data){
-            $scope.submit = true;
-            if (!$scope.register.$invalid){
-                $scope.send = true;
-                userFactory.createPrivateAccount(data).then( function(response){
-                    if (response.success==true){
-                        $scope.step = 'last'
-                    }else{
-                        $scope.error = response.error;
-                    }
-                    $scope.send = false;
-                    vcRecaptchaService.reload($scope.widgetId);
+        $scope.forgotSubmit = function(){
+            $scope.env.submit = true;
+            userFactory.forgot($scope.form.email).then( function(response){
+                if (response.success==false){
+                    $scope.env.error=response.error
+                }else{
+                    $scope.env.message=response.message;
+                    $scope.env.display_reset_form = false;
+                }
+                $scope.env.submit = false;
+            })
+        };
 
-                });
-
-            }
-
+        $scope.displayForgotForm = function(){
+            $scope.env.form = 'forgot'
         };
 
 

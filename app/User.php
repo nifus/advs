@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','surname','sex','group_id','is_activated','activate_key'
+        'name', 'email', 'password','surname','sex','group_id','is_activated','activate_key','is_approved','company','contact_email','giro_account','payment_type','paypal_email','phone','tariff','website','commercial_country' ,'commercial_id','commercial_additional','address_additional','address_city','address_number','address_street','address_zip'
     ];
 
     /**
@@ -50,6 +50,13 @@ class User extends Authenticatable
         $this->update(['is_activated'=>1]);
     }
 
+    public function resetPassword(){
+        $new_pass = str_random(8);
+        $activate_key = md5(str_random(8));
+        $this->update(['password'=>$new_pass,'activate_key'=>$activate_key]);
+        return $new_pass;
+    }
+
     static function createPrivateAccount($data){
         $validator = [
             'sex' => 'required',
@@ -74,6 +81,43 @@ class User extends Authenticatable
         }
 
         $data['group_id']=2;
+        $data['activate_key']=md5( time().rand(0, 10000));
+        return self::create($data);
+
+    }
+
+    static function createBusinessAccount($data){
+        $validator = [
+            'sex' => 'required',
+            'name' => 'required|min:2',
+            'surname' => 'required|min:2',
+            'agb' => 'required',
+            'password' => 'required|min:6',
+            're_password' => 'required|min:6|same:password',
+            'email' => 'required|min:6',
+            're_email' => 'required|min:6|same:email',
+            'captcha'=>'required|captcha',
+            'company'=>'required|min:2',
+            'commercial_country'=>'required',
+            'commercial_id'=>'required',
+            'address_city'=>'required',
+            'address_number'=>'required',
+            'address_street'=>'required',
+            'address_zip'=>'required',
+
+        ];
+        $validator = \Validator::make($data, $validator);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new \Exception($messages->first());
+        }
+
+        $count = self::where('email', $data['email'])->count();
+        if ($count>0){
+            throw new \Exception( trans('validation.exist_email') );
+        }
+
+        $data['group_id']=3;
         $data['activate_key']=md5( time().rand(0, 10000));
         return self::create($data);
 
