@@ -21,7 +21,7 @@ class NewsSeeder extends Seeder
                 'title'=>$faker->sentence,
                 'desc'=>$faker->paragraph,
                 'created_at'=>$faker->dateTimeThisMonth(),
-                'type'=>$faker->randomElement(['private','business','all']),
+                'type'=>$faker->randomElement(['private','business']),
             ]);
         }
     }
