@@ -40,6 +40,21 @@ div.login-form button{
     margin-left: 30px;
 }
 
+#news p.header{
+    text-decoration: underline;
+}
+#news p.desc{
+    white-space: pre-wrap
+}
+#news p.date{
+    font-weight: bold;
+}
+
+
+#news div.post{
+    margin-bottom:30px;
+    overflow: hidden;
+}
 
 
 #head {

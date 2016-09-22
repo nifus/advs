@@ -20,7 +20,10 @@
 
     <script src="/apps/frontApp/frontApp.js"></script>
     <script src="/apps/core/core.js"></script>
+    <script src="/apps/core/cacheService.js"></script>
+
     <script src="/apps/core/user/userFactory.js"></script>
+    <script src="/apps/core/user/userService.js"></script>
 
     <script src="/apps/frontApp/login/loginController.js"></script>
 

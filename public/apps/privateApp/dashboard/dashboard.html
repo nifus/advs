@@ -3,16 +3,23 @@
     <li class="active">Dashboard</li>
 </ol>
 
-<div class="row">
+<div class="progress" ng-show="env.loading==true">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">45% Complete</span>
+    </div>
+</div>
+
+<div class="row" ng-show="env.loading==false">
     <div class="col-md-3">
         <div class="list-group">
-            <a href="#" class="list-group-item active">
-                Private Account
+            <a ui-sref="dashboard" ui-sref-active="active" class="list-group-item">
+                Private Account <br>
+                {{user.email}}
             </a>
-            <a href="#" class="list-group-item">My advertisements</a>
-            <a href="#" class="list-group-item">My watchlist</a>
-            <a href="#" class="list-group-item">My settings</a>
-            <a href="#" class="list-group-item">Help</a>
+            <a ui-sref="my-adv" ui-sref-active="active" class="list-group-item">My advertisements</a>
+            <a ui-sref="my-watch-list" ui-sref-active="active" class="list-group-item">My watchlist</a>
+            <a ui-sref="my-settings" ui-sref-active="active"  class="list-group-item">My settings</a>
+            <a ui-sref="help" ui-sref-active="active" class="list-group-item">Help</a>
         </div>
 
         <div class="adv">ADV</div>
@@ -36,27 +43,27 @@
                                 <div class="panel-body">
                                     <ul class="list-group">
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.rent.total}}</span>
                                             Adverts currently:
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.rent.payment_waiting}}</span>
                                             Waiting for payment:
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.rent.active}}</span>
                                             Advert active:
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.rent.disabled}}</span>
                                             Advert disabled:
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.rent.expired}}</span>
                                             Advert expired:
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.rent.blocked}}</span>
                                             Advert blocked:
                                         </li>
                                     </ul>
@@ -72,27 +79,27 @@
                                 <div class="panel-body">
                                     <ul class="list-group">
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.sell.total}}</span>
                                             Adverts currently:
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.sell.payment_waiting}}</span>
                                             Waiting for payment:
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.sell.active}}</span>
                                             Advert active:
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.sell.disabled}}</span>
                                             Advert disabled:
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.sell.expired}}</span>
                                             Advert expired:
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="badge">14</span>
+                                            <span class="badge">{{env.stat.sell.blocked}}</span>
                                             Advert blocked:
                                         </li>
                                     </ul>
@@ -124,47 +131,17 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Notification</h3>
+                                <h3 class="panel-title">Notifications</h3>
                             </div>
-                            <div class="panel-body">
-                                <div class="post">
-                                    <div class="date">
-                                        19.08.2016 – 15:22:
-                                    </div>
-                                    <p>
-                                        Dear customers,
-                                        we are glad to tell that a new update is coming next week!
-                                        With this update some new features will be available.
-                                        Best regards,
-                                        Your XXX service team
-                                    </p>
+                            <div class="panel-body" id="news">
+
+                                <div class="post" ng-repeat="post in env.news">
+                                    <p class="date">{{post.ReadableDate}}</p>
+                                    <p class="header" ng-show="post.title">{{post.title}}</p>
+                                    <p class="desc">{{post.desc}}</p>
                                 </div>
 
-                                <div class="post">
-                                    <div class="date">
-                                        19.08.2016 – 15:22:
-                                    </div>
-                                    <p>
-                                        Dear customers,
-                                        we are glad to tell that a new update is coming next week!
-                                        With this update some new features will be available.
-                                        Best regards,
-                                        Your XXX service team
-                                    </p>
-                                </div>
-
-                                <div class="post">
-                                    <div class="date">
-                                        19.08.2016 – 15:22:
-                                    </div>
-                                    <p>
-                                        Dear customers,
-                                        we are glad to tell that a new update is coming next week!
-                                        With this update some new features will be available.
-                                        Best regards,
-                                        Your XXX service team
-                                    </p>
-                                </div>
+                                <div ng-show="env.news.length==0">Sorry, not yet</div>
                             </div>
                         </div>
 

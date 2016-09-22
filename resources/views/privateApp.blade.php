@@ -19,16 +19,26 @@
     <script src="/components/angular-cookies/angular-cookies.min.js"></script>
     <script src="/components/satellizer/dist/satellizer.min.js"></script>
 
+    <script src="/apps/core/core.js"></script>
+    <script src="/apps/core/cacheService.js"></script>
+
+    <script src="/apps/core/user/userFactory.js"></script>
+    <script src="/apps/core/user/userService.js"></script>
+
+    <script src="/apps/core/news/newsFactory.js"></script>
+    <script src="/apps/core/news/newsService.js"></script>
+
     <script src="/apps/privateApp/privateApp.js"></script>
     <script src="/apps/privateApp/login/loginController.js"></script>
     <script src="/apps/privateApp/dashboard/dashboardController.js"></script>
+    <script src="/apps/privateApp/mainController.js"></script>
 
-    <script src="/apps/core/core.js"></script>
-    <script src="/apps/core/user/userFactory.js"></script>
+
+
 
 
 </head>
-<body ng-app="privateApp" >
+<body ng-app="privateApp" ng-controller="mainController" >
     {!!$composer_header_menu!!}
 
     <div id="main-menu" >

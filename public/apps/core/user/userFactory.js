@@ -4,9 +4,9 @@
 
     angular.module('core')
         .factory('userFactory', userFactory);
-    userFactory.$inject = [ '$http', '$rootScope','$auth','$q','$cookies'];
+    userFactory.$inject = [ '$http', '$rootScope','$auth','$q','$cookies','cacheService','userService'];
 
-    function userFactory( $http, $rootScope,$auth,$q,$cookies) {
+    function userFactory( $http, $rootScope,$auth,$q,$cookies,cacheService,userService) {
 
         return {
             createPrivateAccount: createPrivateAccount,
@@ -45,10 +45,12 @@
 
 
         function logout() {
-            $cookies.put('token',null)
+            $cookies.put('token',null);
             $auth.logout();
             $rootScope.$broadcast('logout');
         }
+
+
 
         function login(credentials) {
             var deferred =$q.defer();
@@ -72,7 +74,22 @@
             return false;
         }
 
-
+        /**
+         * Get UserService with current user
+         * @returns promise
+         */
+        function getAuthUser(){
+            var cache  = cacheService(
+                function(){
+                    $http.get('/api/user/get-auth').success( function(response){
+                        cache.end( userService(response) );
+                    }).error( function(response){
+                        cache.end( null );
+                    })
+                }, 'user_getAuthUser', 20
+            );
+            return cache.promise;
+        }
 
 
 
@@ -85,22 +102,7 @@
 
 
 
-        /**
-         * Get UserService with current user
-         * @returns promise
-         */
-        function getAuthUser(){
-            var cache  = cacheService(
-                function(){
-                    $http.get(window.SERVER+'/backend/user/get-auth').success( function(response){
-                        cache.end( userService(response) );
-                    }).error( function(response){
-                        cache.end( null );
-                    })
-                }, 'user_getAuthUser', 20
-            );
-            return cache.promise;
-        }
+
 
         function getAll(){
             var cache  = cacheService(

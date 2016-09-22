@@ -62,11 +62,17 @@ Route::get('/disclaimer', ['as'=>'disclaimer','uses'=>function () {
 
 
 Route::group(['prefix'=>'api'], function () {
+    Route::get('/user/get-auth', 'UserController@getAuth' );
     Route::post('/user/authenticate', 'UserController@authenticate' );
     Route::post('/user/forgot-password', 'UserController@forgotPassword' );
 
     Route::post('/user/private-account', 'UserController@createPrivateAccount' );
     Route::post('/user/business-account', 'UserController@createBusinessAccount' );
+    Route::get('/user/adv-stat', 'UserController@getAdvStat' );
+
+
+    Route::get('/news/{type}', 'News@getLastNews' );
+
 
 });
 

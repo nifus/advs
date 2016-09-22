@@ -124,5 +124,40 @@ class UserController extends Controller
         return view('controller.user.activateAccount',['error'=>$error]);
     }
 
+    public function getAuth()
+    {
+        try{
+            $user = User::getUser();
+            /*if ( $user->is_deleted=='1' ){
+                JWTAuth::invalidate(JWTAuth::getToken());
+                throw new \Exception('no user');
+            }*/
+            return response()->json($user->toArray()  );
+        }catch( \Exception $e ){
+            return response()->json( null );
+        }
+    }
+
+    public function getAdvStat(){
+        return response()->json( [
+            'rent'=>[
+                'total'=> 0,
+                'payment_waiting'=> 0,
+                'active'=> 0,
+                'disabled'=> 0,
+                'expired'=> 0,
+                'blocked'=> 0
+
+            ],
+            'sell'=>[
+                'total'=> 0,
+                'payment_waiting'=> 0,
+                'active'=> 0,
+                'disabled'=> 0,
+                'expired'=> 0,
+                'blocked'=> 0
+            ]
+        ] );
+    }
 
 }
