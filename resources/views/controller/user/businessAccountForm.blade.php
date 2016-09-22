@@ -71,7 +71,7 @@
                         <label class="col-sm-2 control-label">{{ trans('main.register_company_address') }}</label>
                         <div class="col-sm-10">
 
-                            <input type="text" class="form-control"  name="autocomplete" placeholder="Address"
+                            <input type="text" class="form-control"  name="autocomplete" placeholder="{{ trans('main.register_company_address') }}"
                                    ng-autocomplete ng-model="autocomplete.value"  details="autocomplete.details"
                                    required >
 
@@ -138,7 +138,7 @@
                         </div>
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': register.re_password.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label">{{ trans('main.register_password_length') }}</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_password_re') }}</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" ng-model="form.re_password" name="re_password" required ng-match="password">
                         </div>
@@ -298,9 +298,7 @@
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
 
-                            <textarea   class="form-control" style="height: 200px" disabled>
-                                {{ config('app.agb') }}
-                            </textarea> <br>
+                            <textarea   class="form-control" style="height: 200px" disabled>{{ config('app.agb') }}</textarea> <br>
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="agb" ng-model="form.agb"  required> {{ trans('main.register_agb_accept') }}
                             </label>

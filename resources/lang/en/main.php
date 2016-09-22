@@ -22,6 +22,7 @@ return [
     'register'=>'Register',
     'address'=>'Anschrift',
     'agb-head'=>'Allgemeine Geschäftsbedingungen (AGB)',
+    'profile' => 'Profile',
 
 
         //  reset pass page

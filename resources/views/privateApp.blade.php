@@ -12,20 +12,23 @@
     <link href="/css/app.css" rel="stylesheet" type="text/css">
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script src="/components/angular/angular.min.js"></script>
+    <script src="/components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
 
     <script src="/components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
     <script src="/components/angular-cookies/angular-cookies.min.js"></script>
     <script src="/components/satellizer/dist/satellizer.min.js"></script>
 
-    <script src="/apps/frontApp/frontApp.js"></script>
+    <script src="/apps/privateApp/privateApp.js"></script>
+    <script src="/apps/privateApp/login/loginController.js"></script>
+    <script src="/apps/privateApp/dashboard/dashboardController.js"></script>
+
     <script src="/apps/core/core.js"></script>
     <script src="/apps/core/user/userFactory.js"></script>
 
-    <script src="/apps/frontApp/login/loginController.js"></script>
 
 </head>
-<body ng-app="frontApp" >
+<body ng-app="privateApp" >
     {!!$composer_header_menu!!}
 
     <div id="main-menu" >
@@ -36,9 +39,7 @@
         </div>
     </div>
 
-    <div id="content" >
-        @yield('content')
-    </div>
+    <div id="content" ui-view ></div>
 
     <div id="footer-menu">
         <ul>

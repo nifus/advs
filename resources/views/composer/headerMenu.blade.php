@@ -53,6 +53,7 @@
     <div id="head" ng-controller="loginController">
         <div class="right" >
             <ul>
+                <li><a href="{{ route('user.dashboard') }}" class="link">{{ trans('main.profile')  }}</a></li>
                 <li><a ng-click="logout()" class="link">{{ trans('main.logout')  }}</a></li>
             </ul>
         </div>

@@ -39,10 +39,10 @@
                     if ($scope.form.remember===true){
                         var expireDate = new Date();
                         expireDate.setDate(expireDate.getDate() + 99);
-                        $cookies.put('token', response.token, {'expires': expireDate});
-                        $cookies.put('email', $scope.form.email, {'expires': expireDate});
+                        $cookies.put('token', response.token, {'expires': expireDate,'path':'/'});
+                        $cookies.put('email', $scope.form.email, {'expires': expireDate,'path':'/'});
                     }else{
-                        $cookies.put('token', response.token);
+                        $cookies.put('token', response.token,{'path':'/'});
 
                     }
 

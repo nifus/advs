@@ -118,9 +118,7 @@
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
 
-                            <textarea class="form-control" style="height: 200px" disabled>
-                                {{ config('app.agb') }}
-                            </textarea> <br>
+                            <textarea class="form-control" style="height: 200px" disabled>{{ config('app.agb') }}</textarea> <br>
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="agb" ng-model="form.agb"
                                        required> {{ trans('main.register_agb_accept') }}

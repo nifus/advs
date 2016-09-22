@@ -22,6 +22,7 @@ Route::group(['prefix'=>'register'], function () {
 
 Route::group(['prefix'=>'user'], function () {
     Route::get('/reset/{user_id}/{key}', ['as'=>'user.reset','uses'=> 'UserController@resetPassword']);
+    Route::get('/', ['as'=>'user.dashboard','uses'=> 'UserController@dashboard']);
 
 
 });
@@ -73,7 +74,7 @@ Route::group(['prefix'=>'api'], function () {
 
 
 
-View::composer(['frontApp'], function ($view) {
+View::composer(['frontApp','privateApp'], function ($view) {
     $user = User::getUser();
     $view->with('composer_header_menu', View::make('composer.headerMenu', ['user' => $user]));
 });

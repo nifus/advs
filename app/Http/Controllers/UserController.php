@@ -16,6 +16,21 @@ class UserController extends Controller
         //$this->middleware('jwt.auth', ['except' => [ 'authenticate','']]);
     }
 
+
+    public function dashboard(){
+        return view('controller.user.dashboard');
+
+    }
+
+    public function privateAccountForm(){
+        return view('controller.user.privateAccountForm');
+    }
+
+    public function businessAccountForm(){
+        $tariffs = config('app.tariffs');
+        return view('controller.user.businessAccountForm',['tariffs'=>$tariffs]);
+    }
+
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -32,14 +47,7 @@ class UserController extends Controller
     }
 
 
-    public function privateAccountForm(){
-        return view('controller.user.privateAccountForm');
-    }
 
-    public function businessAccountForm(){
-        $tariffs = config('app.tariffs');
-        return view('controller.user.businessAccountForm',['tariffs'=>$tariffs]);
-    }
 
     public function createPrivateAccount(Request $request){
         try{
