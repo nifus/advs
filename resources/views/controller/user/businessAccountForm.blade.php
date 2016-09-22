@@ -1,7 +1,7 @@
 @extends('frontApp')
 
 @section('meta-header')
-    REGISTER
+    {{ trans('main.register_business_header') }}
 @endsection
 
 @section('content')
@@ -13,53 +13,34 @@
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
 
     <div class="panel panel-info" ng-controller="registerController">
-        <div class="panel-heading"><h3>BUSINESS</h3></div>
+        <div class="panel-heading"><h3>{{ trans('main.business_header') }}</h3></div>
         <div class="panel-body">
 
 
             <div class="col-md-9"  ng-show="step=='last'">
-                <h4>Thank you for registration.</h4>
-                We have send an email to your email address.<br>
-                Please click on the activation link inside this email.<br>
-                Otherwise you are not able to login to your account.<br><br>
-
-                <strong>After you click on this required
-                activation
-                can and start
-                the are
-                activation
-                process for you.</strong>
-                This link
-                email we
-                address
-                password
-                later your login
-                This process takes one or two credentials<br><br>
-
-                This activation link is valid for the next 24 hours.<br>
+                <h4>{{trans('main.register_complete')}}</h4>
+                {!! trans('main.register_business_complete_desc') !!}
             </div>
 
             <div class="col-md-9" ng-show="step=='first'">
-                <div class="alert alert-info" role="alert">If you are NOT a real estate agent / agency please create a <a
-                            href="{{route('register.private')}}">private account</a></div>
+                <div class="alert alert-info" role="alert">{!! trans('main.register_business_account_message',['link'=>route('register.private')]) !!}</div>
 
                 <div class="alert alert-danger" role="alert" ng-show="error" ng-bind="error"></div>
 
                 <form class="form-horizontal" name="register" >
-                    <h4>Company data</h4>
+                    <h4>{{ trans('main.register_company_data') }}</h4>
 
                     <div class="form-group" ng-class="{ 'has-error': register.company.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label">Company name</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_company_name') }}</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" ng-model="form.company" name="company"   required minlength="2">
-                            <p class="help-block">Please enter your legal company name according to
-                                your VAT ID confirmation.</p>
+                            <p class="help-block">{{ trans('main.register_company_vat') }}</p>
 
                         </div>
                     </div>
 
                     <div class="form-group form-inline" ng-class="{ 'has-error': (register.country.$invalid || register.commercial_id.$invalid)  && submit==true }">
-                        <label class="col-sm-2 control-label">Commercial register ID</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_company_register_id') }}</label>
                         <div class="col-sm-10">
 
 
@@ -80,23 +61,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Website</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_company_website') }}</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" ng-model="form.website" name="website"  >
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="{ 'has-error': ( (register.autocomplete.$invalid )  && submit==true )  }">
-                        <label class="col-sm-2 control-label">Address</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_company_address') }}</label>
                         <div class="col-sm-10">
 
                             <input type="text" class="form-control"  name="autocomplete" placeholder="Address"
                                    ng-autocomplete ng-model="autocomplete.value"  details="autocomplete.details"
                                    required >
 
-                            <p class="help-block">Please enter the company data which is identical to
-                                the address on your official VAT ID registration
-                                document</p>
+                            <p class="help-block">{{ trans('main.register_company_address_related_vat') }}</p>
 
 
                         </div>
@@ -107,15 +86,15 @@
                          ng-class="{ 'has-error': (register.zip.$invalid || register.city.$invalid || register.no.$invalid || register.street.$invalid) && submit==true }">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10 form-inline">
-                            <input type="text" class="form-control" ng-model="form.address_street" name="street" placeholder="Street" required>
-                            <input type="text" class="form-control" ng-model="form.address_number" name="no" placeholder="No." required>
-                            <input type="text" class="form-control" ng-model="form.address_zip" name="zip" placeholder="Zip" required>
-                            <input type="text" class="form-control" ng-model="form.address_city" name="city" placeholder="City" required>
+                            <input type="text" class="form-control" ng-model="form.address_street" name="street" placeholder="{{ trans('main.register_company_street') }}" required>
+                            <input type="text" class="form-control" ng-model="form.address_number" name="no" placeholder="{{ trans('main.register_company_no') }}" required>
+                            <input type="text" class="form-control" ng-model="form.address_zip" name="zip" placeholder="{{ trans('main.register_company_zip') }}" required>
+                            <input type="text" class="form-control" ng-model="form.address_city" name="city" placeholder="{{ trans('main.register_company_city') }}" required>
                         </div>
                     </div>
 
                     <div class="form-group" >
-                        <label class="col-sm-2 control-label">Additional address</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_company_add_addr') }}</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" ng-model="form.address_additional" name="additional" >
                         </div>
@@ -123,7 +102,7 @@
 
 
                     <div class="form-group" ng-class="{ 'has-error': register.country.$invalid  && submit==true }">
-                        <label class="col-sm-2 control-label">Country</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_company_country') }}</label>
                         <div class="col-sm-10">
                             <select class="form-control" name="country" ng-model="form.commercial_country" required>
                                 <option value="germany">Germany</option>
@@ -133,56 +112,52 @@
                         </div>
                     </div>
 
-                    <h4>Login credentials</h4>
-                    <div class="alert alert-info" role="alert"> This email address and password are later your login
-                        credentials</div>
+                    <h4>{{ trans('main.register_company_login') }}</h4>
+                    <div class="alert alert-info" role="alert">{{ trans('main.register_company_email_details') }}</div>
 
 
 
                     <div class="form-group" ng-class="{ 'has-error': register.email.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label">E-Mail address</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_email') }}</label>
                         <div class="col-sm-10">
                             <input type="email" class="form-control" ng-model="form.email" name="email"  required >
 
                         </div>
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': register.re_email.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label">Repeat e-mail address</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_email_re') }}</label>
                         <div class="col-sm-10">
                             <input type="email" class="form-control" ng-model="form.re_email" name="re_email"  required ng-match="email">
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="{ 'has-error': register.password.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label">Password</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_password') }}</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" ng-model="form.password" name="password"  required >
                         </div>
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': register.re_password.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label">Repeat password</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_password_length') }}</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" ng-model="form.re_password" name="re_password" required ng-match="password">
                         </div>
                     </div>
 
 
-                    <h4>Contact person</h4>
-                    <div class="alert alert-info" role="alert"> Please enter here the general manager of the
-                        company. <br>
-                        Later you can assign an other contact person which is
-                         visible for all users in the account settings
+                    <h4>{{ trans('main.register_company_contact') }}</h4>
+                    <div class="alert alert-info" role="alert"> {!!  trans('main.register_company_manager')  !!}
                     </div>
 
 
                     <div class="form-group" ng-class="{ 'has-error': register.sex.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label">Title</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_title') }}</label>
                         <div class="col-sm-10">
                             <label class="radio-inline">
-                                <input type="radio" name="sex" ng-model="form.sex"  value="male" required> Mister
+                                <input type="radio" name="sex" ng-model="form.sex"  value="male" required> {{ trans('main.register_man') }}
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="sex" ng-model="form.sex" value="female" required> Miss
+                                <input type="radio" name="sex" ng-model="form.sex" value="female" required> {{ trans('main.register_woman') }}
                             </label>
                             <p class="help-block"></p>
                         </div>
@@ -190,7 +165,7 @@
 
 
                     <div class="form-group" ng-class="{ 'has-error': register.name.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label">Forename</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_forename') }}</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" ng-model="form.name" name="name" placeholder="Alexander" required minlength="2">
 
@@ -198,42 +173,41 @@
                     </div>
 
                     <div class="form-group" ng-class="{ 'has-error': register.surname.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label">Surname</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_surname') }}</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" ng-model="form.surname" name="surname" placeholder="Pushkin" required  minlength="2">
                         </div>
                     </div>
 
                     <div class="form-group" >
-                        <label class="col-sm-2 control-label">Email address</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_email') }}</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" ng-model="form.contact_email"  >
-                            <p class="help-block">This is the personal email address of the contact
-                                person (not the login email address)</p>
+                            <p class="help-block">{{ trans('main.register_company_personal_email') }}</p>
                         </div>
                     </div>
 
                     <div class="form-group" >
-                        <label class="col-sm-2 control-label">Phone</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_company_phone') }}</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" ng-model="form.phone" name="phone" >
                         </div>
                     </div>
 
 
-                    <h4>Subscription</h4>
+                    <h4>{{ trans('main.register_company_subsc') }}</h4>
 
                     <div class="form-group" ng-class="{ 'has-error': register.tariff.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label">Select you subscription</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_company_select_subsc') }}</label>
                         <div class="col-sm-10">
                             <table class="table  table-hover">
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Package</th>
-                                    <th>Slots per month</th>
-                                    <th>Price per month</th>
-                                    <th>Each extra slot</th>
+                                    <th>{{ trans('main.register_company_package') }}</th>
+                                    <th>{{ trans('main.register_company_slots_per_month') }}</th>
+                                    <th>{{ trans('main.register_company_price_per_month') }}</th>
+                                    <th>{{ trans('main.register_company_each_extra_slots') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -254,19 +228,19 @@
                     </div>
 
 
-                    <h4>Payment</h4>
+                    <h4>{{ trans('main.register_company_payment') }}</h4>
                     <div class="form-group" ng-class="{ 'has-error': (form.payment_type==undefined || (form.payment_type=='paypal' && form.paypal_email==undefined )|| (form.payment_type=='giropay' && form.giro_account==undefined )) && submit==true }">
-                        <label class="col-sm-2 control-label">Select your Payment</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_company_select_payment') }}</label>
                         <div class="col-sm-10">
 
                             <div class="radio">
                                 <label>
                                     <input type="radio" value="paypal" ng-model="form.payment_type">
-                                    PayPal <br>
-                                    (you will be forwarded to PayPal by clicking on "Next")
+                                    {{ trans('main.register_company_paypal') }} <br>
+                                    {{ trans('main.register_company_paypal_desc') }}
                                 </label>
                                 <div class="form-inline">
-                                    <label class="col-sm-2 ">PayPal email</label>
+                                    <label class="col-sm-2 ">{{ trans('main.register_company_paypal_email') }} </label>
                                     <div class="col-sm-10">
                                         <input type="email" class="form-control" ng-model="form.paypal_email"  ng-disabled="form.payment_type!='paypal'"  ng-required="form.payment_type=='paypal'">
                                     </div>
@@ -280,12 +254,12 @@
                             <div class="radio">
                                 <label>
                                     <input type="radio"  value="giropay" ng-model="form.payment_type">
-                                    GiroPay <br>
-                                    (you will be forwarded to you Bank)
+                                    {{ trans('main.register_company_giropay') }} <br>
+                                    {{ trans('main.register_company_giropay_desc') }}
                                 </label>
 
                                 <div class="form-inline">
-                                    <label class="col-sm-2">GiroPay account</label>
+                                    <label class="col-sm-2">{{ trans('main.register_company_giropay_acc') }}</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" ng-model="form.giro_account"  ng-disabled="form.payment_type!='giropay'" ng-required="form.payment_type=='giropay'" >
 
@@ -298,17 +272,15 @@
                             <div class="radio">
                                 <label>
                                     <input type="radio" value="prepayment" ng-model="form.payment_type">
-                                    Prepyment
+                                    {{ trans('main.register_company_prepayment') }}
                                 </label>
-
-
                             </div>
                         </div>
                     </div>
 
-                    <h4>Finish</h4>
+                    <h4>{{ trans('main.register_company_finish') }}</h4>
                     <div class="form-group" ng-class="{ 'has-error': form.captcha==undefined && submit==true }">
-                        <label class="col-sm-2 control-label">Captcha validate</label>
+                        <label class="col-sm-2 control-label">{{ trans('main.register_captcha') }}</label>
                         <div class="col-sm-10">
                             <div
                                     on-create="setWidgetId(widgetId)"
@@ -316,7 +288,7 @@
 
                                     ng-model="form.captcha"
                                     vc-recaptcha
-                                    key="'6LfvECoTAAAAAPIObIeKOUQhEi6v2IB1ezIgac9j'"
+                                    key="'{{config('services.google_captcha.public')}}'"
                             ></div>
 
                         </div>
@@ -327,15 +299,10 @@
                         <div class="col-sm-10">
 
                             <textarea   class="form-control" style="height: 200px" disabled>
-                                1.1 Diese Allgemeinen Geschäftsbedingungen (nachfolgend „AGB“) der/des ALTERNATE GmbH (nachfolgend „Verkäufer“) gelten für alle Verträge, die ein Verbraucher oder Unternehmer (nachfolgend „Kunde“)
-mit dem Verkäufer hinsichtlich der vom Verkäufer in dem vorliegenden Online-Shop dargestellten Waren und/oder Leistungen abschließt. Hiermit wird der Einbeziehung von eigenen Bedingungen des Kunden
-widersprochen, es sei denn, es ist etwas anderes vereinbart worden.
-1.2 Für den Erwerb von Gutscheinen gelten diese AGB entsprechend, sofern insoweit nicht ausdrücklich etwas Abweichendes geregelt ist.
-1.3 Verbraucher im Sinne dieser AGB ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit
-zugerechnet werden können. Unternehmer im Sinne dieser AGB ist jede
+                                {{ config('app.agb') }}
                             </textarea> <br>
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="agb" ng-model="form.agb"  required> AGB accept?
+                                <input type="checkbox" name="agb" ng-model="form.agb"  required> {{ trans('main.register_agb_accept') }}
                             </label>
 
                         </div>
@@ -344,7 +311,7 @@ zugerechnet werden können. Unternehmer im Sinne dieser AGB ist jede
                     <div style="text-align: center">
                         <button
                                 ng-disabled="send==true"
-                                type="button" ng-click="sendRegisterBusinessForm(form)" class="btn btn-primary btn-lg">Create Account</button>
+                                type="button" ng-click="sendRegisterBusinessForm(form)" class="btn btn-primary btn-lg">{{ trans('main.register_create_account_button') }}</button>
                     </div>
 
                 </form>
@@ -353,21 +320,7 @@ zugerechnet werden können. Unternehmer im Sinne dieser AGB ist jede
             </div>
 
             <div class="col-md-3">
-                The business account provide you the following advantages:
-                <ul>
-                    <li>Creation of advertisements</li>
-                    <li>Be able to subscripe a service</li>
-                    <li>Save used car advertisements to your personal watchlist</li>
-                </ul>
-
-
-                <br>
-                The following payment methods are available:
-                <ul>
-                    <li>Lastschrift</li>
-                    <li>PayPal</li>
-                    <li>Credit Card</li>
-                </ul>
+                {!! trans('main.register_company_desc') !!}
             </div>
         </div>
         </div>

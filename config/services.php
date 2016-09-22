@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google_captcha'=>[
+        'secret'=>env('NOCAPTCHA_SECRET'),
+        'public'=>env('NOCAPTCHA_SITEKEY'),
+    ]
 ];

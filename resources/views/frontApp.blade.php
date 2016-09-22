@@ -42,7 +42,7 @@
 
 <div id="footer-menu">
     <ul>
-        <li><a href="{{ route('main') }}">Main</a></li>
+        <li><a href="{{ route('main') }}">{{ trans('main.home')  }}</a></li>
         <li><a href="{{ route('contacts') }}">{{ trans('main.contacts')  }}</a></li>
         <li><a href="{{route('agb')}}">{{ trans('main.AGB')  }}</a></li>
         <li><a href="{{ route('disclaimer') }}">{{ trans('main.disclaimer')  }}</a></li>

@@ -9,30 +9,29 @@
 
                     <form class="form-inline" name="login_form" ng-show="env.form=='login'">
                         <div class="form-group" style="">
-                            <input type="email" class="form-control" name="email" ng-model="form.email"  placeholder="Email" required>
+                            <input type="email" class="form-control" name="email" ng-model="form.email"  placeholder="{{trans('main.email')}}" required>
                         </div>
                         <div class="form-group" style="height: 50px">
-                            <input type="password" class="form-control" name="password" ng-model="form.password"  placeholder="Password" required>
+                            <input type="password" class="form-control" name="password" ng-model="form.password"  placeholder="{{trans('main.password')}}" required>
                             <br>
-                            <a class="link" ng-click="displayForgotForm()">Forgot password</a>
+                            <a class="link" ng-click="displayForgotForm()">{{trans('main.forgot_password')}}</a>
                         </div>
-                        <div class="checkbox" style="height: 50px">
+                        <div class="checkbox" >
                             <label>
-                                <input type="checkbox" ng-model="form.remember"> Remember me
+                                <input type="checkbox" ng-model="form.remember"> {{trans('main.remember_me')}}
                             </label>
                         </div>
-                        <div class="form-group" style="height: 50px">
-
-                            <button type="button" class="btn btn-primary" ng-click="loginSubmit()" ng-disabled="login_form.$invalid || env.submit">Login</button>
+                        <div class="form-group" >
+                            <button type="button" class="btn btn-primary" ng-click="loginSubmit()" ng-disabled="login_form.$invalid || env.submit">{{trans('main.login')}}</button>
                         </div>
                     </form>
                     <form class="form-inline" name="forgot_form" ng-show="env.form=='forgot' && env.display_reset_form==true">
-                        <div class="form-group" style="">
-                            <input type="email" class="form-control" name="email" ng-model="form.email"  placeholder="Email" required>
+                        <div class="form-group" >
+                            <input type="email" class="form-control" name="email" ng-model="form.email"  placeholder="{{trans('main.email')}}" required>
                         </div>
 
-                        <div class="form-group" style="height: 50px">
-                            <button type="button" class="btn btn-primary" ng-click="forgotSubmit()" ng-disabled="forgot_form.$invalid || env.submit">Forgot password</button>
+                        <div class="form-group" >
+                            <button type="button" class="btn btn-primary" ng-click="forgotSubmit()" ng-disabled="forgot_form.$invalid || env.submit">{{trans('main.forgot_password')}}</button>
                         </div>
                     </form>
                 </div>
