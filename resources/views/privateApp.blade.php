@@ -13,6 +13,8 @@
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <script src="/components/angular/angular.min.js"></script>
     <script src="/components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/components/jquery/dist/jquery.min.js"></script>
+    <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
     <script src="/components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
@@ -32,6 +34,7 @@
     <script src="/apps/privateApp/login/loginController.js"></script>
     <script src="/apps/privateApp/dashboard/dashboardController.js"></script>
     <script src="/apps/privateApp/mainController.js"></script>
+    <script src="/apps/privateApp/adv/myController.js"></script>
 
 
 
@@ -64,5 +67,10 @@
     <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
 
 
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </body>
 </html>

@@ -1,0 +1,180 @@
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">My advertisements</li>
+</ol>
+
+<div class="progress" ng-show="env.loading==true">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">45% Complete</span>
+    </div>
+</div>
+
+<div class="row" ng-show="env.loading==false">
+    <div class="col-md-3">
+        <div class="list-group">
+            <a ui-sref="dashboard" ui-sref-active="active" class="list-group-item">
+                Private Account <br>
+                {{user.email}}
+            </a>
+            <a ui-sref="my-adv" ui-sref-active="active" class="list-group-item">My advertisements</a>
+            <a ui-sref="my-watch-list" ui-sref-active="active" class="list-group-item">My watchlist</a>
+            <a ui-sref="my-settings" ui-sref-active="active"  class="list-group-item">My settings</a>
+            <a ui-sref="help" ui-sref-active="active" class="list-group-item">Help</a>
+        </div>
+
+        <div class="adv">ADV</div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="height:50px">
+                <select name="" id="" style="float:right;width:300px" class="form-control"></select>
+
+                <h3 class="panel-title"  style="float:left">My Advertisements</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-2">
+                            Show
+                        </div>
+                        <div class="col-md-2">
+                            <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> All
+                            </label>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Renting
+                            </label>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> Selling
+                            </label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6 text-right">
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom<br>1"  >
+                            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Page description
+                        </button>
+                    </div>
+                </div>
+
+                <h4>Renting</h4>
+                <div class="row">
+                    <div class="col-md-11">
+                        <table class="table">
+                            <tr>
+                                <td rowspan="4" style="width: 200px"><img style="width:200px;height:200px" src="https://upload.wikimedia.org/wikipedia/en/5/57/RentMovie2005.jpg" alt=""></td>
+                                <td colspan="5"  style="background-color: #00b3ee;height:40px">Beautiful 2,5 rooms flat. With balcony and kitchen! MUST SEE</td>
+                                <td  style="background-color: #00b3ee" class="text-right">530,00 €</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">Area:</td>
+                                <td class="text-right" style="border-right:1px solid lightblue">72 m2</td>
+                                <td class="text-left">Created on:</td>
+                                <td class="text-right"  style="border-right:1px solid lightblue">26.05.2016</td>
+                                <td class="text-left">Visited</td>
+                                <td class="text-right">29</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">Rooms:</td>
+                                <td class="text-right" style="border-right:1px solid lightblue">4</td>
+                                <td class="text-left">Ends on:</td>
+                                <td class="text-right"  style="border-right:1px solid lightblue">26.05.2016</td>
+                                <td class="text-left"></td>
+                                <td class="text-right"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">Floor/s:</td>
+                                <td class="text-right" style="border-right:1px solid lightblue">3 of 6</td>
+                                <td class="text-left">Deletion on:</td>
+                                <td class="text-right"  style="border-right:1px solid lightblue">26.05.2016</td>
+                                <td class="text-left">On watchlist:</td>
+                                <td class="text-right">29</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Status</td>
+                                <td colspan="6">This advert will be automatic activated when the payment process is finished.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Edit</a></li>
+                                <li><a href="#">Extend</a></li>
+                                <li><a href="#">Disable</a></li>
+                                <li><a href="#">Delete</a></li>
+                                <li><a href="#">React</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <table class="table">
+                            <tr>
+                                <td rowspan="4" style="width: 200px"><img style="width:200px;height:200px" src="https://upload.wikimedia.org/wikipedia/en/5/57/RentMovie2005.jpg" alt=""></td>
+                                <td colspan="5"  style="background-color: #00b3ee;height:40px">Beautiful 2,5 rooms flat. With balcony and kitchen! MUST SEE</td>
+                                <td  style="background-color: #00b3ee" class="text-right">530,00 €</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">Area:</td>
+                                <td class="text-right" style="border-right:1px solid lightblue">72 m2</td>
+                                <td class="text-left">Created on:</td>
+                                <td class="text-right"  style="border-right:1px solid lightblue">26.05.2016</td>
+                                <td class="text-left">Visited</td>
+                                <td class="text-right">29</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">Rooms:</td>
+                                <td class="text-right" style="border-right:1px solid lightblue">4</td>
+                                <td class="text-left">Ends on:</td>
+                                <td class="text-right"  style="border-right:1px solid lightblue">26.05.2016</td>
+                                <td class="text-left"></td>
+                                <td class="text-right"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">Floor/s:</td>
+                                <td class="text-right" style="border-right:1px solid lightblue">3 of 6</td>
+                                <td class="text-left">Deletion on:</td>
+                                <td class="text-right"  style="border-right:1px solid lightblue">26.05.2016</td>
+                                <td class="text-left">On watchlist:</td>
+                                <td class="text-right">29</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Status</td>
+                                <td colspan="6">This advert will be automatic activated when the payment process is finished.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Edit</a></li>
+                                <li><a href="#">Extend</a></li>
+                                <li><a href="#">Disable</a></li>
+                                <li><a href="#">Delete</a></li>
+                                <li><a href="#">React</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <h4>Selling</h4>
+            </div>
+        </div>
+    </div>
+</div>

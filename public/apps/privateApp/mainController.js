@@ -30,7 +30,7 @@
         var userPromise =  userFactory.getAuthUser().then( function(user){
             $scope.env.user = user;
             if ( !user ){
-                //$state.go('sign_in');
+                window.location.href = '/'
                 return false;
             }
 
