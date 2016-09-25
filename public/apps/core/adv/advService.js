@@ -7,6 +7,9 @@
         return function (data) {
             var Object = data;
             Object.waiting = false;
+            Object.CreateDate = moment(data.created_at).format('DD.MM.Y');
+            Object.EndDate = moment(data.created_at).format('DD.MM.Y');
+            Object.DeleteDate = moment(data.created_at).format('DD.MM.Y');
 
 
 

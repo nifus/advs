@@ -17,6 +17,9 @@ class AdvSeeder extends Seeder
         $faker->addProvider(new \Faker\Provider\Lorem($faker));
         $faker->addProvider(new \Faker\Provider\DateTime($faker));
         $users = User::getUserIds();
+        $images =  array_diff( scandir( public_path('uploads/adv') ), array('..', '.','.gitignore'));
+        \DB::table('advs')->truncate();
+
         for( $i=0;$i<1000;$i++){
             Adv::create([
                 'title'=>$faker->sentence,
@@ -28,6 +31,7 @@ class AdvSeeder extends Seeder
                 'heating_cost'=>round($faker->randomFloat(10000000),2),
                 'caution_money'=>round($faker->randomFloat(10000000),2),
                 'address_id'=>1,
+                'photos'=>implode(',',$images),
                 'user_id' => $faker->randomElement($users),
                 'area' => $faker->randomDigitNotNull,
                 'rooms' => $faker->randomDigitNotNull,

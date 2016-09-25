@@ -28,7 +28,11 @@
                     expired: 0,
                     blocked: 0
                 }
-            }
+            },
+            filters:{
+                type: 'all'
+            },
+            order: 'price_up'
         };
 
         function initPage(deferred) {

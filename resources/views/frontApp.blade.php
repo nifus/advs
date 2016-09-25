@@ -25,6 +25,9 @@
     <script src="/apps/core/user/userFactory.js"></script>
     <script src="/apps/core/user/userService.js"></script>
 
+    <script src="/apps/core/adv/advFactory.js"></script>
+    <script src="/apps/core/adv/advService.js"></script>
+
     <script src="/apps/frontApp/login/loginController.js"></script>
 
 </head>

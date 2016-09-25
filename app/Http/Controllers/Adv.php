@@ -18,6 +18,8 @@ class Adv extends Controller
     }
 
 
+
+
     public function getStat(){
 
         $user = UserModel::getUser();

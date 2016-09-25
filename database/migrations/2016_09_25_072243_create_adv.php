@@ -25,7 +25,7 @@ class CreateAdv extends Migration
             $table->integer('user_id');
             $table->enum('status',['payment_waiting','active','disabled','expired','blocked'])->default('payment_waiting');
             $table->enum('type',['rent','sell','offer'])->default('rent');
-            $table->string('photos')->nullable();
+            $table->text('photos')->nullable();
             $table->integer('visited')->default(0);
             $table->integer('favorite')->default(0);
            // $table->integer('favorite')->default(0);

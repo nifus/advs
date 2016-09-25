@@ -143,3 +143,55 @@ div.login-form button{
 .link{
     cursor: pointer;
 }
+
+table.adv tr.blocked :first-child{
+    background-color:red;
+    color: white;
+    text-transform: uppercase;
+}
+
+table.adv tr.blocked :last-child{
+    color: red;
+}
+
+
+table.adv tr.expired :first-child{
+    background-color:rosybrown;
+    color: white;
+    text-transform: uppercase;
+}
+
+table.adv tr.expired :last-child{
+    color:rosybrown;
+}
+
+table.adv tr.disabled :first-child{
+    background-color:darkgreen;
+    color: white;
+    text-transform: uppercase;
+}
+
+table.adv tr.disabled :last-child{
+    color:darkgreen;
+}
+
+
+table.adv tr.active :first-child{
+    background-color:darkseagreen;
+    color: white;
+    text-transform: uppercase;
+}
+
+table.adv tr.active :last-child{
+    color:darkseagreen;
+}
+
+table.adv tr.payment_waiting :first-child{
+    background-color:blue;
+    color: white;
+    text-transform: uppercase;
+}
+
+table.adv tr.payment_waiting :last-child{
+    color:blue;
+}
