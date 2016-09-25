@@ -141,4 +141,8 @@ class User extends Authenticatable
         }
 
     }
+
+    static function getUserIds(){
+        return self::whereIn('group_id',[2,3])->pluck('id')->toArray();
+    }
 }

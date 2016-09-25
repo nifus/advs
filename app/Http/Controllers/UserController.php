@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
+use App\Adv;
 use App\Jobs\ActivatePrivateAccount as ActivatePrivateAccountJob;
 use App\Jobs\ForgotPassword as ForgotPasswordJob;
 use App\Jobs\NewPassword as NewPasswordJob;
@@ -138,26 +139,6 @@ class UserController extends Controller
         }
     }
 
-    public function getAdvStat(){
-        return response()->json( [
-            'rent'=>[
-                'total'=> 0,
-                'payment_waiting'=> 0,
-                'active'=> 0,
-                'disabled'=> 0,
-                'expired'=> 0,
-                'blocked'=> 0
 
-            ],
-            'sell'=>[
-                'total'=> 0,
-                'payment_waiting'=> 0,
-                'active'=> 0,
-                'disabled'=> 0,
-                'expired'=> 0,
-                'blocked'=> 0
-            ]
-        ] );
-    }
 
 }

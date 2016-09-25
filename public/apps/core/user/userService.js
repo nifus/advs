@@ -1,9 +1,9 @@
 (function (angular, window) {
     'use strict';
     angular.module('core').service('userService', userService);
-    userService.$inject = ['$http'];
+    userService.$inject = ['$http' ,'advFactory'];
 
-    function userService($http) {
+    function userService($http, advFactory) {
         return function (data) {
             var Object = data;
             Object.waiting = false;
@@ -31,6 +31,8 @@
                     return response.data;
                 })
             };
+
+            Object.getAdvs = advFactory.getByUser;
             return Object;
         }
     }

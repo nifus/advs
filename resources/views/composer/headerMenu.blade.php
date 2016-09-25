@@ -16,13 +16,14 @@
                             <br>
                             <a class="link" ng-click="displayForgotForm()">{{trans('main.forgot_password')}}</a>
                         </div>
-                        <div class="checkbox" >
+                        <input type="hidden" ng-model="form.remember" value="1">
+                        <!--<div class="checkbox" >
                             <label>
                                 <input type="checkbox" ng-model="form.remember"> {{trans('main.remember_me')}}
                             </label>
-                        </div>
+                        </div>-->
                         <div class="form-group" >
-                            <button type="button" class="btn btn-primary" ng-click="loginSubmit()" ng-disabled="login_form.$invalid || env.submit">{{trans('main.login')}}</button>
+                            <button type="submit" class="btn btn-primary" ng-click="loginSubmit()" ng-disabled="login_form.$invalid || env.submit">{{trans('main.login')}}</button>
                         </div>
                     </form>
                     <form class="form-inline" name="forgot_form" ng-show="env.form=='forgot' && env.display_reset_form==true">

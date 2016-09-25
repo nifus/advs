@@ -67,25 +67,25 @@
                 </div>
 
                 <h4>Renting</h4>
-                <div class="row">
+                <div class="row" ng-repeat="adv in env.advs|filter:type=='rent'">
                     <div class="col-md-11">
                         <table class="table">
                             <tr>
                                 <td rowspan="4" style="width: 200px"><img style="width:200px;height:200px" src="https://upload.wikimedia.org/wikipedia/en/5/57/RentMovie2005.jpg" alt=""></td>
-                                <td colspan="5"  style="background-color: #00b3ee;height:40px">Beautiful 2,5 rooms flat. With balcony and kitchen! MUST SEE</td>
-                                <td  style="background-color: #00b3ee" class="text-right">530,00 €</td>
+                                <td colspan="5"  style="background-color: #00b3ee;height:40px">{{adv.title}}</td>
+                                <td  style="background-color: #00b3ee" class="text-right">{{adv.total_rent}} €</td>
                             </tr>
                             <tr>
                                 <td class="text-left">Area:</td>
-                                <td class="text-right" style="border-right:1px solid lightblue">72 m2</td>
+                                <td class="text-right" style="border-right:1px solid lightblue">{{adv.area}} m2</td>
                                 <td class="text-left">Created on:</td>
                                 <td class="text-right"  style="border-right:1px solid lightblue">26.05.2016</td>
                                 <td class="text-left">Visited</td>
-                                <td class="text-right">29</td>
+                                <td class="text-right">{{adv.visited}}</td>
                             </tr>
                             <tr>
                                 <td class="text-left">Rooms:</td>
-                                <td class="text-right" style="border-right:1px solid lightblue">4</td>
+                                <td class="text-right" style="border-right:1px solid lightblue">{{adv.rooms}}</td>
                                 <td class="text-left">Ends on:</td>
                                 <td class="text-right"  style="border-right:1px solid lightblue">26.05.2016</td>
                                 <td class="text-left"></td>
@@ -93,11 +93,11 @@
                             </tr>
                             <tr>
                                 <td class="text-left">Floor/s:</td>
-                                <td class="text-right" style="border-right:1px solid lightblue">3 of 6</td>
+                                <td class="text-right" style="border-right:1px solid lightblue">{{adv.floor}} of {{adv.floors}}</td>
                                 <td class="text-left">Deletion on:</td>
                                 <td class="text-right"  style="border-right:1px solid lightblue">26.05.2016</td>
                                 <td class="text-left">On watchlist:</td>
-                                <td class="text-right">29</td>
+                                <td class="text-right">{{adv.favorite}}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">Status</td>
@@ -120,6 +120,9 @@
                         </div>
                     </div>
                 </div>
+
+
+
                 <div class="row">
                     <div class="col-md-11">
                         <table class="table">

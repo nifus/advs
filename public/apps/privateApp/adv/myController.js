@@ -2,15 +2,16 @@
     'use strict';
     angular.module('privateApp').controller('myController', myController);
 
-    myController.$inject = ['$scope', 'userFactory', 'newsFactory','$q'];
+    myController.$inject = ['$scope', 'userFactory', 'newsFactory', '$q'];
 
-    function myController($scope, userFactory, newsFactory,$q) {
+    function myController($scope, userFactory, newsFactory, $q) {
         $scope.user = null;
         $scope.promises = null;
         $scope.env = {
+            advs: [],
             loading: true,
             news: [],
-            stat:{
+            stat: {
                 rent: {
                     total: 0,
                     payment_waiting: 0,
@@ -19,7 +20,7 @@
                     expired: 0,
                     blocked: 0
                 },
-                sell:{
+                sell: {
                     total: 0,
                     payment_waiting: 0,
                     active: 0,
@@ -34,9 +35,9 @@
             $scope.user = $scope.$parent.env.user;
 
             var newsPromise = null;
-            if ($scope.user.isPrivateAccount()){
+            if ($scope.user.isPrivateAccount()) {
                 newsPromise = newsFactory.getLastPrivateNews();
-            }else{
+            } else {
                 newsPromise = newsFactory.getLastBusinessNews();
             }
 
@@ -44,12 +45,17 @@
                 $scope.env.news = news;
             });
 
-            var statPromise = $scope.user.getAdvStat().then( function(result){
+            var statPromise = $scope.user.getAdvStat().then(function (result) {
                 $scope.env.stat = result;
             });
 
-            $q.all([statPromise,newsPromise]).then(function(){
-               $scope.env.loading = false;
+            var advPromise = $scope.user.getAdvs().then(function (result) {
+                $scope.env.advs = result;
+                console.log(result)
+            });
+
+            $q.all([statPromise, newsPromise, advPromise]).then(function () {
+                $scope.env.loading = false;
             })
             return deferred.promise;
         }

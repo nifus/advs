@@ -62,14 +62,17 @@ Route::get('/disclaimer', ['as'=>'disclaimer','uses'=>function () {
 
 
 Route::group(['prefix'=>'api'], function () {
-    Route::get('/user/get-auth', 'UserController@getAuth' );
-    Route::post('/user/authenticate', 'UserController@authenticate' );
-    Route::post('/user/forgot-password', 'UserController@forgotPassword' );
 
-    Route::post('/user/private-account', 'UserController@createPrivateAccount' );
-    Route::post('/user/business-account', 'UserController@createBusinessAccount' );
-    Route::get('/user/adv-stat', 'UserController@getAdvStat' );
+    Route::group(['prefix'=>'user'], function () {
+        Route::get('/get-auth', 'UserController@getAuth' );
+        Route::post('/authenticate', 'UserController@authenticate' );
+        Route::post('/forgot-password', 'UserController@forgotPassword' );
 
+        Route::post('/private-account', 'UserController@createPrivateAccount' );
+        Route::post('/business-account', 'UserController@createBusinessAccount' );
+        Route::get('/adv-stat', 'Adv@getStat' );
+        Route::put('/advs', 'Adv@getByUser' );
+    });
 
     Route::get('/news/{type}', 'News@getLastNews' );
 
