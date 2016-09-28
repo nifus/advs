@@ -69,6 +69,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::get('/adv-stat', 'Adv@getStat' );
         Route::put('/advs', 'Adv@getByUser' );
         Route::put('/watch-advs', 'Adv@getWatchByUser' );
+        Route::delete('/watch-advs/{id}', 'Adv@removeWatch' );
     });
 
     Route::get('/news/{type}', 'News@getLastNews' );

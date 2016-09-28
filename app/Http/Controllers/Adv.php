@@ -23,6 +23,12 @@ class Adv extends Controller
         return response()->json($favs);
     }
 
+    function removeWatch($adv_id){
+        $user = UserModel::getUser();
+        AdvModel::removeWatch($user->id, $adv_id);
+        return response()->json(['success'=>true]);
+    }
+
 
 
 

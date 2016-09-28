@@ -65,10 +65,63 @@
 
                 </div>
 
+
+
+
                 <div ng-show="env.filters.type!='sell'">
                     <h4>Renting</h4>
                     <div class="row" >
-                        <div class="col-sm-5 col-md-3" style="height: 370px" ng-repeat="adv in env.advs|filter:{type:'rent'}">
+                        <div class="col-sm-5 col-md-3" style="height: 370px" ng-repeat="adv in env.advs|filter:{type:'rent'}|limitFromTo:((env.current_rent*8)-8):8">
+                            <div class="thumbnail">
+                                <h3><a href="">{{adv.title}}</a></h3>
+                                <a href=""><img  ng-src="{{adv.photos[0]}}"  alt=""></a>
+                                <div class="caption">
+                                    <table>
+                                        <tr>
+                                            <td>Area:</td>
+                                            <td >{{adv.area}} m2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rooms:</td>
+                                            <td>{{adv.rooms}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Floor/s:</td>
+                                            <td>{{adv.floor}} of {{adv.floors}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cold rent</td>
+                                            <td>{{adv.floor}} of {{adv.floors}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <button ng-disabled="adv.waiting==true" ng-click="deleteItem(adv)" type="button" class="btn btn-primary">Delete from watchlist</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div style="text-align: center">
+                        <pagination
+                                items-per-page="8"
+                                total-items="env.advs.length"
+                                ng-model="env.current_rent"
+                                max-size="10"
+                                boundary-links="true">
+                        </pagination>
+                    </div>
+
+                </div>
+
+                <div ng-show="env.filters.type!='rent'">
+
+                    <h4>Selling</h4>
+                    <div class="row">
+                        <div class="col-sm-5 col-md-3" style="height: 370px" ng-repeat="adv in env.advs|filter:{type:'sell'}|limitFromTo:((env.current_sell*8)-8):8">
                             <div class="thumbnail">
                                 <h3><a href="">{{adv.title}}</a></h3>
                                 <a href=""><img  ng-src="{{adv.photos[0]}}"  alt=""></a>
@@ -97,42 +150,14 @@
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                </div>
-
-                <div ng-show="env.filters.type!='rent'">
-
-                    <h4>Selling</h4>
-                    <div class="row">
-                        <div class="col-sm-5 col-md-3" style="height: 370px" ng-repeat="adv in env.advs|filter:{type:'sell'}">
-                            <div class="thumbnail">
-                                <h3><a href="">{{adv.title}}</a></h3>
-                                <a href=""><img  ng-src="{{adv.photos[0]}}"  alt=""></a>
-                                <div class="caption">
-                                    <table>
-                                        <tr>
-                                            <td>Area:</td>
-                                            <td >{{adv.area}} m2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rooms:</td>
-                                            <td>{{adv.rooms}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Floor/s:</td>
-                                            <td>{{adv.floor}} of {{adv.floors}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cold rent</td>
-                                            <td>{{adv.floor}} of {{adv.floors}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"><button type="button" class="btn btn-primary">Delete from watchlist</button> </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
+                        <div style="text-align: center">
+                            <pagination
+                                    items-per-page="8"
+                                    total-items="env.advs.length"
+                                    ng-model="env.current_sell"
+                                    max-size="10"
+                                    boundary-links="true">
+                            </pagination>
                         </div>
                     </div>
                 </div>

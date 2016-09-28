@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('privateApp', ['core','satellizer','ngCookies','ui.router']).config(function ($stateProvider, $urlRouterProvider) {
+    angular.module('privateApp', ['core','satellizer','ngCookies','ui.router','ui.bootstrap']).config(function ($stateProvider, $urlRouterProvider) {
 
         /*var refer = window.location.href;
         if ( refer.indexOf('pr64-coworking')==-1 ){
@@ -33,7 +33,12 @@
             controller: 'dashboardController',
         })
 
-    })
+    }).filter('limitFromTo', function(){
+        return function(input, from, to){
+            console.log(from)
+            return (input != undefined)? input.splice(from, to) : '';
+        }
+    });
 
 
 

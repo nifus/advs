@@ -11,8 +11,13 @@
             Object.EndDate = moment(data.created_at).format('DD.MM.Y');
             Object.DeleteDate = moment(data.created_at).format('DD.MM.Y');
 
-
-
+            Object.deleteFromWatchList = function() {
+                Object.waiting = true;
+                return $http.delete( '/api/user/watch-advs/'+Object.id).then(function (response) {
+                    Object.waiting = false;
+                    return response.data;
+                })
+            };
 
             return (Object);
         };

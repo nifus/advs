@@ -21,6 +21,7 @@
     <script src="/components/angular-cookies/angular-cookies.min.js"></script>
     <script src="/components/satellizer/dist/satellizer.min.js"></script>
     <script src="/components/moment/min/moment.min.js"></script>
+    <script src="/components/angular-bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
 
     <script src="/apps/core/core.js"></script>
     <script src="/apps/core/cacheService.js"></script>

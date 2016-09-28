@@ -63,5 +63,8 @@ class Adv extends Model
         return self::where('user_id', $user_id)->get();
     }
 
+    static function removeWatch($user_id, $adv_id){
+        \DB::table('advs_fav')->where('user_id', $user_id)->where('adv_id', $adv_id)->delete();
+    }
 
 }
