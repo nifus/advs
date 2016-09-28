@@ -12,6 +12,8 @@ class NewsSeeder extends Seeder
      */
     public function run()
     {
+        \DB::table('news')->truncate();
+
         $faker = \Faker\Factory::create();
         $faker->addProvider(new \Faker\Provider\Lorem($faker));
         $faker->addProvider(new \Faker\Provider\DateTime($faker));

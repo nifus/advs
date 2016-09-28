@@ -33,6 +33,10 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Group', 'id', 'group_id');
     }
+    public function Fav()
+    {
+        return $this->belongsToMany('App\Adv', 'advs_fav', 'user_id','adv_id');
+    }
 
     public function setPasswordAttribute($value){
         $this->attributes['password'] = \Hash::make($value);
@@ -55,6 +59,10 @@ class User extends Authenticatable
         $activate_key = md5(str_random(8));
         $this->update(['password'=>$new_pass,'activate_key'=>$activate_key]);
         return $new_pass;
+    }
+
+    public function getWatch(){
+        return $this->with('Fav')->get();
     }
 
     static function createPrivateAccount($data){

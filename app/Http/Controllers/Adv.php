@@ -11,10 +11,16 @@ use App\User as UserModel;
 class Adv extends Controller
 {
     function getByUser(){
-
         $user = UserModel::getUser();
         $advs = AdvModel::getByUser($user->id);
         return response()->json($advs);
+    }
+
+    function getWatchByUser(){
+        $user = UserModel::getUser();
+        $favs = $user->Fav()->get();
+        //$advs = AdvModel::getWatchByUser($user->id);
+        return response()->json($favs);
     }
 
 

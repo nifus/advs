@@ -9,7 +9,8 @@
     function advFactory(advService, $http) {
 
         return {
-            getByUser: getByUser
+            getByUser: getByUser,
+            getWatchByUser: getWatchByUser
 
         };
 
@@ -23,7 +24,15 @@
             })
         }
 
-
+        function getWatchByUser() {
+            return $http.put( '/api/user/watch-advs').then(function (response) {
+                var objs = [];
+                for( var i in response.data ){
+                    objs.push( new advService(response.data[i]) )
+                }
+                return objs;
+            })
+        }
 
     }
 

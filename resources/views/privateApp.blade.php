@@ -41,6 +41,8 @@
     <script src="/apps/privateApp/mainController.js"></script>
     <script src="/apps/privateApp/adv/myController.js"></script>
 
+    <script src="/apps/privateApp/adv/myWatchListController.js"></script>
+
 
 
 

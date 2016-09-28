@@ -33,6 +33,8 @@
             };
 
             Object.getAdvs = advFactory.getByUser;
+            Object.getMyWatchAdvs = advFactory.getWatchByUser;
+
             return Object;
         }
     }

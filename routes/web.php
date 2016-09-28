@@ -2,10 +2,6 @@
 
 use App\User;
 
-Route::get('/test', ['as'=>'main','uses'=>function () {
-    $user = App\User::find(1);
-    dispatch(new ActivatePrivateAccountJob($user));
-}]);
 
 
 Route::get('/', ['as'=>'main','uses'=>'DashboardController@index']);
@@ -72,6 +68,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::post('/business-account', 'UserController@createBusinessAccount' );
         Route::get('/adv-stat', 'Adv@getStat' );
         Route::put('/advs', 'Adv@getByUser' );
+        Route::put('/watch-advs', 'Adv@getWatchByUser' );
     });
 
     Route::get('/news/{type}', 'News@getLastNews' );

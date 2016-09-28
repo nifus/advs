@@ -25,8 +25,8 @@
             controller: 'myController',
         }).state('my-watch-list', {
             url: '/my-watch-list',
-            templateUrl: 'apps/privateApp/dashboard/dashboard.html',
-            controller: 'dashboardController',
+            templateUrl: 'apps/privateApp/adv/myWatchList.html',
+            controller: 'myWatchListController',
         }).state('my-settings', {
             url: '/my-settings',
             templateUrl: 'apps/privateApp/dashboard/dashboard.html',

@@ -13,12 +13,14 @@ class AdvSeeder extends Seeder
      */
     public function run()
     {
+
         $faker = \Faker\Factory::create();
         $faker->addProvider(new \Faker\Provider\Lorem($faker));
         $faker->addProvider(new \Faker\Provider\DateTime($faker));
         $users = User::getUserIds();
         $images =  array_diff( scandir( public_path('uploads/adv') ), array('..', '.','.gitignore'));
         \DB::table('advs')->truncate();
+        \DB::table('advs_fav')->truncate();
 
         for( $i=0;$i<1000;$i++){
             Adv::create([
@@ -42,6 +44,12 @@ class AdvSeeder extends Seeder
                 'status' => $faker->randomElement(['payment_waiting','active','disabled','expired','blocked']),
                 'type'=>$faker->randomElement(['rent','sell']),
             ]);
+        }
+        for( $i=1;$i<100;$i++) {
+            \DB::table('advs_fav')->insert([
+                    ['user_id' => 1, 'adv_id' => $i],
+                ]
+            );
         }
     }
 }

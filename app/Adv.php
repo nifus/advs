@@ -62,4 +62,6 @@ class Adv extends Model
     static function getByUser($user_id){
         return self::where('user_id', $user_id)->get();
     }
+
+
 }
