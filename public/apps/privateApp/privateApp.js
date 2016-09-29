@@ -31,12 +31,16 @@
             url: '/my-settings',
             templateUrl: 'apps/privateApp/dashboard/dashboard.html',
             controller: 'dashboardController',
+        }).state('adv', {
+            url: '/adv/:id',
+            templateUrl: 'apps/privateApp/dashboard/dashboard.html',
+            controller: 'dashboardController',
         })
 
     }).filter('limitFromTo', function(){
         return function(input, from, to){
-            console.log(from)
-            return (input != undefined)? input.splice(from, to) : '';
+            //console.log(input)
+            return (input != undefined)? input.slice(from, to) : '';
         }
     });
 

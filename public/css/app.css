@@ -222,3 +222,11 @@ table.adv tr.payment_waiting :last-child{
     width: 100%!important;
     text-align: center!important;
 }
+
+#watch div.thumbnail{
+    height:370px
+}
+
+#watch div.adv{
+    margin-bottom: 5px
+}

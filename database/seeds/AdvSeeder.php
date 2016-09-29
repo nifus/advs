@@ -22,7 +22,7 @@ class AdvSeeder extends Seeder
         \DB::table('advs')->truncate();
         \DB::table('advs_fav')->truncate();
 
-        for( $i=0;$i<1000;$i++){
+        for( $i=0;$i<200;$i++){
             Adv::create([
                 'title'=>$faker->sentence,
                 'desc'=>$faker->text,

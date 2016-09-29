@@ -31,6 +31,8 @@
                 <select ng-model="env.order" style="float:right;width:300px" class="form-control">
                     <option value="price_up">Price upward</option>
                     <option value="price_down">Price downward</option>
+                    <option value="created_up">Created upward</option>
+                    <option value="created_down">Created downward</option>
                 </select>
 
                 <h3 class="panel-title"  style="float:left">My Advertisements</h3>
@@ -71,13 +73,13 @@
 
                 <div ng-show="env.filters.type!='sell'">
                 <h4>Renting</h4>
-                <div class="row" ng-repeat="adv in env.advs|filter:{type:'rent'}">
+                <div class="row" ng-repeat="adv in env.advs.rent">
                     <div class="col-md-11">
                         <table class="table adv">
                             <tr>
-                                <td rowspan="4" style="width: 200px"><img style="width:200px;" ng-src="{{adv.photos[0]}}"  alt=""></td>
-                                <td colspan="4"  style="background-color:lightblue;height:40px">{{adv.title}}</td>
-                                <td  colspan="2" style="background-color: lightblue;" class="text-right">{{adv.total_rent}} €</td>
+                                <td rowspan="4" style="width: 200px"><a ui-sref="adv({id:adv.id})"><img style="width:200px;" ng-src="{{adv.photos[0]}}"  alt=""></a></td>
+                                <td colspan="4"  style="background-color:lightblue;height:40px"><a ui-sref="adv({id:adv.id})">{{adv.title}}</a></td>
+                                <td  colspan="2" style="background-color: lightblue;" class="text-right">{{adv.total_rent| currency:"€"}}</td>
                             </tr>
                             <tr>
                                 <td class="text-left"  style="width: 15%">Area:</td>
@@ -129,13 +131,13 @@
                 <div ng-show="env.filters.type!='rent'">
 
                 <h4>Selling</h4>
-                <div class="row" ng-repeat="adv in env.advs|filter:{type:'sell'}">
+                <div class="row" ng-repeat="adv in env.advs.sell">
                     <div class="col-md-11">
                         <table class="table adv">
                             <tr>
                                 <td rowspan="4" style="width: 200px"><img style="width:200px;" ng-src="{{adv.photos[0]}}"  alt=""></td>
                                 <td colspan="4"  style="background-color:lightblue;height:40px">{{adv.title}}</td>
-                                <td  colspan="2" style="background-color: lightblue;" class="text-right">{{adv.total_rent}} €</td>
+                                <td  colspan="2" style="background-color: lightblue;" class="text-right">{{adv.total_rent| currency:"€"}} </td>
                             </tr>
                             <tr>
                                 <td class="text-left"  style="width: 15%">Area:</td>

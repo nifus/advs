@@ -31,6 +31,8 @@
                 <select ng-model="env.order" style="float:right;width:300px" class="form-control">
                     <option value="price_up">Price upward</option>
                     <option value="price_down">Price downward</option>
+                    <option value="created_up">Created upward</option>
+                    <option value="created_down">Created downward</option>
                 </select>
 
                 <h3 class="panel-title"  style="float:left">My Watchlist</h3>
@@ -49,13 +51,13 @@
 
                         <div class="col-md-2">
                             <label class="radio-inline">
-                                <input type="radio"   ng-model="env.filters.type" value="rent"> Renting
+                                <input ng-disabled="env.advs.rent.length==0" type="radio"   ng-model="env.filters.type" value="rent"> Renting
                             </label>
                         </div>
 
                         <div class="col-md-2">
                             <label class="radio-inline">
-                                <input type="radio"  ng-model="env.filters.type" value="sell"> Selling
+                                <input ng-disabled="env.advs.sell.length==0" type="radio"  ng-model="env.filters.type" value="sell"> Selling
                             </label>
                         </div>
 
@@ -68,13 +70,14 @@
 
 
 
-                <div ng-show="env.filters.type!='sell'">
+                <div ng-show="env.filters.type!='sell'  && env.advs.rent.length>0">
                     <h4>Renting</h4>
+
                     <div class="row" >
-                        <div class="col-sm-5 col-md-3" style="height: 370px" ng-repeat="adv in env.advs|filter:{type:'rent'}|limitFromTo:((env.current_rent*8)-8):8">
+                        <div class="col-sm-5 col-md-3 adv"  ng-repeat="adv in env.advs.rent|limitFromTo:((env.current_rent*8)-8):(env.current_rent*8)">
                             <div class="thumbnail">
-                                <h3><a href="">{{adv.title}}</a></h3>
-                                <a href=""><img  ng-src="{{adv.photos[0]}}"  alt=""></a>
+                                <h3><a ui-sref="adv({id:adv.id})">{{adv.title}}</a></h3>
+                                <a ui-sref="adv({id:adv.id})"><img  ng-src="{{adv.photos[0]}}"  alt=""></a>
                                 <div class="caption">
                                     <table>
                                         <tr>
@@ -105,10 +108,10 @@
 
 
                     </div>
-                    <div style="text-align: center">
+                    <div style="text-align: center" ng-show="env.advs.rent.length>8">
                         <pagination
                                 items-per-page="8"
-                                total-items="env.advs.length"
+                                total-items="env.advs.rent.length"
                                 ng-model="env.current_rent"
                                 max-size="10"
                                 boundary-links="true">
@@ -117,11 +120,11 @@
 
                 </div>
 
-                <div ng-show="env.filters.type!='rent'">
+                <div ng-show="env.filters.type!='rent' && env.advs.sell.length>0">
 
                     <h4>Selling</h4>
                     <div class="row">
-                        <div class="col-sm-5 col-md-3" style="height: 370px" ng-repeat="adv in env.advs|filter:{type:'sell'}|limitFromTo:((env.current_sell*8)-8):8">
+                        <div class="col-sm-5 col-md-3"  ng-repeat="adv in env.advs.sell|limitFromTo:((env.current_sell*8)-8):(env.current_sell*8)">
                             <div class="thumbnail">
                                 <h3><a href="">{{adv.title}}</a></h3>
                                 <a href=""><img  ng-src="{{adv.photos[0]}}"  alt=""></a>
@@ -150,16 +153,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="text-align: center">
+                        <div style="text-align: center" ng-show="env.advs.sell.length>8">
                             <pagination
                                     items-per-page="8"
-                                    total-items="env.advs.length"
+                                    total-items="env.advs.sell.length"
                                     ng-model="env.current_sell"
                                     max-size="10"
                                     boundary-links="true">
                             </pagination>
                         </div>
                     </div>
+                </div>
+
+                <div ng-show="env.advs.rent.length==0 && env.advs.sell.length==0">
+                    You watch-list is empty
                 </div>
 
             </div>
