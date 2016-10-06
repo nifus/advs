@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','surname','sex','group_id','is_activated','activate_key','is_approved','company','contact_email','giro_account','payment_type','paypal_email','phone','tariff','website','commercial_country' ,'commercial_id','commercial_additional','address_additional','address_city','address_number','address_street','address_zip'
+        'name', 'email', 'password','surname','sex','group_id','is_activated','activate_key','is_approved','company','contact_email','giro_account','payment_type','paypal_email','phone','tariff','website','commercial_country' ,'commercial_id','commercial_additional','address_additional','address_city','address_number','address_street','address_zip','allow_notifications'
     ];
 
     /**
@@ -63,6 +63,53 @@ class User extends Authenticatable
 
     public function getWatch(){
         return $this->with('Fav')->get();
+    }
+
+    public function changeEmail($email, $re_email){
+        $data = [
+            'email'=>$email,
+            're_email'=>$re_email,
+        ];
+        $validator = [
+            'email' => 'required|email|min:6|unique:users,email',
+            're_email' => 'required|min:6|same:email'
+        ];
+        $validator = \Validator::make($data, $validator);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new \Exception($messages->first());
+        }
+
+        $this->update(['email'=>$email]);
+    }
+
+    public function changePassword($current, $new, $re){
+        $data = [
+            'current'=>$current,
+            'new'=>$new,
+            're'=>$re,
+        ];
+        $validator = [
+            'current' => 'required|min:6',
+            'new' => 'required|min:6',
+            're' => 'required|min:6|same:new'
+        ];
+        $validator = \Validator::make($data, $validator);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new \Exception($messages->first());
+        }
+
+        if ( !\Hash::check($current, $this->password) ){
+            throw new \Exception('Wrong Current password');
+        }
+
+
+        $this->update(['password'=>$new]);
+    }
+
+    public function changeAllowNotifications($value){
+        $this->update(['allow_notifications'=>$value]);
     }
 
     static function createPrivateAccount($data){

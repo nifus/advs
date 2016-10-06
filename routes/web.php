@@ -63,6 +63,10 @@ Route::group(['prefix'=>'api'], function () {
         Route::get('/get-auth', 'UserController@getAuth' );
         Route::post('/authenticate', 'UserController@authenticate' );
         Route::post('/forgot-password', 'UserController@forgotPassword' );
+        Route::put('/change-email', 'UserController@changeEmail' );
+        Route::put('/change-password', 'UserController@changePassword' );
+        Route::put('/allow-notifications', 'UserController@allowNotifications' );
+
 
         Route::post('/private-account', 'UserController@createPrivateAccount' );
         Route::post('/business-account', 'UserController@createBusinessAccount' );

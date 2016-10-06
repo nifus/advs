@@ -76,8 +76,6 @@
                                    required >
 
                             <p class="help-block">{{ trans('main.register_company_address_related_vat') }}</p>
-
-
                         </div>
                     </div>
 

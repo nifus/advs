@@ -32,6 +32,17 @@
                 })
             };
 
+            Object.changeEmail = function(data){
+                return $http.put('/api/user/change-email',data)
+            };
+
+            Object.changePassword = function(data){
+                return $http.put('/api/user/change-password',data)
+            };
+            Object.changeAllowNotifications = function(data){
+                return $http.put('/api/user/allow-notifications',{allow_notifications:data})
+            };
+
             Object.getAdvs = advFactory.getByUser;
             Object.getMyWatchAdvs = advFactory.getWatchByUser;
 

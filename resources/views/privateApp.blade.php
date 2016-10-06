@@ -11,6 +11,11 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="/css/app.css" rel="stylesheet" type="text/css">
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/components/alertify.js/themes/alertify.bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/components/alertify.js/themes/alertify.core.css" rel="stylesheet" type="text/css">
+
+
+
     <script src="/components/angular/angular.min.js"></script>
     <script src="/components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="/components/jquery/dist/jquery.min.js"></script>
@@ -22,6 +27,8 @@
     <script src="/components/satellizer/dist/satellizer.min.js"></script>
     <script src="/components/moment/min/moment.min.js"></script>
     <script src="/components/angular-bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <script src="/components/angular-validation-match/dist/angular-validation-match.min.js"></script>
+    <script src="/components/alertify.js/lib/alertify.min.js"></script>
 
     <script src="/apps/core/core.js"></script>
     <script src="/apps/core/cacheService.js"></script>
@@ -43,6 +50,7 @@
     <script src="/apps/privateApp/adv/myController.js"></script>
 
     <script src="/apps/privateApp/adv/myWatchListController.js"></script>
+    <script src="/apps/privateApp/settings/settingsController.js"></script>
 
 
 

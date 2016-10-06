@@ -1,13 +1,13 @@
 (function (angular) {
     'use strict';
-    angular.module('privateApp', ['core','satellizer','ngCookies','ui.router','ui.bootstrap']).config(function ($stateProvider, $urlRouterProvider) {
+    angular.module('privateApp', ['core', 'satellizer', 'ngCookies', 'ui.router', 'ui.bootstrap', 'validation.match']).config(function ($stateProvider, $urlRouterProvider) {
 
         /*var refer = window.location.href;
-        if ( refer.indexOf('pr64-coworking')==-1 ){
-            window.server = 'http://coworking.ru/';
-        }else{
-            window.server = '/';
-        }*/
+         if ( refer.indexOf('pr64-coworking')==-1 ){
+         window.server = 'http://coworking.ru/';
+         }else{
+         window.server = '/';
+         }*/
 
         $urlRouterProvider.otherwise('/dashboard');
 
@@ -29,21 +29,20 @@
             controller: 'myWatchListController',
         }).state('my-settings', {
             url: '/my-settings',
-            templateUrl: 'apps/privateApp/dashboard/dashboard.html',
-            controller: 'dashboardController',
+            templateUrl: 'apps/privateApp/settings/settings.html',
+            controller: 'settingsController',
         }).state('adv', {
             url: '/adv/:id',
             templateUrl: 'apps/privateApp/dashboard/dashboard.html',
             controller: 'dashboardController',
         })
 
-    }).filter('limitFromTo', function(){
-        return function(input, from, to){
+    }).filter('limitFromTo', function () {
+        return function (input, from, to) {
             //console.log(input)
-            return (input != undefined)? input.slice(from, to) : '';
+            return (input != undefined) ? input.slice(from, to) : '';
         }
     });
-
 
 
 })(angular);

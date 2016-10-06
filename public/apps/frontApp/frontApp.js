@@ -5,14 +5,8 @@
         $interpolateProvider.endSymbol('%');
     }).
     config(function ( $authProvider) {
-
-
         // $authProvider.httpInterceptor = false;
         $authProvider.loginUrl = '/api/user/authenticate';
-
-
-
-
 
     });
 
