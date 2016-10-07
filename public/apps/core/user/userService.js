@@ -42,6 +42,12 @@
             Object.changeAllowNotifications = function(data){
                 return $http.put('/api/user/allow-notifications',{allow_notifications:data})
             };
+            Object.deleteAccount = function () {
+                return $http.delete('/api/user')
+            };
+            Object.changePayment = function (data) {
+                return $http.put('/api/user/change-payment',data)
+            };
 
             Object.getAdvs = advFactory.getByUser;
             Object.getMyWatchAdvs = advFactory.getWatchByUser;

@@ -55,6 +55,10 @@ class Adv extends Model
         }
     }
 
+    public function delete(){
+        $this->update(['status'=>'disabled']);
+    }
+
     static function getByUserWithStatus($user_id){
         return self::where('user_id', $user_id)->get(['status','type']);
     }

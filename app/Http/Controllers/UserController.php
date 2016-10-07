@@ -40,6 +40,9 @@ class UserController extends Controller
             if ( is_null($user) ){
                 throw new JWTException( 'Пользователь не найден' );
             }
+            if ($user->isDeletedAccount()){
+                throw new JWTException( 'Пользователь не найден' );
+            }
             $token = JWTAuth::fromUser($user);
         } catch (JWTException $e) {
             return response()->json(['success'=>false,'error' => $e->getMessage()], 500);
@@ -107,11 +110,37 @@ class UserController extends Controller
             return response()->json(['error'=>$error], 500);
         }
     }
+    public function changePayment(Request $request){
+        $data = $request->only(['payment_type','paypal_email','giro_account']);
+        try{
+            $user = User::getUser();
+            $user->changePayment($data);
+            return response()->json(['success'=>true]);
+
+        }catch( \Exception $e ){
+            $error = trans( 'validation.'.$e->getMessage() );
+            return response()->json(['error'=>$error], 500);
+        }
+    }
+
+
     public function changePassword(Request $request){
         $data = $request->only(['current_password','password','re_password']);
         try{
             $user = User::getUser();
             $user->changePassword($data['current_password'], $data['password'], $data['re_password']);
+            return response()->json(['success'=>true]);
+
+        }catch( \Exception $e ){
+            $error = trans( 'validation.'.$e->getMessage() );
+            return response()->json(['error'=>$error], 500);
+        }
+    }
+
+    public function deleteAccount(){
+        try{
+            $user = User::getUser();
+            $user->deleteAccount();
             return response()->json(['success'=>true]);
 
         }catch( \Exception $e ){
@@ -167,10 +196,11 @@ class UserController extends Controller
     {
         try{
             $user = User::getUser();
-            /*if ( $user->is_deleted=='1' ){
+
+            if ( $user->isDeletedAccount() ){
                 JWTAuth::invalidate(JWTAuth::getToken());
                 throw new \Exception('no user');
-            }*/
+            }
             return response()->json($user->toArray()  );
         }catch( \Exception $e ){
             return response()->json( null );

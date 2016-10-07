@@ -14,27 +14,31 @@
         $stateProvider.state('dashboard', {
             url: '/dashboard',
             templateUrl: 'apps/privateApp/dashboard/dashboard.html',
-            controller: 'dashboardController',
+            controller: 'dashboardController'
         }).state('help', {
             url: '/help',
             templateUrl: 'apps/privateApp/dashboard/dashboard.html',
-            controller: 'dashboardController',
+            controller: 'dashboardController'
         }).state('my-adv', {
             url: '/my-adv',
             templateUrl: 'apps/privateApp/adv/my.html',
-            controller: 'myController',
+            controller: 'myController'
         }).state('my-watch-list', {
             url: '/my-watch-list',
             templateUrl: 'apps/privateApp/adv/myWatchList.html',
-            controller: 'myWatchListController',
+            controller: 'myWatchListController'
         }).state('my-settings', {
             url: '/my-settings',
             templateUrl: 'apps/privateApp/settings/settings.html',
-            controller: 'settingsController',
+            controller: 'settingsController'
+        }).state('delete-account', {
+            url: '/delete-account',
+            templateUrl: 'apps/privateApp/deleteAccount/deleteAccount.html',
+            controller: 'deleteAccountController'
         }).state('adv', {
             url: '/adv/:id',
             templateUrl: 'apps/privateApp/dashboard/dashboard.html',
-            controller: 'dashboardController',
+            controller: 'dashboardController'
         })
 
     }).filter('limitFromTo', function () {

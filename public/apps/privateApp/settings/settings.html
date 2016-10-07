@@ -4,7 +4,8 @@
 </ol>
 
 <div class="progress" ng-show="env.loading==true">
-    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+         aria-valuemax="100" style="width: 100%">
         <span class="sr-only">45% Complete</span>
     </div>
 </div>
@@ -20,26 +21,32 @@
                 <div class="panel-body">
 
                     <form class="form-horizontal" name="email">
-                        <div class="alert alert-danger" role="alert" ng-show="(email.email.$error.match==true ||email_form.error!=undefined) ">
+                        <div class="alert alert-danger" role="alert"
+                             ng-show="(email.email.$error.match==true ||email_form.error!=undefined) ">
                             {{ email.email.$error.match==true ? 'New email must be different from the previous' : ''}}
                         </div>
 
                         <div class="form-group">
-                            <label  class="col-sm-4 control-label">Current email address</label>
+                            <label class="col-sm-4 control-label">Current email address</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" disabled ng-model="user.email" placeholder="Email">
+                                <input type="text" class="form-control" disabled ng-model="user.email"
+                                       placeholder="Email">
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': email.email.$invalid && email_form.submit==true }">
-                            <label  class="col-sm-4 control-label">New email address</label>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': email.email.$invalid && email_form.submit==true }">
+                            <label class="col-sm-4 control-label">New email address</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" placeholder="Email" name="email" ng-model="email_form.email" required match="user.email" not-match="true" >
+                                <input type="email" class="form-control" placeholder="Email" name="email"
+                                       ng-model="email_form.email" required match="user.email" not-match="true">
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': email.re_email.$invalid && email_form.submit==true }">
-                            <label  class="col-sm-4 control-label">Repeat new email address</label>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': email.re_email.$invalid && email_form.submit==true }">
+                            <label class="col-sm-4 control-label">Repeat new email address</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" placeholder="Email" name="re_email"  ng-model="email_form.re_email" required match="email_form.email">
+                                <input type="email" class="form-control" placeholder="Email" name="re_email"
+                                       ng-model="email_form.re_email" required match="email_form.email">
                             </div>
 
                         </div>
@@ -48,7 +55,8 @@
                             <div class="col-sm-offset-2 col-sm-10 text-right">
                                 <button type="button"
                                         ng-click="changeEmail(email_form)"
-                                         class="btn btn-default">Change email address</button>
+                                        class="btn btn-default">Change email address
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -66,28 +74,36 @@
                         {{password_form.error}}
                     </div>
                     <form class="form-horizontal" name="password">
-                        <div class="form-group" ng-class="{ 'has-error': password.current_password.$invalid && password_form.submit==true }">
-                            <label  class="col-sm-4 control-label">Current password</label>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': password.current_password.$invalid && password_form.submit==true }">
+                            <label class="col-sm-4 control-label">Current password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" name="current_password" ng-model="password_form.current_password" required minlength="6"  >
+                                <input type="password" class="form-control" name="current_password"
+                                       ng-model="password_form.current_password" required minlength="6">
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': password.password.$invalid && password_form.submit==true }">
-                            <label  class="col-sm-4 control-label">New password</label>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': password.password.$invalid && password_form.submit==true }">
+                            <label class="col-sm-4 control-label">New password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" name="password" ng-model="password_form.password" required minlength="6" >
+                                <input type="password" class="form-control" name="password"
+                                       ng-model="password_form.password" required minlength="6">
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': password.re_password.$invalid && password_form.submit==true }">
-                            <label  class="col-sm-4 control-label">Repeat new password</label>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': password.re_password.$invalid && password_form.submit==true }">
+                            <label class="col-sm-4 control-label">Repeat new password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control"  name="re_password" ng-model="password_form.re_password" required match="password_form.password">
+                                <input type="password" class="form-control" name="re_password"
+                                       ng-model="password_form.re_password" required match="password_form.password">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="button"  ng-click="changePassword(password_form)" class="btn btn-default">Change password</button>
+                            <div class="col-sm-offset-2 col-sm-10 text-right">
+                                <button type="button" ng-click="changePassword(password_form)" class="btn btn-default">
+                                    Change password
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -104,13 +120,13 @@
                 <div class="panel-body">
                     <p>If you create a new advertisement, this parameters will taken automatically</p>
 
-                    <form class="form-horizontal" name="register" >
+                    <form class="form-horizontal" name="register">
 
                         <div class="form-group" ng-class="{ 'has-error': register.sex.$invalid && submit==true }">
                             <label class="col-sm-2 control-label">Title</label>
                             <div class="col-sm-10">
                                 <label class="radio-inline">
-                                    <input type="radio" name="sex" ng-model="form.sex"  value="male" required> Mister
+                                    <input type="radio" name="sex" ng-model="form.sex" value="male" required> Mister
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" name="sex" ng-model="form.sex" value="female" required> Miss
@@ -122,7 +138,8 @@
                         <div class="form-group" ng-class="{ 'has-error': register.name.$invalid && submit==true }">
                             <label class="col-sm-2 control-label">Forename</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="form.name" name="name" placeholder="Alexander" required minlength="2">
+                                <input type="text" class="form-control" ng-model="form.name" name="name"
+                                       placeholder="Alexander" required minlength="2">
 
                             </div>
                         </div>
@@ -130,17 +147,19 @@
                         <div class="form-group" ng-class="{ 'has-error': register.surname.$invalid && submit==true }">
                             <label class="col-sm-2 control-label">Surname</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="form.surname" name="surname" placeholder="Pushkin" required  minlength="2">
+                                <input type="text" class="form-control" ng-model="form.surname" name="surname"
+                                       placeholder="Pushkin" required minlength="2">
                             </div>
                         </div>
 
-                        <div class="form-group" ng-class="{ 'has-error': ( (register.autocomplete.$invalid )  && submit==true )  }">
+                        <div class="form-group"
+                             ng-class="{ 'has-error': ( (register.autocomplete.$invalid )  && submit==true )  }">
                             <label class="col-sm-2 control-label">Address</label>
                             <div class="col-sm-10">
 
-                                <input type="text" class="form-control"  name="autocomplete"
-                                       ng-autocomplete ng-model="autocomplete.value"  details="autocomplete.details"
-                                       required >
+                                <input type="text" class="form-control" name="autocomplete"
+                                       ng-autocomplete ng-model="autocomplete.value" details="autocomplete.details"
+                                       required>
 
                             </div>
                         </div>
@@ -150,17 +169,22 @@
                              ng-class="{ 'has-error': (register.zip.$invalid || register.city.$invalid || register.no.$invalid || register.street.$invalid) && submit==true }">
                             <label class="col-sm-2 control-label"></label>
                             <div class="col-sm-10 form-inline">
-                                <input type="text" class="form-control" ng-model="form.address_street" name="street" placeholder="Street" required>
-                                <input type="text" class="form-control" ng-model="form.address_number" name="no" placeholder="Haus No." required>
-                                <input type="text" class="form-control" ng-model="form.address_zip" name="zip" placeholder="Zip" required>
-                                <input type="text" class="form-control" ng-model="form.address_city" name="city" placeholder="City" required>
+                                <input type="text" class="form-control" ng-model="form.address_street" name="street"
+                                       placeholder="Street" required>
+                                <input type="text" class="form-control" ng-model="form.address_number" name="no"
+                                       placeholder="Haus No." required>
+                                <input type="text" class="form-control" ng-model="form.address_zip" name="zip"
+                                       placeholder="Zip" required>
+                                <input type="text" class="form-control" ng-model="form.address_city" name="city"
+                                       placeholder="City" required>
                             </div>
                         </div>
 
-                        <div class="form-group" >
+                        <div class="form-group">
                             <label class="col-sm-2 control-label">Additional address</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="form.address_additional" name="additional" >
+                                <input type="text" class="form-control" ng-model="form.address_additional"
+                                       name="additional">
                             </div>
                         </div>
 
@@ -177,13 +201,13 @@
                         </div>
 
 
-                        <div class="form-group" >
+                        <div class="form-group">
                             <label class="col-sm-2 control-label">Phone number</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="form.phone" name="phone" >
+                                <input type="text" class="form-control" ng-model="form.phone" name="phone">
                             </div>
                         </div>
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -200,9 +224,12 @@
                 <div class="panel-body">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label  class="col-sm-10 control-label" style="text-align: left">Disable information emails <br>(You will not receive information email anymore)</label>
+                            <label class="col-sm-10 control-label" style="text-align: left">Disable information emails
+                                <br>(You will not receive information email anymore)</label>
                             <div class="col-sm-2 checkbox">
-                                <input type="checkbox" ng-model="user.allow_notifications" ng-true_value="0" ng-false_value="1" ng-change="changeAllowNotifications(user.allow_notifications)" >
+                                <input type="checkbox" ng-model="user.allow_notifications" ng-true_value="0"
+                                       ng-false_value="1"
+                                       ng-change="changeAllowNotifications(user.allow_notifications)">
                             </div>
                         </div>
 
@@ -216,58 +243,66 @@
                     <h3 class="panel-title">Method of Payment</h3>
                 </div>
                 <div class="panel-body">
-                    <p>Here you can select your prefered method for payment.
-                        This data will take over when you create or extend your next advertisement.</p>
+                    <form name="payment">
+                        <p>Here you can select your prefered method for payment.
+                            This data will take over when you create or extend your next advertisement.</p>
 
 
+                        <div class="col-sm-10" >
+                            <div class="radio" ng-class="{ 'has-error': ( payment.paypal_email.$invalid && payment_form.submit==true) }">
+                                <label>
+                                    <input type="radio" value="paypal" ng-model="payment_form.payment_type">
+                                    PayPal <br> (you will be forwarded to PayPal by clicking on „Next“)
+                                </label>
 
-                    <div class="col-sm-10">
-
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="paypal" ng-model="form.payment_type">
-                                PayPal <br> (you will be forwarded to PayPal by clicking on „Next“)
-                            </label>
-
-                            <div class="form-inline">
-                                <label class="col-sm-3 ">PayPal email </label>
-                                <div class="col-sm-9">
-                                    <input type="email" class="form-control" ng-model="form.paypal_email"  ng-disabled="form.payment_type!='paypal'"  ng-required="form.payment_type=='paypal'">
+                                <div class="form-inline">
+                                    <label class="col-sm-3 ">PayPal email </label>
+                                    <div class="col-sm-9">
+                                        <input type="email" name="paypal_email" class="form-control" ng-model="payment_form.paypal_email"
+                                               ng-disabled="payment_form.payment_type!='paypal'"
+                                               ng-required="payment_form.payment_type=='paypal'">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <br>
-                        <br>
+                            <br>
+                            <br>
+                            <div class="radio" ng-class="{ 'has-error': ( payment.giro_account.$invalid && payment_form.submit==true) }">
+                                <label>
+                                    <input type="radio" value="giropay" ng-model="payment_form.payment_type">
+                                    GiroPay <br> (you will be forwarded to your Bank)
+                                </label>
 
+                                <div class="form-inline">
+                                    <label class="col-sm-3">BIC</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="giro_account" class="form-control" ng-model="payment_form.giro_account"
+                                               ng-disabled="payment_form.payment_type!='giropay'"
+                                               ng-required="payment_form.payment_type=='giropay'">
 
-                        <div class="radio">
-                            <label>
-                                <input type="radio"  value="giropay" ng-model="form.payment_type">
-                                GiroPay <br> (you will be forwarded to your Bank)
-                            </label>
-
-                            <div class="form-inline">
-                                <label class="col-sm-3">BIC</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="form.giro_account"  ng-disabled="form.payment_type!='giropay'" ng-required="form.payment_type=='giropay'" >
-
+                                    </div>
                                 </div>
                             </div>
+
+                            <br>
+                            <br>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="prepayment" ng-model="payment_form.payment_type">
+                                    Prepayment
+                                </label>
+                            </div>
+
+
                         </div>
-
-                        <br>
-                        <br>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="prepayment" ng-model="form.payment_type">
-                                Prepayment
-                            </label>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10 text-right">
+                                <button type="button" ng-disabled="payment_form.submit" ng-click="changePayment(payment_form)" class="btn btn-default">
+                                    Save
+                                </button>
+                            </div>
                         </div>
-                    </div>
-
-
-
+                    </form>
 
                 </div>
             </div>
@@ -277,8 +312,6 @@
     </div>
 
 
-
-
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -286,7 +319,9 @@
             </div>
             <div class="panel-body">
                 <div class="col-md-6 text-left">I want to delete my account</div>
-                <div class="col-md-6 text-right"><button type="button" class="btn btn-primary">Next</button></div>
+                <div class="col-md-6 text-right">
+                    <button type="button" class="btn btn-primary" ng-click="deleteAccount()">Next</button>
+                </div>
             </div>
         </div>
     </div>

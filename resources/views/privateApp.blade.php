@@ -51,6 +51,7 @@
 
     <script src="/apps/privateApp/adv/myWatchListController.js"></script>
     <script src="/apps/privateApp/settings/settingsController.js"></script>
+    <script src="/apps/privateApp/deleteAccount/deleteAccountController.js"></script>
 
 
 

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','surname','sex','group_id','is_activated','activate_key','is_approved','company','contact_email','giro_account','payment_type','paypal_email','phone','tariff','website','commercial_country' ,'commercial_id','commercial_additional','address_additional','address_city','address_number','address_street','address_zip','allow_notifications'
+        'name', 'email', 'password','surname','sex','group_id','is_activated','activate_key','is_approved','company','contact_email','giro_account','payment_type','paypal_email','phone','tariff','website','commercial_country' ,'commercial_id','commercial_additional','address_additional','address_city','address_number','address_street','address_zip','allow_notifications','is_deleted'
     ];
 
     /**
@@ -37,12 +37,18 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Adv', 'advs_fav', 'user_id','adv_id');
     }
+    public function Adv()
+    {
+        return $this->hasMany('App\Adv');
+    }
 
     public function setPasswordAttribute($value){
         $this->attributes['password'] = \Hash::make($value);
     }
 
-
+    public function isDeletedAccount(){
+        return $this->attributes['is_deleted']==1 ? true : false;
+    }
     public function activate($key){
 
         if ($this->is_activated==1){
@@ -108,8 +114,21 @@ class User extends Authenticatable
         $this->update(['password'=>$new]);
     }
 
+    public function deleteAccount(){
+        $this->update(['is_deleted'=>1]);
+
+        $advs = $this->Adv()->get();
+        foreach($advs as $adv){
+            $adv->delete();
+        }
+    }
+
     public function changeAllowNotifications($value){
         $this->update(['allow_notifications'=>$value]);
+    }
+
+    public function changePayment($data){
+        $this->update($data);
     }
 
     static function createPrivateAccount($data){
