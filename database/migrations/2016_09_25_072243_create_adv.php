@@ -38,6 +38,7 @@ class CreateAdv extends Migration
             $table->string('number_of_garage')->nullable();
             $table->enum('pets',['agreement'])->default('agreement');
             $table->date('move_date')->nullable();
+            $table->enum('is_deleted',['0','1'])->default('0');
 
 
             $table->longText('desc')->nullable();

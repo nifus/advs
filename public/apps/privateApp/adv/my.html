@@ -96,7 +96,13 @@
                             </tr>
                             <tr class="{{adv.status}}">
                                 <td class="text-center">{{adv.StatusStr}}</td>
-                                <td colspan="6">This advert will be automatic activated when the payment process is finished.</td>
+                                <td colspan="6">
+                                    {{adv.status=='blocked' ? 'This advert is BLOCKED. Please react on this advert otherwise it will be automatically deleted.' : ''}}
+                                    {{adv.status=='active' ? 'This advert is active. It can be found and watched by everyone.' : ''}}
+                                    {{adv.status=='payment_waiting' ? 'This advert is active. It can be found and watched by everyone.' : ''}}
+                                    {{adv.status=='disabled' ? 'You have disabled this advert. It can NOT be found and watched by everyone.' : ''}}
+                                    {{adv.status=='expired' ? 'This advert is expired. If you don‘t reactivate it, it will be automatically deleted.' : ''}}
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -106,11 +112,14 @@
                                 Action <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Edit</a></li>
-                                <li><a href="#">Extend</a></li>
-                                <li><a href="#">Disable</a></li>
-                                <li><a href="#">Delete</a></li>
-                                <li><a href="#">React</a></li>
+                                <li><a class="link" ng-click="editAdv(adv)">Edit</a></li>
+                                <li><a class="link" ng-click="extendAdv(adv)" ng-show="adv.status=='expired'">Extend</a></li>
+
+                                <li><a class="link" ng-click="disableAdv(adv)"  ng-show="(adv.status!='disabled' && adv.status!='blocked' && adv.status!='expired')">Disable</a></li>
+                                <li><a class="link" ng-click="enableAdv(adv)"  ng-show="adv.status=='disabled' ">Enable</a></li>
+
+                                <li><a class="link" ng-click="deleteAdv(adv)" >Delete</a></li>
+                                <li><a class="link" ng-click="editAdv(adv)" ng-show="adv.status=='blocked'">React</a></li>
                             </ul>
                         </div>
                     </div>
@@ -154,7 +163,13 @@
                             </tr>
                             <tr class="{{adv.status}}">
                                 <td class="text-center">{{adv.StatusStr}}</td>
-                                <td colspan="6">This advert will be automatic activated when the payment process is finished.</td>
+                                <td colspan="6">
+                                    {{adv.status=='blocked' ? 'This advert is BLOCKED. Please react on this advert otherwise it will be automatically deleted.' : ''}}
+                                    {{adv.status=='active' ? 'This advert is active. It can be found and watched by everyone.' : ''}}
+                                    {{adv.status=='payment_waiting' ? 'This advert is active. It can be found and watched by everyone.' : ''}}
+                                    {{adv.status=='disabled' ? 'You have disabled this advert. It can NOT be found and watched by everyone.' : ''}}
+                                    {{adv.status=='expired' ? 'This advert is expired. If you don‘t reactivate it, it will be automatically deleted.' : ''}}
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -164,11 +179,14 @@
                                 Action <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Edit</a></li>
-                                <li><a href="#">Extend</a></li>
-                                <li><a href="#">Disable</a></li>
-                                <li><a href="#">Delete</a></li>
-                                <li><a href="#">React</a></li>
+                                <li><a class="link" ng-click="editAdv(adv)">Edit</a></li>
+                                <li><a class="link" ng-click="extendAdv(adv)" ng-show="adv.status=='expired'">Extend</a></li>
+
+                                <li><a class="link" ng-click="disableAdv(adv)"  ng-show="(adv.status!='disabled' && adv.status!='blocked' && adv.status!='expired')">Disable</a></li>
+                                <li><a class="link" ng-click="enableAdv(adv)"  ng-show="adv.status=='disabled' ">Enable</a></li>
+
+                                <li><a class="link" ng-click="deleteAdv(adv)" >Delete</a></li>
+                                <li><a class="link" ng-click="editAdv(adv)" ng-show="adv.status=='blocked'">React</a></li>
                             </ul>
                         </div>
                     </div>

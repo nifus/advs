@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Adv extends Model
 {
     protected $fillable = [
-        'title','desc','created_at','type','updated_at','total_rent','cold_rent','ancillary_cost','heating_cost','caution_money','user_id','status','photos','visited','favorite','area','rooms','floor','floors','address_id','living_area','number_of_garage','pets','move_date'
+        'title','desc','created_at','type','updated_at','total_rent','cold_rent','ancillary_cost','heating_cost','caution_money','user_id','status','photos','visited','favorite','area','rooms','floor','floors','address_id','living_area','number_of_garage','pets','move_date','is_deleted'
     ];
 
     function toArray(){
@@ -21,7 +21,9 @@ class Adv extends Model
         return $array;
     }
 
-
+    public function changeStatus($status){
+        $this->update(['status'=>$status]);
+    }
 
     public function getPhotosAttribute(){
         if ( is_null($this->attributes['photos'])){
@@ -56,19 +58,42 @@ class Adv extends Model
     }
 
     public function delete(){
+        $this->update(['is_deleted'=>'1']);
+    }
+
+    public function disable(){
         $this->update(['status'=>'disabled']);
     }
 
+    public function enable(){
+        $this->update(['status'=>'enable']);
+    }
+
+    public function isOwner($user_id){
+        if ( $this->user_id!=$user_id ){
+            return false;
+        }
+        return true;
+    }
+
     static function getByUserWithStatus($user_id){
-        return self::where('user_id', $user_id)->get(['status','type']);
+        return self::where('user_id', $user_id)->where('is_deleted','0')->get(['status','type']);
     }
 
     static function getByUser($user_id){
-        return self::where('user_id', $user_id)->get();
+        return self::where('user_id', $user_id)->where('is_deleted','0')->get();
     }
 
     static function removeWatch($user_id, $adv_id){
         \DB::table('advs_fav')->where('user_id', $user_id)->where('adv_id', $adv_id)->delete();
+    }
+
+    static function findOrDie($id){
+        $adv = self::find($id);
+        if( is_null($adv) ){
+            throw new \Exception('Adv not found');
+        }
+        return $adv;
     }
 
 }

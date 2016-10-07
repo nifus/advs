@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Adv as AdvModel;
 use App\User as UserModel;
+use League\Flysystem\Exception;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Adv extends Controller
 {
@@ -29,6 +31,48 @@ class Adv extends Controller
         return response()->json(['success'=>true]);
     }
 
+    function delete($adv_id){
+        try{
+            $user = UserModel::getUser();
+            if( is_null($user) ){
+                abort(403,'Access Error');
+                //return response()->json(null,403);
+            }
+            $adv = AdvModel::findOrDie($adv_id);
+            if (!$adv->isOwner($user->id)){
+                abort(403,'Access Error');
+               // return response()->json(null,403);
+            }
+
+            $adv->delete();
+            return response()->json(['success'=>true]);
+        }catch ( \Exception $e ){
+            return response()->json($e->getMessage(),500);
+        }
+
+    }
+
+    function changeStatus($adv_id, Request $request){
+        try{
+            $status = $request->get('status');
+            $user = UserModel::getUser();
+            if( is_null($user) ){
+                abort(403,'Access Error');
+                //return response()->json(null,403);
+            }
+            $adv = AdvModel::findOrDie($adv_id);
+            if (!$adv->isOwner($user->id)){
+                abort(403,'Access Error');
+               // return response()->json(null,403);
+            }
+
+            $adv->changeStatus($status);
+            return response()->json(['success'=>true]);
+        }catch ( \Exception $e ){
+            return response()->json($e->getMessage(),500);
+        }
+
+    }
 
 
 

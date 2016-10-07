@@ -22,7 +22,7 @@ class AdvSeeder extends Seeder
         \DB::table('advs')->truncate();
         \DB::table('advs_fav')->truncate();
 
-        for( $i=0;$i<200;$i++){
+        for( $i=0;$i<20;$i++){
             Adv::create([
                 'title'=>$faker->sentence,
                 'desc'=>$faker->text,
@@ -45,6 +45,7 @@ class AdvSeeder extends Seeder
                 'type'=>$faker->randomElement(['rent','sell']),
             ]);
         }
+
         for( $i=1;$i<100;$i++) {
             \DB::table('advs_fav')->insert([
                     ['user_id' => 1, 'adv_id' => $i],

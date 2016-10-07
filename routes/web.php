@@ -74,7 +74,13 @@ Route::group(['prefix'=>'api'], function () {
         Route::post('/private-account', 'UserController@createPrivateAccount' );
         Route::post('/business-account', 'UserController@createBusinessAccount' );
         Route::get('/adv-stat', 'Adv@getStat' );
-        Route::put('/advs', 'Adv@getByUser' );
+
+        Route::group(['prefix'=>'advs'], function () {
+            Route::put('/', 'Adv@getByUser' );
+            Route::delete('{id}', 'Adv@delete' );
+            Route::put('{id}/status', 'Adv@changeStatus' );
+
+        });
         Route::put('/watch-advs', 'Adv@getWatchByUser' );
         Route::delete('/watch-advs/{id}', 'Adv@removeWatch' );
     });

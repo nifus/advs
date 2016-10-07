@@ -166,13 +166,13 @@ table.adv tr.expired :last-child{
 }
 
 table.adv tr.disabled :first-child{
-    background-color:darkgreen;
+    background-color:orange;
     color: white;
     text-transform: uppercase;
 }
 
 table.adv tr.disabled :last-child{
-    color:darkgreen;
+    color:orange;
 }
 
 

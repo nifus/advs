@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="/css/app.css" rel="stylesheet" type="text/css">
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/components/alertify.js/themes/alertify.bootstrap.css" rel="stylesheet" type="text/css">
     <link href="/components/alertify.js/themes/alertify.core.css" rel="stylesheet" type="text/css">
+    <link href="/components/alertify.js/themes/alertify.default.css" rel="stylesheet" type="text/css">
 
 
 
