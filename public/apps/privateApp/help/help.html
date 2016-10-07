@@ -1,0 +1,60 @@
+<ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active">Help</li>
+</ol>
+
+<div class="progress" ng-show="env.loading==true">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+         aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">45% Complete</span>
+    </div>
+</div>
+
+<div class="row" ng-show="env.loading==false">
+    <div class="col-md-3">
+        <left-menu></left-menu>
+    </div>
+    <div class="col-md-9">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Instruction</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>So I create a new advertisement.</p>
+                        <p>So I edit my own advertisement</p>
+                        <p>So I delete my own advertisement</p>
+                        <p>So I extend the duration of my advertisement</p>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Contact</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>If you have questions or problems you can contact us via email under:</p>
+                        <p>Email: <a href="emailto:adsadsad@dfsdf.ru">adsadsad@dfsdf.ru</a></p>
+                        <p>(Reachable from monday – friday from 10 o‘clock – 15 o‘clock)</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">FAQ‘s</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>What is an advertisement and what is an advertisement type?</p>
+                        <p>Why my advertisement is blocked?</p>
+                        <p>Who has reported my advertisement?</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

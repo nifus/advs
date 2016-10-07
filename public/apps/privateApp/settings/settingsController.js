@@ -21,14 +21,26 @@
             submit: false,
             payment_type: null
         };
+        $scope.contact_form = {
+            submit: false,
+        };
+        $scope.autocomplete = {};
 
+        $scope.$watch('autocomplete', function(value){
+            if (value.details && value.details.address_components.length==7){
+                $scope.contact_form.address_street = value.details.address_components[1].short_name;
+                $scope.contact_form.address_number = value.details.address_components[0].short_name;
+                $scope.contact_form.address_zip = value.details.address_components[6].short_name;
+                $scope.contact_form.address_city = value.details.vicinity;
+            }
+        },true);
 
         function initPage(deferred) {
             $scope.user = $scope.$parent.env.user;
 
-            $scope.payment_form.payment_type = $scope.user.payment_type;
-            $scope.payment_form.paypal_email = $scope.user.paypal_email;
-            $scope.payment_form.giro_account = $scope.user.giro_account;
+            $scope.payment_form = $scope.user;
+            $scope.contact_form = $scope.user;
+
             $q.all([]).then(function () {
                 $scope.env.loading = false;
             });
@@ -48,6 +60,21 @@
                     $scope.user.email = data.email;
                     $scope.email_form = {submit: false};
                     alertify.success("Email changed");
+                }).error(function (response) {
+                    data.error = response.error;
+                })
+            }
+        };
+        $scope.changeContactData = function(data){
+            data.submit = true;
+            data.error = undefined;
+            if (!$scope.contact.$invalid) {
+                $scope.user.changeContactData(data).success(function () {
+
+                    //$scope.user.email = data.email;
+                    $scope.contact_form.submit = false;
+                    $scope.contact_form.error = undefined;
+                    alertify.success("Contact Data Changed");
                 }).error(function (response) {
                     data.error = response.error;
                 })

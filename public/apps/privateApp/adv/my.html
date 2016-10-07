@@ -10,20 +10,9 @@
 </div>
 
 <div class="row" ng-show="env.loading==false">
-    <div class="col-md-3">
-        <div class="list-group">
-            <a ui-sref="dashboard" ui-sref-active="active" class="list-group-item">
-                Private Account <br>
-                {{user.email}}
-            </a>
-            <a ui-sref="my-adv" ui-sref-active="active" class="list-group-item">My advertisements</a>
-            <a ui-sref="my-watch-list" ui-sref-active="active" class="list-group-item">My watchlist</a>
-            <a ui-sref="my-settings" ui-sref-active="active"  class="list-group-item">My settings</a>
-            <a ui-sref="help" ui-sref-active="active" class="list-group-item">Help</a>
+        <div class="col-md-3">
+            <left-menu></left-menu>
         </div>
-
-        <div class="adv">ADV</div>
-    </div>
 
     <div class="col-md-9">
         <div class="panel panel-primary">

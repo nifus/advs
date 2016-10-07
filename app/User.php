@@ -130,6 +130,22 @@ class User extends Authenticatable
     public function changePayment($data){
         $this->update($data);
     }
+    public function changeContactData($data){
+        $validator = [
+            'sex' => 'required',
+            'name' => 'required|min:2',
+            'surname' => 'required|min:2',
+
+        ];
+        $validator = \Validator::make($data, $validator);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new \Exception($messages->first());
+        }
+
+
+        $this->update($data);
+    }
 
     static function createPrivateAccount($data){
         $validator = [

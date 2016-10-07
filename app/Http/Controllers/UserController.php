@@ -123,6 +123,19 @@ class UserController extends Controller
         }
     }
 
+    public function changeContactData(Request $request){
+        $data = $request->only(['sex','name','surname','address_zip','address_city','address_street','address_number','address_additional','phone']);
+        try{
+            $user = User::getUser();
+            $user->changeContactData($data);
+            return response()->json(['success'=>true]);
+
+        }catch( \Exception $e ){
+            $error = trans( 'validation.'.$e->getMessage() );
+            return response()->json(['error'=>$error], 500);
+        }
+    }
+
 
     public function changePassword(Request $request){
         $data = $request->only(['current_password','password','re_password']);

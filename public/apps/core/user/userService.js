@@ -48,6 +48,9 @@
             Object.changePayment = function (data) {
                 return $http.put('/api/user/change-payment',data)
             };
+            Object.changeContactData = function (data) {
+                return $http.put('/api/user/change-contact-data',data)
+            };
 
             Object.getAdvs = advFactory.getByUser;
             Object.getMyWatchAdvs = advFactory.getWatchByUser;

@@ -29,6 +29,7 @@
     <script src="/components/angular-bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
     <script src="/components/angular-validation-match/dist/angular-validation-match.min.js"></script>
     <script src="/components/alertify.js/lib/alertify.min.js"></script>
+    <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
 
     <script src="/apps/core/core.js"></script>
     <script src="/apps/core/cacheService.js"></script>
@@ -52,6 +53,8 @@
     <script src="/apps/privateApp/adv/myWatchListController.js"></script>
     <script src="/apps/privateApp/settings/settingsController.js"></script>
     <script src="/apps/privateApp/deleteAccount/deleteAccountController.js"></script>
+    <script src="/apps/privateApp/directives/leftMenu/leftMenu.js"></script>
+    <script src="/apps/privateApp/help/helpController.js"></script>
 
 
 
@@ -81,7 +84,6 @@
     </div>
 
 
-    <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
 
 
     <script>
@@ -89,5 +91,7 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+
 </body>
 </html>

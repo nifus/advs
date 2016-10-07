@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('privateApp', ['core', 'satellizer', 'ngCookies', 'ui.router', 'ui.bootstrap', 'validation.match']).config(function ($stateProvider, $urlRouterProvider) {
+    angular.module('privateApp', ['core', 'satellizer', 'ngCookies', 'ui.router', 'ui.bootstrap', 'validation.match', 'ngAutocomplete']).config(function ($stateProvider, $urlRouterProvider) {
 
         /*var refer = window.location.href;
          if ( refer.indexOf('pr64-coworking')==-1 ){
@@ -17,8 +17,8 @@
             controller: 'dashboardController'
         }).state('help', {
             url: '/help',
-            templateUrl: 'apps/privateApp/dashboard/dashboard.html',
-            controller: 'dashboardController'
+            templateUrl: 'apps/privateApp/help/help.html',
+            controller: 'helpController'
         }).state('my-adv', {
             url: '/my-adv',
             templateUrl: 'apps/privateApp/adv/my.html',

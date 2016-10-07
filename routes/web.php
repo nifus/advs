@@ -67,6 +67,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::put('/change-password', 'UserController@changePassword' );
         Route::put('/allow-notifications', 'UserController@allowNotifications' );
         Route::put('/change-payment', 'UserController@changePayment' );
+        Route::put('/change-contact-data', 'UserController@changeContactData' );
         Route::delete('/', 'UserController@deleteAccount' );
 
 
