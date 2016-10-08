@@ -230,10 +230,52 @@ table.adv tr.payment_waiting :last-child{
 #watch div.adv{
     margin-bottom: 5px
 }
-
+#photo-block div.main {
+    padding: 0px;
+}
+#photo-block div.main img{
+    width:100%;
+}
+#photo-block div.preview{
+    padding:0px
+}
 
 #photo-block div.preview img{
     width:100px;
-    margin:5px;
+    margin-right:5px;
+    margin-bottom:5px;
+    margin-top:5px;
     border: 1px solid darkgrey;
+    cursor: pointer;
+}
+#photo-block div.preview img.active{
+
+    border: 3px solid red;
+}
+#photo-block div.navigate{
+    position: absolute;
+    width: 5%;
+    height: 100%;
+    background-color: white;
+    opacity: 0.5;
+    top: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    transition: opacity 1s ;
+}
+
+#photo-block div.navigate :hover {
+    opacity: 0.8;
+}
+
+#photo-block div.back{
+    background-image: url(../images/back.png);
+}
+
+
+#photo-block div.next{
+    right: 0;
+    background-image: url(../images/next.png);
 }

@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    <script src="/apps/frontApp/directives/photoBlock/photoBlock.js"></script>
     <div>
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
@@ -22,11 +23,16 @@
                 <div class="col-md-6">K a r t e</div>
             </div>
 
-            <div class="row" id="photo-block">
-                <div class="col-md-12 main"><img src="{{$adv->MainPhoto}}" alt=""></div>
-                <div class="preview">
+            <div class="row" id="photo-block" photo-block>
+                <div class="col-md-12 main">
+                    <img src="{{$adv->MainPhoto}}" alt="{{$adv->title}}">
+                    <div class="back navigate hide"></div>
+                    <div class="next navigate hide"></div>
+                </div>
+
+                <div class="preview col-md-12">
                     @foreach($adv->LastPhotos as $photo)
-                    <img src="{{$photo}}" alt="{{$adv->title}}" >
+                    <img class="active" src="{{$photo}}" alt="{{$adv->title}}" >
                     @endforeach
                 </div>
 

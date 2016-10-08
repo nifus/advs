@@ -42,7 +42,7 @@ class Adv extends Model
             return null;
         }
         $result = [];
-        unset($images[0]);
+        //unset($images[0]);
         foreach($images as $photo){
             array_push($result, '/uploads/adv/'.$photo);
         }
