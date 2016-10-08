@@ -42,7 +42,9 @@
                 $scope.current = number;
                 p_images.removeClass('active');
                 $(p_images[number]).addClass('active');
-                m_images.attr('src', $(p_images[number]).attr('src'))
+
+                var src = $(p_images[number]).attr('src').replace('/preview/','/full/');
+                m_images.attr('src', src)
                 if (number == 0) {
                     back_navigate.addClass('hide');
                 } else {

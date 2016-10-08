@@ -31,7 +31,7 @@ class Adv extends Model
             return ['images/no-photo.jpg'];
         }
         $images = explode(',', $this->attributes['photos']);
-        return '/uploads/adv/'.$images[0];
+        return '/uploads/adv/full/'.$this->id.'/'.$images[0];
     }
     public function getLastPhotosAttribute(){
         if ( is_null($this->attributes['photos'])){
@@ -44,7 +44,7 @@ class Adv extends Model
         $result = [];
         //unset($images[0]);
         foreach($images as $photo){
-            array_push($result, '/uploads/adv/'.$photo);
+            array_push($result, '/uploads/adv/preview/'.$this->id.'/'.$photo);
         }
         return $result;
     }
@@ -56,7 +56,7 @@ class Adv extends Model
         $photos = explode(',',$this->attributes['photos']);
         $result = [];
         foreach($photos as $photo){
-            array_push($result, '/uploads/adv/'.$photo);
+            array_push($result, '/uploads/adv/full/'.$this->id.'/'.$photo);
         }
         return $result;
     }

@@ -50,7 +50,7 @@ class AdvSeeder extends Seeder
                 'type' => $faker->randomElement(['rent', 'sell']),
             ]);
 
-            
+
             @mkdir(public_path('uploads/adv/full/' . $adv->id));
             @mkdir(public_path('uploads/adv/preview/' . $adv->id));
             foreach ($images as $image) {
