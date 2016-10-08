@@ -25,6 +25,30 @@ class Adv extends Model
         $this->update(['status'=>$status]);
     }
 
+
+    public function getMainPhotoAttribute(){
+        if ( is_null($this->attributes['photos'])){
+            return ['images/no-photo.jpg'];
+        }
+        $images = explode(',', $this->attributes['photos']);
+        return '/uploads/adv/'.$images[0];
+    }
+    public function getLastPhotosAttribute(){
+        if ( is_null($this->attributes['photos'])){
+            return null;
+        }
+        $images = explode(',', $this->attributes['photos']);
+        if (sizeof($images)==1){
+            return null;
+        }
+        $result = [];
+        unset($images[0]);
+        foreach($images as $photo){
+            array_push($result, '/uploads/adv/'.$photo);
+        }
+        return $result;
+    }
+
     public function getPhotosAttribute(){
         if ( is_null($this->attributes['photos'])){
             return ['images/no-photo.jpg'];

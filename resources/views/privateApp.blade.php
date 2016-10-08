@@ -55,6 +55,7 @@
     <script src="/apps/privateApp/deleteAccount/deleteAccountController.js"></script>
     <script src="/apps/privateApp/directives/leftMenu/leftMenu.js"></script>
     <script src="/apps/privateApp/help/helpController.js"></script>
+    <script src="/apps/privateApp/adv/previewController.js"></script>
 
 
 

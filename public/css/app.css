@@ -230,3 +230,10 @@ table.adv tr.payment_waiting :last-child{
 #watch div.adv{
     margin-bottom: 5px
 }
+
+
+#photo-block div.preview img{
+    width:100px;
+    margin:5px;
+    border: 1px solid darkgrey;
+}

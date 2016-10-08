@@ -229,6 +229,13 @@ class User extends Authenticatable
         }catch( \Exception $e){
             return null;
         }
+    }
+    static function getUserOrDie(){
+       $user = self::getUser();
+        if ( is_null($user) ){
+            throw new \Exception('User not found');
+        }
+        return $user;
 
     }
 

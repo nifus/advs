@@ -7,22 +7,16 @@ use App\User;
 Route::get('/', ['as'=>'main','uses'=>'DashboardController@index']);
 
 
-
 Route::group(['prefix'=>'register'], function () {
     Route::get('/private', ['as'=>'register.private','uses'=> 'UserController@privateAccountForm']);
     Route::get('/business', ['as'=>'register.business','uses'=> 'UserController@businessAccountForm']);
-
     Route::get('/activate/{user_id}/{key}', ['as'=>'register.activate','uses'=> 'UserController@activateAccount']);
-
 });
 
 Route::group(['prefix'=>'user'], function () {
     Route::get('/reset/{user_id}/{key}', ['as'=>'user.reset','uses'=> 'UserController@resetPassword']);
     Route::get('/', ['as'=>'user.dashboard','uses'=> 'UserController@dashboard']);
-
-
 });
-
 
 
 Route::get('/rent', ['as'=>'adv.rent','uses'=>function () {
@@ -36,7 +30,7 @@ Route::get('/offer', ['as'=>'adv.offer','uses'=>function () {
     return view('frontApp');
 }]);
 
-
+Route::get('/adv/{id}', ['as'=>'adv.preview','uses'=>'Adv@preview'])->where('id','[0-9]*');
 
 
 //  static pages
@@ -76,6 +70,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::get('/adv-stat', 'Adv@getStat' );
 
         Route::group(['prefix'=>'advs'], function () {
+            Route::get('/{id}', 'Adv@getUserAdvById' );
             Route::put('/', 'Adv@getByUser' );
             Route::delete('{id}', 'Adv@delete' );
             Route::put('{id}/status', 'Adv@changeStatus' );

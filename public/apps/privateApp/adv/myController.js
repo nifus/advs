@@ -118,7 +118,7 @@
         };
 
         $scope.editAdv = function(adv){
-            $state.go('adv',{'id':adv.id})
+            $state.go('adv-edit',{'id':adv.id})
         };
 
         $scope.$watch('env.order', function(value){
