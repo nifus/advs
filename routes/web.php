@@ -26,9 +26,7 @@ Route::get('/buy', ['as'=>'adv.buy','uses'=>function () {
     return view('frontApp');
 }]);
 
-Route::get('/offer', ['as'=>'adv.offer','uses'=>function () {
-    return view('frontApp');
-}]);
+Route::get('/offer', ['as'=>'adv.offer','uses'=>'Adv@create']);
 
 Route::get('/adv/{id}', ['as'=>'adv.preview','uses'=>'Adv@preview'])->where('id','[0-9]*');
 

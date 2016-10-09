@@ -13,6 +13,12 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class Adv extends Controller
 {
 
+    function create(){
+        $user = UserModel::getUser();
+        return view('controller.adv.create', ['user' => $user]);
+
+    }
+
     function preview($id)
     {
 

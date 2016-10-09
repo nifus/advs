@@ -279,3 +279,7 @@ table.adv tr.payment_waiting :last-child{
     right: 0;
     background-image: url(../images/next.png);
 }
+
+div.disabled{
+    opacity: 0.5    ;
+}
