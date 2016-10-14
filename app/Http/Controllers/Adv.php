@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Adv as AdvModel;
 use App\User as UserModel;
+use App\Category as CategoryModel;
 use League\Flysystem\Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -14,8 +15,12 @@ class Adv extends Controller
 {
 
     function create(){
+
         $user = UserModel::getUser();
-        return view('controller.adv.create', ['user' => $user]);
+        return view('controller.adv.create', [
+            'user' => $user,
+            'categories'=>CategoryModel::$categories
+        ]);
 
     }
 

@@ -54,8 +54,8 @@ class CreateAdv extends Migration
             $table->string('zip')->nullable();
             $table->string('street')->nullable();
             $table->string('house_number')->nullable();
-            $table->enum('building_type',['flat'])->default('flat');
-            $table->integer('building_year');
+            $table->enum('build_type',['flat'])->default('flat');
+            $table->integer('build_year');
             $table->enum('heating',['central_heating'])->default('central_heating');
             $table->enum('garage',['underground_garage'])->default('underground_garage');
             /*$table->set('equipment',['Balcony / Terrace', 'New building', 'Built-in kitchen', 'Central heating',

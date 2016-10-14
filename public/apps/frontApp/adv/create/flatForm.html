@@ -1,0 +1,449 @@
+<form class="form-horizontal">
+<div class="row" id="step_2">
+    <h4>Location</h4>
+    <div class="col-md-8">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Street, House number</label>
+                <div class="col-sm-10 form-inline">
+                    <input type="text" ng-model="model.address.street" style="width:70%" class="form-control" placeholder="Street">
+                    <input type="text" ng-model="model.address.house_number" class="form-control" placeholder="House number">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Zip, City</label>
+                <div class="col-sm-10 form-inline">
+                    <input type="text" ng-model="model.address.zip" class="form-control" placeholder="Zip">
+                    <input type="text" ng-model="model.address.city" style="width:70%" class="form-control" placeholder="City">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Don‘t show the street and house number</label>
+                <div class="col-sm-10 ">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="model.address.display_house">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Walkway to public transport ca.</label>
+                <div class="col-sm-10 form-inline">
+                    <input type="text" class="form-control" placeholder="minutes" ng-model="model.address.distances.transport">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Driving time to the next central station ca.</label>
+                <div class="col-sm-10 form-inline">
+                    <input type="text" class="form-control" placeholder="minutes" ng-model="model.address.distances.driving">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Driving time to the next Autobahn ca.</label>
+                <div class="col-sm-10 form-inline">
+                    <input type="text" class="form-control" placeholder="minutes" ng-model="model.address.distances.autoban">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Driving time to the next Airport ca.</label>
+                <div class="col-sm-10 form-inline">
+                    <input type="text" class="form-control" placeholder="minutes" ng-model="model.address.distances.airport">
+                </div>
+            </div>
+
+
+    </div>
+    <div class="col-md-4">
+        map
+    </div>
+</div>
+
+
+<div class="row">
+    <h4>Flat type</h4>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+            <div class="col-md-4">
+                <label>
+                    <input type="radio" ng-model="model.flat_type" value="Souterrain">
+                    Souterrain
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    <input type="radio" ng-model="model.flat_type" value="Loft">
+                    Loft
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    <input type="radio" ng-model="model.flat_type" value="Top floor flat">
+                    Top floor flat
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    <input type="radio" ng-model="model.flat_type" value="Downstairs flat">
+                    Downstairs flat
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    <input type="radio" ng-model="model.flat_type" value="Maisonette">
+                    Maisonette
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    <input type="radio" ng-model="model.flat_type" value="Penthouse">
+                    Penthouse
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    <input type="radio" ng-model="model.flat_type" value="Raised ground floor">
+                    Raised ground floor
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    <input type="radio" ng-model="model.flat_type" value="Terrace flat">
+                    Terrace flat
+                </label>
+            </div>
+            <div class="col-md-4">
+                <label>
+                    <input type="radio" ng-model="model.flat_type" value="Any">
+                    Any
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="row">
+    <h4>Basic Information</h4>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Build year</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="In year" ng-model="model.address.build_year">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Living area</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="m2" ng-model="model.living_area">
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            <label class="col-sm-2 control-label">Floor</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Your Floor" ng-model="model.floor.you">
+                of
+                <input type="text" class="form-control" placeholder="All Floors" ng-model="model.floor.all">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Number of rooms</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Room/Rooms" ng-model="model.number_of_rooms">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Number of garage/parking space</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="model.number_of_garage">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Type of garage/parking space</label>
+            <div class="col-sm-10">
+                <select class="form-control" ng-model="model.address.garage"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Pets</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.pets" value="any" > Any
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.pets" value="allowed"> Allowed
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.forbidden" value="forbidden"> Forbidden
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.forbidden" value="by_agreement"> By agreement
+                </label>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Available from now on</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="model.move_date">
+            </div>
+        </div>
+
+</div>
+
+<div class="row">
+    <h4>Finance</h4>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Cold rent (in &euro;)</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="&euro;" ng-model="model.cold_rent">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Ancillary cost(in &euro;)</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="&euro;" ng-model="model.ancillary_cost">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Heating costs included in ancillary cost?</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.ancillary_cost"> Yes
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="option3"> No
+                </label>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Please enter the heating costs</label>
+            <div class="col-sm-10">
+                <input type="text" ng-model="model.heating_cost">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Total cost (in &euro;)</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="model.total_rent">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Caution money (in &euro;)</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"  ng-model="model.caution_money">
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <h4>Energy</h4>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Energy pass</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" value="option3"> Available
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="option3"> Not available
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="option3"> Not specified
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Energy pass type</label>
+            <div class="col-sm-10">
+                <select class="form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Energy consumption value</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="kWh / (m2*a)">
+                <span class="help-block">kWh / (m2*a)</span>
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Heating system</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" value="option3"> Any
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="option3"> Central Heating
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" value="option3"> Self-contained heating
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <h4>Equipment</h4>
+    <form class="form-horizontal">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="option1"> Balcony/Terrace
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="option2"> New building
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="option3"> Build-in kitchen
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="option3"> Garden (shared-use)
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="option3"> Elevator
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="option3"> Garage/parking space
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="option3"> Stepless access
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="option3"> Guest toilet
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="option3"> Cellar
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+
+    <h4>Advertisement pictures</h4>
+</div>
+
+
+<div class="row form-horizontal">
+    <h4>Advertisement description</h4>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Title of your advertisement</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+            <textarea class="form-control"></textarea>
+        </div>
+    </div>
+</div>
+
+
+<div class="row form-horizontal">
+    <h4>Contact details</h4>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Title</label>
+        <div class="col-sm-10">
+            <label class="radio-inline">
+                <input type="radio" value="option3"> Mister
+            </label>
+            <label class="radio-inline">
+                <input type="radio" value="option3"> Miss
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Forename</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Surname</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Phone number</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Contact only via email?</label>
+        <div class="col-sm-10">
+            <label class="checkbox-inline">
+                <input type="checkbox" value="option3">
+            </label>
+            <span class="help-block">Your phone number will not being displayed in the advert</span>
+
+        </div>
+    </div>
+</div>
+<div class="row form-horizontal">
+    <h4>
+        Finish
+    </h4>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Yes, I noticed and accepted the AGB's</label>
+        <div class="col-sm-10">
+            <label class="checkbox-inline">
+                <input type="checkbox" value="option3">
+            </label>
+        </div>
+    </div>
+</div>
+</form>
