@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\AdvAddress;
 class Adv extends Model
 {
     protected $fillable = [
@@ -25,6 +25,66 @@ class Adv extends Model
         $this->update(['status'=>$status]);
     }
 
+    public function setEquipmentsAttribute(){
+
+    }
+
+    public function getEquipmentsAttribute(){
+
+    }
+
+    /*public function setAddressAttribute($value){
+        if ( is_array($value) ){
+            AdvAddress::addNewAddress();
+        }
+        return '/uploads/adv/full/'.$this->id.'/'.$images[0];
+    }*/
+
+
+    /*public function setPhotosAttribute($value){
+
+        if (is_array($value) ){
+            foreach($value as $image){
+                $name = time() . rand(1, 10000) . '.' . pathinfo($image['filename'], PATHINFO_EXTENSION);
+                file_put_contents(public_path('uploads/adv/full/' . $name), base64_decode($image['base64']));
+
+                Image::make(public_path('uploads/adv/full/' . $adv->id . '/' . $image))->resize(100, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('uploads/adv/preview/' . $adv->id . '/' . $image));
+            }
+        } elseif ( is_string($value) ) {
+            $result = $value;
+        } else {
+            $result = null;
+        }
+
+
+        if (is_array($value) && isset($value[0]) && isset($value[0]['base64'])) {
+            $name = time() . rand(1, 10000) . '.' . pathinfo($value[0]['filename'], PATHINFO_EXTENSION);
+            file_put_contents(public_path('uploads/avatar/' . $name), base64_decode($value[0]['base64']));
+
+            $img = \Image::make(public_path('uploads/avatar/' . $name));
+            $img->resize(150, 150);
+            $img->save(public_path('uploads/avatar/' . $name), 60);
+
+            $result = $name;
+        } elseif (is_array($value) && isset($value['base64'])) {
+            $name = time() . rand(1, 10000) . '.' . pathinfo($value['filename'], PATHINFO_EXTENSION);
+            file_put_contents(public_path('uploads/avatar/' . $name), base64_decode($value['base64']));
+            $img = \Image::make(public_path('uploads/avatar/' . $name));
+            $img->resize(150, 150);
+            $img->save(public_path('uploads/avatar/' . $name), 60);
+
+
+            $result = $name;
+        } elseif (is_array($value) && isset($value[0]) && is_string($value[0])) {
+            $result = basename($value[0]);
+        } else {
+            $result = null;
+        }
+        $this->attributes['avatar'] = $result;
+
+    }*/
 
     public function getMainPhotoAttribute(){
         if ( is_null($this->attributes['photos'])){
@@ -118,6 +178,20 @@ class Adv extends Model
             throw new \Exception('Adv not found');
         }
         return $adv;
+    }
+
+    static function createNewAdv($data, $user_id){
+       // dd($data);
+        $validator = [
+            'category' => 'required',
+            'agb_agree' => 'required',
+        ];
+        $validator = \Validator::make($data, $validator);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new \Exception($messages->first());
+        }
+        return self::create($data);
     }
 
 }

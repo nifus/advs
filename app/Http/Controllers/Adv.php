@@ -14,14 +14,28 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class Adv extends Controller
 {
 
-    function create(){
+    function store( Request $request){
+        try{
+            $user = UserModel::getUser();
+            if ( is_null($user) ){
+                abort(403);
+            }
+            $data = $request->all();
+            $adv = AdvModel::createNewAdv($data, $user->id);
+            return response()->json($adv->toArray());
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
 
+
+    }
+
+    function create(){
         $user = UserModel::getUser();
         return view('controller.adv.create', [
             'user' => $user,
             'categories'=>CategoryModel::$categories
         ]);
-
     }
 
     function preview($id)

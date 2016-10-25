@@ -9,11 +9,22 @@
     function advFactory(advService, $http, $q) {
 
         return {
+            store: store,
             getUserAdvById: getUserAdvById,
             getByUser: getByUser,
             getWatchByUser: getWatchByUser
 
         };
+
+        function store(data) {
+            var deferred = $q.defer();
+            $http.post('/api/user/advs',data ).then(function (response) {
+                deferred.resolve(new advService(response.data));
+            }, function (error) {
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
 
         function getUserAdvById(id) {
             var deferred = $q.defer();

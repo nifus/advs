@@ -1,13 +1,13 @@
 @if(is_null($user))
     <div ng-controller="loginController">
-        <nav id="login" class="navbar navbar-default navbar-fixed-top hide"  ng-class="{'show':env.display_form}">
+        <nav id="login" class="navbar navbar-default navbar-fixed-top hide"  ng-class="{'show':display_form}">
             <div class="container">
                 <span class="glyphicon glyphicon-remove link close" aria-hidden="true"  ng-click="hideForm()"></span>
                 <div class="login-form">
                     <div class="alert alert-danger" role="alert" ng-show="env.error" ng-bind="env.error"></div>
                     <div class="alert alert-success" role="alert" ng-show="env.message" ng-bind="env.message"></div>
 
-                    <form class="form-inline" name="login_form" ng-show="env.form=='login'">
+                    <form class="form-inline" name="login_form" ng-show="form_type=='login'">
                         <div class="form-group" style="">
                             <input type="email" class="form-control" name="email" ng-model="form.email"  placeholder="{{trans('main.email')}}" required>
                         </div>
@@ -26,7 +26,7 @@
                             <button type="submit" class="btn btn-primary" ng-click="loginSubmit()" ng-disabled="login_form.$invalid || env.submit">{{trans('main.login')}}</button>
                         </div>
                     </form>
-                    <form class="form-inline" name="forgot_form" ng-show="env.form=='forgot' && env.display_reset_form==true">
+                    <form class="form-inline" name="forgot_form" ng-show="form_type=='forgot' && display_reset_form==true">
                         <div class="form-group" >
                             <input type="email" class="form-control" name="email" ng-model="form.email"  placeholder="{{trans('main.email')}}" required>
                         </div>

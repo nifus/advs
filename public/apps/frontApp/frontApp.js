@@ -1,8 +1,8 @@
 (function (angular) {
     'use strict';
-    angular.module('frontApp', ['core','vcRecaptcha','ngCookies','satellizer','ngAutocomplete'], function ($interpolateProvider) {
-        $interpolateProvider.startSymbol('%');
-        $interpolateProvider.endSymbol('%');
+    angular.module('frontApp', ['core','vcRecaptcha','ngCookies','satellizer','ngAutocomplete','checklist-model','ui.bootstrap.datetimepicker','naif.base64','AngularGM'], function ($interpolateProvider) {
+       // $interpolateProvider.startSymbol('%');
+        //$interpolateProvider.endSymbol('%');
     }).
     config(function ( $authProvider) {
         // $authProvider.httpInterceptor = false;

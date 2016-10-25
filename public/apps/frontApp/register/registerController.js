@@ -26,7 +26,6 @@
         $scope.$watch('autocomplete', function(value){
             console.log(value)
             if (value.details && value.details.address_components.length==7){
-
                 $scope.form.address_street = value.details.address_components[1].short_name;
                 $scope.form.address_number = value.details.address_components[0].short_name;
                 $scope.form.address_zip = value.details.address_components[6].short_name;

@@ -7,26 +7,18 @@
     function loginController($scope, userFactory, vcRecaptchaService, $cookies) {
 
         $scope.env = {
-            display_form: false,
+           // display_form: false,
             submit: false,
             error: false,
             message: false,
-            form: 'login',
-            display_reset_form: true
+            //form: 'login',
+          //  display_reset_form: true
         };
         $scope.form = {
             email: $cookies.get('email')
         };
 
-        $scope.displayLoginForm = function(){
-            $scope.env.display_form = true
-        };
-        $scope.hideForm = function(){
-            $scope.env.display_form = false;
-            $scope.env.form = 'login';
-            $scope.env.message = null;
-            $scope.env.error = null;
-        };
+
 
         $scope.loginSubmit = function(){
 
@@ -59,15 +51,13 @@
                     $scope.env.error=response.error
                 }else{
                     $scope.env.message=response.message;
-                    $scope.env.display_reset_form = false;
+                    $scope.display_reset_form = false;
                 }
                 $scope.env.submit = false;
             })
         };
 
-        $scope.displayForgotForm = function(){
-            $scope.env.form = 'forgot'
-        };
+
 
 
         $scope.setWidgetId = function (widgetId) {
@@ -78,10 +68,6 @@
             $scope.form.captcha = null;
         };
 
-        $scope.logout = function(){
-            userFactory.logout();
-            window.location.reload(true)
-        }
     }
 })();
 

@@ -1,21 +1,32 @@
 <form class="form-horizontal">
-<div class="row" id="step_2">
-    <h4>Location</h4>
-    <div class="col-md-8">
+    <div class="row" id="step_2">
+        <h4>Location</h4>
+        <div class="col-md-8">
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">Street, House number</label>
-                <div class="col-sm-10 form-inline">
-                    <input type="text" ng-model="model.address.street" style="width:70%" class="form-control" placeholder="Street">
-                    <input type="text" ng-model="model.address.house_number" class="form-control" placeholder="House number">
+                <label class="col-sm-2 control-label">Address</label>
+                <div class="col-sm-10">
+                    <input type="text" ng-autocomplete ng-model="env.address.value"  details="env.address.details"  class="form-control">
                 </div>
             </div>
 
-            <div class="form-group">
+
+
+            <div class="form-group" ng-show="env.display_addr_details" >
+                <label class="col-sm-2 control-label">Street, House number</label>
+                <div class="col-sm-10 form-inline">
+                    <input type="text" ng-model="model.address.street" style="width:70%" class="form-control"
+                           placeholder="Street">
+                    <input type="text" ng-model="model.address.house_number" class="form-control"
+                           placeholder="House number">
+                </div>
+            </div>
+            <div class="form-group" ng-show="env.display_addr_details" >
                 <label class="col-sm-2 control-label">Zip, City</label>
                 <div class="col-sm-10 form-inline">
                     <input type="text" ng-model="model.address.zip" class="form-control" placeholder="Zip">
-                    <input type="text" ng-model="model.address.city" style="width:70%" class="form-control" placeholder="City">
+                    <input type="text" ng-model="model.address.city" style="width:70%" class="form-control"
+                           placeholder="City">
                 </div>
             </div>
 
@@ -33,108 +44,113 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Walkway to public transport ca.</label>
                 <div class="col-sm-10 form-inline">
-                    <input type="text" class="form-control" placeholder="minutes" ng-model="model.address.distances.transport">
+                    <input type="text" class="form-control" placeholder="minutes"
+                           ng-model="model.address.distances.transport">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">Driving time to the next central station ca.</label>
                 <div class="col-sm-10 form-inline">
-                    <input type="text" class="form-control" placeholder="minutes" ng-model="model.address.distances.driving">
+                    <input type="text" class="form-control" placeholder="minutes"
+                           ng-model="model.address.distances.driving">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">Driving time to the next Autobahn ca.</label>
                 <div class="col-sm-10 form-inline">
-                    <input type="text" class="form-control" placeholder="minutes" ng-model="model.address.distances.autoban">
+                    <input type="text" class="form-control" placeholder="minutes"
+                           ng-model="model.address.distances.autoban">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">Driving time to the next Airport ca.</label>
                 <div class="col-sm-10 form-inline">
-                    <input type="text" class="form-control" placeholder="minutes" ng-model="model.address.distances.airport">
+                    <input type="text" class="form-control" placeholder="minutes"
+                           ng-model="model.address.distances.airport">
                 </div>
             </div>
 
 
-    </div>
-    <div class="col-md-4">
-        map
-    </div>
-</div>
+        </div>
+        <div class="col-md-4">
 
 
-<div class="row">
-    <h4>Flat type</h4>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label"></label>
-        <div class="col-sm-10">
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.flat_type" value="Souterrain">
-                    Souterrain
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.flat_type" value="Loft">
-                    Loft
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.flat_type" value="Top floor flat">
-                    Top floor flat
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.flat_type" value="Downstairs flat">
-                    Downstairs flat
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.flat_type" value="Maisonette">
-                    Maisonette
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.flat_type" value="Penthouse">
-                    Penthouse
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.flat_type" value="Raised ground floor">
-                    Raised ground floor
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.flat_type" value="Terrace flat">
-                    Terrace flat
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.flat_type" value="Any">
-                    Any
-                </label>
-            </div>
         </div>
     </div>
 
 
-</div>
+    <div class="row">
+        <h4>Flat type</h4>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+                <div class="col-md-4">
+                    <label>
+                        <input type="radio" ng-model="model.flat_type" value="Souterrain">
+                        Souterrain
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input type="radio" ng-model="model.flat_type" value="Loft">
+                        Loft
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input type="radio" ng-model="model.flat_type" value="Top floor flat">
+                        Top floor flat
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input type="radio" ng-model="model.flat_type" value="Downstairs flat">
+                        Downstairs flat
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input type="radio" ng-model="model.flat_type" value="Maisonette">
+                        Maisonette
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input type="radio" ng-model="model.flat_type" value="Penthouse">
+                        Penthouse
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input type="radio" ng-model="model.flat_type" value="Raised ground floor">
+                        Raised ground floor
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input type="radio" ng-model="model.flat_type" value="Terrace flat">
+                        Terrace flat
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input type="radio" ng-model="model.flat_type" value="Any">
+                        Any
+                    </label>
+                </div>
+            </div>
+        </div>
 
 
-<div class="row">
-    <h4>Basic Information</h4>
+    </div>
+
+
+    <div class="row">
+        <h4>Basic Information</h4>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Build year</label>
@@ -152,16 +168,16 @@
         <div class="form-group form-inline">
             <label class="col-sm-2 control-label">Floor</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Your Floor" ng-model="model.floor.you">
+                <input type="text" class="form-control" placeholder="Your Floor" ng-model="model.floor">
                 of
-                <input type="text" class="form-control" placeholder="All Floors" ng-model="model.floor.all">
+                <input type="text" class="form-control" placeholder="All Floors" ng-model="model.floors">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Number of rooms</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Room/Rooms" ng-model="model.number_of_rooms">
+                <input type="text" class="form-control" placeholder="Room/Rooms" ng-model="model.rooms">
             </div>
         </div>
 
@@ -183,16 +199,16 @@
             <label class="col-sm-2 control-label">Pets</label>
             <div class="col-sm-10">
                 <label class="radio-inline">
-                    <input type="radio" ng-model="model.pets" value="any" > Any
+                    <input type="radio" ng-model="model.pets" value="Any"> Any
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" ng-model="model.pets" value="allowed"> Allowed
+                    <input type="radio" ng-model="model.pets" value="Allowed"> Allowed
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" ng-model="model.forbidden" value="forbidden"> Forbidden
+                    <input type="radio" ng-model="model.forbidden" value="Forbidden"> Forbidden
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" ng-model="model.forbidden" value="by_agreement"> By agreement
+                    <input type="radio" ng-model="model.forbidden" value="By agreement"> By agreement
                 </label>
             </div>
         </div>
@@ -201,249 +217,312 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Available from now on</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="model.move_date">
+                <div class="dropdown">
+                    <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown"
+                       data-target="#" href="">
+                        <div class="input-append"><input type="text" class="input-large form-control"
+                                                         data-ng-model="model.move_date"><span class="add-on"><i
+                                class="icon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="env.move_date"
+                                        data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select',minView:'day' }"></datetimepicker>
+                    </ul>
+                </div>
+
             </div>
         </div>
 
-</div>
+    </div>
 
-<div class="row">
-    <h4>Finance</h4>
+    <div class="row">
+        <h4>Finance</h4>
 
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Cold rent (in &euro;)</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="&euro;" ng-model="model.cold_rent">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Cold rent (in &euro;)</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="&euro;" ng-model="model.cold_rent">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Ancillary cost(in &euro;)</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="&euro;" ng-model="model.ancillary_cost">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Ancillary cost(in &euro;)</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="&euro;" ng-model="model.ancillary_cost">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Heating costs included in ancillary cost?</label>
-            <div class="col-sm-10">
-                <label class="radio-inline">
-                    <input type="radio" ng-model="model.ancillary_cost"> Yes
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" value="option3"> No
-                </label>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Heating costs included in ancillary cost?</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" value="1" ng-model="model.ancillary_cost_included"> Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" value="0" ng-model="model.ancillary_cost_included"> No
+                    </label>
+                </div>
             </div>
-        </div>
 
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Please enter the heating costs</label>
-            <div class="col-sm-10">
-                <input type="text" ng-model="model.heating_cost">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Please enter the heating costs</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="model.heating_cost"
+                           ng-disabled="model.ancillary_cost_included==1">
+                </div>
             </div>
-        </div>
 
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Total cost (in &euro;)</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="model.total_rent">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Total cost (in &euro;)</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="model.total_rent">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Caution money (in &euro;)</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control"  ng-model="model.caution_money">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Caution money (in &euro;)</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="model.caution_money">
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+    </div>
 
-<div class="row">
-    <h4>Energy</h4>
-
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Energy pass</label>
-            <div class="col-sm-10">
-                <label class="radio-inline">
-                    <input type="radio" value="option3"> Available
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" value="option3"> Not available
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" value="option3"> Not specified
-                </label>
-            </div>
-        </div>
+    <div class="row">
+        <h4>Energy</h4>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Energy pass type</label>
+            <label class="col-sm-2 control-label">Last modernization of the building (in year)</label>
             <div class="col-sm-10">
-                <select class="form-control"></select>
+                <input type="text" class="form-control"
+                       ng-model="model.address.energy_modernization_year">
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Energy consumption value</label>
+            <label class="col-sm-2 control-label">Energy source </label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="kWh / (m2*a)">
-                <span class="help-block">kWh / (m2*a)</span>
+                <select class="form-control" ng-model="model.address.energy_source" ng-options="source for source in env.energy_source">
+                    <option value="">Please select</option>
+                </select>
 
             </div>
         </div>
-
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Heating system</label>
+            <label class="col-sm-2 control-label">Method of heating</label>
             <div class="col-sm-10">
-                <label class="radio-inline">
-                    <input type="radio" value="option3"> Any
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" value="option3"> Central Heating
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" value="option3"> Self-contained heating
-                </label>
+                <select class="form-control" ng-model="model.address.heating" ng-options="source for source in env.heating">
+                    <option value="">Please select</option>
+                </select>
+
             </div>
         </div>
-    </form>
-</div>
-
-<div class="row">
-    <h4>Equipment</h4>
-    <form class="form-horizontal">
 
         <div class="form-group">
-            <label class="col-sm-2 control-label"></label>
-            <div class="col-sm-10">
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="option1"> Balcony/Terrace
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="option2"> New building
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="option3"> Build-in kitchen
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="option3"> Garden (shared-use)
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="option3"> Elevator
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="option3"> Garage/parking space
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="option3"> Stepless access
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="option3"> Guest toilet
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="option3"> Cellar
-                </label>
+                <label class="col-sm-2 control-label">Energy pass</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="model.address.energy_pass" value="Available"> Available
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="model.address.energy_pass" value="Available on inspection"> Available on inspection
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="model.address.energy_pass" value="Underlies not EnEV"> Underlies not EnEV
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="model.address.energy_pass=='Available'">
+                <label class="col-sm-2 control-label">Energy pass date</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="model.address.energy_pass_date" value="Till 30.04.14 (EnEV 2009)"> Till 30.04.14 (EnEV 2009)
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="model.address.energy_pass_date" value="After 01.05.14 (EnEV 2014)"> After 01.05.14 (EnEV 2014)
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="model.address.energy_pass=='Available'">
+                <label class="col-sm-2 control-label">Energy pass type</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="model.address.energy_pass_type" value="Requirement pass"> Requirement pass
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="model.address.energy_pass_type" value="Consumption pass"> Consumption pass
+                    </label>
+
+                </div>
+            </div>
+
+
+            <div class="form-group"  ng-show="model.address.energy_pass=='Available'">
+                <label class="col-sm-2 control-label">Energy consumption value</label>
+                <div class="col-sm-10 form-inline">
+                    <div class="input-group">
+                        <input type="text" class="form-control" >
+                        <span class="input-group-addon" >kWh/(m2*a)</span>
+                    </div>
+
+                    <label ng-show="model.address.energy_pass_type=='Consumption pass'">
+                        <input type="checkbox" ng-model="model.address.energy_water_included" > Warm water included
+                    </label>
+                </div>
+            </div>
+
+        <div class="form-group" ng-show="model.address.energy_pass_date=='After 01.05.14 (EnEV 2014)' || model.address.energy_pass=='Available'">
+            <label class="col-sm-2 control-label"> Energy efficiency class</label>
+            <div class="col-sm-10 ">
+                <select class="form-control" ng-model="model.address.heating" ng-options="source for source in env.energy_class ">
+                    <option value="">Please select</option>
+                </select>
             </div>
         </div>
-    </form>
-</div>
-
-<div class="row">
-
-    <h4>Advertisement pictures</h4>
-</div>
 
 
-<div class="row form-horizontal">
-    <h4>Advertisement description</h4>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Title of your advertisement</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control">
+
+    </div>
+
+    <div class="row">
+        <h4>Equipment</h4>
+        <form class="form-horizontal">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <div class="col-md-4" ng-repeat="equipment in env.equipments">
+                        <label>
+                            <input type="checkbox" checklist-model="model.equipments" checklist-value="equipment"> {{equipment}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <h4>Advertisement pictures</h4>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <upload ng-model="model.photos" number-of-files="12" style="text-align: center;" >
+                    <img src="/images/upload.png" alt="" style=" width:100px" class="link">
+                    <span>Click to upload</span>
+                </upload>
+            </div>
+
+
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Description</label>
-        <div class="col-sm-10">
-            <textarea class="form-control"></textarea>
+
+    <div class="row form-horizontal">
+        <h4>Advertisement description</h4>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Title of your advertisement</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="model.title">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" ng-model="model.desc"></textarea>
+            </div>
         </div>
     </div>
-</div>
 
 
-<div class="row form-horizontal">
-    <h4>Contact details</h4>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Title</label>
-        <div class="col-sm-10">
-            <label class="radio-inline">
-                <input type="radio" value="option3"> Mister
+    <div class="row form-horizontal">
+        <h4>Contact details</h4>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.author.sex" value="male"> Mister
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.author.sex" value="female"> Miss
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Forename</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="model.author.name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Surname</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="model.author.surname">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="model.author.email">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Phone number</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="model.author.phone">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">
+                Contact only via email?
+                <span class="help-block">Your phone number will not being displayed in the advert</span>
+
             </label>
-            <label class="radio-inline">
-                <input type="radio" value="option3"> Miss
-            </label>
+
+            <div class="col-sm-10">
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="model.hide_contacts">
+                </label>
+
+            </div>
         </div>
     </div>
+    <div class="row form-horizontal">
+        <h4>
+            Finish
+        </h4>
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Forename</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Yes, I noticed and accepted the AGB's</label>
+            <div class="col-sm-10">
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="model.agb_agree">
+                </label>
+            </div>
+        </div>
+
+        <div class="alert alert-danger" role="alert" ng-show="env.error">This is error</div>
+
+
+        <div class="form-group">
+            <div class="col-sm-10">
+                <button class="btn btn-primary" type="button" ng-click="save(model)" ng-disabled="env.submit==true">
+                    Send
+                </button>
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Surname</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Email</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control">
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Phone number</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Contact only via email?</label>
-        <div class="col-sm-10">
-            <label class="checkbox-inline">
-                <input type="checkbox" value="option3">
-            </label>
-            <span class="help-block">Your phone number will not being displayed in the advert</span>
-
-        </div>
-    </div>
-</div>
-<div class="row form-horizontal">
-    <h4>
-        Finish
-    </h4>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Yes, I noticed and accepted the AGB's</label>
-        <div class="col-sm-10">
-            <label class="checkbox-inline">
-                <input type="checkbox" value="option3">
-            </label>
-        </div>
-    </div>
-</div>
 </form>

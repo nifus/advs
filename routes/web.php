@@ -69,8 +69,11 @@ Route::group(['prefix'=>'api'], function () {
         Route::get('/adv-stat', 'Adv@getStat' );
 
         Route::group(['prefix'=>'advs'], function () {
+            Route::post('/', 'Adv@store' );
+
             Route::get('/{id}', 'Adv@getUserAdvById' );
             Route::put('/', 'Adv@getByUser' );
+
             Route::delete('{id}', 'Adv@delete' );
             Route::put('{id}/status', 'Adv@changeStatus' );
 
@@ -98,6 +101,8 @@ Route::group(['prefix'=>'api'], function () {
 
         return response()->json( Category::$categories);
     } );
+
+    Route::get('/address', 'AddressController@search');
 
 });
 

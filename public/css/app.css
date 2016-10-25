@@ -283,3 +283,9 @@ table.adv tr.payment_waiting :last-child{
 div.disabled{
     opacity: 0.5    ;
 }
+
+
+div.equipment label.btn{
+    margin: 20px;
+}
+.map { height: 400px; }
