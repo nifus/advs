@@ -23,7 +23,7 @@
                 "Guest toilet",
                 "Cellar",
             ],
-            energy_source:[
+            energy_source: [
                 'Geothermal energy',
                 'Solar',
                 'Wood',
@@ -34,13 +34,13 @@
                 'Coal',
                 'Other',
             ],
-            heating:[
+            heating: [
                 'Self-contained central heating',
                 'Centralheating',
                 'Teleheating',
                 'Other',
             ],
-            energy_class:[
+            energy_class: [
                 'Any',
                 'A+',
                 'A',
@@ -52,9 +52,7 @@
                 'G',
                 'H',
             ],
-            address:{
-
-            },
+            address: {},
             display_addr_details: false
         };
 
@@ -65,10 +63,10 @@
             ancillary_cost_included: 1,
             pets: 'Any',
             images: [],
-            address:{
-                energy_class:'Any',
-                energy_source:'',
-                heating:''
+            address: {
+                energy_class: 'Any',
+                energy_source: '',
+                heating: ''
             }
         };
 
@@ -110,15 +108,18 @@
 
         $scope.save = function (data) {
             $scope.env.submit = true;
-            console.log(1)
-            advFactory.store(data).then(function () {
-                    $scope.env.submit = false;
-                },
-                function (error) {
-                    $scope.env.submit = false;
+            if (!$scope.adv_form.$invalid) {
+                $scope.env.send = true;
+                advFactory.store(data).then(function () {
+                        $scope.env.send = false;
+                    },
+                    function (error) {
+                        $scope.env.send = false;
 
-                    console.log(error)
-                })
+                        console.log(error)
+                    })
+            }
+
         };
 
         $scope.$watch('model', function (value) {
@@ -131,38 +132,36 @@
         });
 
 
+        $scope.$watch('env.address', function (value) {
+            if (value.details && value.details.address_components) {
+                for (var i in value.details.address_components) {
+                    var el = angular.copy(value.details.address_components[i]);
 
-
-        $scope.$watch('env.address', function(value){
-            if (value.details && value.details.address_components){
-                for (var i in value.details.address_components ){
-                    var el = angular.copy( value.details.address_components[i]);
-
-                    if ( el.types.indexOf('street_number')!=-1 ){
+                    if (el.types.indexOf('street_number') != -1) {
                         $scope.model.address.house_number = (el.long_name);
 
                     }
-                    if ( el.types.indexOf('route')!=-1 ){
+                    if (el.types.indexOf('route') != -1) {
                         $scope.model.address.street = (el.long_name);
 
                     }
-                    if ( el.types.indexOf('locality')!=-1 ){
+                    if (el.types.indexOf('locality') != -1) {
                         $scope.model.address.city = (el.long_name);
 
                     }
 
-                    if ( el.types.indexOf('country')!=-1 ){
+                    if (el.types.indexOf('country') != -1) {
                         $scope.model.address.country = (el.long_name);
 
                     }
-                    if ( el.types.indexOf('postal_code')!=-1 ){
+                    if (el.types.indexOf('postal_code') != -1) {
                         $scope.model.address.zip = (el.long_name);
                     }
                 }
                 $scope.env.display_addr_details = true;
-                
+
             }
-        },true);
+        }, true);
     }
 })();
 

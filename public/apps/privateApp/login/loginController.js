@@ -2,15 +2,12 @@
     'use strict';
     angular.module('privateApp').controller('loginController', loginController);
 
-    loginController.$inject = ['$scope','userFactory'];
+    loginController.$inject = ['$scope', 'userFactory'];
 
     function loginController($scope, userFactory) {
-
-
-
-        $scope.logout = function(){
+        $scope.logout = function () {
             userFactory.logout();
-            window.location.reload(true)
+            window.location.href = '/'
         }
     }
 })();

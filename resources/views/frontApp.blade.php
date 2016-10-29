@@ -10,12 +10,12 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="/css/app.css" rel="stylesheet" type="text/css">
+
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
     <script src="/components/angular/angular.min.js"></script>
     <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 
