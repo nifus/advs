@@ -21,7 +21,7 @@
                 "Garage/parking space",
                 "Stepless access",
                 "Guest toilet",
-                "Cellar",
+                "Cellar"
             ],
             energy_source: [
                 'Geothermal energy',

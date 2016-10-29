@@ -1,12 +1,18 @@
 (function (angular) {
     'use strict';
-    angular.module('frontApp', ['core','vcRecaptcha','ngCookies','satellizer','ngAutocomplete','checklist-model','ui.bootstrap.datetimepicker','naif.base64','AngularGM'], function ($interpolateProvider) {
+    angular.module('frontApp', ['core','vcRecaptcha','ngCookies','satellizer','ngAutocomplete','checklist-model','ui.bootstrap.datetimepicker','naif.base64','AngularGM','pascalprecht.translate'], function ($interpolateProvider) {
        // $interpolateProvider.startSymbol('%');
         //$interpolateProvider.endSymbol('%');
     }).
-    config(function ( $authProvider) {
+    config(function ( $authProvider, $translateProvider) {
         // $authProvider.httpInterceptor = false;
         $authProvider.loginUrl = '/api/user/authenticate';
+
+
+        var lang = localStorage.getItem('lang');
+        lang = lang==undefined ? 'en' : lang;
+        console.log(lang)
+        $translateProvider.preferredLanguage(lang);
 
     });
 

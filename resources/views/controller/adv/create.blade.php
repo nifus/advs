@@ -128,7 +128,12 @@
                     </div>
 
 
-                    <div ng-include="'apps/frontApp/adv/create/flatForm.html'" ng-show="model.category"></div>
+                    <div ng-include="'apps/frontApp/adv/create/flatForm.html'" ng-show="model.category==1"></div>
+                    <div ng-include="'apps/frontApp/adv/create/houseForm.html'" ng-show="model.category==2"></div>
+                    <div ng-include="'apps/frontApp/adv/create/garageForm.html'" ng-show="model.category==3"></div>
+                    <div ng-include="'apps/frontApp/adv/create/officeForm.html'" ng-show="model.category==4"></div>
+                    <div ng-include="'apps/frontApp/adv/create/hotelForm.html'" ng-show="model.category==6"></div>
+                    <div ng-include="'apps/frontApp/adv/create/hallForm.html'" ng-show="model.category==7"></div>
 
 
                     <div class="row form-horizontal" ng-show="model.category">
