@@ -136,7 +136,7 @@
                             Finish
                         </h4>
 
-                        <div class="form-group" ng-class="{ 'has-error': adv_form.agb.$invalid && submit==true }">
+                        <div class="form-group" ng-class="{ 'has-error': adv_form.agb.$invalid && env.submit==true }">
                             <label class="col-sm-2 control-label"></label>
                             <div class="col-sm-10">
 
@@ -155,7 +155,7 @@
                         <div class="form-group">
 
                             <div class="col-sm-10">
-                                <div class="alert alert-warning" role="alert" ng-show="adv_form.agb.$invalid && submit==true">You did not fill in all fields</div>
+                                <div class="alert alert-warning" role="alert" ng-show="adv_form.$invalid && env.submit==true">You did not fill in all fields</div>
 
                                 <button class="btn btn-primary" type="button" ng-click="save(model)"
                                         ng-disabled="env.send==true">
