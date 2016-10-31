@@ -155,6 +155,28 @@ return [
                     <li>Credit Card</li>
                 </ul>',
 
+    'create_adv'=> 'Create advertisement',
+    'create_adv_need_register'=>'You need <a href=":link">
+                    create an account</a> or <a ng-click="displayLoginForm()" class="link">login</a>
+                to an existing account',
+    'create_adv_type'=>'Advert type',
+    'create_adv_select'=>'Please select your advertisement type',
+    'create_adv_rent'=>'Rent',
+    'create_adv_business'=>'Business realty',
+    'create_adv_sale'=>'Sale',
+    'create_adv_finish'=>'Finish',
+    'create_adv_not_fill_fields'=>'You did not fill in all
+                                    fields',
+    'create_adv_send'=>'Send',
 
+    'category_Flat'=>'Flat',
+    'category_House'=>'House',
+    'category_Garage / car space'=>'Garage / car space',
+    'category_Building ground'=>'Building ground',
+    'category_Office / Praxis'=>'Office / Praxis',
+    'category_Gastronomy / Hotel'=>'Gastronomy / Hotel',
+    'category_Hall / Production / Warehouse'=>'Hall / Production / Warehouse',
+    'category_Retail trade'=>'Retail trade',
+    'category_Commercial land'=>'Commercial land',
 
 ];

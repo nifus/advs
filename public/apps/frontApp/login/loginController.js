@@ -27,12 +27,13 @@
                 if (response.success==false){
                     $scope.env.error=response.error
                 }else{
+                    var expireDate = new Date();
+                    expireDate.setDate(expireDate.getDate() + 99);
+                    $cookies.put('email', $scope.form.email, {'expires': expireDate,'path':'/'});
 
                     if ($scope.form.remember===true){
-                        var expireDate = new Date();
-                        expireDate.setDate(expireDate.getDate() + 99);
+
                         $cookies.put('token', response.token, {'expires': expireDate,'path':'/'});
-                        $cookies.put('email', $scope.form.email, {'expires': expireDate,'path':'/'});
                     }else{
                         $cookies.put('token', response.token,{'path':'/'});
 

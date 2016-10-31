@@ -34,7 +34,7 @@ class Adv extends Controller
         $user = UserModel::getUser();
         return view('controller.adv.create', [
             'user' => $user,
-            'categories'=>CategoryModel::$categories
+            'categories'=>CategoryModel::getCategories()
         ]);
     }
 

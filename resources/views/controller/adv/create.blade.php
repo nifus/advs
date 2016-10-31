@@ -9,23 +9,23 @@
 
     <div>
         <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
-            <li class="active">Create advertisement</li>
+            <li><a href="/" >{{ trans('main.home') }}</a></li>
+            <li class="active" >{{ trans('main.create_adv') }}</li>
         </ol>
 
         @if(is_null($user))
-            <div class="alert alert-danger" role="alert">You need <a href="{{route('register.private')}}">create an
-                    account</a> or <a ng-click="displayLoginForm()" class="link">login</a> to an
-                existing account
+            <div class="alert alert-danger" role="alert" >
+                {!! trans('main.create_adv_need_register',['link'=>route('register.private')]) !!}
+
             </div>
         @else
             <div ng-controller="createAdvController">
                 <form class="form-horizontal" name="adv_form">
                     <div class="row">
-                        <h4>Advert type</h4>
+                        <h4 >{{ trans('main.create_adv_type') }}</h4>
 
-                        <div class="col-md-3">
-                            Please select your advertisement type
+                        <div class="col-md-3" >
+                            {{ trans('main.create_adv_select') }}
                         </div>
 
 
@@ -33,7 +33,7 @@
 
                             <div class="header"
                                  style="background-color: orange;padding:20px;margin:0px;text-align: center">
-                                <strong>Rent</strong></div>
+                                <strong >{{ trans('main.create_adv_rent') }}</strong></div>
                             <div class="type"
                                  style="background-color: lightyellow;padding:10px;margin:0px;height:120px">
                                 @foreach($categories as $category)
@@ -55,7 +55,7 @@
                                     <label>
                                         <input type="radio" ng-model="env.is_business_rent"
                                                ng-click="isBusiness('rent')">
-                                        Business realty
+                                        {{ trans('main.create_adv_business') }}
                                     </label>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="col-md-4">
                             <div style="background-color: lightcoral;margin:0px;padding:20px;text-align: center">
-                                <strong>Sale</strong></div>
+                                <strong >{{ trans('main.create_adv_sale') }}</strong></div>
 
 
                             <div class="type" style="background-color: oldlace;margin:0px;padding:10px;height:120px">
@@ -102,7 +102,7 @@
                                     <label>
                                         <input type="radio" ng-model="env.is_business_sell"
                                                ng-click="isBusiness('sell')">
-                                        Business realty
+                                        {{ trans('main.create_adv_business') }}
                                     </label>
                                 </div>
                             </div>
@@ -137,8 +137,8 @@
 
 
                     <div class="row form-horizontal" ng-show="model.category">
-                        <h4>
-                            Finish
+                        <h4 >
+                            {{ trans('main.create_adv_finish') }}
                         </h4>
 
                         <div class="form-group" ng-class="{ 'has-error': adv_form.agb.$invalid && env.submit==true }">
@@ -160,11 +160,13 @@
                         <div class="form-group">
 
                             <div class="col-sm-10">
-                                <div class="alert alert-warning" role="alert" ng-show="adv_form.$invalid && env.submit==true">You did not fill in all fields</div>
+                                <div class="alert alert-warning" role="alert"
+                                     ng-show="adv_form.$invalid && env.submit==true" >{{trans('main.create_adv_not_fill_fields')}}
+                                </div>
 
                                 <button class="btn btn-primary" type="button" ng-click="save(model)"
-                                        ng-disabled="env.send==true">
-                                    Send
+                                        ng-disabled="env.send==true" >
+                                    {{ trans('main.create_adv_send') }}
                                 </button>
                             </div>
                         </div>

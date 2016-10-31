@@ -1,0 +1,1075 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:181
+msgid "According to leaser wish"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:6
+#: ../public/apps/frontApp/adv/create/garageForm.html:6
+#: ../public/apps/frontApp/adv/create/hallForm.html:6
+#: ../public/apps/frontApp/adv/create/hotelForm.html:6
+#: ../public/apps/frontApp/adv/create/houseForm.html:6
+#: ../public/apps/frontApp/adv/create/officeForm.html:6
+msgid "Address"
+msgstr ""
+
+#: ../resources/views/controller/adv/create.blade.php:25
+msgid "Advert type"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:455
+#: ../public/apps/frontApp/adv/create/garageForm.html:219
+#: ../public/apps/frontApp/adv/create/hallForm.html:468
+#: ../public/apps/frontApp/adv/create/hotelForm.html:432
+#: ../public/apps/frontApp/adv/create/houseForm.html:464
+#: ../public/apps/frontApp/adv/create/officeForm.html:470
+msgid "Advertisement description"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:439
+#: ../public/apps/frontApp/adv/create/garageForm.html:203
+#: ../public/apps/frontApp/adv/create/hallForm.html:452
+#: ../public/apps/frontApp/adv/create/hotelForm.html:416
+#: ../public/apps/frontApp/adv/create/houseForm.html:448
+#: ../public/apps/frontApp/adv/create/officeForm.html:454
+msgid "Advertisement pictures"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:368
+#: ../public/apps/frontApp/adv/create/hallForm.html:381
+#: ../public/apps/frontApp/adv/create/hotelForm.html:345
+#: ../public/apps/frontApp/adv/create/houseForm.html:377
+#: ../public/apps/frontApp/adv/create/officeForm.html:383
+msgid "After 01.05.14 (EnEV 2014)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:208
+msgid "Air conditioner available"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:178
+#: ../public/apps/frontApp/adv/create/officeForm.html:149
+msgid "All Floors"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:218
+#: ../public/apps/frontApp/adv/create/houseForm.html:227
+msgid "Allowed"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:263
+#: ../public/apps/frontApp/adv/create/garageForm.html:178
+#: ../public/apps/frontApp/adv/create/hallForm.html:282
+#: ../public/apps/frontApp/adv/create/hotelForm.html:246
+#: ../public/apps/frontApp/adv/create/houseForm.html:272
+#: ../public/apps/frontApp/adv/create/officeForm.html:284
+msgid "Ancillary cost(in &euro;)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:146
+#: ../public/apps/frontApp/adv/create/flatForm.html:215
+#: ../public/apps/frontApp/adv/create/garageForm.html:95
+#: ../public/apps/frontApp/adv/create/hallForm.html:129
+#: ../public/apps/frontApp/adv/create/hotelForm.html:129
+#: ../public/apps/frontApp/adv/create/houseForm.html:152
+#: ../public/apps/frontApp/adv/create/houseForm.html:224
+#: ../public/apps/frontApp/adv/create/officeForm.html:116
+#: ../public/apps/frontApp/adv/create/officeForm.html:172
+msgid "Any"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/garageForm.html:137
+msgid "Area ca"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:343
+#: ../public/apps/frontApp/adv/create/hallForm.html:356
+#: ../public/apps/frontApp/adv/create/hotelForm.html:320
+#: ../public/apps/frontApp/adv/create/houseForm.html:352
+#: ../public/apps/frontApp/adv/create/officeForm.html:358
+msgid "Available"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:231
+#: ../public/apps/frontApp/adv/create/garageForm.html:146
+#: ../public/apps/frontApp/adv/create/hallForm.html:235
+#: ../public/apps/frontApp/adv/create/hotelForm.html:199
+#: ../public/apps/frontApp/adv/create/houseForm.html:240
+#: ../public/apps/frontApp/adv/create/officeForm.html:237
+msgid "Available from now on"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hotelForm.html:98
+msgid "Bar/Bistro/Cafe"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:157
+#: ../public/apps/frontApp/adv/create/garageForm.html:107
+#: ../public/apps/frontApp/adv/create/hallForm.html:140
+#: ../public/apps/frontApp/adv/create/hotelForm.html:140
+#: ../public/apps/frontApp/adv/create/houseForm.html:163
+#: ../public/apps/frontApp/adv/create/officeForm.html:128
+msgid "Basic Information"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:160
+#: ../public/apps/frontApp/adv/create/garageForm.html:110
+#: ../public/apps/frontApp/adv/create/hallForm.html:143
+#: ../public/apps/frontApp/adv/create/houseForm.html:166
+#: ../public/apps/frontApp/adv/create/officeForm.html:131
+msgid "Build year"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:122
+msgid "Bungalow"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:224
+#: ../public/apps/frontApp/adv/create/houseForm.html:233
+#: ../public/apps/frontApp/adv/create/officeForm.html:217
+#: ../public/apps/frontApp/adv/create/officeForm.html:231
+msgid "By agreement"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/garageForm.html:89
+msgid "Car park"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:122
+msgid "Car workshop"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:180
+msgid "Carpet"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:202
+#: ../public/apps/frontApp/adv/create/garageForm.html:71
+#: ../public/apps/frontApp/adv/create/hallForm.html:223
+#: ../public/apps/frontApp/adv/create/hotelForm.html:187
+#: ../public/apps/frontApp/adv/create/houseForm.html:211
+#: ../public/apps/frontApp/adv/create/officeForm.html:198
+msgid "Carport"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:146
+msgid "Castle / Palace"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:299
+#: ../public/apps/frontApp/adv/create/garageForm.html:194
+#: ../public/apps/frontApp/adv/create/hallForm.html:312
+#: ../public/apps/frontApp/adv/create/hotelForm.html:276
+#: ../public/apps/frontApp/adv/create/houseForm.html:308
+#: ../public/apps/frontApp/adv/create/officeForm.html:314
+msgid "Caution money (in &euro;)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:173
+msgid "Cement"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:33
+#: ../public/apps/frontApp/adv/create/garageForm.html:33
+#: ../public/apps/frontApp/adv/create/hallForm.html:33
+#: ../public/apps/frontApp/adv/create/hotelForm.html:33
+#: ../public/apps/frontApp/adv/create/houseForm.html:33
+#: ../public/apps/frontApp/adv/create/officeForm.html:33
+msgid "City"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:445
+#: ../public/apps/frontApp/adv/create/garageForm.html:209
+#: ../public/apps/frontApp/adv/create/hallForm.html:458
+#: ../public/apps/frontApp/adv/create/hotelForm.html:422
+#: ../public/apps/frontApp/adv/create/houseForm.html:454
+#: ../public/apps/frontApp/adv/create/officeForm.html:460
+msgid "Click to upload"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hotelForm.html:104
+msgid "Club/Disco"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:256
+#: ../public/apps/frontApp/adv/create/houseForm.html:265
+msgid "Cold rent (in &euro;)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:116
+msgid "Cold-storage(+ warehouse)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:384
+#: ../public/apps/frontApp/adv/create/hallForm.html:397
+#: ../public/apps/frontApp/adv/create/hotelForm.html:361
+#: ../public/apps/frontApp/adv/create/houseForm.html:393
+#: ../public/apps/frontApp/adv/create/officeForm.html:399
+msgid "Consumption pass"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:473
+#: ../public/apps/frontApp/adv/create/garageForm.html:237
+#: ../public/apps/frontApp/adv/create/hallForm.html:486
+#: ../public/apps/frontApp/adv/create/hotelForm.html:450
+#: ../public/apps/frontApp/adv/create/houseForm.html:482
+#: ../public/apps/frontApp/adv/create/officeForm.html:488
+msgid "Contact details"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:517
+#: ../public/apps/frontApp/adv/create/garageForm.html:281
+#: ../public/apps/frontApp/adv/create/hallForm.html:530
+#: ../public/apps/frontApp/adv/create/hotelForm.html:494
+#: ../public/apps/frontApp/adv/create/houseForm.html:526
+#: ../public/apps/frontApp/adv/create/officeForm.html:532
+msgid "Contact only via email?"
+msgstr ""
+
+#: ../resources/views/controller/adv/create.blade.php:13
+msgid "Create advertisement"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:464
+#: ../public/apps/frontApp/adv/create/garageForm.html:228
+#: ../public/apps/frontApp/adv/create/hallForm.html:477
+#: ../public/apps/frontApp/adv/create/hotelForm.html:441
+#: ../public/apps/frontApp/adv/create/houseForm.html:473
+#: ../public/apps/frontApp/adv/create/officeForm.html:479
+msgid "Description"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:38
+#: ../public/apps/frontApp/adv/create/garageForm.html:38
+#: ../public/apps/frontApp/adv/create/hallForm.html:38
+#: ../public/apps/frontApp/adv/create/hotelForm.html:38
+#: ../public/apps/frontApp/adv/create/houseForm.html:38
+#: ../public/apps/frontApp/adv/create/officeForm.html:38
+msgid "Don‘t show the street and house number"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:116
+msgid "Downstairs flat"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:73
+#: ../public/apps/frontApp/adv/create/hallForm.html:73
+#: ../public/apps/frontApp/adv/create/hotelForm.html:73
+#: ../public/apps/frontApp/adv/create/houseForm.html:73
+#: ../public/apps/frontApp/adv/create/officeForm.html:73
+msgid "Driving time to the next Airport ca."
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:65
+#: ../public/apps/frontApp/adv/create/hallForm.html:65
+#: ../public/apps/frontApp/adv/create/hotelForm.html:65
+#: ../public/apps/frontApp/adv/create/houseForm.html:65
+#: ../public/apps/frontApp/adv/create/officeForm.html:65
+msgid "Driving time to the next Autobahn ca."
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:57
+#: ../public/apps/frontApp/adv/create/hallForm.html:57
+#: ../public/apps/frontApp/adv/create/hotelForm.html:57
+#: ../public/apps/frontApp/adv/create/houseForm.html:57
+#: ../public/apps/frontApp/adv/create/officeForm.html:57
+msgid "Driving time to the next central station ca."
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:203
+#: ../public/apps/frontApp/adv/create/hallForm.html:224
+#: ../public/apps/frontApp/adv/create/hotelForm.html:188
+#: ../public/apps/frontApp/adv/create/houseForm.html:212
+#: ../public/apps/frontApp/adv/create/officeForm.html:199
+msgid "Duplex"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:222
+msgid "EDP cabling"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:501
+#: ../public/apps/frontApp/adv/create/garageForm.html:265
+#: ../public/apps/frontApp/adv/create/hallForm.html:514
+#: ../public/apps/frontApp/adv/create/hotelForm.html:478
+#: ../public/apps/frontApp/adv/create/houseForm.html:510
+#: ../public/apps/frontApp/adv/create/officeForm.html:516
+msgid "Email"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:110
+msgid "End-terrace town house"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:307
+#: ../public/apps/frontApp/adv/create/hallForm.html:320
+#: ../public/apps/frontApp/adv/create/hotelForm.html:284
+#: ../public/apps/frontApp/adv/create/houseForm.html:316
+#: ../public/apps/frontApp/adv/create/officeForm.html:322
+msgid "Energy"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:393
+#: ../public/apps/frontApp/adv/create/hallForm.html:406
+#: ../public/apps/frontApp/adv/create/hotelForm.html:370
+#: ../public/apps/frontApp/adv/create/houseForm.html:402
+#: ../public/apps/frontApp/adv/create/officeForm.html:408
+msgid "Energy consumption value"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:409
+#: ../public/apps/frontApp/adv/create/hallForm.html:422
+#: ../public/apps/frontApp/adv/create/hotelForm.html:386
+#: ../public/apps/frontApp/adv/create/houseForm.html:418
+#: ../public/apps/frontApp/adv/create/officeForm.html:424
+msgid "Energy efficiency class"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:340
+#: ../public/apps/frontApp/adv/create/hallForm.html:353
+#: ../public/apps/frontApp/adv/create/hotelForm.html:317
+#: ../public/apps/frontApp/adv/create/houseForm.html:349
+#: ../public/apps/frontApp/adv/create/officeForm.html:355
+msgid "Energy pass"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:358
+#: ../public/apps/frontApp/adv/create/hallForm.html:371
+#: ../public/apps/frontApp/adv/create/hotelForm.html:335
+#: ../public/apps/frontApp/adv/create/houseForm.html:367
+#: ../public/apps/frontApp/adv/create/officeForm.html:373
+msgid "Energy pass date"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:375
+#: ../public/apps/frontApp/adv/create/hallForm.html:388
+#: ../public/apps/frontApp/adv/create/hotelForm.html:352
+#: ../public/apps/frontApp/adv/create/houseForm.html:384
+#: ../public/apps/frontApp/adv/create/officeForm.html:390
+msgid "Energy pass type"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:318
+#: ../public/apps/frontApp/adv/create/hallForm.html:331
+#: ../public/apps/frontApp/adv/create/hotelForm.html:295
+#: ../public/apps/frontApp/adv/create/houseForm.html:327
+#: ../public/apps/frontApp/adv/create/officeForm.html:333
+msgid "Energy source"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:174
+msgid "Epoxy resin floor"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:422
+#: ../public/apps/frontApp/adv/create/hallForm.html:435
+#: ../public/apps/frontApp/adv/create/hotelForm.html:399
+#: ../public/apps/frontApp/adv/create/houseForm.html:431
+#: ../public/apps/frontApp/adv/create/officeForm.html:437
+msgid "Equipment"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:128
+msgid "Farmhouse"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:253
+#: ../public/apps/frontApp/adv/create/garageForm.html:168
+#: ../public/apps/frontApp/adv/create/hallForm.html:257
+#: ../public/apps/frontApp/adv/create/hotelForm.html:221
+#: ../public/apps/frontApp/adv/create/houseForm.html:262
+#: ../public/apps/frontApp/adv/create/officeForm.html:259
+msgid "Finance"
+msgstr ""
+
+#: ../resources/views/controller/adv/create.blade.php:140
+msgid "Finish"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:90
+msgid "Flat type"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:174
+#: ../public/apps/frontApp/adv/create/officeForm.html:145
+msgid "Floor"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:169
+msgid "Floor cover"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:198
+msgid "Floor loading"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:176
+msgid "FloorBoards"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:221
+#: ../public/apps/frontApp/adv/create/houseForm.html:230
+msgid "Forbidden"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:487
+#: ../public/apps/frontApp/adv/create/garageForm.html:251
+#: ../public/apps/frontApp/adv/create/hallForm.html:500
+#: ../public/apps/frontApp/adv/create/hotelForm.html:464
+#: ../public/apps/frontApp/adv/create/houseForm.html:496
+#: ../public/apps/frontApp/adv/create/officeForm.html:502
+msgid "Forename"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:204
+#: ../public/apps/frontApp/adv/create/garageForm.html:77
+#: ../public/apps/frontApp/adv/create/hallForm.html:225
+#: ../public/apps/frontApp/adv/create/hotelForm.html:189
+#: ../public/apps/frontApp/adv/create/houseForm.html:213
+#: ../public/apps/frontApp/adv/create/officeForm.html:200
+msgid "Garage"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hotelForm.html:90
+msgid "Gastronomy/Hotel type"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:98
+msgid "Hall(+ open space)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:90
+msgid "Hall/Production type"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:270
+#: ../public/apps/frontApp/adv/create/hallForm.html:289
+#: ../public/apps/frontApp/adv/create/hotelForm.html:253
+#: ../public/apps/frontApp/adv/create/houseForm.html:279
+#: ../public/apps/frontApp/adv/create/officeForm.html:291
+msgid "Heating costs included in ancillary cost?"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/garageForm.html:130
+msgid "Height"
+msgstr ""
+
+#: ../resources/views/controller/adv/create.blade.php:12
+msgid "Home"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hotelForm.html:116
+msgid "Hotel"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:22
+#: ../public/apps/frontApp/adv/create/garageForm.html:22
+#: ../public/apps/frontApp/adv/create/hallForm.html:22
+#: ../public/apps/frontApp/adv/create/hotelForm.html:22
+#: ../public/apps/frontApp/adv/create/houseForm.html:22
+#: ../public/apps/frontApp/adv/create/officeForm.html:22
+msgid "House number"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:90
+msgid "House type"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/garageForm.html:119
+#: ../public/apps/frontApp/adv/create/garageForm.html:125
+#: ../public/apps/frontApp/adv/create/garageForm.html:132
+#: ../public/apps/frontApp/adv/create/garageForm.html:139
+#: ../public/apps/frontApp/adv/create/hallForm.html:185
+msgid "In m"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:153
+#: ../public/apps/frontApp/adv/create/hallForm.html:161
+#: ../public/apps/frontApp/adv/create/hallForm.html:169
+#: ../public/apps/frontApp/adv/create/hallForm.html:177
+#: ../public/apps/frontApp/adv/create/hallForm.html:200
+#: ../public/apps/frontApp/adv/create/hallForm.html:207
+#: ../public/apps/frontApp/adv/create/hotelForm.html:145
+msgid "In m2"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:162
+#: ../public/apps/frontApp/adv/create/garageForm.html:112
+#: ../public/apps/frontApp/adv/create/hallForm.html:145
+#: ../public/apps/frontApp/adv/create/houseForm.html:168
+#: ../public/apps/frontApp/adv/create/officeForm.html:133
+msgid "In year"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:110
+msgid "Industrial building"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:177
+msgid "Laminate"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:310
+#: ../public/apps/frontApp/adv/create/hallForm.html:323
+#: ../public/apps/frontApp/adv/create/hotelForm.html:287
+#: ../public/apps/frontApp/adv/create/houseForm.html:319
+#: ../public/apps/frontApp/adv/create/officeForm.html:325
+msgid "Last modernization of the building (in year)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/garageForm.html:117
+msgid "Length"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:167
+#: ../public/apps/frontApp/adv/create/houseForm.html:179
+msgid "Living area"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:2
+#: ../public/apps/frontApp/adv/create/garageForm.html:2
+#: ../public/apps/frontApp/adv/create/hallForm.html:2
+#: ../public/apps/frontApp/adv/create/hotelForm.html:2
+#: ../public/apps/frontApp/adv/create/houseForm.html:2
+#: ../public/apps/frontApp/adv/create/officeForm.html:2
+msgid "Location"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:104
+msgid "Loft"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:98
+msgid "Loft/Studio"
+msgstr ""
+
+#: ../public/apps/backApp/headerMenu/headerMenu.html:29
+msgid "Logout"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:122
+msgid "Maisonette"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:329
+#: ../public/apps/frontApp/adv/create/hallForm.html:342
+#: ../public/apps/frontApp/adv/create/hotelForm.html:306
+#: ../public/apps/frontApp/adv/create/houseForm.html:338
+#: ../public/apps/frontApp/adv/create/officeForm.html:344
+msgid "Method of heating"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:104
+msgid "Mid-terrace town house"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:481
+#: ../public/apps/frontApp/adv/create/garageForm.html:245
+#: ../public/apps/frontApp/adv/create/hallForm.html:494
+#: ../public/apps/frontApp/adv/create/hotelForm.html:458
+#: ../public/apps/frontApp/adv/create/houseForm.html:490
+#: ../public/apps/frontApp/adv/create/officeForm.html:496
+msgid "Miss"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:478
+#: ../public/apps/frontApp/adv/create/garageForm.html:242
+#: ../public/apps/frontApp/adv/create/hallForm.html:491
+#: ../public/apps/frontApp/adv/create/hotelForm.html:455
+#: ../public/apps/frontApp/adv/create/houseForm.html:487
+#: ../public/apps/frontApp/adv/create/officeForm.html:493
+msgid "Mister"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/garageForm.html:171
+msgid "Monthly rent (in &euro;)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:116
+msgid "Multi-family house"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:276
+#: ../public/apps/frontApp/adv/create/hallForm.html:295
+#: ../public/apps/frontApp/adv/create/hotelForm.html:259
+#: ../public/apps/frontApp/adv/create/houseForm.html:285
+#: ../public/apps/frontApp/adv/create/officeForm.html:214
+#: ../public/apps/frontApp/adv/create/officeForm.html:228
+#: ../public/apps/frontApp/adv/create/officeForm.html:297
+msgid "No"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:182
+msgid "No floor cover"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hotelForm.html:169
+msgid "Number of beds/guests"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:191
+#: ../public/apps/frontApp/adv/create/hotelForm.html:154
+#: ../public/apps/frontApp/adv/create/houseForm.html:186
+#: ../public/apps/frontApp/adv/create/officeForm.html:155
+msgid "Number of floors"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:191
+#: ../public/apps/frontApp/adv/create/hallForm.html:212
+#: ../public/apps/frontApp/adv/create/hotelForm.html:176
+#: ../public/apps/frontApp/adv/create/houseForm.html:200
+#: ../public/apps/frontApp/adv/create/officeForm.html:187
+msgid "Number of garage/parking space"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:184
+#: ../public/apps/frontApp/adv/create/hotelForm.html:161
+#: ../public/apps/frontApp/adv/create/houseForm.html:193
+#: ../public/apps/frontApp/adv/create/officeForm.html:162
+msgid "Number of rooms"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:104
+msgid "Office"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:175
+msgid "Office area"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:138
+msgid "Office/Praxis area"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:90
+msgid "Office/praxis type"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:201
+#: ../public/apps/frontApp/adv/create/hallForm.html:222
+#: ../public/apps/frontApp/adv/create/hotelForm.html:186
+#: ../public/apps/frontApp/adv/create/houseForm.html:210
+#: ../public/apps/frontApp/adv/create/officeForm.html:197
+msgid "Outdoor parking"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/garageForm.html:65
+msgid "Outside-parking space"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:179
+msgid "PVC"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:205
+#: ../public/apps/frontApp/adv/create/hallForm.html:226
+#: ../public/apps/frontApp/adv/create/hotelForm.html:190
+#: ../public/apps/frontApp/adv/create/houseForm.html:214
+#: ../public/apps/frontApp/adv/create/officeForm.html:201
+msgid "Parking structure"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/garageForm.html:57
+msgid "Parking type"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:178
+msgid "Parquet"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hotelForm.html:122
+msgid "Pension"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:128
+msgid "Penthouse"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:212
+#: ../public/apps/frontApp/adv/create/houseForm.html:221
+msgid "Pets"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:509
+#: ../public/apps/frontApp/adv/create/garageForm.html:273
+#: ../public/apps/frontApp/adv/create/hallForm.html:522
+#: ../public/apps/frontApp/adv/create/hotelForm.html:486
+#: ../public/apps/frontApp/adv/create/houseForm.html:518
+#: ../public/apps/frontApp/adv/create/officeForm.html:524
+msgid "Phone number"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:283
+#: ../public/apps/frontApp/adv/create/hallForm.html:302
+#: ../public/apps/frontApp/adv/create/hotelForm.html:266
+#: ../public/apps/frontApp/adv/create/houseForm.html:292
+#: ../public/apps/frontApp/adv/create/officeForm.html:304
+msgid "Please enter the heating costs"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:322
+#: ../public/apps/frontApp/adv/create/flatForm.html:333
+#: ../public/apps/frontApp/adv/create/flatForm.html:413
+#: ../public/apps/frontApp/adv/create/hallForm.html:335
+#: ../public/apps/frontApp/adv/create/hallForm.html:346
+#: ../public/apps/frontApp/adv/create/hallForm.html:426
+#: ../public/apps/frontApp/adv/create/hotelForm.html:299
+#: ../public/apps/frontApp/adv/create/hotelForm.html:310
+#: ../public/apps/frontApp/adv/create/hotelForm.html:390
+#: ../public/apps/frontApp/adv/create/houseForm.html:331
+#: ../public/apps/frontApp/adv/create/houseForm.html:342
+#: ../public/apps/frontApp/adv/create/houseForm.html:422
+#: ../public/apps/frontApp/adv/create/officeForm.html:337
+#: ../public/apps/frontApp/adv/create/officeForm.html:348
+#: ../public/apps/frontApp/adv/create/officeForm.html:428
+msgid "Please select"
+msgstr ""
+
+#: ../resources/views/controller/adv/create.blade.php:27
+msgid "Please select your advertisement type"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:173
+msgid "Plot area"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:205
+msgid "Power connection value"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:110
+msgid "Praxis"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:269
+#: ../public/apps/frontApp/adv/create/hotelForm.html:233
+#: ../public/apps/frontApp/adv/create/officeForm.html:271
+msgid "Price on request"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:266
+#: ../public/apps/frontApp/adv/create/hotelForm.html:230
+#: ../public/apps/frontApp/adv/create/officeForm.html:268
+msgid "Price per m2"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:263
+#: ../public/apps/frontApp/adv/create/hotelForm.html:227
+#: ../public/apps/frontApp/adv/create/officeForm.html:265
+msgid "Price per month"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:260
+#: ../public/apps/frontApp/adv/create/hotelForm.html:224
+#: ../public/apps/frontApp/adv/create/officeForm.html:262
+msgid "Price type"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:159
+msgid "Production area"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:134
+msgid "Raised ground floor"
+msgstr ""
+
+#: ../resources/views/controller/adv/create.blade.php:36
+msgid "Rent"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:275
+#: ../public/apps/frontApp/adv/create/hotelForm.html:239
+#: ../public/apps/frontApp/adv/create/officeForm.html:277
+msgid "Rental price(in &euro;)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:379
+#: ../public/apps/frontApp/adv/create/hallForm.html:392
+#: ../public/apps/frontApp/adv/create/hotelForm.html:356
+#: ../public/apps/frontApp/adv/create/houseForm.html:388
+#: ../public/apps/frontApp/adv/create/officeForm.html:394
+msgid "Requirement pass"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hotelForm.html:110
+msgid "Restaurant"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:186
+#: ../public/apps/frontApp/adv/create/hotelForm.html:163
+#: ../public/apps/frontApp/adv/create/houseForm.html:195
+#: ../public/apps/frontApp/adv/create/officeForm.html:164
+msgid "Room/Rooms"
+msgstr ""
+
+#: ../resources/views/controller/adv/create.blade.php:81
+msgid "Sale"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:134
+msgid "Semi-detached house"
+msgstr ""
+
+#: ../resources/views/controller/adv/create.blade.php:165
+msgid "Send"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:98
+msgid "Single-family house"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:98
+msgid "Souterrain"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:183
+msgid "Storey height"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:20
+#: ../public/apps/frontApp/adv/create/garageForm.html:20
+#: ../public/apps/frontApp/adv/create/hallForm.html:20
+#: ../public/apps/frontApp/adv/create/hotelForm.html:20
+#: ../public/apps/frontApp/adv/create/houseForm.html:20
+#: ../public/apps/frontApp/adv/create/officeForm.html:20
+msgid "Street"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:17
+#: ../public/apps/frontApp/adv/create/garageForm.html:17
+#: ../public/apps/frontApp/adv/create/hallForm.html:17
+#: ../public/apps/frontApp/adv/create/hotelForm.html:17
+#: ../public/apps/frontApp/adv/create/houseForm.html:17
+#: ../public/apps/frontApp/adv/create/officeForm.html:17
+msgid "Street, House number"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:494
+#: ../public/apps/frontApp/adv/create/garageForm.html:258
+#: ../public/apps/frontApp/adv/create/hallForm.html:507
+#: ../public/apps/frontApp/adv/create/hotelForm.html:471
+#: ../public/apps/frontApp/adv/create/houseForm.html:503
+#: ../public/apps/frontApp/adv/create/officeForm.html:509
+msgid "Surname"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:140
+msgid "Terrace flat"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/officeForm.html:175
+msgid "Tiles"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:362
+#: ../public/apps/frontApp/adv/create/hallForm.html:375
+#: ../public/apps/frontApp/adv/create/hotelForm.html:339
+#: ../public/apps/frontApp/adv/create/houseForm.html:371
+#: ../public/apps/frontApp/adv/create/officeForm.html:377
+msgid "Till 30.04.14 (EnEV 2009)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:475
+#: ../public/apps/frontApp/adv/create/garageForm.html:239
+#: ../public/apps/frontApp/adv/create/hallForm.html:488
+#: ../public/apps/frontApp/adv/create/hotelForm.html:452
+#: ../public/apps/frontApp/adv/create/houseForm.html:484
+#: ../public/apps/frontApp/adv/create/officeForm.html:490
+msgid "Title"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:457
+#: ../public/apps/frontApp/adv/create/garageForm.html:221
+#: ../public/apps/frontApp/adv/create/hallForm.html:470
+#: ../public/apps/frontApp/adv/create/hotelForm.html:434
+#: ../public/apps/frontApp/adv/create/houseForm.html:466
+#: ../public/apps/frontApp/adv/create/officeForm.html:472
+msgid "Title of your advertisement"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:110
+msgid "Top floor flat"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:151
+#: ../public/apps/frontApp/adv/create/hotelForm.html:143
+msgid "Total area"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:292
+#: ../public/apps/frontApp/adv/create/garageForm.html:187
+#: ../public/apps/frontApp/adv/create/houseForm.html:301
+msgid "Total cost (in &euro;)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:198
+#: ../public/apps/frontApp/adv/create/hallForm.html:219
+#: ../public/apps/frontApp/adv/create/hotelForm.html:183
+#: ../public/apps/frontApp/adv/create/houseForm.html:207
+#: ../public/apps/frontApp/adv/create/officeForm.html:194
+msgid "Type of garage/parking space"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:206
+#: ../public/apps/frontApp/adv/create/hallForm.html:227
+#: ../public/apps/frontApp/adv/create/hotelForm.html:191
+#: ../public/apps/frontApp/adv/create/houseForm.html:215
+#: ../public/apps/frontApp/adv/create/officeForm.html:202
+msgid "Underground car park"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/garageForm.html:83
+msgid "Underground carpark"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/houseForm.html:140
+msgid "Villa"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:49
+#: ../public/apps/frontApp/adv/create/hallForm.html:49
+#: ../public/apps/frontApp/adv/create/hotelForm.html:49
+#: ../public/apps/frontApp/adv/create/houseForm.html:49
+#: ../public/apps/frontApp/adv/create/officeForm.html:49
+msgid "Walkway to public transport ca."
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:167
+msgid "Warehouse area"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/hallForm.html:104
+msgid "Warehouse(+ open space)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/garageForm.html:123
+msgid "Width"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:273
+#: ../public/apps/frontApp/adv/create/hallForm.html:292
+#: ../public/apps/frontApp/adv/create/hotelForm.html:256
+#: ../public/apps/frontApp/adv/create/houseForm.html:282
+#: ../public/apps/frontApp/adv/create/officeForm.html:211
+#: ../public/apps/frontApp/adv/create/officeForm.html:225
+#: ../public/apps/frontApp/adv/create/officeForm.html:294
+msgid "Yes"
+msgstr ""
+
+#: ../resources/views/controller/adv/create.blade.php:163
+msgid "You did not fill in all fields"
+msgstr ""
+
+#: ../resources/views/controller/adv/create.blade.php:17
+msgid ""
+"You need <a href=\"{{route('register.private')}}\">create an\n"
+"                    account</a> or <a ng-click=\"displayLoginForm()\" class=\"link\">login</a> to an\n"
+"                existing account"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:176
+#: ../public/apps/frontApp/adv/create/officeForm.html:147
+msgid "Your Floor"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:518
+#: ../public/apps/frontApp/adv/create/garageForm.html:282
+#: ../public/apps/frontApp/adv/create/hallForm.html:531
+#: ../public/apps/frontApp/adv/create/hotelForm.html:495
+#: ../public/apps/frontApp/adv/create/houseForm.html:527
+#: ../public/apps/frontApp/adv/create/officeForm.html:533
+msgid "Your phone number will not being displayed in the advert"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:29
+#: ../public/apps/frontApp/adv/create/garageForm.html:29
+#: ../public/apps/frontApp/adv/create/hallForm.html:29
+#: ../public/apps/frontApp/adv/create/hotelForm.html:29
+#: ../public/apps/frontApp/adv/create/houseForm.html:29
+#: ../public/apps/frontApp/adv/create/officeForm.html:29
+msgid "Zip"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:27
+#: ../public/apps/frontApp/adv/create/garageForm.html:27
+#: ../public/apps/frontApp/adv/create/hallForm.html:27
+#: ../public/apps/frontApp/adv/create/hotelForm.html:27
+#: ../public/apps/frontApp/adv/create/houseForm.html:27
+#: ../public/apps/frontApp/adv/create/officeForm.html:27
+msgid "Zip, City"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:397
+#: ../public/apps/frontApp/adv/create/hallForm.html:410
+#: ../public/apps/frontApp/adv/create/hotelForm.html:374
+#: ../public/apps/frontApp/adv/create/houseForm.html:406
+#: ../public/apps/frontApp/adv/create/officeForm.html:412
+msgid "kWh/(m2*a)"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:169
+#: ../public/apps/frontApp/adv/create/houseForm.html:175
+#: ../public/apps/frontApp/adv/create/houseForm.html:181
+#: ../public/apps/frontApp/adv/create/officeForm.html:140
+msgid "m2"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:51
+#: ../public/apps/frontApp/adv/create/flatForm.html:59
+#: ../public/apps/frontApp/adv/create/flatForm.html:67
+#: ../public/apps/frontApp/adv/create/flatForm.html:75
+#: ../public/apps/frontApp/adv/create/hallForm.html:51
+#: ../public/apps/frontApp/adv/create/hallForm.html:59
+#: ../public/apps/frontApp/adv/create/hallForm.html:67
+#: ../public/apps/frontApp/adv/create/hallForm.html:75
+#: ../public/apps/frontApp/adv/create/hotelForm.html:51
+#: ../public/apps/frontApp/adv/create/hotelForm.html:59
+#: ../public/apps/frontApp/adv/create/hotelForm.html:67
+#: ../public/apps/frontApp/adv/create/hotelForm.html:75
+#: ../public/apps/frontApp/adv/create/houseForm.html:51
+#: ../public/apps/frontApp/adv/create/houseForm.html:59
+#: ../public/apps/frontApp/adv/create/houseForm.html:67
+#: ../public/apps/frontApp/adv/create/houseForm.html:75
+#: ../public/apps/frontApp/adv/create/officeForm.html:51
+#: ../public/apps/frontApp/adv/create/officeForm.html:59
+#: ../public/apps/frontApp/adv/create/officeForm.html:67
+#: ../public/apps/frontApp/adv/create/officeForm.html:75
+msgid "minutes"
+msgstr ""
+
+#: ../public/apps/frontApp/adv/create/flatForm.html:177
+#: ../public/apps/frontApp/adv/create/officeForm.html:148
+msgid "of"
+msgstr ""
+
+#: ../public/apps/backApp/headerMenu/headerMenu.html:19
+msgid "Контакты"
+msgstr ""
+
+#: ../public/apps/backApp/headerMenu/headerMenu.html:20
+msgid "Логи"
+msgstr ""
+
+#: ../public/apps/backApp/headerMenu/headerMenu.html:14
+msgid "Пользователи"
+msgstr ""
+
+#: ../public/apps/backApp/headerMenu/headerMenu.html:17
+msgid "Слайдер"
+msgstr ""
+
+#: ../public/apps/backApp/headerMenu/headerMenu.html:15
+msgid "События"
+msgstr ""
+
+#: ../public/apps/backApp/headerMenu/headerMenu.html:18
+msgid "Страницы"
+msgstr ""
+
+#: ../public/apps/backApp/headerMenu/headerMenu.html:16
+msgid "Тарифы"
+msgstr ""
