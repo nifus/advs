@@ -21,9 +21,7 @@ Route::group(['prefix'=>'user'], function () {
 });
 
 
-Route::get('/rent', ['as'=>'adv.rent','uses'=>function () {
-    return view('frontApp');
-}]);
+Route::get('/rent', ['as'=>'adv.rent','uses'=> 'SearchController@rent'] );
 Route::get('/buy', ['as'=>'adv.buy','uses'=>function () {
     return view('frontApp');
 }]);
