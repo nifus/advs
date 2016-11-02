@@ -372,7 +372,7 @@ class Adv extends Model
     {
         foreach( self::$sub_categories as $i=>$category){
             foreach($category as $j=>$equipment) {
-                self::$sub_categories[$i][$j]['title'] = trans('main.sub_category_' . self::$sub_categories[$i][$j]['title']);
+                self::$sub_categories[$i][$j]['title'] = trans('main.subcategory_' . self::$sub_categories[$i][$j]['title']);
             }
         }
         return self::$sub_categories;
