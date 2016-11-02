@@ -27,7 +27,7 @@
 
         $scope.logout = function () {
             userFactory.logout();
-            window.location.reload(true)
+            window.location.href='/'
         };
         $scope.displayForgotForm = function () {
             $scope.form_type = 'forgot'
@@ -92,9 +92,7 @@
 
         });
 
-        $scope.logout = function () {
-            userFactory.logout();
-        }
+
     }
 })();
 
