@@ -16,7 +16,6 @@
         @if(is_null($user))
             <div class="alert alert-danger" role="alert" >
                 {!! trans('main.create_adv_need_register',['link'=>route('register.private')]) !!}
-
             </div>
         @else
             <div ng-controller="createAdvController">
@@ -51,7 +50,7 @@
 
                             </div>
                             <div style="background-color: darkseagreen;padding:10px;margin:0px;">
-                                <div class="radio" ng-class="{'disabled':env.is_business_sell}">
+                                <div class="radio" ng-class="{'disabled':env.is_business_sale}">
                                     <label>
                                         <input type="radio" ng-model="env.is_business_rent"
                                                ng-click="isBusiness('rent')">
@@ -87,8 +86,8 @@
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" value="flat"
-                                                       ng-checked="model.type=='sell' && model.category=={{$category['id']}}"
-                                                       ng-click="setPrivateType('sell',{{$category['id']}})">
+                                                       ng-checked="model.type=='sale' && model.category=={{$category['id']}}"
+                                                       ng-click="setPrivateType('sale',{{$category['id']}})">
                                                 {{$category['title']}}
                                             </label>
                                         </div>
@@ -100,8 +99,8 @@
 
                                 <div class="radio" ng-class="{'disabled':env.is_business_rent}">
                                     <label>
-                                        <input type="radio" ng-model="env.is_business_sell"
-                                               ng-click="isBusiness('sell')">
+                                        <input type="radio" ng-model="env.is_business_sale"
+                                               ng-click="isBusiness('sale')">
                                         {{ trans('main.create_adv_business') }}
                                     </label>
                                 </div>
@@ -111,11 +110,11 @@
 
                                 @foreach($categories as $category)
                                     @if($category['ic_business']==true  )
-                                        <div class="radio" ng-class="{'disabled' : env.is_business_sell==0}">
+                                        <div class="radio" ng-class="{'disabled' : env.is_business_sale==0}">
                                             <label>
                                                 <input type="radio" value="flat"
-                                                       ng-checked="model.type=='sell' && model.category=={{$category['id']}}"
-                                                       ng-click="setBusinessType('sell',{{$category['id']}})">
+                                                       ng-checked="model.type=='sale' && model.category=={{$category['id']}}"
+                                                       ng-click="setBusinessType('sale',{{$category['id']}})">
                                                 {{$category['title']}}
                                             </label>
                                         </div>
@@ -128,12 +127,23 @@
                     </div>
 
 
-                    <div ng-include="'apps/frontApp/adv/create/flatForm.html'" ng-show="model.category==1"></div>
-                    <div ng-include="'apps/frontApp/adv/create/houseForm.html'" ng-show="model.category==2"></div>
-                    <div ng-include="'apps/frontApp/adv/create/garageForm.html'" ng-show="model.category==3"></div>
-                    <div ng-include="'apps/frontApp/adv/create/officeForm.html'" ng-show="model.category==4"></div>
-                    <div ng-include="'apps/frontApp/adv/create/hotelForm.html'" ng-show="model.category==6"></div>
-                    <div ng-include="'apps/frontApp/adv/create/hallForm.html'" ng-show="model.category==7"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentFlatForm.html'"  ng-show="model.category==1 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHouseForm.html'" ng-show="model.category==2 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentGarageForm.html'" ng-show="model.category==3 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentOfficeForm.html'" ng-show="model.category==4 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHotelForm.html'" ng-show="model.category==6 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHallForm.html'" ng-show="model.category==7 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentRetailForm.html'" ng-show="model.category==8 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentCommercialLandForm.html'" ng-show="model.category==9 && model.type=='rent'"></div>
+
+                    <div ng-include="'apps/frontApp/adv/create/saleFlatForm.html'"  ng-show="model.category==1 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHouseForm.html'" ng-show="model.category==2 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentGarageForm.html'" ng-show="model.category==3 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentOfficeForm.html'" ng-show="model.category==4 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHotelForm.html'" ng-show="model.category==6 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHallForm.html'" ng-show="model.category==7 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentRetailForm.html'" ng-show="model.category==8 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentCommercialLandForm.html'" ng-show="model.category==9 && model.type=='sale'"></div>
 
 
                     <div class="row form-horizontal" ng-show="model.category">

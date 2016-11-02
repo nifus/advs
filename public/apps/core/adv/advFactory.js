@@ -12,9 +12,20 @@
             store: store,
             getUserAdvById: getUserAdvById,
             getByUser: getByUser,
-            getWatchByUser: getWatchByUser
+            getWatchByUser: getWatchByUser,
+            getDataSets: getDataSets
 
         };
+
+        function getDataSets() {
+            var deferred = $q.defer();
+            $http.get('/api/adv-data-sets' ).then(function (response) {
+                deferred.resolve( response.data);
+            }, function (error) {
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
 
         function store(data) {
             var deferred = $q.defer();

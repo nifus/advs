@@ -87,75 +87,18 @@
 
 
 <div class="row">
-    <h4 translate>House type</h4>
-
+    <h4 translate>Office/praxis type</h4>
     <div class="form-group">
         <label class="col-sm-2 control-label"></label>
         <div class="col-sm-10">
-            <div class="col-md-4">
+            <div class="col-md-4" ng-repeat="cat in env.subcats[model.category]">
                 <label>
-                    <input type="radio" ng-model="model.subcategory" value="Single-family house">
-                    {{'Single-family house'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Mid-terrace town house">
-                    {{'Mid-terrace town house'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="End-terrace town house">
-                    {{'End-terrace town house'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Multi-family house">
-                    {{'Multi-family house'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Bungalow">
-                    {{'Bungalow'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Farmhouse">
-                    {{'Farmhouse'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Semi-detached house">
-                    {{'Semi-detached house'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Villa">
-                    {{'Villa'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Castle / Palace">
-                    {{'Castle / Palace'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Any">
-                    {{'Any'|translate}}
+                    <input type="radio" ng-model="model.subcategory" value="{{cat.id}}">
+                    {{cat.title}}
                 </label>
             </div>
         </div>
     </div>
-
-
 </div>
 
 
@@ -170,15 +113,19 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Plot area</label>
+        <label class="col-sm-2 control-label" translate>Office/Praxis area</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="{{'m2'|translate}}" ng-model="model.plot_area">
+            <input type="text" class="form-control" placeholder="{{'m2'|translate}}" ng-model="model.office_area">
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Living area</label>
+
+    <div class="form-group form-inline">
+        <label class="col-sm-2 control-label" translate>Floor</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="{{'m2'|translate}}" ng-model="model.living_area">
+            <input type="text" class="form-control" placeholder="{{'Your Floor'|translate}}" ng-model="model.floor">
+            {{'of'|translate}}
+            <input type="text" class="form-control" placeholder="{{'All Floors'|translate}}"
+                   ng-model="model.address.floors">
         </div>
     </div>
 
@@ -196,6 +143,24 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label class="col-sm-2 control-label" translate>Floor cover</label>
+        <div class="col-sm-10">
+            <select class="form-control" ng-model="model.floor_cover">
+                <option value="Any" translate>Any</option>
+                <option value="Cement" translate>Cement</option>
+                <option value="Epoxy resin floor" translate>Epoxy resin floor</option>
+                <option value="Tiles" translate>Tiles</option>
+                <option value="FloorBoards" translate>FloorBoards</option>
+                <option value="Laminate" translate>Laminate</option>
+                <option value="Parquet" translate>Parquet</option>
+                <option value="PVC" translate>PVC</option>
+                <option value="Carpet" translate>Carpet</option>
+                <option value="According to leaser wish" translate>According to leaser wish</option>
+                <option value="No floor cover" translate>No floor cover</option>
+            </select>
+        </div>
+    </div>
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Number of garage/parking space</label>
         <div class="col-sm-10">
@@ -218,23 +183,33 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Pets</label>
+        <label class="col-sm-2 control-label" translate>Air conditioner available</label>
         <div class="col-sm-10">
             <label class="radio-inline">
-                <input type="radio" ng-model="model.pets" value="Any"> {{'Any'|translate}}
+                <input type="radio" ng-model="model.air_conditioner" value="Yes"> {{'Yes'|translate}}
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.pets" value="Allowed"> {{'Allowed'|translate}}
+                <input type="radio" ng-model="model.air_conditioner" value="No"> {{'No'|translate}}
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.pets" value="Forbidden"> {{'Forbidden'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.pets" value="By agreement"> {{'By agreement'|translate}}
+                <input type="radio" ng-model="model.air_conditioner" value="By agreement"> {{'By agreement'|translate}}
             </label>
         </div>
     </div>
-
+    <div class="form-group">
+        <label class="col-sm-2 control-label" translate>EDP cabling</label>
+        <div class="col-sm-10">
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.edp_cabling" value="Yes"> {{'Yes'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.edp_cabling" value="No"> {{'No'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.edp_cabling" value="By agreement"> {{'By agreement'|translate}}
+            </label>
+        </div>
+    </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Available from now on</label>
@@ -262,9 +237,24 @@
     <h4 translate>Finance</h4>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Cold rent (in &euro;)</label>
+        <label class="col-sm-2 control-label" translate>Price type</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="&euro;" ng-model="model.cold_rent">
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.price_type" value="Price per month"> {{'Price per month'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.price_type" value="Price per m2"> {{'Price per m2'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.price_type" value="Price on request"> {{'Price on request'|translate}}
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" translate>Rental price(in &euro;)</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="&euro;" ng-model="model.rental_price">
         </div>
     </div>
 
@@ -297,12 +287,6 @@
     </div>
 
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Total cost (in &euro;)</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.total_rent">
-        </div>
-    </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Caution money (in &euro;)</label>

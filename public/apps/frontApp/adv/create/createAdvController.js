@@ -11,18 +11,7 @@
             submit: false,
             move_date: null,
             is_business_rent: 0,
-            is_business_sell: 0,
-            equipments: [
-                "Balcony/Terrace",
-                "New building",
-                "Build-in kitchen",
-                "Garden (shared-use)",
-                "Elevator",
-                "Garage/parking space",
-                "Stepless access",
-                "Guest toilet",
-                "Cellar"
-            ],
+            is_business_sale: 0,
             energy_source: [
                 'Geothermal energy',
                 'Solar',
@@ -56,6 +45,11 @@
             display_addr_details: false
         };
 
+        advFactory.getDataSets().then(function(response){
+            $scope.env.subcats = response.sub_categories;
+            $scope.env.equipments = response.equipments;
+        })
+
 
         $scope.model = {
             type: null,
@@ -70,25 +64,13 @@
             }
         };
 
-        $scope.types = {
-            flat: [
-                'Souterrain', 'Loft', 'Top floor flat', 'Downstairs flat', 'Maisonette', 'Penthouse', 'Raised ground floor', 'Terrace flat', 'Any'
-            ],
-            house: [
-                'Single-family house', 'Mid-terrace town house', 'End-terrace town house', 'Multi-family house', 'Bungalow', 'Farmhouse', 'Semi-detached house', 'Villa', 'Castle/Palace', 'Any'
-            ],
-            garage: ['Outside-parking space', 'Carport', 'Garage', 'Underground carpark', 'Car park', 'Any'],
-            office: ['Loft/Studio', 'Office', 'Praxis', 'Any'],
-            gastronomy: ['Bar/Bistro/Cafe', 'Club/Disco', 'Restaurant', 'Hotel', 'Pension', 'Any'],
-            hall: ['Hall (+open space)', 'Warehouse ( +open space)', 'Industrial building', 'Cold+storage ( +warehouse)', 'Car workshop', 'Any'],
-            retail: ['Shopping Center']
-        }
+
 
         $scope.setPrivateType = function (type, category) {
             $scope.model.type = type;
             $scope.model.category = category;
             $scope.env.is_business_rent = 0;
-            $scope.env.is_business_sell = 0;
+            $scope.env.is_business_sale = 0;
         };
 
         $scope.setBusinessType = function (type, category) {
@@ -99,10 +81,10 @@
         $scope.isBusiness = function (type) {
             $scope.model.type = null;
             $scope.model.category = null;
-            if (type == 'sell') {
+            if (type == 'sale') {
                 $scope.env.is_business_rent = 0;
             } else {
-                $scope.env.is_business_sell = 0;
+                $scope.env.is_business_sale = 0;
             }
         };
 

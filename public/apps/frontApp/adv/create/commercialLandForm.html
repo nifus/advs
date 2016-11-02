@@ -1,7 +1,6 @@
 <div class="row">
     <h4 translate>Location</h4>
     <div class="col-md-8">
-
         <div class="form-group" ng-class="{ 'has-error': adv_form.address.$invalid && env.submit==true }">
             <label class="col-sm-2 control-label" translate>Address</label>
             <div class="col-sm-10">
@@ -45,122 +44,121 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="col-sm-2 control-label" translate>Walkway to public transport ca.</label>
+            <div class="col-sm-10 form-inline">
+                <input type="text" class="form-control" placeholder="{{'minutes'|translate}}"
+                       ng-model="model.address.distances.transport">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" translate>Driving time to the next central station ca.</label>
+            <div class="col-sm-10 form-inline">
+                <input type="text" class="form-control" placeholder="{{'minutes'|translate}}"
+                       ng-model="model.address.distances.driving">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" translate>Driving time to the next Autobahn ca.</label>
+            <div class="col-sm-10 form-inline">
+                <input type="text" class="form-control" placeholder="{{'minutes'|translate}}"
+                       ng-model="model.address.distances.autoban">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" translate>Driving time to the next Airport ca.</label>
+            <div class="col-sm-10 form-inline">
+                <input type="text" class="form-control" placeholder="{{'minutes'|translate}}"
+                       ng-model="model.address.distances.airport">
+            </div>
+        </div>
+
+
     </div>
     <div class="col-md-4">
-
-
     </div>
 </div>
 
 
-<div class="row">
-    <h4 translate>Parking type</h4>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label"></label>
-        <div class="col-sm-10">
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Outside-parking space">
-                    {{'Outside-parking space'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Carport">
-                    {{'Carport'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Garage">
-                    {{'Garage'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Underground carpark">
-                    {{'Underground carpark'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Car park">
-                    {{'Car park'|translate}}
-                </label>
-            </div>
-            <div class="col-md-4">
-                <label>
-                    <input type="radio" ng-model="model.subcategory" value="Any">
-                    {{'Any'|translate}}
-                </label>
-            </div>
-
-        </div>
-    </div>
-
-
-</div>
 
 
 <div class="row">
     <h4 translate>Basic Information</h4>
 
+
     <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Build year</label>
+        <label class="col-sm-2 control-label" translate>Plot area</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="{{'In year'|translate}}"
-                   ng-model="model.address.build_year">
+            <input type="text" class="form-control" placeholder="{{'In m2'|translate}}"
+                   ng-model="model.area">
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Length</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="{{'In m'|translate}}" ng-model="model.length">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Width</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="{{'In m'|translate}}" ng-model="model.width">
-        </div>
-    </div>
+
 
     <div class="form-group form-inline">
-        <label class="col-sm-2 control-label" translate>Height</label>
+        <label class="col-sm-2 control-label" translate>Development</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control"  placeholder="{{'In m'|translate}}"  ng-model="model.height">
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.development" value="Developed"> {{'Developed'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.development" value="Developed in part"> {{'Developed in part'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.development" value="Undeveloped"> {{'Undeveloped'|translate}}
+            </label>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Area ca</label>
+        <label class="col-sm-2 control-label" translate>Buildable after</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="{{'In m'|translate}}" ng-model="model.area">
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.buildable_after" value="Outdoor area"> {{'Outdoor area'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.buildable_after" value="Land-use plan"> {{'Land-use plan'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.buildable_after" value="As neighboring buildings"> {{'As neighboring buildings'|translate}}
+            </label>
         </div>
     </div>
-
-
 
     <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Available from now on</label>
+        <label class="col-sm-2 control-label" translate>Building permission required</label>
         <div class="col-sm-10">
-            <div class="dropdown">
-                <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown"
-                   data-target="#" href="">
-                    <div class="input-append"><input type="text" class="input-large form-control"
-                                                     data-ng-model="model.move_date"><span class="add-on"><i
-                            class="icon-calendar"></i></span>
-                    </div>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <datetimepicker data-ng-model="env.move_date"
-                                    data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select',minView:'day' }"></datetimepicker>
-                </ul>
-            </div>
-
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.building_permission" value="Yes"> {{'Yes'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.building_permission" value="No"> {{'No'|translate}}
+            </label>
         </div>
     </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" translate>Recommended usage</label>
+        <div class="col-sm-10">
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.recommended_usage" value="Buildings"> {{'Buildings'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.recommended_usage" value="Parking"> {{'Parking'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.recommended_usage" value="Garden / Farming"> {{'Garden / Farming'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.recommended_usage" value="Any"> {{'Any'|translate}}
+            </label>
+        </div>
+    </div>
+
+
 
 </div>
 
@@ -168,34 +166,28 @@
     <h4 translate>Finance</h4>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Monthly rent (in &euro;)</label>
+        <label class="col-sm-2 control-label" translate>Commercial type</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="&euro;" ng-model="model.monthly_rent">
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.commercial_type" value="Rent"> {{'Rent'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.commercial_type" value="Lease"> {{'Lease'|translate}}
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="model.commercial_type" value="Emphyteusis"> {{'Emphyteusis'|translate}}
+            </label>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Ancillary cost(in &euro;)</label>
+        <label class="col-sm-2 control-label" translate>Price per year(in &euro;)</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="&euro;" ng-model="model.ancillary_cost">
+            <input type="text" class="form-control" placeholder="&euro;" ng-model="model.price_per_year">
         </div>
     </div>
 
 
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Total cost (in &euro;)</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.total_rent">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Caution money (in &euro;)</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.caution_money">
-        </div>
-    </div>
 </div>
 
 

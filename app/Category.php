@@ -22,8 +22,6 @@ class Category
 
     static function getCategories()
     {
-
-
         foreach( self::$categories as $i=>$category){
             self::$categories[$i]['title'] = trans('main.category_'.self::$categories[$i]['title']);
         }
