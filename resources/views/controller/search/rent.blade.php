@@ -93,8 +93,9 @@
         </div>
 
         <div class="row text-right">
-            <button type="button" class="btn btn-primary">Search</button>
-        </div>
+            <button type="button" class="btn btn-primary"
+                    ng-disabled="env.submit==true"
+                    ng-click="searchAdvs(search)">Search</button>        </div>
     </div>
     <br style="clear: both">
 @endsection

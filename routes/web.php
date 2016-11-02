@@ -22,13 +22,14 @@ Route::group(['prefix'=>'user'], function () {
 
 
 Route::get('/rent', ['as'=>'adv.rent','uses'=> 'SearchController@rent'] );
-Route::get('/buy', ['as'=>'adv.buy','uses'=> 'SearchController@buy'] );
+Route::get('/buy', ['as'=>'adv.sale','uses'=> 'SearchController@buy'] );
 
 
 
 Route::get('/offer', ['as'=>'adv.offer','uses'=>'Adv@create']);
 
 Route::get('/adv/{id}', ['as'=>'adv.preview','uses'=>'Adv@preview'])->where('id','[0-9]*');
+Route::get('/search/{id}', ['as'=>'adv.search','uses'=>'SearchController@searchResult'])->where('id','[0-9]*');
 
 
 //  static pages
@@ -92,6 +93,8 @@ Route::group(['prefix'=>'api'], function () {
     } );
 
     Route::get('/address', 'AddressController@search');
+    Route::post('/search', 'SearchController@createSearch');
+    Route::get('/search/{id}', 'SearchController@getSearch');
 
 });
 
