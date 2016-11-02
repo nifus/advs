@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 
-    <script src="/apps/frontApp/adv/create/searchAdvController.js"></script>
+    <script src="/apps/frontApp/adv/search/searchAdvController.js"></script>
     <div ng-controller="searchAdvController">
         <div>
             <ol class="breadcrumb">
@@ -24,16 +24,34 @@
                         <p>Please select the advertisement type, which you are looking for.
                             Based on your selection you will receive the required template.</p>
                         <div class="col-md-6">
-                            Flat
+                            @foreach($categories as $category)
+                                @if ($category['is_sale_only']===false && $category['ic_business']===false)
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="search.category" value="{{$category['id']}}">
+                                            {{$category['title']}}
+                                        </label>
+                                    </div>
+                                @endif
+                            @endforeach
                         </div>
                         <div class="col-md-6">
                             <div class="panel panel-success">
-                                <div class="panel-body">
+                                <div class="panel-heading">
                                     Business realty
                                 </div>
-                                <div class="panel-footer">
+                                <div class="panel-body">
 
-                                    Office / Praxis
+                                    @foreach($categories as $category)
+                                        @if ($category['is_sale_only']===false && $category['ic_business']===true)
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" ng-model="search.category" value="{{$category['id']}}">
+                                                    {{$category['title']}}
+                                                </label>
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -63,215 +81,15 @@
                     banner
                 </div>
             </div>
-            <div class="col-md-7">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Detailed search</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-12 form-horizontal">
-                            <div class="col-md-4">
-                                <label>Cold rent in €</label>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">From</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">To</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div ng-include="'apps/frontApp/adv/search/rentFlatSearchDetails.html'"  ng-if="search.category==1"></div>
+            <div ng-include="'apps/frontApp/adv/search/houseSearchDetails.html'"  ng-if="search.category==2"></div>
+            <div ng-include="'apps/frontApp/adv/search/garageSearchDetails.html'"  ng-if="search.category==3"></div>
+            <div ng-include="'apps/frontApp/adv/search/officeSearchDetails.html'"  ng-if="search.category==4"></div>
+            <div ng-include="'apps/frontApp/adv/search/hotelSearchDetails.html'"  ng-if="search.category==6"></div>
+            <div ng-include="'apps/frontApp/adv/search/hallSearchDetails.html'"  ng-if="search.category==7"></div>
+            <div ng-include="'apps/frontApp/adv/search/retailSearchDetails.html'"  ng-if="search.category==8"></div>
+            <div ng-include="'apps/frontApp/adv/search/commercialLandSearchDetails.html'"  ng-if="search.category==9"></div>
 
-                        <div class="col-md-12 form-horizontal">
-                            <div class="col-md-4">
-                                <label>Living area in m2</label>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">From</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">To</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-12 form-horizontal">
-                            <div class="col-md-4">
-                                <label>Rooms</label>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">From</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">To</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 form-horizontal">
-                            <div class="col-md-4">
-                                <label>Floor</label>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">From</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">To</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-12 form-horizontal">
-                            <div class="col-md-4">
-                                <label>Parking place available</label>
-                            </div>
-                            <div class="col-md-8">
-                                <label class="radio-inline">
-                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Any
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Yes
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> No
-                                </label>
-                            </div>
-
-                        </div>
-
-                        <div>
-                            <h4>Building type</h4>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            Souterrain
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            Loft
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h4>Equipment</h4>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            Souterrain
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            Loft
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h4>Heating system</h4>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            Souterrain
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            Loft
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h4>Pets</h4>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            Souterrain
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="">
-                                            Loft
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
 
         <div class="row text-right">

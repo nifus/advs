@@ -147,6 +147,12 @@ class Adv extends Model
             [ 'title'=>'Kiosk', 'id'=>'Kiosk'],
             [ 'title'=>'Store', 'id'=>'Store'],
             [ 'title'=>'Any', 'id'=>'Any']
+        ],
+        9=>[
+            [ 'title'=>'Buildings', 'id'=>'Buildings'],
+            [ 'title'=>'Parking', 'id'=>'Parking'],
+            [ 'title'=>'Garden / Farming', 'id'=>'Garden / Farming'],
+            [ 'title'=>'Any', 'id'=>'Any'],
         ]
     ];
 
@@ -365,7 +371,9 @@ class Adv extends Model
     static function getSubCategories()
     {
         foreach( self::$sub_categories as $i=>$category){
-            self::$categories[$i]['title'] = trans('main.sub_category_'.self::$categories[$i]['title']);
+            foreach($category as $j=>$equipment) {
+                self::$sub_categories[$i][$j]['title'] = trans('main.sub_category_' . self::$sub_categories[$i][$j]['title']);
+            }
         }
         return self::$sub_categories;
     }
