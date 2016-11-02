@@ -1,0 +1,129 @@
+<div class="col-md-7">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" translate>Detailed search</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12 form-horizontal">
+                <div class="col-md-4">
+                    <label translate>Sales price in €</label>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" translate>From</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" min="0" ng-model="search.sales_price.from">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" translate>To</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" min="0" ng-model="search.sales_price.to">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 form-horizontal">
+                <div class="col-md-4">
+                    <label translate>Emphyteusis per year in €</label>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" translate>From</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" min="0" ng-model="search.emphyteusis_per_year.from">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" translate>To</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" min="0" ng-model="search.emphyteusis_per_year.to">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 form-horizontal">
+                <div class="col-md-4">
+                    <label translate>Area in m2</label>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" translate>From</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" min="1" ng-model="search.area.from">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" translate>To</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control"  min="1" ng-model="search.area.to">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 form-horizontal">
+                <div class="col-md-4">
+                    <label translate>Development</label>
+                </div>
+                <div class="col-md-8">
+                    <label class="radio-inline">
+                        <input type="radio"  ng-model="search.development" value="Any"> {{'Any'|translate}}
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio"  ng-model="search.development" value="Developed"> {{'Developed'|translate}}
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="search.development" value="Developed in part"> {{'Developed in part'|translate}}
+                    </label><label class="radio-inline">
+                        <input type="radio" ng-model="search.development" value="Undeveloped"> {{'Undeveloped'|translate}}
+                    </label>
+                </div>
+
+            </div>
+
+
+            <div class="col-md-12 form-horizontal">
+                <div class="col-md-4">
+                    <label translate>Building permission necessary</label>
+                </div>
+                <div class="col-md-8">
+                    <label class="radio-inline">
+                        <input type="radio"  ng-model="search.development" value="Any"> {{'Any'|translate}}
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio"  ng-model="search.development" value="Yes"> {{'Yes'|translate}}
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="search.development" value="No"> {{'No'|translate}}
+                    </label>
+                </div>
+
+            </div>
+
+            <div>
+                <h4 translate>Recommended usage</h4>
+                <div class="row">
+                    <div class="col-md-4" ng-repeat="cat in env.subcats[search.category]">
+                        <label>
+                            <input type="checkbox" ng-model="search.subcategory" value="{{cat.id}}">
+                            {{cat.title}}
+                        </label>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

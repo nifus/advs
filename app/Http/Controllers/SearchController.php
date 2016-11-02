@@ -20,4 +20,11 @@ class SearchController extends Controller
             'categories'=>Adv::getCategories()
         ]);
     }
+
+    function buy() {
+        //$user = User::getUser();
+        return view('controller.search.buy',[
+            'categories'=>Adv::getCategories()
+        ]);
+    }
 }

@@ -1,7 +1,7 @@
 @extends('frontApp')
 
 @section('meta-header')
-    Search rent
+    Search buy
 @endsection
 @section('content')
 
@@ -18,14 +18,14 @@
             <div class="col-md-5">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Rent</h3>
+                        <h3 class="panel-title">Buy</h3>
                     </div>
                     <div class="panel-body">
                         <p>Please select the advertisement type, which you are looking for.
                             Based on your selection you will receive the required template.</p>
                         <div class="col-md-6">
                             @foreach($categories as $category)
-                                @if ($category['is_sale_only']===false && $category['ic_business']===false)
+                                @if ( $category['ic_business']===false)
                                     <div class="radio">
                                         <label>
                                             <input type="radio" ng-model="search.category" value="{{$category['id']}}">
@@ -43,7 +43,7 @@
                                 <div class="panel-body">
 
                                     @foreach($categories as $category)
-                                        @if ($category['is_sale_only']===false && $category['ic_business']===true)
+                                        @if ( $category['ic_business']===true)
                                             <div class="radio">
                                                 <label>
                                                     <input type="radio" ng-model="search.category" value="{{$category['id']}}">
@@ -81,14 +81,15 @@
                     banner
                 </div>
             </div>
-            <div ng-include="'apps/frontApp/adv/search/rentFlatSearchDetails.html'"  ng-if="search.category==1"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentHouseSearchDetails.html'"  ng-if="search.category==2"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentGarageSearchDetails.html'"  ng-if="search.category==3"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentOfficeSearchDetails.html'"  ng-if="search.category==4"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentHotelSearchDetails.html'"  ng-if="search.category==6"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentHallSearchDetails.html'"  ng-if="search.category==7"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentRetailSearchDetails.html'"  ng-if="search.category==8"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentCommercialLandSearchDetails.html'"  ng-if="search.category==9"></div>
+            <div ng-include="'apps/frontApp/adv/search/saleFlatSearchDetails.html'"  ng-if="search.category==1"></div>
+            <div ng-include="'apps/frontApp/adv/search/saleHouseSearchDetails.html'"  ng-if="search.category==2"></div>
+            <div ng-include="'apps/frontApp/adv/search/saleGarageSearchDetails.html'"  ng-if="search.category==3"></div>
+            <div ng-include="'apps/frontApp/adv/search/saleOfficeSearchDetails.html'"  ng-if="search.category==4"></div>
+            <div ng-include="'apps/frontApp/adv/search/saleHotelSearchDetails.html'"  ng-if="search.category==6"></div>
+            <div ng-include="'apps/frontApp/adv/search/saleHallSearchDetails.html'"  ng-if="search.category==7"></div>
+            <div ng-include="'apps/frontApp/adv/search/saleRetailSearchDetails.html'"  ng-if="search.category==8"></div>
+            <div ng-include="'apps/frontApp/adv/search/saleCommercialLandSearchDetails.html'"  ng-if="search.category==9"></div>
+            <div ng-include="'apps/frontApp/adv/search/saleBuildingGroundSearchDetails.html'"  ng-if="search.category==5"></div>
 
         </div>
 

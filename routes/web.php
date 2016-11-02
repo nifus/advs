@@ -22,9 +22,9 @@ Route::group(['prefix'=>'user'], function () {
 
 
 Route::get('/rent', ['as'=>'adv.rent','uses'=> 'SearchController@rent'] );
-Route::get('/buy', ['as'=>'adv.buy','uses'=>function () {
-    return view('frontApp');
-}]);
+Route::get('/buy', ['as'=>'adv.buy','uses'=> 'SearchController@buy'] );
+
+
 
 Route::get('/offer', ['as'=>'adv.offer','uses'=>'Adv@create']);
 

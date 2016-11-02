@@ -125,6 +125,12 @@ class Adv extends Model
             [ 'title'=>'Praxis', 'id'=>'Praxis'],
             [ 'title'=>'Any', 'id'=>'Any'],
         ],
+        5=>[
+            [ 'title'=>'Buildings', 'id'=>'Buildings'],
+            [ 'title'=>'Parking', 'id'=>'Parking'],
+            [ 'title'=>'Garden / Farming', 'id'=>'Garden / Farming'],
+            [ 'title'=>'Any', 'id'=>'Any'],
+        ],
         6=>[
             [ 'title'=>'Bar/Bistro/Cafe', 'id'=>'Bar/Bistro/Cafe'],
             [ 'title'=>'Club/Disco', 'id'=>'Club/Disco'],
