@@ -114,7 +114,7 @@
                 <div class="row">
                     <div class="col-md-4" ng-repeat="cat in env.subcats[search.category]">
                         <label>
-                            <input type="checkbox" ng-model="search.subcategory" value="{{cat.id}}">
+                            <input type="checkbox" checklist-model="search.subcategory" checklist-value="cat.id">
                             {{cat.title}}
                         </label>
                     </div>

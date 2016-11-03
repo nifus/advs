@@ -6,7 +6,7 @@
 
     function searchAdvController($scope, advFactory, $http, $q) {
 
-        console.log(window.location)
+
 
         $scope.env = {
             loading: true,
@@ -41,7 +41,8 @@
 
         $scope.search = {
             category: 1,
-            type: ( window.location.href.indexOf('rent')===-1 ? 'sale' : 'rent')
+            type: ( window.location.href.indexOf('rent')===-1 ? 'sale' : 'rent'),
+            subcategory:[]
         };
 
 

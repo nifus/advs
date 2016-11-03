@@ -82,13 +82,13 @@
                 </div>
                 <div class="col-md-8">
                     <label class="radio-inline">
-                        <input type="radio"  ng-model="search.development" value="Any"> {{'Any'|translate}}
+                        <input type="radio"  ng-model="search.building_permission" value="Any"> {{'Any'|translate}}
                     </label>
                     <label class="radio-inline">
-                        <input type="radio"  ng-model="search.development" value="Yes"> {{'Yes'|translate}}
+                        <input type="radio"  ng-model="search.building_permission" value="Yes"> {{'Yes'|translate}}
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" ng-model="search.development" value="No"> {{'No'|translate}}
+                        <input type="radio" ng-model="search.building_permission" value="No"> {{'No'|translate}}
                     </label>
                 </div>
 
@@ -99,7 +99,7 @@
                 <div class="row">
                     <div class="col-md-4" ng-repeat="cat in env.subcats[search.category]">
                         <label>
-                            <input type="checkbox" ng-model="search.subcategory" value="{{cat.id}}">
+                            <input type="checkbox" checklist-model="search.subcategory" checklist-value="cat.id">
                             {{cat.title}}
                         </label>
                     </div>
