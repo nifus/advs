@@ -225,11 +225,16 @@ class User extends Authenticatable
             return null;
         }
         try{
-            return JWTAuth::setToken( $_COOKIE['token'] )->authenticate();
+            $user =  JWTAuth::setToken( $_COOKIE['token'] )->authenticate();
+            if ( false===$user){
+                return null;
+            }
+            return $user;
         }catch( \Exception $e){
             return null;
         }
     }
+
     static function getUserOrDie(){
        $user = self::getUser();
         if ( is_null($user) ){

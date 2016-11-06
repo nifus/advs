@@ -26,9 +26,9 @@ Route::get('/buy', ['as'=>'adv.sale','uses'=> 'SearchController@buy'] );
 
 
 
-Route::get('/offer', ['as'=>'adv.offer','uses'=>'Adv@create']);
+Route::get('/offer', ['as'=>'adv.offer','uses'=>'AdvController@create']);
 
-Route::get('/adv/{id}', ['as'=>'adv.preview','uses'=>'Adv@preview'])->where('id','[0-9]*');
+Route::get('/adv/{id}', ['as'=>'adv.preview','uses'=>'AdvController@preview'])->where('id','[0-9]*');
 Route::get('/search/{id}', ['as'=>'adv.search','uses'=>'SearchController@searchResult'])->where('id','[0-9]*');
 
 
@@ -66,20 +66,20 @@ Route::group(['prefix'=>'api'], function () {
 
         Route::post('/private-account', 'UserController@createPrivateAccount' );
         Route::post('/business-account', 'UserController@createBusinessAccount' );
-        Route::get('/adv-stat', 'Adv@getStat' );
+        Route::get('/adv-stat', 'AdvController@getStat' );
 
         Route::group(['prefix'=>'advs'], function () {
-            Route::post('/', 'Adv@store' );
+            Route::post('/', 'AdvController@store' );
 
-            Route::get('/{id}', 'Adv@getUserAdvById' );
-            Route::put('/', 'Adv@getByUser' );
+            Route::get('/{id}', 'AdvController@getUserAdvById' );
+            Route::put('/', 'AdvController@getByUser' );
 
-            Route::delete('{id}', 'Adv@delete' );
-            Route::put('{id}/status', 'Adv@changeStatus' );
+            Route::delete('{id}', 'AdvController@delete' );
+            Route::put('{id}/status', 'AdvController@changeStatus' );
 
         });
-        Route::put('/watch-advs', 'Adv@getWatchByUser' );
-        Route::delete('/watch-advs/{id}', 'Adv@removeWatch' );
+        Route::put('/watch-advs', 'AdvController@getWatchByUser' );
+        Route::delete('/watch-advs/{id}', 'AdvController@removeWatch' );
     });
 
     Route::get('/news/{type}', 'News@getLastNews' );

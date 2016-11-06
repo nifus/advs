@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Adv;
 use App\SearchLog;
+use App\Place;
 use App\Jobs\ActivatePrivateAccount as ActivatePrivateAccountJob;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -57,8 +58,26 @@ class SearchController extends Controller
     function searchResult($id){
         $log = SearchLog::find($id);
 
+        $sql = Adv::where('category',$log->query->category);
+        if ( isset($log->query->city) ){
+            $city = Place::findCity($log->query->country, $log->query->region, $log->query->city);
+            $sql = $sql->where('city_id', $city->id);
+        }elseif ( isset($log->query->region) ){
+            $region = Place::findRegion($log->query->country, $log->query->region);
+            $sql = $sql->where('region_id', $region->id);
+
+        }else{
+            $country = Place::findCountry($log->query->country);
+            $sql = $sql->where('country_id', $country->id);
+
+        }
+        $count = $sql->count();
+        $result = $sql->get();
+
         return view('controller.search.result',[
-            'search'=>$log
+            'search'=>$log,
+            'count'=>$count,
+            'result'=>$result->toArray()
         ]);
     }
 }

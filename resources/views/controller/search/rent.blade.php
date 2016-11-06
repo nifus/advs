@@ -64,7 +64,7 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label>Zip, City</label>
-                            <input type="email" class="form-control" placeholder="Email">
+                            <input type="text" class="form-control"  ng-autocomplete ng-model="env.address.value" details="env.address.details">
                         </div>
                     </div>
                     <div class="col-md-4">

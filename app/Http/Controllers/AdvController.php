@@ -11,7 +11,7 @@ use App\Category as CategoryModel;
 use League\Flysystem\Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class Adv extends Controller
+class AdvController extends Controller
 {
 
     function store( Request $request){
@@ -20,6 +20,7 @@ class Adv extends Controller
             if ( is_null($user) ){
                 abort(403);
             }
+
             $data = $request->all();
             $adv = AdvModel::createNewAdv($data, $user->id);
             return response()->json($adv->toArray());

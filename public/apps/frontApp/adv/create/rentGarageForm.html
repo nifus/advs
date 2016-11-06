@@ -72,37 +72,38 @@
 <div class="row">
     <h4 translate>Basic Information</h4>
 
-    <div class="form-group">
+    <div class="form-group" >
         <label class="col-sm-2 control-label" translate>Build year</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="{{'In year'|translate}}"
-                   ng-model="model.address.build_year">
+            <input type="number"  class="form-control" placeholder="{{'In year'|translate}}"
+                   ng-model="model.props.build_year" name="build_year">
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" >
         <label class="col-sm-2 control-label" translate>Length</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="{{'In m'|translate}}" ng-model="model.length">
+            <input type="number" min="1" class="form-control" placeholder="{{'m'|translate}}" ng-model="model.props.length" >
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" >
         <label class="col-sm-2 control-label" translate>Width</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="{{'In m'|translate}}" ng-model="model.width">
+            <input type="number" min="1" class="form-control" placeholder="{{'m'|translate}}"  ng-model="model.props.width">
         </div>
     </div>
 
-    <div class="form-group form-inline">
+    <div class="form-group form-inline" >
         <label class="col-sm-2 control-label" translate>Height</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control"  placeholder="{{'In m'|translate}}"  ng-model="model.height">
+            <input type="number" class="form-control" placeholder="{{'m'|translate}}"
+                   ng-model="model.props.height" >
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Area ca</label>
+    <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid  && env.submit==true }">
+        <label class="col-sm-2 control-label" translate>Area ca.</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="{{'In m'|translate}}" ng-model="model.area">
+            <input type="number" min="1" class="form-control"  ng-model="model.area" required name="area">
         </div>
     </div>
 
@@ -133,37 +134,52 @@
 <div class="row">
     <h4 translate>Finance</h4>
 
-    <div class="form-group">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.rent.$invalid  && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Monthly rent (in &euro;)</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="&euro;" ng-model="model.monthly_rent">
+            <input type="number" min="0" class="form-control"  ng-model="model.monthly_rent" required name="rent">
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Ancillary cost(in &euro;)</label>
+        <label class="col-sm-2 control-label" translate>No ancillary cost</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="&euro;" ng-model="model.ancillary_cost">
+            <label >
+                <input type="checkbox" ng-model="model.finance.no_ancillary_cost">
+            </label>
         </div>
     </div>
 
-
+    <div class="form-group" ng-show="!model.finance.no_ancillary_cost">
+        <label class="col-sm-2 control-label" translate>Ancillary cost(in &euro;)</label>
+        <div class="col-sm-10">
+            <input type="number"  class="form-control"  ng-model="model.finance.ancillary_cost">
+        </div>
+    </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Total cost (in &euro;)</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.total_rent">
+            <input type="number"  class="form-control" ng-model="model.finance.total_cost">
         </div>
     </div>
 
     <div class="form-group">
+        <label class="col-sm-2 control-label" translate>No caution money necessary</label>
+        <div class="col-sm-10">
+            <label >
+                <input type="checkbox" ng-model="model.finance.no_caution_money">
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="!model.finance.no_caution_money">
         <label class="col-sm-2 control-label" translate>Caution money (in &euro;)</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.caution_money">
+            <input type="number"  class="form-control" ng-model="model.finance.caution_money">
         </div>
     </div>
 </div>
-
 
 <div class="row">
     <h4 translate>Advertisement pictures</h4>
@@ -205,10 +221,10 @@
         <label class="col-sm-2 control-label" translate>Title</label>
         <div class="col-sm-10">
             <label class="radio-inline">
-                <input type="radio" ng-model="model.author_sex" value="male"> {{'Mister'|translate}}
+                <input type="radio" ng-model="model.author.sex" value="male"> {{'Mister'|translate}}
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.author_sex" value="female"> {{'Miss'|translate}}
+                <input type="radio" ng-model="model.author.sex" value="female"> {{'Miss'|translate}}
             </label>
         </div>
     </div>
@@ -216,29 +232,29 @@
     <div class="form-group" ng-class="{ 'has-error': adv_form.author_name.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Forename</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.author_name" name="author_name" required>
+            <input type="text" class="form-control" ng-model="model.author.name" name="author_name" required>
         </div>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error': adv_form.author_surname.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Surname</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.author_surname" name="author_surname" required>
+            <input type="text" class="form-control" ng-model="model.author.surname" name="author_surname" required>
         </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.author_surname.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.author_email.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Email</label>
         <div class="col-sm-10">
-            <input type="email" class="form-control" ng-model="model.author_email" name="author_email" required>
+            <input type="email" class="form-control" ng-model="model.author.email" name="author_email" required>
         </div>
     </div>
 
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.author_surname.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.author_phone.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Phone number</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.author_phone" name="author_phone" required>
+            <input type="text" class="form-control" ng-model="model.author.phone" name="author_phone" required>
         </div>
     </div>
 
@@ -251,9 +267,10 @@
 
         <div class="col-sm-10">
             <label class="checkbox-inline">
-                <input type="checkbox" ng-model="model.hide_contacts">
+                <input type="checkbox" ng-model="model.author.hide_contacts">
             </label>
 
         </div>
     </div>
+
 </div>

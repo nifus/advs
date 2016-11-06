@@ -127,23 +127,23 @@
                     </div>
 
 
-                    <div ng-include="'apps/frontApp/adv/create/rentFlatForm.html'"  ng-show="model.category==1 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHouseForm.html'" ng-show="model.category==2 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentGarageForm.html'" ng-show="model.category==3 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentOfficeForm.html'" ng-show="model.category==4 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHotelForm.html'" ng-show="model.category==6 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHallForm.html'" ng-show="model.category==7 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentRetailForm.html'" ng-show="model.category==8 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentCommercialLandForm.html'" ng-show="model.category==9 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentFlatForm.html'"  ng-if="model.category==1 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHouseForm.html'" ng-if="model.category==2 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentGarageForm.html'" ng-if="model.category==3 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentOfficeForm.html'" ng-if="model.category==4 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHotelForm.html'" ng-if="model.category==6 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHallForm.html'" ng-if="model.category==7 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentRetailForm.html'" ng-if="model.category==8 && model.type=='rent'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentCommercialLandForm.html'" ng-if="model.category==9 && model.type=='rent'"></div>
 
-                    <div ng-include="'apps/frontApp/adv/create/saleFlatForm.html'"  ng-show="model.category==1 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHouseForm.html'" ng-show="model.category==2 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentGarageForm.html'" ng-show="model.category==3 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentOfficeForm.html'" ng-show="model.category==4 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHotelForm.html'" ng-show="model.category==6 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHallForm.html'" ng-show="model.category==7 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentRetailForm.html'" ng-show="model.category==8 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentCommercialLandForm.html'" ng-show="model.category==9 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/saleFlatForm.html'"  ng-if="model.category==1 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHouseForm.html'" ng-if="model.category==2 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentGarageForm.html'" ng-if="model.category==3 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentOfficeForm.html'" ng-if="model.category==4 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHotelForm.html'" ng-if="model.category==6 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentHallForm.html'" ng-if="model.category==7 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentRetailForm.html'" ng-if="model.category==8 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/rentCommercialLandForm.html'" ng-if="model.category==9 && model.type=='sale'"></div>
 
 
                     <div class="row form-horizontal" ng-show="model.category">
@@ -158,7 +158,7 @@
                                 <textarea class="form-control" style="height: 200px"
                                           disabled>{{ config('app.agb') }}</textarea> <br>
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" name="agb" ng-model="form.agb"
+                                    <input type="checkbox" name="agb" ng-model="model.agb"
                                            required> {{ trans('main.register_agb_accept') }}
                                 </label>
 

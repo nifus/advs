@@ -54,14 +54,24 @@
         $scope.model = {
             type: null,
             category: null,
-            ancillary_cost_included: 1,
-            pets: 'Any',
-            images: [],
+            subcategory: 'Any',
+            photos: [],
             address: {
-                energy_class: 'Any',
-                energy_source: '',
-                heating: ''
-            }
+
+            },
+            energy:{
+                class: 'Any',
+                source: ''
+            },
+            props:{
+                pets: 'Any'
+            },
+            finance:{
+                ancillary_cost_included: 1,
+            },
+            air_conditioner: 'By agreement',
+            edp_cabling: 'By agreement',
+            price_type: 'Price per month'
         };
 
 
@@ -116,6 +126,7 @@
 
         $scope.$watch('env.address', function (value) {
             if (value.details && value.details.address_components) {
+                console.log(value.details);
                 for (var i in value.details.address_components) {
                     var el = angular.copy(value.details.address_components[i]);
 
@@ -129,15 +140,17 @@
                     }
                     if (el.types.indexOf('locality') != -1) {
                         $scope.model.address.city = (el.long_name);
-
                     }
 
                     if (el.types.indexOf('country') != -1) {
-                        $scope.model.address.country = (el.long_name);
+                        $scope.model.address.country = (el.short_name);
 
                     }
                     if (el.types.indexOf('postal_code') != -1) {
                         $scope.model.address.zip = (el.long_name);
+                    }
+                    if (el.types.indexOf('administrative_area_level_1') != -1) {
+                        $scope.model.address.region = (el.long_name);
                     }
                 }
                 $scope.env.display_addr_details = true;

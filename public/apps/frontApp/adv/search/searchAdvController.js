@@ -42,7 +42,10 @@
         $scope.search = {
             category: 1,
             type: ( window.location.href.indexOf('rent')===-1 ? 'sale' : 'rent'),
-            subcategory:[]
+            subcategory:[],
+            parking_place: 'Any',
+            heating: 'Any',
+            pets: 'Any'
         };
 
 
@@ -63,36 +66,25 @@
 
 
 
-        /*$scope.$watch('env.address', function (value) {
-            if (value.details && value.details.address_components) {
+        $scope.$watch('env.address', function (value) {
+            if (value && value.details && value.details.address_components) {
                 for (var i in value.details.address_components) {
                     var el = angular.copy(value.details.address_components[i]);
 
-                    if (el.types.indexOf('street_number') != -1) {
-                        $scope.model.address.house_number = (el.long_name);
-
-                    }
-                    if (el.types.indexOf('route') != -1) {
-                        $scope.model.address.street = (el.long_name);
-
-                    }
                     if (el.types.indexOf('locality') != -1) {
-                        $scope.model.address.city = (el.long_name);
-
+                        $scope.search.city = (el.long_name);
                     }
-
+                    if (el.types.indexOf('political') != -1) {
+                        $scope.search.region = (el.long_name);
+                    }
                     if (el.types.indexOf('country') != -1) {
-                        $scope.model.address.country = (el.long_name);
+                        $scope.search.country = (el.long_name);
+                    }
 
-                    }
-                    if (el.types.indexOf('postal_code') != -1) {
-                        $scope.model.address.zip = (el.long_name);
-                    }
                 }
-                $scope.env.display_addr_details = true;
 
             }
-        }, true);*/
+        }, true);
     }
 })();
 
