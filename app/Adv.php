@@ -239,7 +239,8 @@ class Adv extends Model
                 })->save(public_path('uploads/adv/preview/' . $this->user_id . '/' . $name));
                 array_push($result, $name);
             }
-            $result = json_encode($result);
+
+            $result = sizeof($result)>0 ? json_encode($result) : null;
         } elseif (is_string($value)) {
             $result = $value;
         } else {

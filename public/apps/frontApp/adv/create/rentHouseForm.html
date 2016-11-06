@@ -112,16 +112,16 @@
                    ng-model="model.props.build_year" name="build_year">
         </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.plot_area.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Plot area</label>
         <div class="col-sm-10">
-            <input type="number" min="1" class="form-control" placeholder="{{'m2'|translate}}" ng-model="model.plot_area" name="area" required>
+            <input type="number" min="1" class="form-control" placeholder="{{'m2'|translate}}" ng-model="model.plot_area" name="plot_area" required>
         </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.living_area.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Living area</label>
         <div class="col-sm-10">
-            <input type="number" min="1" class="form-control" placeholder="{{'m2'|translate}}" ng-model="model.living_area" name="area" required>
+            <input type="number" min="1" class="form-control" placeholder="{{'m2'|translate}}" ng-model="model.living_area" name="living_area" required>
         </div>
     </div>
 

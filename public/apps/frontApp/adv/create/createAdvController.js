@@ -64,7 +64,8 @@
                 source: ''
             },
             props:{
-                pets: 'Any'
+                pets: 'Any',
+                floor_cover: 'Any',
             },
             finance:{
                 ancillary_cost_included: 1,

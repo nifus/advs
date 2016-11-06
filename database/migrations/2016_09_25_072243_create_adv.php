@@ -43,10 +43,12 @@ class CreateAdv extends Migration
             $table->smallInteger('rooms')->nullable();
 
 
-            $table->double('cold_rent',15,2);
-            $table->double('monthly_rent',15,2);
-            $table->double('rental_price',15,2);
+            $table->double('cold_rent',15,2)->nullable();
+            $table->double('monthly_rent',15,2)->nullable();
+            $table->double('rental_price',15,2)->nullable();
             $table->string('price_type')->nullable();
+            $table->string('air_conditioner')->nullable();
+            $table->string('edp_cabling')->nullable();
             $table->smallInteger('number_beds')->nullable();
             $table->double('storey_height')->nullable();
 

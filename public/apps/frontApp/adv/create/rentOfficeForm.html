@@ -257,7 +257,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Ancillary cost(in &euro;)</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" placeholder="&euro;" ng-model="model.props.ancillary_cost">
+            <input type="number" class="form-control" placeholder="&euro;" ng-model="model.finance.ancillary_cost">
         </div>
     </div>
 
@@ -265,10 +265,10 @@
         <label class="col-sm-2 control-label" translate>Heating costs included in ancillary cost?</label>
         <div class="col-sm-10">
             <label class="radio-inline">
-                <input type="radio" value="1" ng-model="model.props.ancillary_cost_included"> {{'Yes'|translate}}
+                <input type="radio" value="1" ng-model="model.finance.ancillary_cost_included"> {{'Yes'|translate}}
             </label>
             <label class="radio-inline">
-                <input type="radio" value="0" ng-model="model.props.ancillary_cost_included"> {{'No'|translate}}
+                <input type="radio" value="0" ng-model="model.finance.ancillary_cost_included"> {{'No'|translate}}
             </label>
         </div>
     </div>
@@ -277,8 +277,8 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Please enter the heating costs</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" ng-model="model.props.heating_cost"
-                   ng-disabled="model.props.ancillary_cost_included==1">
+            <input type="number" class="form-control" ng-model="model.finance.heating_cost"
+                   ng-disabled="model.finance.ancillary_cost_included==1">
         </div>
     </div>
 
@@ -287,7 +287,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Caution money (in &euro;)</label>
         <div class="col-sm-10">
-            <input type="number"  class="form-control" ng-model="model.props.caution_money">
+            <input type="number"  class="form-control" ng-model="model.finance.caution_money">
         </div>
     </div>
 </div>
