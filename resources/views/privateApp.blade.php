@@ -68,7 +68,7 @@
     <div id="main-menu" >
         <div class="row">
             <div class="item col-md-4" ><a href="{{ route('adv.rent') }}" >{{ trans('main.rent')  }}</a></div>
-            <div class="item col-md-4"><a href="{{ route('adv.buy') }}" >{{ trans('main.buy')  }}</a></div>
+            <div class="item col-md-4"><a href="{{ route('adv.sale') }}" >{{ trans('main.buy')  }}</a></div>
             <div class="item col-md-4"><a href="{{ route('adv.offer') }}" >{{ trans('main.offer')  }}</a></div>
         </div>
     </div>

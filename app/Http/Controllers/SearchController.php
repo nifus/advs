@@ -59,6 +59,7 @@ class SearchController extends Controller
         $log = SearchLog::find($id);
 
         $sql = Adv::where('category',$log->query->category);
+
         if ( isset($log->query->city) ){
             $city = Place::findCity($log->query->country, $log->query->region, $log->query->city);
             $sql = $sql->where('city_id', $city->id);
@@ -66,7 +67,7 @@ class SearchController extends Controller
             $region = Place::findRegion($log->query->country, $log->query->region);
             $sql = $sql->where('region_id', $region->id);
 
-        }else{
+        }elseif ( isset($log->query->country) ){
             $country = Place::findCountry($log->query->country);
             $sql = $sql->where('country_id', $country->id);
 
