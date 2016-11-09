@@ -5,7 +5,6 @@
 @endsection
 @section('content')
 
-    <script src="/apps/frontApp/directives/adv/adv.js"></script>
     <script src="/apps/frontApp/adv/searchResult/searchResultAdvController.js"></script>
     <div ng-controller="searchResultAdvController">
         <div>
@@ -20,6 +19,9 @@
             <div class="col-md-2">
                 48643 Flats found
                 <hr>
+                <button type="button" class="btn btn-primary">Search</button>
+                <hr>
+                <a href="{{$search_back}}">Back to searching details</a>
 
             </div>
             <div class="col-md-10">
@@ -70,8 +72,10 @@
 
 
                 <div class="row">
-                    <div class="col-md-6" ng-repeat="row in env.rows">
-                        <adv data="row"></adv>
+                    <div class="col-md-5" ng-repeat="row in env.rows">
+                        <div ng-include="'/apps/frontApp/adv/searchResult/flat.html'"  ng-if="row.category==1"></div>
+                        <div ng-include="'/apps/frontApp/adv/searchResult/house.html'"  ng-if="row.category==2"></div>
+
                     </div>
                 </div>
                 <br style="clear: both">

@@ -6,8 +6,7 @@
 @section('content')
 
     <script src="/apps/frontApp/adv/search/searchAdvController.js"></script>
-    <script src="/components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
-    <link rel="stylesheet" href="/components/angucomplete-alt/angucomplete-alt.css">
+
     <div ng-controller="searchAdvController">
 
         <div>
@@ -16,7 +15,12 @@
                 <li class="active">Search real estate</li>
             </ol>
         </div>
-        <form name="searchAdvForm">
+        <div class="progress" ng-show="env.loading==true">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <span class="sr-only">45% Complete</span>
+            </div>
+        </div>
+        <form name="searchAdvForm"  ng-show="env.loading==false">
         <div class="row">
             <div class="col-md-5">
                 <div class="panel panel-warning">
@@ -67,17 +71,23 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label>Zip, City</label>
-                            <angucomplete-alt
-                                    id="au"
+
+
+                            <div class="alert alert-info alert-dismissible" role="alert" ng-show="!env.display_city_field">
+                                <button ng-click="clearCityField()" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{$place->country.', '.$place->region.', '.$place->city.' ('.$place->zip.')'}}
+                            </div>
+
+                            <angucomplete-alt ng-show="env.display_city_field"
+                                            id="au"
+                                            minlength="1"
                                               placeholder="City"
-                                              
                                               selected-object="env.address"
                                               remote-url="/api/search/cities/"
                                               remote-url-data-field="cities"
                                               title-field="city, zip"
                                               input-class="form-control"/>
 
-                            <input type="text" class="form-control"  ng-autocomplete ng-model="env.address.value" details="env.address.details">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -108,7 +118,7 @@
 
         <div class="row text-right">
             <button type="button" class="btn btn-primary"
-                    ng-disabled="env.submit==true || !search.city"
+                    ng-disabled="env.submit==true || !search.city_id"
                     ng-click="searchAdvs(search)">Search</button>        </div>
         </form>
     </div>

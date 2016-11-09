@@ -1,0 +1,25 @@
+<table class="table table-bordered">
+    <tr class="info">
+        <td colspan="3">{{row.title}}</td>
+    </tr>
+    <tr>
+        <td rowspan="5" style="width: 200px"><img ng-src="{{row.MainPhoto}}" style="width:200px" alt=""></td>
+        <td translate>Living space</td>
+        <td>{{row.living_area}} m<sup>2</sup></td>
+    </tr>
+    <tr>
+        <td translate>Rooms</td>
+        <td>{{row.rooms}}</td>
+    </tr>
+    <tr>
+        <td translate>City</td>
+        <td>{{env.city.city}}</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center">Private</td>
+    </tr>
+    <tr style="border-top: blue 2px solid">
+        <td translate>Cold rent</td>
+        <td>{{row.cold_rent|currency:'€'}}</td>
+    </tr>
+</table>

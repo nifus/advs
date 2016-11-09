@@ -20,13 +20,17 @@ class SearchController extends Controller
         $id = $request->get('id');
         if ($id){
             $log = SearchLog::find($id);
+            $place = Place::find($log->query->city_id);
+
         }else{
             $log = null;
+            $place = null;
         }
         //$user = User::getUser();
         return view('controller.search.rent',[
             'categories'=>Adv::getCategories(),
-            'search'=>$log
+            'search'=>$log,
+            'place'=>$place,
         ]);
     }
 
@@ -52,17 +56,19 @@ class SearchController extends Controller
 
     function getSearch($id){
         $log = SearchLog::find($id);
-        return response()->json(['success'=>true,'search'=>$log->toArray()], 200, [], JSON_NUMERIC_CHECK);
+        $place = Place::find($log->query->city_id);
+
+        return response()->json(['success'=>true,'search'=>$log->toArray(),'place'=>$place->toArray()], 200, [], JSON_NUMERIC_CHECK);
     }
 
     function searchResult($id){
         $log = SearchLog::find($id);
-
-
+        $search_back = $log->query->type=='rent' ? route('adv.rent') : route('adv.sale');
+        $search_back.='?id='.$id;
 
         return view('controller.search.result',[
             'search'=>$log,
-            //'count'=>$count,
+            'search_back'=>$search_back,
             //'result'=>$result->toArray()
         ]);
     }
@@ -70,16 +76,16 @@ class SearchController extends Controller
     function search($id){
         $log = SearchLog::find($id);
 
+        $place = Place::find($log->query->city_id);
+
         $sql = Adv::where('category',$log->query->category);
 
-        if ( isset($log->query->city) ){
-            $city = Place::findCity($log->query->country, $log->query->region, $log->query->city);
-            $sql = $sql->where('city_id', $city->id);
-        }
+        $sql = $sql->where('city_id', $log->query->city_id);
+
         //$count = $sql->count();
         $result = $sql->get();
 
-        return response()->json($result->toArray());
+        return response()->json(['search'=>$log->toArray(),'advs'=>$result->toArray(),'city'=>$place->toArray()]);
     }
 
     function findCity($name){

@@ -10,6 +10,7 @@
             Object.CreateDate = moment(data.created_at).format('DD.MM.Y');
             Object.EndDate = moment(data.created_at).format('DD.MM.Y');
             Object.DeleteDate = moment(data.created_at).format('DD.MM.Y');
+            Object.MainPhoto = getMainPhoto(data.photos);
 
             Object.deleteFromWatchList = function() {
                 Object.waiting = true;
@@ -60,9 +61,13 @@
                 return deferred.promise;
             };
 
+
+
             return (Object);
         };
-
+        function getMainPhoto(photos){
+            return photos[0];
+        }
 
     }
 })(angular, window);

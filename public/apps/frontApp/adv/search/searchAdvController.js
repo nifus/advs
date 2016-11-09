@@ -19,12 +19,12 @@
                 $filter('translate')('Self-contained heating'),
                 $filter('translate')('Central heating'),
                 $filter('translate')('Teleheating'),
-            ]
+            ],
+            display_city_field: true
         };
         if ( window.location.search.indexOf('id=')!==-1 ){
             $scope.env.id = window.location.search.match(/id=([0-9*])/)[1];
         }
-
 
 
         var dataSetPromise = advFactory.getDataSets().then(function(response){
@@ -34,9 +34,11 @@
         $scope.env.promises.push(dataSetPromise);
 
         if ($scope.env.id!=null){
+            $scope.env.display_city_field=false;
             var searchPromise = $http.get('/api/search/'+$scope.env.id).then(function(response){
                 if ( response.data.success==true ){
                     $scope.search = response.data.search.query;
+                    $scope.env.place = response.data.place;
                 }
             });
             $scope.env.promises.push(searchPromise);
@@ -77,6 +79,12 @@
                 $scope.search.city_id=value.originalObject.id
             }
         }, true);
+
+        $scope.clearCityField = function(){
+            $scope.search.city_id = undefined;
+            $scope.env.display_city_field=true;
+            $scope.env.address = null;
+        }
     }
 })();
 

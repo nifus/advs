@@ -5,7 +5,6 @@ use App\Category;
 use App\Adv;
 
 
-
 Route::get('/', ['as'=>'main','uses'=>'DashboardController@index']);
 
 

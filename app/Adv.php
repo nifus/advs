@@ -253,7 +253,7 @@ class Adv extends Model
     public function getMainPhotoAttribute()
     {
         if (is_null($this->attributes['photos'])) {
-            return ['images/no-photo.jpg'];
+            return ['/images/no-photo.jpg'];
         }
         $images = explode(',', $this->attributes['photos']);
         return '/uploads/adv/full/' . $this->user_id . '/' . $images[0];
@@ -279,7 +279,7 @@ class Adv extends Model
     public function getPhotosAttribute()
     {
         if (is_null($this->attributes['photos'])) {
-            return ['images/no-photo.jpg'];
+            return ['/images/no-photo.jpg'];
         }
         $photos = explode(',', $this->attributes['photos']);
         $result = [];
