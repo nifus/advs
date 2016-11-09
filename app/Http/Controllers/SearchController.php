@@ -75,18 +75,16 @@ class SearchController extends Controller
         if ( isset($log->query->city) ){
             $city = Place::findCity($log->query->country, $log->query->region, $log->query->city);
             $sql = $sql->where('city_id', $city->id);
-        }elseif ( isset($log->query->region) ){
-            $region = Place::findRegion($log->query->country, $log->query->region);
-            $sql = $sql->where('region_id', $region->id);
-
-        }elseif ( isset($log->query->country) ){
-            $country = Place::findCountry($log->query->country);
-            $sql = $sql->where('country_id', $country->id);
-
         }
         //$count = $sql->count();
         $result = $sql->get();
 
         return response()->json($result->toArray());
+    }
+
+    function findCity($name){
+        $result = Place::likeCities($name);
+        return response()->json(['cities'=>$result->toArray()]);
+
     }
 }

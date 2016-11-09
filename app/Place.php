@@ -8,7 +8,7 @@ use App\AdvAddress;
 class Place extends Model
 {
     protected $fillable = [
-        'city','country','region','zip','created_at','updated_at'
+        'city','country','region','zip','created_at','count_advs','updated_at'
     ];
 
 
@@ -30,5 +30,11 @@ class Place extends Model
     }
     static function createCity($country, $region, $city, $zip){
         return self::create(['country'=>$country,'region'=>$region,'city'=>$city,'zip'=>$zip]);
+    }
+    static function likeCities($key){
+        $key = trim($key);
+        return self::where('city','LIKE',$key.'%')->
+            orWhere('zip','LIKE',$key.'%')->
+            orderBy('count_advs','DESC')->get(['id','city','zip']);
     }
 }

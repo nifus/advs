@@ -95,7 +95,8 @@ Route::group(['prefix'=>'api'], function () {
         return response()->json($sets);
     } );
 
-    Route::get('/address', 'AddressController@search');
+   // Route::get('/address', 'AddressController@search');
+    Route::get('/search/cities/{key}', 'SearchController@findCity');
     Route::post('/search', 'SearchController@createSearch');
     Route::get('/search/{id}', 'SearchController@getSearch');
     Route::post('/search/{id}', ['as'=>'adv.search','uses'=>'SearchController@search'])->where('id','[0-9]*');

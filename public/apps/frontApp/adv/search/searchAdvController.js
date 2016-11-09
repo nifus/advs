@@ -73,22 +73,8 @@
 
 
         $scope.$watch('env.address', function (value) {
-            if (value && value.details && value.details.address_components) {
-                for (var i in value.details.address_components) {
-                    var el = angular.copy(value.details.address_components[i]);
-
-                    if (el.types.indexOf('locality') != -1) {
-                        $scope.search.city = (el.long_name);
-                    }
-                    if (el.types.indexOf('political') != -1) {
-                        $scope.search.region = (el.long_name);
-                    }
-                    if (el.types.indexOf('country') != -1) {
-                        $scope.search.country = (el.long_name);
-                    }
-
-                }
-
+            if (value!=undefined && value.originalObject!=undefined){
+                $scope.search.city_id=value.originalObject.id
             }
         }, true);
     }

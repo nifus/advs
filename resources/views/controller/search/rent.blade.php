@@ -6,14 +6,17 @@
 @section('content')
 
     <script src="/apps/frontApp/adv/search/searchAdvController.js"></script>
+    <script src="/components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
+    <link rel="stylesheet" href="/components/angucomplete-alt/angucomplete-alt.css">
     <div ng-controller="searchAdvController">
+
         <div>
             <ol class="breadcrumb">
                 <li><a href="/">{{ trans('main.home') }}</a></li>
                 <li class="active">Search real estate</li>
             </ol>
         </div>
-
+        <form name="searchAdvForm">
         <div class="row">
             <div class="col-md-5">
                 <div class="panel panel-warning">
@@ -64,6 +67,16 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label>Zip, City</label>
+                            <angucomplete-alt
+                                    id="au"
+                                              placeholder="City"
+                                              
+                                              selected-object="env.address"
+                                              remote-url="/api/search/cities/"
+                                              remote-url-data-field="cities"
+                                              title-field="city, zip"
+                                              input-class="form-control"/>
+
                             <input type="text" class="form-control"  ng-autocomplete ng-model="env.address.value" details="env.address.details">
                         </div>
                     </div>
@@ -90,12 +103,14 @@
             <div ng-include="'apps/frontApp/adv/search/rentRetailSearchDetails.html'"  ng-if="search.category==8"></div>
             <div ng-include="'apps/frontApp/adv/search/rentCommercialLandSearchDetails.html'"  ng-if="search.category==9"></div>
 
+
         </div>
 
         <div class="row text-right">
             <button type="button" class="btn btn-primary"
-                    ng-disabled="env.submit==true"
+                    ng-disabled="env.submit==true || !search.city"
                     ng-click="searchAdvs(search)">Search</button>        </div>
+        </form>
     </div>
     <br style="clear: both">
 @endsection
