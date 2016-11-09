@@ -2,9 +2,9 @@
     'use strict';
     angular.module('frontApp').controller('searchAdvController', searchAdvController);
 
-    searchAdvController.$inject = ['$scope', 'advFactory','$http','$q'];
+    searchAdvController.$inject = ['$scope', 'advFactory','$http','$q','$filter'];
 
-    function searchAdvController($scope, advFactory, $http, $q) {
+    function searchAdvController($scope, advFactory, $http, $q, $filter) {
 
 
 
@@ -13,7 +13,13 @@
             submit: false,
             address: null,
             id: null,
-            promises: []
+            promises: [],
+                heating_systems:[
+                $filter('translate')('Any'),
+                $filter('translate')('Self-contained heating'),
+                $filter('translate')('Central heating'),
+                $filter('translate')('Teleheating'),
+            ]
         };
         if ( window.location.search.indexOf('id=')!==-1 ){
             $scope.env.id = window.location.search.match(/id=([0-9*])/)[1];

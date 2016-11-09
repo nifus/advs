@@ -144,24 +144,10 @@
             <div>
                 <h4 translate>Heating system</h4>
                 <div class="row">
-                    <div class="col-md-2" >
+                    <div class="col-md-2" ng-repeat="heating_system in env.heating_systems" >
                         <label>
-                            <input type="radio" ng-model="search.heating" value="Any">
-                            {{'Any'|translate}}
-                        </label>
-                    </div>
-
-                    <div class="col-md-2" >
-                        <label>
-                            <input type="radio" ng-model="search.heating" value="Self-contained heating">
-                            {{'Self-contained heating'|translate}}
-                        </label>
-                    </div>
-
-                    <div class="col-md-2" >
-                        <label>
-                            <input type="radio" ng-model="search.heating" value="Central heating">
-                            {{'Central heating'|translate}}
+                            <input type="radio" ng-model="search.heating" value="{{heating_system}}">
+                            {{heating_system}}
                         </label>
                     </div>
                 </div>
