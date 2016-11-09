@@ -58,6 +58,18 @@ class SearchController extends Controller
     function searchResult($id){
         $log = SearchLog::find($id);
 
+
+
+        return view('controller.search.result',[
+            'search'=>$log,
+            //'count'=>$count,
+            //'result'=>$result->toArray()
+        ]);
+    }
+
+    function search($id){
+        $log = SearchLog::find($id);
+
         $sql = Adv::where('category',$log->query->category);
 
         if ( isset($log->query->city) ){
@@ -72,13 +84,9 @@ class SearchController extends Controller
             $sql = $sql->where('country_id', $country->id);
 
         }
-        $count = $sql->count();
+        //$count = $sql->count();
         $result = $sql->get();
 
-        return view('controller.search.result',[
-            'search'=>$log,
-            'count'=>$count,
-            'result'=>$result->toArray()
-        ]);
+        return response()->json($result->toArray());
     }
 }

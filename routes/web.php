@@ -77,9 +77,12 @@ Route::group(['prefix'=>'api'], function () {
             Route::delete('{id}', 'AdvController@delete' );
             Route::put('{id}/status', 'AdvController@changeStatus' );
 
+
         });
         Route::put('/watch-advs', 'AdvController@getWatchByUser' );
         Route::delete('/watch-advs/{id}', 'AdvController@removeWatch' );
+
+
     });
 
     Route::get('/news/{type}', 'News@getLastNews' );
@@ -95,6 +98,7 @@ Route::group(['prefix'=>'api'], function () {
     Route::get('/address', 'AddressController@search');
     Route::post('/search', 'SearchController@createSearch');
     Route::get('/search/{id}', 'SearchController@getSearch');
+    Route::post('/search/{id}', ['as'=>'adv.search','uses'=>'SearchController@search'])->where('id','[0-9]*');
 
 });
 

@@ -40,6 +40,7 @@
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" value="flat"
+
                                                        ng-checked="model.type=='rent' && model.category=={{$category['id']}}"
                                                        ng-click="setPrivateType('rent',{{$category['id']}})">
                                                 {{$category['title']}}
@@ -53,6 +54,7 @@
                                 <div class="radio" ng-class="{'disabled':env.is_business_sale}">
                                     <label>
                                         <input type="radio" ng-model="env.is_business_rent"
+                                               ng-disabled="env.is_business_sale"
                                                ng-click="isBusiness('rent')">
                                         {{ trans('main.create_adv_business') }}
                                     </label>
@@ -65,6 +67,7 @@
                                         <div class="radio" ng-class="{'disabled' : env.is_business_rent==0}">
                                             <label>
                                                 <input type="radio"
+                                                       ng-disabled="env.is_business_rent==0"
                                                        ng-checked="model.type=='rent' && model.category=={{$category['id']}}"
                                                        ng-click="setBusinessType('rent',{{$category['id']}})">
                                                 {{$category['title']}}
@@ -100,6 +103,7 @@
                                 <div class="radio" ng-class="{'disabled':env.is_business_rent}">
                                     <label>
                                         <input type="radio" ng-model="env.is_business_sale"
+                                               ng-disabled="env.is_business_rent"
                                                ng-click="isBusiness('sale')">
                                         {{ trans('main.create_adv_business') }}
                                     </label>
@@ -113,6 +117,7 @@
                                         <div class="radio" ng-class="{'disabled' : env.is_business_sale==0}">
                                             <label>
                                                 <input type="radio" value="flat"
+                                                       ng-disabled="env.is_business_sale==0"
                                                        ng-checked="model.type=='sale' && model.category=={{$category['id']}}"
                                                        ng-click="setBusinessType('sale',{{$category['id']}})">
                                                 {{$category['title']}}

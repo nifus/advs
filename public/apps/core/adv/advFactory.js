@@ -13,10 +13,20 @@
             getUserAdvById: getUserAdvById,
             getByUser: getByUser,
             getWatchByUser: getWatchByUser,
-            getDataSets: getDataSets
+            getDataSets: getDataSets,
+            getResult: getResult
 
         };
 
+        function getResult(id, data) {
+            var deferred = $q.defer();
+            $http.post('/api/search/'+id , data).then(function (response) {
+                deferred.resolve( response.data);
+            }, function (error) {
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
         function getDataSets() {
             var deferred = $q.defer();
             $http.get('/api/adv-data-sets' ).then(function (response) {

@@ -289,3 +289,17 @@ div.equipment label.btn{
     margin: 20px;
 }
 .map { height: 400px; }
+
+div.search-bar ul li{
+    float: left;
+    list-style-type: none;
+    margin-left:20px
+}
+
+div.search-bar ul{
+    float: left
+}
+
+div.search-bar label{
+    float: left
+}
