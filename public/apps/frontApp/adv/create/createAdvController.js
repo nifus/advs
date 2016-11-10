@@ -45,11 +45,6 @@
             display_addr_details: false
         };
 
-        advFactory.getDataSets().then(function(response){
-            $scope.env.subcats = response.sub_categories;
-            $scope.env.equipments = response.equipments;
-        })
-
 
         $scope.model = {
             type: null,
@@ -70,10 +65,35 @@
             finance:{
                 ancillary_cost_included: 1,
             },
+            author:{
+
+            },
             air_conditioner: 'By agreement',
             edp_cabling: 'By agreement',
             price_type: 'Price per month'
         };
+
+        function initPage(deferred) {
+            $scope.env.user = $scope.$parent.env.user;
+
+            $scope.model.author.sex = $scope.env.user.sex;
+            $scope.model.author.name = $scope.env.user.name;
+            $scope.model.author.surname = $scope.env.user.surname;
+            $scope.model.author.email = $scope.env.user.email;
+            $scope.model.author.phone = $scope.env.user.phone;
+            return deferred.promise;
+        }
+
+        // initPage();
+        $scope.$parent.init.push(initPage);
+
+        advFactory.getDataSets().then(function(response){
+            $scope.env.subcats = response.sub_categories;
+            $scope.env.equipments = response.equipments;
+        })
+
+
+
 
 
 

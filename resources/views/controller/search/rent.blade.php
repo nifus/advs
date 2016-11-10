@@ -75,7 +75,9 @@
 
                             <div class="alert alert-info alert-dismissible" role="alert" ng-show="!env.display_city_field">
                                 <button ng-click="clearCityField()" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                @if ($place)
                                 {{$place->country.', '.$place->region.', '.$place->city.' ('.$place->zip.')'}}
+                                    @endif
                             </div>
 
                             <angucomplete-alt ng-show="env.display_city_field"
