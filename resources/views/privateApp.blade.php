@@ -30,6 +30,7 @@
     <script src="/components/angular-validation-match/dist/angular-validation-match.min.js"></script>
     <script src="/components/alertify.js/lib/alertify.min.js"></script>
     <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
+    <script src='/components/angular-gettext/dist/angular-gettext.min.js'></script>
 
     <script src="/apps/core/core.js"></script>
     <script src="/apps/core/cacheService.js"></script>

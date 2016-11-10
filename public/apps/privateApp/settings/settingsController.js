@@ -12,7 +12,8 @@
         };
 
         $scope.email_form = {
-            submit: false
+            submit: false,
+            is_confirmed: false
         };
         $scope.password_form = {
             submit: false
@@ -58,13 +59,31 @@
             if (!$scope.email.$invalid) {
                 $scope.user.changeEmail(data).success(function () {
                     $scope.user.email = data.email;
-                    $scope.email_form = {submit: false};
+                    $scope.email_form = {submit: false, is_confirmed: false};
                     alertify.success("Email changed");
                 }).error(function (response) {
                     data.error = response.error;
                 })
             }
         };
+
+        $scope.sendConformCode = function(data){
+            data.submit = true;
+            data.error = undefined;
+            if (!$scope.email.$invalid) {
+                $scope.user.sendConfirmCode(data.email).success(function () {
+                    data.is_confirmed  = true;
+                    data.submit = false;
+                    //$scope.user.email = data.email;
+                    //$scope.email_form = {submit: false};
+                    //alertify.success("Email changed");
+                }).error(function (response) {
+                    alertify.error(response.error);
+                   // data.error = response.error;
+                })
+            }
+        };
+
         $scope.changeContactData = function(data){
             data.submit = true;
             data.error = undefined;
@@ -74,9 +93,11 @@
                     //$scope.user.email = data.email;
                     $scope.contact_form.submit = false;
                     $scope.contact_form.error = undefined;
-                    alertify.success("Contact Data Changed");
+                    alertify.success($filter('translate')('Contact Data Changed'));
                 }).error(function (response) {
-                    data.error = response.error;
+                    //data.error = response.error;
+                    alertify.error(response.error);
+
                 })
             }
         };

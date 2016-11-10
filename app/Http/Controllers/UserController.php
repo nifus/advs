@@ -7,6 +7,7 @@ use App\Adv;
 use App\Jobs\ActivatePrivateAccount as ActivatePrivateAccountJob;
 use App\Jobs\ForgotPassword as ForgotPasswordJob;
 use App\Jobs\NewPassword as NewPasswordJob;
+use App\Jobs\ConfirmCode as ConfirmCodeJob;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -99,15 +100,30 @@ class UserController extends Controller
     }
 
     public function changeEmail(Request $request){
-        $data = $request->only(['email','re_email']);
+        $data = $request->only(['email','re_email','code']);
         try{
             $user = User::getUser();
+            if ($user->activate_key!=$data['code'] ){
+                throw new \Exception('Invalid code');
+            }
             $user->changeEmail($data['email'], $data['re_email']);
             return response()->json(['success'=>true]);
 
         }catch( \Exception $e ){
             $error = trans( 'validation.'.$e->getMessage() );
             return response()->json(['error'=>$error], 500);
+        }
+    }
+    public function sendConfirmCode(Request $request){
+        $email = $request->get('email');
+        try{
+            $user = User::getUser();
+            $code = $user->updateConfirmCode();
+            dispatch(new ConfirmCodeJob($user, $code, $email));
+            return response()->json(['success'=>true]);
+
+        }catch( \Exception $e ){
+            return response()->json(['error'=>$e->getMessage()], 500);
         }
     }
     public function changePayment(Request $request){

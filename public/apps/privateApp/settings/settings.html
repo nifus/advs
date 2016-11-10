@@ -1,9 +1,6 @@
-
-
-
 <ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li class="active">My settings</li>
+    <li><a href="/" translate>Home</a></li>
+    <li class="active" translate>My settings</li>
 </ol>
 
 <div class="progress" ng-show="env.loading==true">
@@ -23,46 +20,69 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Change email address</h3>
+                        <h3 class="panel-title" translate>Change email address</h3>
                     </div>
                     <div class="panel-body">
 
                         <form class="form-horizontal" name="email">
                             <div class="alert alert-danger" role="alert"
-                                 ng-show="(email.email.$error.match==true ||email_form.error!=undefined) ">
-                                {{ email.email.$error.match==true ? 'New email must be different from the previous' : ''}}
+                                 ng-show="(email.email.$error.match==true ||email_form.error!=undefined) " translate>
+                                New email must be different from the previous
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-4 control-label">Current email address</label>
+                                <label class="col-sm-4 control-label" translate>Current email address</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" disabled ng-model="user.email"
-                                           placeholder="Email">
+                                    <input type="email" class="form-control" disabled ng-model="user.email"
+                                           placeholder="{{'Email'|translate}}">
                                 </div>
                             </div>
                             <div class="form-group"
                                  ng-class="{ 'has-error': email.email.$invalid && email_form.submit==true }">
-                                <label class="col-sm-4 control-label">New email address</label>
+                                <label class="col-sm-4 control-label" translate>New email address</label>
                                 <div class="col-sm-8">
-                                    <input type="email" class="form-control" placeholder="Email" name="email"
+                                    <input type="email" class="form-control" placeholder="{{'Email'|translate}}" name="email"
+                                           ng-disabled="email_form.is_confirmed"
                                            ng-model="email_form.email" required match="user.email" not-match="true">
                                 </div>
                             </div>
                             <div class="form-group"
                                  ng-class="{ 'has-error': email.re_email.$invalid && email_form.submit==true }">
-                                <label class="col-sm-4 control-label">Repeat new email address</label>
+                                <label class="col-sm-4 control-label" translate>Repeat new email address</label>
                                 <div class="col-sm-8">
-                                    <input type="email" class="form-control" placeholder="Email" name="re_email"
+                                    <input type="email" class="form-control" placeholder="{{'Email'|translate}}" name="re_email"
+                                           ng-disabled="email_form.is_confirmed"
                                            ng-model="email_form.re_email" required match="email_form.email">
                                 </div>
 
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" ng-show="email_form.is_confirmed">
+                                <div class="alert alert-warning" role="alert" translate>We sent a confirmation code to you new email. Please entire this code </div>
+
+                                <label class="col-sm-4 control-label" translate>Confirmation code</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control"  name="code"
+                                           ng-model="email_form.code" ng-required="email_form.is_confirmed===true">
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-show="email_form.is_confirmed===false">
                                 <div class="col-sm-offset-2 col-sm-10 text-right">
                                     <button type="button"
+                                            ng-disabled="email_form.submit"
+                                            ng-click="sendConformCode(email_form)"
+                                            class="btn btn-default" translate>Send confirm code
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-show="email_form.is_confirmed===true">
+                                <div class="col-sm-offset-2 col-sm-10 text-right">
+                                    <button type="button"
+                                            ng-disabled="email_form.submit"
                                             ng-click="changeEmail(email_form)"
-                                            class="btn btn-default">Change email address
+                                            class="btn btn-default" translate>Change email address
                                     </button>
                                 </div>
                             </div>

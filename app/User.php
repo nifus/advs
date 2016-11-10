@@ -88,6 +88,11 @@ class User extends Authenticatable
 
         $this->update(['email'=>$email]);
     }
+    public function updateConfirmCode(){
+        $key=md5( time().rand(0, 10000));
+        $this->update(['activate_key'=>$key]);
+        return $key;
+    }
 
     public function changePassword($current, $new, $re){
         $data = [

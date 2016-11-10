@@ -56,6 +56,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::post('/authenticate', 'UserController@authenticate' );
         Route::post('/forgot-password', 'UserController@forgotPassword' );
         Route::put('/change-email', 'UserController@changeEmail' );
+        Route::post('/send-confirm-code', 'UserController@sendConfirmCode' );
         Route::put('/change-password', 'UserController@changePassword' );
         Route::put('/allow-notifications', 'UserController@allowNotifications' );
         Route::put('/change-payment', 'UserController@changePayment' );

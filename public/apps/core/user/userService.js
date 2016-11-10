@@ -35,6 +35,9 @@
             Object.changeEmail = function(data){
                 return $http.put('/api/user/change-email',data)
             };
+            Object.sendConfirmCode = function(email){
+                return $http.post('/api/user/send-confirm-code',{email:email})
+            };
 
             Object.changePassword = function(data){
                 return $http.put('/api/user/change-password',data)
