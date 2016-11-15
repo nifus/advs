@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
     <link rel="stylesheet" href="/components/angucomplete-alt/angucomplete-alt.css">
 
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry"></script>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="/components/angular/angular.min.js"></script>
@@ -48,6 +48,7 @@
     <script src="/apps/frontApp/login/loginController.js"></script>
     <script src="/apps/frontApp/mainController.js"></script>
     <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
+    <script src="/apps/frontApp/directives/citySelect/citySelect.js"></script>
 
 </head>
 <body ng-app="frontApp" ng-controller="mainController" >

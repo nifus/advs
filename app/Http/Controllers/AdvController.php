@@ -39,14 +39,18 @@ class AdvController extends Controller
         ]);
     }
 
-    function preview($id)
+    function simplePreview($id)
     {
-
         $user = UserModel::getUser();
         $adv = AdvModel::findOrDie($id);
-
         return view('controller.adv.preview', ['user' => $user, 'adv' => $adv]);
+    }
 
+    function preview($id)
+    {
+        $user = UserModel::getUser();
+        $adv = AdvModel::findOrDie($id);
+        return view('controller.adv.preview', ['user' => $user, 'adv' => $adv]);
     }
 
     function getUserAdvById($id)

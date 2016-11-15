@@ -53,7 +53,9 @@
             subcategory:[],
             parking_place: 'Any',
             heating: 'Any',
-            pets: 'Any'
+            pets: 'Any',
+            radius: "1",
+            cities:[]
         };
 
 
@@ -75,6 +77,7 @@
 
 
         $scope.$watch('env.address', function (value) {
+            console.log(value)
             if (value!=undefined && value.originalObject!=undefined){
                 $scope.search.city_id=value.originalObject.id
             }

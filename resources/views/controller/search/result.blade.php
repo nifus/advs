@@ -11,7 +11,9 @@
 
     <div ng-controller="searchResultController">
         <div ng-include="'/apps/frontApp/adv/searchResult/listing/index.html'" ng-if="env.adv_id==undefined"></div>
-        <div ng-include="'/apps/frontApp/adv/searchResult/view/index.html'" ng-if="env.adv_id!=undefined"></div>
+
+
+
     </div>
 
 

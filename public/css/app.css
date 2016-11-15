@@ -303,3 +303,22 @@ div.search-bar ul{
 div.search-bar label{
     float: left
 }
+
+ul.autocomplete{
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    padding-left: 10px;
+    max-height: 220px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    overflow-y: auto;
+}
+ul.autocomplete li{
+    list-style-type: none;
+    padding:10px;
+    cursor: pointer;
+}
+ul.autocomplete li:hover{
+    background-color: lightgray;
+}
