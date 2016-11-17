@@ -9,6 +9,7 @@ class Adv extends Model
 {
     protected $fillable = [
         'title', 'desc', 'created_at', 'type', 'updated_at', 'user_id', 'status', 'photos', 'visited', 'favorite',
+        'lng','lat',
 
         'cold_rent', 'monthly_rent','rental_price','price_type',
 
@@ -475,25 +476,43 @@ class Adv extends Model
         return self::$categories;
     }
 
-    static function getSubCategories()
+    static function getSubCategories($category = null)
     {
-        foreach (self::$sub_categories as $i => $category) {
-            foreach ($category as $j => $equipment) {
-                self::$sub_categories[$i][$j]['title'] = trans('main.subcategory_' . self::$sub_categories[$i][$j]['title']);
+        if ( is_null($category) ){
+            foreach (self::$sub_categories as $i => $category) {
+                foreach ($category as $j => $equipment) {
+                    self::$sub_categories[$i][$j]['title'] = trans('main.subcategory_' . self::$sub_categories[$i][$j]['title']);
+                }
             }
+            return self::$sub_categories;
+
+        }else{
+            foreach (self::$sub_categories[$category] as $j => $sub) {
+                self::$sub_categories[$category][$j]['title'] = trans('main.subcategory_' . self::$sub_categories[$category][$j]['title']);
+            }
+            return self::$sub_categories[$category];
         }
-        return self::$sub_categories;
+
+
     }
 
-    static function getEquipments()
+    static function getEquipments($category = null)
     {
-        foreach (self::$equipments as $category => $equipments) {
-            foreach ($equipments as $i => $equipment) {
-                self::$equipments[$category][$i] = trans('main.equipment_' . self::$equipments[$category][$i]);
+        if ( is_null($category) ) {
+            foreach (self::$equipments as $category => $equipments) {
+                foreach ($equipments as $i => $equipment) {
+                    self::$equipments[$category][$i] = trans('main.equipment_' . self::$equipments[$category][$i]);
 
+                }
             }
+            return self::$equipments;
+
+        }else{
+            foreach (self::$equipments[$category] as $i => $equipment) {
+                self::$equipments[$category][$i] = trans('main.equipment_' . self::$equipments[$category][$i]);
+            }
+            return self::$equipments[$category];
         }
-        return self::$equipments;
     }
 
 }

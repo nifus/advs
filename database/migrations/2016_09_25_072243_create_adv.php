@@ -17,7 +17,7 @@ class CreateAdv extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->enum('status',['payment_waiting','active','disabled','expired','blocked'])->default('payment_waiting');
-            $table->enum('type',['rent','sell','offer'])->default('rent');
+            $table->enum('type',['rent','sale'])->default('rent');
             $table->text('photos')->nullable();
             $table->integer('visited')->default(0);
             $table->integer('favorite')->default(0);
@@ -63,8 +63,8 @@ class CreateAdv extends Migration
             $table->tinyInteger('hide_contacts')->default(0);
 
             $table->integer('city_id');
-            $table->integer('country_id');
-            $table->integer('region_id');
+            $table->decimal('lng',9,6)->nullable();
+            $table->decimal('lat',9,6)->nullable();
 
 
         });

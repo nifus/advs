@@ -83,6 +83,7 @@
             }
         }, true);
 
+
         $scope.clearCityField = function(){
             $scope.search.city_id = undefined;
             $scope.env.display_city_field=true;

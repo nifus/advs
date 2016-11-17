@@ -225,8 +225,10 @@ class UserController extends Controller
     {
         try{
             $user = User::getUser();
-
-            if ( $user->isDeletedAccount() ){
+            if ( is_null($user)  ){
+                throw new \Exception('no user');
+            }
+            if (   $user->isDeletedAccount() ){
                 JWTAuth::invalidate(JWTAuth::getToken());
                 throw new \Exception('no user');
             }

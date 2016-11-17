@@ -3,7 +3,7 @@
         <ol class="breadcrumb">
             <li><a href="/">{{ trans('main.home') }}</a></li>
             <li><a href="{{ route('adv.'.$search->query->type,['id'=>$search->id]) }}">Search real estate</a></li>
-            <li class="active">48643 results</li>
+            <li class="active">1 results</li>
         </ol>
     </div>
 
@@ -67,7 +67,6 @@
                 <div class="col-md-5" ng-repeat="row in env.rows">
                     <div ng-include="'/apps/frontApp/adv/searchResult/flat.html'"  ng-if="row.category==1"></div>
                     <div ng-include="'/apps/frontApp/adv/searchResult/house.html'"  ng-if="row.category==2"></div>
-
                 </div>
             </div>
             <br style="clear: both">

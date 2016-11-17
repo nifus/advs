@@ -34,6 +34,8 @@
     <script src='/components/angular-gettext/dist/angular-gettext.min.js'></script>
     <script src="/components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
 
+
+
     <script src="/apps/frontApp/frontApp.js"></script>
     <script src="/apps/core/core.js"></script>
     <script src="/apps/directives/upload/upload.js"></script>
@@ -44,6 +46,10 @@
 
     <script src="/apps/core/adv/advFactory.js"></script>
     <script src="/apps/core/adv/advService.js"></script>
+
+
+    <script src="/apps/core/searchLog/searchLogFactory.js"></script>
+    <script src="/apps/core/searchLog/searchLogService.js"></script>
 
     <script src="/apps/frontApp/login/loginController.js"></script>
     <script src="/apps/frontApp/mainController.js"></script>

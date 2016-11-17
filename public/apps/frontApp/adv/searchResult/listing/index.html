@@ -1,4 +1,4 @@
-<div ng-controller="searchResultController">
+<div >
     <div>
         <ol class="breadcrumb">
             <li><a href="/">home</a></li>
@@ -27,9 +27,9 @@
                         </div>
 
                         <div class="btn-group" role="group" >
-                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.advs_on_page==5}" ng-click="env.advs_on_page=5">5</button>
-                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.advs_on_page==10}" ng-click="env.advs_on_page=10">10</button>
-                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.advs_on_page==20}" ng-click="env.advs_on_page=20">20</button>
+                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==5}" ng-click="changePerPage(5)">5</button>
+                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==10}" ng-click="changePerPage(10)">10</button>
+                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==20}" ng-click="changePerPage(20)">20</button>
                         </div>
 
                     </div>
@@ -62,13 +62,14 @@
                 </ul>
             </nav>
 
-
             <div class="row">
-                <div class="col-md-5" ng-repeat="row in env.rows">
-                    <div ng-include="'/apps/frontApp/adv/searchResult/listing/flat.html'"  ng-if="row.category==1"></div>
-                    <div ng-include="'/apps/frontApp/adv/searchResult/listing/house.html'"  ng-if="row.category==2"></div>
+                    <div
+                            ng-include="'/apps/frontApp/adv/searchResult/listing/inc/flat.html'"
+                            ng-if="env.search.query.category==1"></div>
+                    <div
+                            ng-include="'/apps/frontApp/adv/searchResult/listing/inc/house.html'"
+                            ng-if="env.search.query.category==2"></div>
 
-                </div>
             </div>
             <br style="clear: both">
 

@@ -99,7 +99,11 @@ Route::group(['prefix'=>'api'], function () {
     Route::get('/search/cities/{key}', 'SearchController@findCity');
     Route::post('/search', 'SearchController@createSearch');
     Route::get('/search/{id}', 'SearchController@getSearch');
+
+
+
     Route::post('/search/{id}', ['as'=>'adv.search','uses'=>'SearchController@search'])->where('id','[0-9]*');
+    Route::post('/search/{id}/update', 'SearchController@searchUpdate')->where('id','[0-9]*');
 
 });
 

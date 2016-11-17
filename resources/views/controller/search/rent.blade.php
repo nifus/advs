@@ -68,58 +68,10 @@
                 </div>
                 <h4>Location</h4>
                 <div class="col-md-12">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label>Zip, City</label>
 
-
-                            <div class="alert alert-info alert-dismissible" role="alert" ng-show="!env.display_city_field">
-                                <button ng-click="clearCityField()" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                @if ($place)
-                                {{$place->country.', '.$place->region.', '.$place->city.' ('.$place->zip.')'}}
-                                    @endif
-                            </div>
-                            <city-select ng-model="env.address" radius="search.radius" cities="search.cities" >
-                                <input type="text" class="form-control" ng-model="search.city">
-                            </city-select>
-                            <!--
-                            <angucomplete-alt ng-show="env.display_city_field"
-                                            id="au"
-                                            minlength="1"
-                                              placeholder="City"
-                                              selected-object="env.address"
-                                              remote-url="/api/search/cities/"
-                                              remote-url-data-field="cities"
-                                              title-field="city, zip"
-                                              input-class="form-control"/>-->
-
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Radius</label>
-                            <select class="form-control" ng-model="search.radius">
-                                <option value="1">1 km</option>
-                                <option value="5">5 km</option>
-                                <option value="10">10 km</option>
-                                <option value="15">15 km</option>
-                                <option value="20">20 km</option>
-                            </select>
-                        </div>
-                    </div>
+                    <city-select ng-model="env.address" radius="search.radius" cities="search.cities"></city-select>
                 </div>
-                <div class="row">
-                    <div class="col-md-9">
-                        <div id="map" style="width:100%;height:500px"></div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="alert alert-info alert-dismissible" role="alert"  ng-repeat="city in search.cities">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong ng-bind="city.name"></strong>
-                        </div>
 
-                    </div>
-                </div>
 
                 <div class="col-md-12">
                     banner

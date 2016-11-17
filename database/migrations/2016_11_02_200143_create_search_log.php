@@ -16,6 +16,7 @@ class CreateSearchLog extends Migration
         Schema::create('search_log', function (Blueprint $table) {
             $table->increments('id');
             $table->text('query');
+            $table->text('config');
             $table->timestamps();
         });
     }

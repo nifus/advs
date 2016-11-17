@@ -217,7 +217,7 @@ return [
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-
+        //Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*

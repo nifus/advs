@@ -8,7 +8,7 @@ use App\AdvAddress;
 class Place extends Model
 {
     protected $fillable = [
-        'city','country','region','zip','created_at','count_advs','updated_at'
+        'city','country','region','zip','created_at','count_advs','updated_at','lng','lat'
     ];
 
 
