@@ -16,7 +16,9 @@
             search: null,
             adv_tmpl: null,
             sortby: null,
-            page: 1
+            page: 1,
+            pages: null,
+            current:[]
         };
         var promises = [];
 
@@ -55,16 +57,47 @@
 
         $q.all(promises).then(function () {
             $scope.env.loading = false;
+            updatePagination();
+
         });
 
         $scope.changePerPage = function (value) {
             $scope.env.per_page = value*1;
+            $scope.env.page = value*1;
             $scope.env.search.update(
                 {
                     per_page: $scope.env.per_page,
                     sortby: $scope.env.sortby
                 }
-            )
+            );
+            $scope.setPage(1)
+            //updatePagination();
+        };
+
+        function updatePagination(){
+            var pages = Math.round($scope.env.rows.length/$scope.env.per_page);
+            $scope.env.pages = pages>1 ? pages : null;
+
+            $scope.env.current = $scope.env.rows.slice( ($scope.env.page-1)*$scope.env.per_page, (($scope.env.page-1)*$scope.env.per_page) + $scope.env.per_page)
+
+            console.log( ($scope.env.page-1)*$scope.env.per_page);
+            console.log($scope.env.current );
+
+        };
+
+        $scope.range = function(min, max, step) {
+            step = step || 1;
+            var input = [];
+            for (var i = min; i <= max; i += step) {
+                input.push(i);
+            }
+            return input;
+        };
+
+        $scope.setPage = function(page){
+            window.location.href = "/search/"+$scope.env.result_id+"#/page"+page;
+            $scope.env.page = page;
+            updatePagination();
         }
     }
 })();
