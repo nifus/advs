@@ -322,3 +322,8 @@ ul.autocomplete li{
 ul.autocomplete li:hover{
     background-color: lightgray;
 }
+
+
+li.disabled{
+    opacity: 0.5;
+}

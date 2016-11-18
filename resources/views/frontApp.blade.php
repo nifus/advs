@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
     <link rel="stylesheet" href="/components/angucomplete-alt/angucomplete-alt.css">
 
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyDhoywlfGZRVpt8hcYkJORK4ioyBeEIweU"></script>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="/components/angular/angular.min.js"></script>
@@ -33,6 +33,7 @@
     <script src='/components/angular-gm/angular-gm.min.js'></script>
     <script src='/components/angular-gettext/dist/angular-gettext.min.js'></script>
     <script src="/components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
+    <script src="/components/angular-disable-all/dist/angular-disable-all.js"></script>
 
 
 

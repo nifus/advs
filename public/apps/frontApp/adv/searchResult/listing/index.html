@@ -17,43 +17,58 @@
 
         </div>
         <div class="col-md-10">
-            <div >
-                <div class="col-md-5 text-left">
 
-                    <div class="btn-toolbar" role="toolbar" >
-                        <div class="btn-group" role="group" >
-                            <label>Results per page</label>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+
+
+                    <div class="col-md-5 navbar-left navbar-form" >
+                        <nav  ng-show="env.pages!=null" >
+                            <ul class="pagination " style="margin:0px">
+                                <li ng-repeat="n in range(1,env.pages)" ng-class="{'active':env.page==n,'disabled':env.display_map===true}">
+                                    <a  class="link" ng-click="setPage(n)">{{n}}</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="col-md-5 navbar-right navbar-form" disable-all="env.display_map===true">
+                        <select class="form-control">
+                            <option value="">Sort by</option>
+                        </select>
+                    </div>
+
+
+                    <div class="col-md-5 navbar-right navbar-form ">
+                        <div class="btn-toolbar" role="toolbar" >
+
+                            <div class="btn-group" role="group"  disable-all="env.display_map===true">
+                                <button type="button" disabled class="btn btn-default"  ng-click="changePerPage(5)">Per page</button>
+                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==5}" ng-click="changePerPage(5)">5</button>
+                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==10}" ng-click="changePerPage(10)">10</button>
+                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==20}" ng-click="changePerPage(20)">20</button>
+                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==50}" ng-click="changePerPage(50)">50</button>
+                            </div>
 
                         </div>
+                    </div>
 
-                        <div class="btn-group" role="group" >
-                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==5}" ng-click="changePerPage(5)">5</button>
-                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==10}" ng-click="changePerPage(10)">10</button>
-                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==20}" ng-click="changePerPage(20)">20</button>
-                        </div>
+                    <div class="col-md-5 navbar-right navbar-form " >
 
+                        <button type="submit" class="btn btn-success"
+                                ng-class="{'active': env.display_map===true}"
+                            ng-click="displayMap(!env.display_map, true)"
+                        >
+                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                            {{env.display_map===false ? 'Display Map' : 'Hide Map'}}
+                        </button>
                     </div>
                 </div>
-                <div class="col-md-2"><a href="">Map</a></div>
-
-                <div class="col-md-5 text-right">
-                    <label>Sort by</label>
-                    <select class="form-control">
-                        <option value=""></option>
-                    </select>
-                </div>
-            </div>
-            <br style="clear: both">
-
-            <nav  ng-show="env.pages!=null" >
-                <ul class="pagination">
-                    <li ng-repeat="n in range(1,env.pages)" ng-class="{'active':env.page==n}"><a  class="link" ng-click="setPage(n)">{{n}}</a></li>
-                </ul>
             </nav>
-            <br style="clear: both">
-            <br style="clear: both">
 
-            <div class="row">
+
+
+            <div class="row" ng-if="env.display_map===false">
                     <div
                             ng-include="'/apps/frontApp/adv/searchResult/listing/inc/flat.html'"
                             ng-if="env.search.query.category==1"></div>
@@ -62,7 +77,11 @@
                             ng-if="env.search.query.category==2"></div>
 
             </div>
-            <br style="clear: both">
+
+
+            <div class="row"  ng-show="env.display_map===true">
+                <div id="map" style="height: 500px"></div>
+            </div>
 
 
         </div>

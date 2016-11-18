@@ -2,9 +2,9 @@
     'use strict';
     angular.module('frontApp').controller('searchResultController', searchResultController);
 
-    searchResultController.$inject = ['$scope', 'advFactory','searchLogFactory','$q'];
+    searchResultController.$inject = ['$scope', 'advFactory','searchLogFactory','$q','$interval'];
 
-    function searchResultController($scope, advFactory, searchLogFactory, $q) {
+    function searchResultController($scope, advFactory, searchLogFactory, $q, $interval) {
 
 
         $scope.env = {
@@ -18,7 +18,9 @@
             sortby: null,
             page: 1,
             pages: null,
-            current:[]
+            current:[],
+            display_map: false,
+            map: null
         };
         var promises = [];
 
@@ -26,7 +28,7 @@
         $scope.env.adv_id = url!=null && url[1]!=undefined ?  url[1]*1 : null;
 
         url = window.location.href.match(/\/page([0-9]*)/);
-        $scope.env.page = url!=null && url[1]!=undefined ?  url[1]*1 : null;
+        $scope.env.page = url!=null && url[1]!=undefined ?  url[1]*1 : $scope.env.page;
 
         url = window.location.href.match(/\/search\/([0-9]*)/);
         $scope.env.result_id = url!=null && url[1]!=undefined ?  url[1]*1 : null;
@@ -45,6 +47,9 @@
             if ($scope.env.search.config && $scope.env.search.config.sortby){
                 $scope.env.sortby = $scope.env.search.config.sortby;
             }
+            if ($scope.env.search.config && $scope.env.search.config.display_map){
+                $scope.displayMap($scope.env.search.config.display_map, false);
+            }
         });
         promises.push(searchPromise);
 
@@ -57,21 +62,16 @@
 
         $q.all(promises).then(function () {
             $scope.env.loading = false;
-            updatePagination();
-
+            $scope.setPage($scope.env.page)
         });
 
         $scope.changePerPage = function (value) {
             $scope.env.per_page = value*1;
             $scope.env.page = value*1;
-            $scope.env.search.update(
-                {
-                    per_page: $scope.env.per_page,
-                    sortby: $scope.env.sortby
-                }
-            );
-            $scope.setPage(1)
-            //updatePagination();
+
+            $scope.setPage(1);
+
+            updateSearch();
         };
 
         function updatePagination(){
@@ -79,9 +79,6 @@
             $scope.env.pages = pages>1 ? pages : null;
 
             $scope.env.current = $scope.env.rows.slice( ($scope.env.page-1)*$scope.env.per_page, (($scope.env.page-1)*$scope.env.per_page) + $scope.env.per_page)
-
-            console.log( ($scope.env.page-1)*$scope.env.per_page);
-            console.log($scope.env.current );
 
         };
 
@@ -98,6 +95,44 @@
             window.location.href = "/search/"+$scope.env.result_id+"#/page"+page;
             $scope.env.page = page;
             updatePagination();
+        };
+
+        $scope.displayMap = function(flag, need_update){
+            $scope.env.display_map = flag;
+            if (need_update){
+                updateSearch();
+            }
+            if ( $scope.env.display_map === true ){
+                initGoogleMaps()
+            }
+        };
+
+        function updateSearch() {
+            $scope.env.search.update(
+                {
+                    per_page: $scope.env.per_page,
+                    sortby: $scope.env.sortby,
+                    display_map: $scope.env.display_map
+                }
+            );
+        };
+        
+        function initGoogleMaps() {
+
+            var interval = $interval(function(){
+                if ( document.getElementById('map') ){
+                    $scope.env.map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: -34.397, lng: 150.644},
+                        zoom: 8
+                    });
+                    $interval.cancel(interval);
+                }
+            },1000)
+
+        }
+
+        $scope.page_loaded = function () {
+            console.log(1)
         }
     }
 })();
