@@ -34,21 +34,6 @@
                 $scope.adv.deleteFromFavList($scope.user);
                 alertify.success( 'Adv removed from watchlist' );
             }
-
-           // console.log(flag)
-            /*advFactory.favlist($scope.adv.id,flag==true ? 'add' : 'remove').then(function(response){
-                if (response.data.success==true){
-                    if ( flag===true ){
-                        alertify.success( 'Adv added to watchlist' );
-                    }else{
-                        alertify.success( 'Adv removed from watchlist' );
-                    }
-
-                }else{
-                    alertify.error(response.data.error);
-
-                }
-            })*/
         }
 
     }

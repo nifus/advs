@@ -29,6 +29,7 @@
         $scope.openAdv = function(adv){
             console.log(adv)
         }
+
     }
 })();
 

@@ -75,7 +75,8 @@ class SearchController extends Controller
 
     function search($id){
         $log = SearchLog::find($id);
-
+        $user = User::getUser();
+        $user_id = !is_null($user) ? $user->id : null;
         $place = Place::find($log->query->city_id);
 
         //SELECT id, ( 3959 * acos( cos( radians(37) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( lat ) ) ) ) AS distance FROM markers HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;
@@ -85,9 +86,13 @@ class SearchController extends Controller
         //$sql = $sql->where('city_id', $log->query->city_id);
 
         //$count = $sql->count();
-        $result = $sql->get();
+        $advs = $sql->get();
+        $result = [];
+        foreach($advs as $adv){
+            array_push($result, $adv->getArray($user_id) );
+        }
 
-        return response()->json(['search'=>$log->toArray(),'advs'=>$result->toArray(),'city'=>$place->toArray()]);
+        return response()->json(['search'=>$log->toArray(),'advs'=>$result,'city'=>$place->toArray()]);
     }
 
     function searchUpdate($id, Request $request ){
