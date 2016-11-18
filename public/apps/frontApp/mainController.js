@@ -47,6 +47,7 @@
         };
 
         var userPromise = userFactory.getAuthUser().then(function (user) {
+            $scope.user = user;
             $scope.env.user = user;
         });
         $scope.promises.push(userPromise);

@@ -12,9 +12,10 @@
             store: store,
             getUserAdvById: getUserAdvById,
             getByUser: getByUser,
+            getById: getById,
             getWatchByUser: getWatchByUser,
             getDataSets: getDataSets,
-            getResult: getResult
+            getResult: getResult,
 
         };
 
@@ -31,6 +32,9 @@
             });
             return deferred.promise;
         }
+
+
+
         function getDataSets() {
             var deferred = $q.defer();
             $http.get('/api/adv-data-sets' ).then(function (response) {
@@ -57,6 +61,15 @@
                 deferred.resolve(new advService(response.data));
             }, function (error) {
                 console.log(error);
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
+        function getById(id) {
+            var deferred = $q.defer();
+            $http.get('/api/advs/' + id).then(function (response) {
+                deferred.resolve(new advService(response.data));
+            }, function (error) {
                 deferred.reject({success: false, error: error.data});
             });
             return deferred.promise;

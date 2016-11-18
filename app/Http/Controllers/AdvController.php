@@ -67,8 +67,40 @@ class AdvController extends Controller
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
+    }
 
+    function favlist($id,Request $request){
+        try {
+            $action = $request->get('action');
+            $adv = AdvModel::findOrDie($id);
+            $user = UserModel::getUser();
+            if (is_null($user)){
+                throw new \Exception('No user');
+            }
+            $action=='add' ? $user->addFavAdv($adv->id) : $user->removeFavAdv($adv->id);
 
+            $adv->updateFavs();
+            return response()->json(['success'=>true]);
+
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
+
+    function getAdvById($id)
+    {
+        try {
+            $adv = AdvModel::findOrDie($id);
+            $user = UserModel::getUser();
+            if (is_null($user)){
+                return response()->json($adv->getArray());
+            }else{
+                return response()->json($adv->getArray($user->id));
+            }
+
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     function getByUser()

@@ -87,6 +87,10 @@ Route::group(['prefix'=>'api'], function () {
 
     Route::get('/news/{type}', 'News@getLastNews' );
 
+    Route::get('/advs/{id}', 'AdvController@getAdvById' );
+
+    Route::post('/advs/{id}/fav', 'AdvController@favlist' );
+
     Route::get('/adv-data-sets', function(){
         $sets = [
             'sub_categories'=>Adv::getSubCategories(),

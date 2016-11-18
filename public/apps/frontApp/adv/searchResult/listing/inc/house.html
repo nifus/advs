@@ -1,10 +1,14 @@
 <div class="col-md-5" ng-repeat="row in env.current">
     <table class="table table-bordered">
         <tr class="info">
-            <td colspan="3">{{row.title}}</td>
+            <td colspan="3"><a ng-href="/search/{{root.result_id}}#/view{{row.id}}" ng-click="openAdv(row.id)" ng-bind-html="row.title|to_trusted"></a></td>
         </tr>
         <tr>
-            <td rowspan="5" style="width: 200px"><img ng-src="{{row.MainPhoto}}" style="width:200px" alt=""></td>
+            <td rowspan="5" style="width: 200px">
+                <a ng-href="/search/{{root.result_id}}#/view{{row.id}}">
+                    <img ng-src="{{row.MainPhoto}}" style="width:200px" alt="">
+                </a>
+            </td>
             <td translate>Living space</td>
             <td>{{row.living_area}} m<sup>2</sup></td>
         </tr>

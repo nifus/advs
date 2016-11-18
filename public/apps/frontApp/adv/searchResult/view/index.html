@@ -1,95 +1,214 @@
-<div ng-controller="searchResultController">
-    <div>
-        <ol class="breadcrumb">
-            <li><a href="/">{{ trans('main.home') }}</a></li>
-            <li><a href="{{ route('adv.'.$search->query->type,['id'=>$search->id]) }}">Search real estate</a></li>
-            <li class="active">1 results</li>
-        </ol>
+<div class="progress" ng-show="env.loading===true">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-md-2">
-            48643 Flats found
-            <hr>
-            <button type="button" class="btn btn-primary">Search</button>
-            <hr>
-            <a href="{{$search_back}}">Back to searching details</a>
+<div ng-show="env.loading===false">
+
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/">Search real estate</a></li>
+        <li><a href="/">48643 results</a></li>
+        <li class="active">advert: {{adv.id}}</li>
+    </ol>
+
+    <nav class="navbar navbar-default" >
+        <div class="container-fluid">
+            <div class="col-md-5 navbar-left navbar-form" >
+                ID: {{adv.id}}
+            </div>
+            <div class="col-md-5 navbar-right navbar-form" >
+                <button class="btn btn-danger" style="float:right"
+                        ng-if="adv.isFav(user)"
+                        ng-click="favlist(false)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    Remove from watchlist</button>
+
+
+                <button class="btn btn-primary" style="float:right"
+                        ng-if="!adv.isFav(user)"
+                        ng-click="favlist(true)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    To watchlist</button>
+            </div>
 
         </div>
-        <div class="col-md-10">
-            <div >
-                <div class="col-md-5 text-left">
+    </nav>
 
-                    <div class="btn-toolbar" role="toolbar" >
-                        <div class="btn-group" role="group" >
-                            <label>Results per page</label>
 
+
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">B i l d e r</div>
+            <div class="col-md-6">K a r t e</div>
+        </div>
+
+        <div class="row" id="photo-block" photo-block>
+            <div class="col-md-12 main">
+                <img ng-src="{{adv.MainPhoto}}" >
+                <div class="back navigate hide"></div>
+                <div class="next navigate hide"></div>
+            </div>
+
+            <div class="preview col-md-12">
+                <img ng-repeat="photo in adv.photos" ng-src="{{photo}}" class="active"   >
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Vendor</h4>
+                <table class="table">
+                    <tr><td>Contact person:</td><td></td></tr>
+                    <tr><td>Phone:</td><td></td></tr>
+                    <tr><td>Mobile 1:</td><td></td></tr>
+                    <tr><td>Email:</td><td></td></tr>
+                </table>
+            </div>
+            <div class="col-md-7">
+                <h4>Contact</h4>
+
+
+                <form class="form-horizontal">
+                    <div class="form-group" ng-class="{ 'has-error': register.sex.$invalid && submit==true }">
+                        <label class="col-sm-2 control-label"> trans('main.register_title') </label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="sex" ng-model="form.sex" value="male"
+                                       required>  trans('main.register_man') 
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="sex" ng-model="form.sex" value="female"
+                                       required>  trans('main.register_woman') 
+                            </label>
                         </div>
-
-                        <div class="btn-group" role="group" >
-                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.advs_on_page==5}" ng-click="env.advs_on_page=5">5</button>
-                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.advs_on_page==10}" ng-click="env.advs_on_page=10">10</button>
-                            <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.advs_on_page==20}" ng-click="env.advs_on_page=20">20</button>
-                        </div>
-
                     </div>
-                </div>
-                <div class="col-md-2"><a href="">Map</a></div>
 
-                <div class="col-md-5 text-right">
-                    Sort by
-                    <select name="" id=""></select>
-                </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Your name</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Your phone</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Your email</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Send message</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-
-            <div class="row">
-                <div class="col-md-5" ng-repeat="row in env.rows">
-                    <div ng-include="'/apps/frontApp/adv/searchResult/flat.html'"  ng-if="row.category==1"></div>
-                    <div ng-include="'/apps/frontApp/adv/searchResult/house.html'"  ng-if="row.category==2"></div>
-                </div>
-            </div>
-            <br style="clear: both">
-
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
+    </div>
+    <div class="col-md-6">
+        <h4 ng-bind-html="adv.title|to_trusted"></h4>
+
+        <div class="row">
+            <div class="col-md-6">
+                <table style="width: 100%">
+                    <tr>
+                        <td>City:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>ZIP:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Street / House number:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Building type:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Build year:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Floor:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Rooms:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Living area:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Method of heating:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Number of Garage / p:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Garage / parking place:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Pets:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td>Move in ready:</td><td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <table class="table">
+                    <tr class="info">
+                        <th colspan="2">Finance</th>
+                    </tr>
+                    <tr class="info"><td>Cold rent:</td><td></td></tr>
+                    <tr class="info"><td>Ancillary cost:</td><td></td></tr>
+                    <tr class="info"><td>Heating cost:</td><td></td></tr>
+                    <tr class="info"><td>Total rent:</td><td></td></tr>
+                    <tr class="info"><td>Caution money:</td><td></td></tr>
+                </table>
+
+                <table class="table">
+                    <tr class="warning">
+                        <th colspan="2">Location</th>
+                    </tr>
+                    <tr class="warning"><td>Walkway to public transport ca.:.</td><td></td></tr>
+                    <tr class="warning"><td>Driving time to the next central station ca.:</td><td></td></tr>
+                    <tr class="warning"><td>Driving time to the next Autobahn ca.:</td><td></td></tr>
+                    <tr class="warning"><td>Driving time to the next Airport ca.:</td><td></td></tr>
+                </table>
+
+                <table class="table">
+                    <tr class="success">
+                        <th colspan="2">Energy</th>
+                    </tr>
+                    <tr class="success"><td>Energy pass</td><td></td></tr>
+                    <tr class="success"><td>Energy pass type</td><td></td></tr>
+                    <tr class="success"><td>Energy consumption value</td><td></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div ng-if="adv.equipments!=null">
+        <h4>Equipment</h4>
+            <div class="row">
+                <div class="col-md-1" ng-repeat="equipment in adv.equipments">{{equipment}}</div>
+
+            </div>
+        </div>
+
+        <h4>Description</h4>
+        <div ng-bind-html="adv.desc|to_trusted"></div>
+
+
+
+        <div>ADV</div>
     </div>
 </div>

@@ -152,6 +152,23 @@ class User extends Authenticatable
         $this->update($data);
     }
 
+    public function addFavAdv($adv_id){
+        $ids = $this->Fav()->pluck('adv_id')->toArray();
+        array_push($ids,$adv_id);
+        $this->Fav()->sync($ids);
+    }
+
+    public function removeFavAdv($adv_id){
+        $result = [];
+        $ids= $this->Fav()->pluck('adv_id')->toArray();
+        foreach($ids as $id){
+            if( $id!=$adv_id){
+                array_push($result, $id);
+            }
+        }
+        $this->Fav()->sync($result);
+    }
+
     static function createPrivateAccount($data){
         $validator = [
             'sex' => 'required',

@@ -20,6 +20,9 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="/components/angular/angular.min.js"></script>
     <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href="/components/alertify.js/themes/alertify.core.css" rel="stylesheet" type="text/css">
+
+    <link href="/components/alertify.js/themes/alertify.default.css" rel="stylesheet" type="text/css">
 
 
     <script src="/components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
@@ -34,6 +37,7 @@
     <script src='/components/angular-gettext/dist/angular-gettext.min.js'></script>
     <script src="/components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
     <script src="/components/angular-disable-all/dist/angular-disable-all.js"></script>
+    <script src="/components/alertify.js/lib/alertify.min.js"></script>
 
 
 

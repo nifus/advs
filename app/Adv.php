@@ -7,6 +7,9 @@ use App\Place;
 
 class Adv extends Model
 {
+    protected $hidden = [
+         'users_fav',
+    ];
     protected $fillable = [
         'title', 'desc', 'created_at', 'type', 'updated_at', 'user_id', 'status', 'photos', 'visited', 'favorite',
         'lng','lat',
@@ -16,7 +19,7 @@ class Adv extends Model
         'address', 'author', 'category', 'move_date', 'is_deleted', 'energy', 'equipments', 'props', 'subcategory', 'finance', 'floor', 'floors', 'living_area','plot_area','area',
         'rooms', 'hide_contacts',
         'city_id','region_id','country_id',
-        'edp_cabling','air_conditioner','number_beds','storey_height'
+        'edp_cabling','air_conditioner','number_beds','storey_height','users_fav'
     ];
 
     static private $categories = [
@@ -170,19 +173,35 @@ class Adv extends Model
         ]
     ];
 
+    public function UsersFav()
+    {
+        return $this->belongsToMany('App\User', 'advs_fav', 'adv_id','user_id');
+    }
 
-    function toArray()
+    function getArray($user_id=null)
     {
         $array = parent::toArray();
-
-        // $array['CreatedDate'] = $this->CreatedDate;
-        //$array['EndDate'] = $this->EndDate;
+        if ( is_null($user_id)){
+            $array['IsFav'] = false;
+        }else{
+            $array['IsFav'] = $this->isFav4user($user_id);
+        }
         // $array['DeleteDate'] = $this->DeleteDate;
         //  $array['DeleteDate'] = $this->DeleteDate;
         $array['StatusStr'] = $this->StatusStr;
         return $array;
     }
 
+    public function isFav4user($user_id){
+        $ids = json_decode($this->users_fav);
+        if ( !is_array($ids) ){
+            return false;
+        }
+        if ( in_array($user_id,$ids) ){
+            return true;
+        }
+        return false;
+    }
     public function changeStatus($status)
     {
         $this->update(['status' => $status]);
@@ -332,6 +351,11 @@ class Adv extends Model
             return false;
         }
         return true;
+    }
+
+    public function updateFavs(){
+        $ids = $this->UsersFav()->pluck('user_id')->toArray();
+        $this->update(['users_fav'=>json_encode($ids)]);
     }
 
     static function getByUserWithStatus($user_id)

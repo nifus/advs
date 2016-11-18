@@ -2,150 +2,33 @@
     'use strict';
     angular.module('frontApp').controller('searchResultController', searchResultController);
 
-    searchResultController.$inject = ['$scope', 'advFactory','searchLogFactory','$q','$interval','$filter'];
+    searchResultController.$inject = ['$scope', 'searchLogFactory', '$q', '$interval', '$filter'];
 
-    function searchResultController($scope, advFactory, searchLogFactory, $q, $interval, $filter) {
+    function searchResultController($scope, searchLogFactory) {
 
-
-        $scope.env = {
-            loading: true,
+        $scope.root = {
             adv_id: null,
             result_id: null,
-            per_page: 20,
-            city: null,
-            search: null,
-            adv_tmpl: null,
-            sortby: 'date_create',
-            page: 1,
-            pages: null,
-            current:[],
-            display_map: false,
-            map: null
+            search: null
         };
-        var promises = [];
+        $scope.promises = [];
 
         var url = window.location.href.match(/view([0-9]*)/);
-        $scope.env.adv_id = url!=null && url[1]!=undefined ?  url[1]*1 : null;
-
-        url = window.location.href.match(/\/page([0-9]*)/);
-        $scope.env.page = url!=null && url[1]!=undefined ?  url[1]*1 : $scope.env.page;
+        $scope.root.adv_id = url != null && url[1] != undefined ? url[1] * 1 : null;
 
         url = window.location.href.match(/\/search\/([0-9]*)/);
-        $scope.env.result_id = url!=null && url[1]!=undefined ?  url[1]*1 : null;
+        $scope.root.result_id = url != null && url[1] != undefined ? url[1] * 1 : null;
 
 
-        if ($scope.env.adv_id){
-            $scope.env.adv_tmpl = '/api/adv/'+$scope.env.adv_id
+        var searchPromise = searchLogFactory.getById($scope.root.result_id).then(function (response) {
+            $scope.root.search = response;
+        });
+        $scope.promises.push(searchPromise);
+
+
+        $scope.openAdv = function(adv){
+            console.log(adv)
         }
-
-
-        var searchPromise = searchLogFactory.getById($scope.env.result_id).then(function (response) {
-            $scope.env.search= response;
-
-        });
-        promises.push(searchPromise);
-
-        var advPromise = advFactory.getResult($scope.env.result_id, {}).then( function(response){
-            $scope.env.rows= response.advs;
-            $scope.env.city= response.city;
-            //console.log(response.advs)
-        });
-        promises.push(advPromise);
-
-        $q.all(promises).then(function () {
-            $scope.env.loading = false;
-            $scope.setPage($scope.env.page);
-
-            if ($scope.env.search.config && $scope.env.search.config.per_page){
-                $scope.changePerPage($scope.env.search.config.per_page)
-            }
-            if ($scope.env.search.config && $scope.env.search.config.sortby){
-                $scope.changeSort($scope.env.search.config.sortby)
-            }
-            if ($scope.env.search.config && $scope.env.search.config.display_map){
-                $scope.displayMap($scope.env.search.config.display_map, false);
-            }
-        });
-
-        $scope.changePerPage = function (value) {
-            $scope.env.per_page = value*1;
-            $scope.env.page = value*1;
-            $scope.setPage(1);
-            updateSearch();
-        };
-
-        function updatePagination(){
-            var pages = Math.round($scope.env.rows.length/$scope.env.per_page);
-            $scope.env.pages = pages>1 ? pages : null;
-
-            $scope.env.current = $scope.env.rows.slice( ($scope.env.page-1)*$scope.env.per_page, (($scope.env.page-1)*$scope.env.per_page) + $scope.env.per_page)
-            window.scrollTo(0, 0);
-        };
-
-        $scope.range = function(min, max, step) {
-            step = step || 1;
-            var input = [];
-            for (var i = min; i <= max; i += step) {
-                input.push(i);
-            }
-            return input;
-        };
-
-        $scope.setPage = function(page){
-            window.location.href = "/search/"+$scope.env.result_id+"#/page"+page;
-            $scope.env.page = page;
-            updatePagination();
-
-        };
-
-        $scope.displayMap = function(flag, need_update){
-            $scope.env.display_map = flag;
-            if (need_update){
-                updateSearch();
-            }
-            if ( $scope.env.display_map === true ){
-                initGoogleMaps()
-            }
-        };
-
-        function updateSearch() {
-            $scope.env.search.update(
-                {
-                    per_page: $scope.env.per_page,
-                    sortby: $scope.env.sortby,
-                    display_map: $scope.env.display_map
-                }
-            );
-        };
-        
-        function initGoogleMaps() {
-
-            var interval = $interval(function(){
-                if ( document.getElementById('map') ){
-                    $scope.env.map = new google.maps.Map(document.getElementById('map'), {
-                        center: {lat: -34.397, lng: 150.644},
-                        zoom: 8
-                    });
-                    $interval.cancel(interval);
-                }
-            },1000)
-
-        }
-
-        $scope.changeSort = function (value) {
-            $scope.env.sortby = value;
-            if ( value=='date_create' ){
-                $scope.env.rows = $filter('orderBy')($scope.env.rows,'-created_at');
-            }else if( value=='price_up' ){
-                $scope.env.rows = $filter('orderBy')($scope.env.rows,'-cold_rent', true);
-            }else if( value=='price_down' ){
-                $scope.env.rows = $filter('orderBy')($scope.env.rows,'-cold_rent' );
-            }
-            updatePagination();
-            updateSearch();
-        };
-
-
     }
 })();
 
