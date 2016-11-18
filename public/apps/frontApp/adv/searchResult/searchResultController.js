@@ -2,20 +2,20 @@
     'use strict';
     angular.module('frontApp').controller('searchResultController', searchResultController);
 
-    searchResultController.$inject = ['$scope', 'advFactory','searchLogFactory','$q','$interval'];
+    searchResultController.$inject = ['$scope', 'advFactory','searchLogFactory','$q','$interval','$filter'];
 
-    function searchResultController($scope, advFactory, searchLogFactory, $q, $interval) {
+    function searchResultController($scope, advFactory, searchLogFactory, $q, $interval, $filter) {
 
 
         $scope.env = {
             loading: true,
             adv_id: null,
             result_id: null,
-            per_page: 5,
+            per_page: 20,
             city: null,
             search: null,
             adv_tmpl: null,
-            sortby: null,
+            sortby: 'date_create',
             page: 1,
             pages: null,
             current:[],
@@ -41,36 +41,36 @@
 
         var searchPromise = searchLogFactory.getById($scope.env.result_id).then(function (response) {
             $scope.env.search= response;
-            if ($scope.env.search.config && $scope.env.search.config.per_page){
-                $scope.env.per_page = $scope.env.search.config.per_page;
-            }
-            if ($scope.env.search.config && $scope.env.search.config.sortby){
-                $scope.env.sortby = $scope.env.search.config.sortby;
-            }
-            if ($scope.env.search.config && $scope.env.search.config.display_map){
-                $scope.displayMap($scope.env.search.config.display_map, false);
-            }
+
         });
         promises.push(searchPromise);
 
         var advPromise = advFactory.getResult($scope.env.result_id, {}).then( function(response){
             $scope.env.rows= response.advs;
             $scope.env.city= response.city;
-            console.log(response.advs)
+            //console.log(response.advs)
         });
         promises.push(advPromise);
 
         $q.all(promises).then(function () {
             $scope.env.loading = false;
-            $scope.setPage($scope.env.page)
+            $scope.setPage($scope.env.page);
+
+            if ($scope.env.search.config && $scope.env.search.config.per_page){
+                $scope.changePerPage($scope.env.search.config.per_page)
+            }
+            if ($scope.env.search.config && $scope.env.search.config.sortby){
+                $scope.changeSort($scope.env.search.config.sortby)
+            }
+            if ($scope.env.search.config && $scope.env.search.config.display_map){
+                $scope.displayMap($scope.env.search.config.display_map, false);
+            }
         });
 
         $scope.changePerPage = function (value) {
             $scope.env.per_page = value*1;
             $scope.env.page = value*1;
-
             $scope.setPage(1);
-
             updateSearch();
         };
 
@@ -79,7 +79,7 @@
             $scope.env.pages = pages>1 ? pages : null;
 
             $scope.env.current = $scope.env.rows.slice( ($scope.env.page-1)*$scope.env.per_page, (($scope.env.page-1)*$scope.env.per_page) + $scope.env.per_page)
-
+            window.scrollTo(0, 0);
         };
 
         $scope.range = function(min, max, step) {
@@ -95,6 +95,7 @@
             window.location.href = "/search/"+$scope.env.result_id+"#/page"+page;
             $scope.env.page = page;
             updatePagination();
+
         };
 
         $scope.displayMap = function(flag, need_update){
@@ -131,9 +132,20 @@
 
         }
 
-        $scope.page_loaded = function () {
-            console.log(1)
-        }
+        $scope.changeSort = function (value) {
+            $scope.env.sortby = value;
+            if ( value=='date_create' ){
+                $scope.env.rows = $filter('orderBy')($scope.env.rows,'-created_at');
+            }else if( value=='price_up' ){
+                $scope.env.rows = $filter('orderBy')($scope.env.rows,'-cold_rent', true);
+            }else if( value=='price_down' ){
+                $scope.env.rows = $filter('orderBy')($scope.env.rows,'-cold_rent' );
+            }
+            updatePagination();
+            updateSearch();
+        };
+
+
     }
 })();
 
