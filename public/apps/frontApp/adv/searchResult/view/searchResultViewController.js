@@ -2,13 +2,14 @@
     'use strict';
     angular.module('frontApp').controller('searchResultViewController', searchResultViewController);
 
-    searchResultViewController.$inject = ['$scope', 'advFactory','$q'];
+    searchResultViewController.$inject = ['$scope', 'advFactory','$q','$interval'];
 
-    function searchResultViewController($scope, advFactory, $q) {
+    function searchResultViewController($scope, advFactory, $q, $interval) {
 
         $scope.env = {
             loading: true,
             adv_id: null,
+            display_map: false
         };
         $scope.adv = null;
 
@@ -23,6 +24,7 @@
 
         $q.all($scope.promises).then(function () {
             $scope.env.loading = false;
+            initGoogleMaps();
         });
 
 
@@ -34,6 +36,29 @@
                 $scope.adv.deleteFromFavList($scope.user);
                 alertify.success( 'Adv removed from watchlist' );
             }
+        };
+
+        $scope.displayMap = function () {
+            $scope.env.display_map = true;
+
+        };
+
+        $scope.displayPhotos = function () {
+            $scope.env.display_map = false;
+        };
+
+        function initGoogleMaps() {
+
+            var interval = $interval(function(){
+                if ( document.getElementById('map') ){
+                    $scope.env.map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: -34.397, lng: 150.644},
+                        zoom: 8
+                    });
+                    $interval.cancel(interval);
+                }
+            },1000)
+
         }
 
     }
