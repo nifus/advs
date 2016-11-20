@@ -9,9 +9,13 @@
         $scope.env = {
             loading: true,
             adv_id: null,
-            display_map: false
+            display_map: false,
+            submit: false
         };
         $scope.adv = null;
+        $scope.message = {
+
+        };
 
         var url = window.location.href.match(/\/view([0-9]*)/);
         $scope.env.adv_id = url!=null && url[1]!=undefined ?  url[1]*1 : $scope.env.adv_id;
@@ -47,8 +51,22 @@
             $scope.env.display_map = false;
         };
 
-        function initGoogleMaps() {
+        $scope.sendMessage = function (form, data) {
+            $scope.env.submit = true;
+            if ( form.$invalid ){
+                return false;
+            }
+            $scope.adv.sendMessage(data).then(function(response){
+                $scope.env.submit = false;
+                if (response.success){
+                    alertify.success( 'Message send to owner adv' );
+                }else{
+                    alertify.error( response.error );
+                }
+            })
+        };
 
+        function initGoogleMaps() {
             var interval = $interval(function(){
                 if ( document.getElementById('map') ){
                     $scope.env.map = new google.maps.Map(document.getElementById('map'), {

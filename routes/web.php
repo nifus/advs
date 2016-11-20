@@ -90,6 +90,7 @@ Route::group(['prefix'=>'api'], function () {
     Route::get('/advs/{id}', 'AdvController@getAdvById' );
 
     Route::post('/advs/{id}/fav', 'AdvController@favlist' );
+    Route::post('/advs/{id}/message', 'AdvController@message' );
 
     Route::get('/adv-data-sets', function(){
         $sets = [

@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Adv as AdvModel;
 use App\User as UserModel;
 use App\Category as CategoryModel;
+
 use League\Flysystem\Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -202,5 +203,20 @@ class AdvController extends Controller
             $result[$adv->type]['total']++;
         }
         return response()->json($result);
+    }
+
+    public function message($adv_id, Request $request){
+        try{
+            $adv = AdvModel::findOrDie($adv_id);
+            $data = $request->only(['message','email','phone','name','sex']);
+            $id = $request->ip();
+            $adv->sendMessage($data,$id);
+
+            return response()->json(['success'=>true]);
+        }catch( \Exception $e ){
+            return response()->json(['success'=>false,'error'=>$e->getMessage()]);
+        }
+
+
     }
 }

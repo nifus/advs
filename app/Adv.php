@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Place;
+use App\MessageLog;
+use App\Jobs\AdvMessage as AdvMessageJob;
+
 
 class Adv extends Model
 {
@@ -173,6 +176,10 @@ class Adv extends Model
         ]
     ];
 
+    public function Owner()
+    {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
     public function UsersFav()
     {
         return $this->belongsToMany('App\User', 'advs_fav', 'adv_id','user_id');
@@ -358,6 +365,27 @@ class Adv extends Model
         $this->update(['users_fav'=>json_encode($ids)]);
     }
 
+    public function sendMessage($data, $ip){
+        $validator = [
+            'sex' => 'required',
+            'name' => 'required|min:2',
+            'email' => 'required|email',
+            'message' => 'required|min:2',
+        ];
+        $validator = \Validator::make($data, $validator);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new \Exception($messages->first());
+        }
+        if ( false===MessageLog::check($this->id, $ip) ){
+            throw new \Exception('Many messages');
+        }
+        $log = MessageLog::createMessage($this->id, $data, $ip);
+        dispatch( new AdvMessageJob($this, $log) );
+
+        return $log;
+    }
+
     static function getByUserWithStatus($user_id)
     {
         return self::where('user_id', $user_id)->where('is_deleted', '0')->get(['status', 'type']);
@@ -481,7 +509,6 @@ class Adv extends Model
             $city_place = Place::createCity($country, $region, $city, $zip);
         }
 
-
         $data['city_id'] = $city_place->id;
         $data['region_id'] = $region_place->id;
         $data['country_id'] = $country_place->id;
@@ -526,7 +553,6 @@ class Adv extends Model
             foreach (self::$equipments as $category => $equipments) {
                 foreach ($equipments as $i => $equipment) {
                     self::$equipments[$category][$i] = trans('main.equipment_' . self::$equipments[$category][$i]);
-
                 }
             }
             return self::$equipments;

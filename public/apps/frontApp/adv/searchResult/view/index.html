@@ -86,17 +86,17 @@
                 <h4>Contact</h4>
 
 
-                <form class="form-horizontal">
-                    <div class="form-group" ng-class="{ 'has-error': register.sex.$invalid && submit==true }">
-                        <label class="col-sm-2 control-label"> trans('main.register_title') </label>
+                <form class="form-horizontal" name="messageForm">
+                    <div class="form-group" ng-class="{ 'has-error': messageForm.sex.$invalid && env.submit==true }">
+                        <label class="col-sm-2 control-label"> Title</label>
                         <div class="col-sm-10">
                             <label class="radio-inline">
-                                <input type="radio" name="sex" ng-model="form.sex" value="male"
-                                       required>  trans('main.register_man') 
+                                <input type="radio" name="sex" ng-model="message.sex" value="male"
+                                       required>  Mister
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="sex" ng-model="form.sex" value="female"
-                                       required>  trans('main.register_woman') 
+                                <input type="radio" name="sex" ng-model="message.sex" value="female"
+                                       required>  Miss
                             </label>
                         </div>
                     </div>
@@ -104,29 +104,31 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Your name</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input type="text" class="form-control"  ng-model="message.name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Your phone</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input type="text" class="form-control"  ng-model="message.phone" >
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error': messageForm.email.$invalid && env.submit==true }">
                         <label class="col-sm-2 control-label">Your email</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input type="email" class="form-control" name="email"  required ng-model="message.email">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <textarea class="form-control"></textarea>
+                    <div class="form-group" ng-class="{ 'has-error': messageForm.message.$invalid && env.submit==true }">
+                        <textarea class="form-control" ng-model="message.message" name="message" required></textarea>
                     </div>
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Send message</button>
+                            <button type="button"
+                                    ng-disabled="env.submit==true"
+                                    ng-click="sendMessage(messageForm, message)" class="btn btn-default">Send message</button>
                         </div>
                     </div>
                 </form>
@@ -230,3 +232,5 @@
         <div>ADV</div>
     </div>
 </div>
+
+<br style="clear: both">

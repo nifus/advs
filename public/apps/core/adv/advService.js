@@ -14,7 +14,6 @@
 
 
             Object.isFav = function (user) {
-
                 if (user == null) {
                     var advs = $cookies.get('fav-advs');
                     if (advs==undefined){
@@ -110,6 +109,16 @@
                 }, function (error) {
                     deferred.reject(error.data);
                     console.log(error);
+                });
+                return deferred.promise;
+            };
+
+            Object.sendMessage = function (data) {
+                var deferred = $q.defer();
+                $http.post('/api/advs/' + Object.id + '/message', data).then(function (response) {
+                    deferred.resolve(response.data);
+                }, function (error) {
+                    deferred.reject(error.data);
                 });
                 return deferred.promise;
             };
