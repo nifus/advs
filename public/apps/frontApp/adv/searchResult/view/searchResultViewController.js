@@ -2,9 +2,9 @@
     'use strict';
     angular.module('frontApp').controller('searchResultViewController', searchResultViewController);
 
-    searchResultViewController.$inject = ['$scope', 'advFactory','$q','$interval'];
+    searchResultViewController.$inject = ['$scope', 'advFactory','$q','$interval','$cookies'];
 
-    function searchResultViewController($scope, advFactory, $q, $interval) {
+    function searchResultViewController($scope, advFactory, $q, $interval, $cookies) {
 
         $scope.env = {
             loading: true,
@@ -29,6 +29,8 @@
         $q.all($scope.promises).then(function () {
             $scope.env.loading = false;
             initGoogleMaps();
+
+            restoreContactData();
         });
 
 
@@ -57,9 +59,18 @@
                 return false;
             }
             $scope.adv.sendMessage(data).then(function(response){
+                var expireDate = new Date();
+                expireDate.setDate(expireDate.getDate() + 199);
+                $cookies.putObject('contact',{
+                    name:data.name,
+                    sex: data.sex,
+                    email: data.email,
+                    phone: data.phone
+                }, {expires:expireDate});
                 $scope.env.submit = false;
                 if (response.success){
                     alertify.success( 'Message send to owner adv' );
+                    $scope.message = {};
                 }else{
                     alertify.error( response.error );
                 }
@@ -77,6 +88,11 @@
                 }
             },1000)
 
+        }
+
+        function restoreContactData() {
+            var data = $cookies.getObject('contact');
+            $scope.message = data;
         }
 
     }

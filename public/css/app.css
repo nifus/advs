@@ -327,3 +327,7 @@ ul.autocomplete li:hover{
 li.disabled{
     opacity: 0.5;
 }
+
+textarea.desc{
+    height: 100px;
+}
