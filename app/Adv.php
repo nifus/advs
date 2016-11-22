@@ -433,7 +433,9 @@ class Adv extends Model
             'author.phone' => 'required',
             'author.sex' => 'required',
             'author.surname' => 'required',
-            'user_id' => 'required'
+            'user_id' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
         ];
         $validator = \Validator::make($data, $general_riles);
         if ($validator->fails()) {
@@ -490,17 +492,7 @@ class Adv extends Model
         }
 
         $country = isset($data['address']['country']) ? $data['address']['country'] : null;
-        $country_place = Place::findCountry($country);
-        if ( is_null($country_place) ){
-            $country_place = Place::createCountry($country);
-        }
-
         $region = isset($data['address']['region']) ? $data['address']['region'] : null;
-        $region_place = Place::findRegion($country, $region);
-        if ( is_null($region_place) ){
-            $region_place = Place::createRegion($country, $region);
-        }
-
         $city = isset($data['address']['city']) ? $data['address']['city'] : null;
         $zip = isset($data['address']['zip']) ? $data['address']['zip'] : null;
         $city_place = Place::findCity($country, $region, $city);
@@ -508,11 +500,7 @@ class Adv extends Model
         if ( is_null($city_place) ){
             $city_place = Place::createCity($country, $region, $city, $zip);
         }
-
         $data['city_id'] = $city_place->id;
-        $data['region_id'] = $region_place->id;
-        $data['country_id'] = $country_place->id;
-
         $adv = self::create($data);
         return $adv;
     }

@@ -56,9 +56,9 @@ class SearchController extends Controller
 
     function getSearch($id){
         $log = SearchLog::find($id);
-        $place = Place::find($log->query->city_id);
+        //$place = Place::find($log->query->city_id);
 
-        return response()->json(['success'=>true,'search'=>$log->toArray(),'place'=>$place->toArray()], 200, [], JSON_NUMERIC_CHECK);
+        return response()->json(['success'=>true,'search'=>$log->toArray(),'place'=>null], 200, [], JSON_NUMERIC_CHECK);
     }
 
     function searchResult($id){
@@ -77,7 +77,7 @@ class SearchController extends Controller
         $log = SearchLog::find($id);
         $user = User::getUser();
         $user_id = !is_null($user) ? $user->id : null;
-        $place = Place::find($log->query->city_id);
+        //$place = Place::find($log->query->city_id);
 
         //SELECT id, ( 3959 * acos( cos( radians(37) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( lat ) ) ) ) AS distance FROM markers HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;
         $sql =Adv::orderBy('title','ASC');
@@ -92,7 +92,7 @@ class SearchController extends Controller
             array_push($result, $adv->getArray($user_id) );
         }
 
-        return response()->json(['search'=>$log->toArray(),'advs'=>$result,'city'=>$place->toArray()]);
+        return response()->json(['search'=>$log->toArray(),'advs'=>$result,'city'=>null]);
     }
 
     function searchUpdate($id, Request $request ){
@@ -105,7 +105,7 @@ class SearchController extends Controller
 
     function findCity($name){
         $result = Place::likeCities($name);
-        return response()->json(['cities'=>$result->toArray()]);
+        return response()->json(['cities'=>$result->toArray()], 200, [], JSON_NUMERIC_CHECK);
 
     }
 }

@@ -38,5 +38,7 @@ return [
     'google_captcha'=>[
         'secret'=>env('NOCAPTCHA_SECRET'),
         'public'=>env('NOCAPTCHA_SITEKEY'),
-    ]
+    ],
+    'google_maps_server'=>env('GOOGLE_MAPS_SERVER'),
+    'google_maps_client'=>env('GOOGLE_MAPS_CLIENT'),
 ];

@@ -106,7 +106,7 @@
                     })
                 }
             },4000)
-            
+
         };
 
         $scope.setBusinessType = function (type, category) {
@@ -130,7 +130,7 @@
                 $scope.env.send = true;
                 advFactory.store(data).then(function (response) {
                         $scope.env.send = false;
-                        window.location.href='/offer/'+response.data.id+'/preview'
+                        window.location.href='/offer/'+response.id+'/preview'
                     },
                     function (error) {
                         $scope.env.send = false;

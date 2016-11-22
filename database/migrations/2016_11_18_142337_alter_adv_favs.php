@@ -14,7 +14,7 @@ class AlterAdvFavs extends Migration
     public function up()
     {
         Schema::table('advs', function (Blueprint $table) {
-            $table->text('users_fav');
+            $table->text('users_fav')->default(null)->nullable();
         });
     }
 

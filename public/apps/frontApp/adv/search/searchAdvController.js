@@ -5,9 +5,6 @@
     searchAdvController.$inject = ['$scope', 'advFactory','$http','$q','$filter'];
 
     function searchAdvController($scope, advFactory, $http, $q, $filter) {
-
-
-
         $scope.env = {
             loading: true,
             submit: false,
@@ -77,10 +74,14 @@
 
 
         $scope.$watch('env.address', function (value) {
-            console.log(value)
-            if (value!=undefined && value.originalObject!=undefined){
-                $scope.search.city_id=value.originalObject.id
+            if (value!=undefined){
+                $scope.search.lat=value.lat
+                $scope.search.lng=value.lng
+                $scope.search.radius=value.radius
             }
+
+
+
         }, true);
 
 

@@ -2,6 +2,7 @@
 
 return [
 
+
     'tariffs'=>[
         ['id'=>1, 'name'=>'Pack 1', 'slots'=>1, 'price'=>30, 'additional'=>30],
         ['id'=>2, 'name'=>'Pack 2', 'slots'=>2, 'price'=>55, 'additional'=>27.5],

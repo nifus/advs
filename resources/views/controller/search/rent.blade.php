@@ -68,8 +68,7 @@
                 </div>
                 <h4>Location</h4>
                 <div class="col-md-12">
-
-                    <city-select ng-model="env.address" radius="search.radius" cities="search.cities"></city-select>
+                    <city-select ng-model="env.address" radius="search.radius" ></city-select>
                 </div>
 
 
@@ -91,7 +90,7 @@
 
         <div class="row text-right">
             <button type="button" class="btn btn-primary"
-                    ng-disabled="env.submit==true || !search.city_id"
+                    ng-disabled="env.submit==true || !search.lat"
                     ng-click="searchAdvs(search)">Search</button>        </div>
         </form>
     </div>
