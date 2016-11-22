@@ -5,7 +5,7 @@
     searchResultViewController.$inject = ['$scope', 'advFactory','$q','$interval','$cookies'];
 
     function searchResultViewController($scope, advFactory, $q, $interval, $cookies) {
-
+        console.log('searchResultViewController')
         $scope.env = {
             loading: true,
             adv_id: null,
@@ -18,6 +18,8 @@
         };
 
         var url = window.location.href.match(/\/view([0-9]*)/);
+        console.log($scope.$parent)
+
         $scope.env.adv_id = url!=null && url[1]!=undefined ?  url[1]*1 : $scope.env.adv_id;
 
 

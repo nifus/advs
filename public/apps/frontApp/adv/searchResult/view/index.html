@@ -18,16 +18,23 @@
                 ID: {{adv.id}}
             </div>
             <div class="col-md-5 navbar-right navbar-form" >
-                <button class="btn btn-danger" style="float:right"
-                        ng-if="adv.isFav(user)"
-                        ng-click="favlist(false)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    Remove from watchlist</button>
+                <button type="button" class="btn btn-warning" ng-click="goBack()">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+
+                    Go to Search Results</button>
+
 
 
                 <button class="btn btn-primary" style="float:right"
                         ng-if="!adv.isFav(user)"
                         ng-click="favlist(true)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                     To watchlist</button>
+
+
+                <button class="btn btn-danger" style="float:right"
+                        ng-if="adv.isFav(user)"
+                        ng-click="favlist(false)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    Remove from watchlist</button>
             </div>
 
         </div>

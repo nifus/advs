@@ -15,15 +15,15 @@
     <div ng-controller="searchResultController">
 
         <div
-                ng-controller="searchResultListingController"
+
                 ng-include="'/apps/frontApp/adv/searchResult/listing/index.html'"
-                ng-if="root.adv_id==undefined">
+                ng-if="env.adv_id==undefined">
         </div>
 
         <div
-                ng-controller="searchResultViewController"
+
                 ng-include="'/apps/frontApp/adv/searchResult/view/index.html'"
-                ng-if="root.adv_id!=undefined">
+                ng-if="env.adv_id!=undefined">
         </div>
     </div>
 @endsection

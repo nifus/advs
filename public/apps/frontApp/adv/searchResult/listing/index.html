@@ -77,10 +77,10 @@
             <div class="row" ng-if="env.display_map===false">
                     <div
                             ng-include="'/apps/frontApp/adv/searchResult/listing/inc/flat.html'"
-                            ng-if="root.search.query.category==1"></div>
+                            ng-if="env.search.query.category==1"></div>
                     <div
                             ng-include="'/apps/frontApp/adv/searchResult/listing/inc/house.html'"
-                            ng-if="root.search.query.category==2"></div>
+                            ng-if="env.search.query.category==2"></div>
 
             </div>
 
