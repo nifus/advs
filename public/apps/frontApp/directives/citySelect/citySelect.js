@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
 
-    function citySelectDirective($q, $http) {
+    function citySelectDirective($q, $http, $timeout) {
         return {
             restrict: 'E',
             link: citySelectLink,
@@ -50,6 +50,10 @@
                     })
                 }
             });
+            $timeout(function(){
+                element.find('input').focus();
+            },1000);
+
 
             $scope.cityAutocomplete = function (value) {
                 var defer = $q.defer();
@@ -64,7 +68,7 @@
                         defer.resolve(response.data.cities);
                     }else{
                         var autocompleteService = new google.maps.places.AutocompleteService();
-                        autocompleteService.getQueryPredictions({input: value, key: key}, function (predictions, status) {
+                        autocompleteService.getQueryPredictions({input: value}, function (predictions, status) {
                             predictions.forEach(function (prediction) {
                                 if (prediction.types && prediction.types.indexOf('locality') == -1) {
                                     return;
@@ -139,7 +143,7 @@
             function updatePlaces() {
                 var service = new google.maps.places.PlacesService(map);
                 var request  = {
-                    key: key,
+                   // key: key,
                     location: location,
                     radius:  $scope.search.radius*1000,
                      types: ['locality','sublocality']

@@ -20,7 +20,7 @@ class SearchController extends Controller
         $id = $request->get('id');
         if ($id){
             $log = SearchLog::find($id);
-            $place = Place::find($log->query->city_id);
+            //$place = Place::find($log->query->city_id);
 
         }else{
             $log = null;
@@ -30,7 +30,7 @@ class SearchController extends Controller
         return view('controller.search.rent',[
             'categories'=>Adv::getCategories(),
             'search'=>$log,
-            'place'=>$place,
+            'place'=>null,
         ]);
     }
 
