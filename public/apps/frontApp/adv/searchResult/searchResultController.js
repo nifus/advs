@@ -77,8 +77,8 @@
         };
 
         $scope.addToFav = function (adv, flag) {
-
             if (flag === true) {
+                console.log($scope.user)
                 adv.addToFavList($scope.user);
                 alertify.success('Adv added to watchlist');
             } else {

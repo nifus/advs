@@ -11,7 +11,7 @@ class SearchLog extends Model
 
 
     protected $fillable = [
-        'query','created_at','updated_at','config'
+        'query','created_at','updated_at','config','number_of_results'
     ];
 
 

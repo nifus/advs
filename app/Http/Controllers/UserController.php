@@ -225,6 +225,7 @@ class UserController extends Controller
     {
         try{
             $user = User::getUser();
+
             if ( is_null($user)  ){
                 throw new \Exception('no user');
             }

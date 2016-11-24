@@ -44,7 +44,6 @@
                 }else{
                     $http.post('/api/advs/'+Object.id+'/fav',{'action':'add'} );
                     Object.IsFav = true;
-
                 }
             }
 

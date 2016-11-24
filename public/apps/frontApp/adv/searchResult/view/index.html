@@ -8,9 +8,9 @@
 
     <ol class="breadcrumb">
         <li><a href="/">Home</a></li>
-        <li><a href="/">Search real estate</a></li>
-        <li><a href="/">48643 results</a></li>
-        <li class="active">advert: {{adv.id}}</li>
+        <li><a ng-href="/{{env.search.query.type}}?id={{env.search.id}}">Search form</a></li>
+        <li><a ng-click="goBack()" class="link">{{env.search.number_of_results}} results</a></li>
+        <li class="active">{{adv.title}}</li>
     </ol>
 
     <nav class="navbar navbar-default">
@@ -90,19 +90,15 @@
                 <table class="table">
                     <tr>
                         <td>Contact person:</td>
-                        <td></td>
+                        <td>{{adv.author.sex=='male' ? 'Mr' : 'Ms'}} {{adv.author.name}} {{adv.author.surname}}</td>
                     </tr>
-                    <tr>
+                    <tr ng-if="adv.author.hide_contacts!==true">
                         <td>Phone:</td>
-                        <td></td>
+                        <td>{{adv.author.phone}}</td>
                     </tr>
-                    <tr>
-                        <td>Mobile 1:</td>
-                        <td></td>
-                    </tr>
-                    <tr>
+                    <tr ng-if="adv.author.hide_contacts!==true">
                         <td>Email:</td>
-                        <td></td>
+                        <td>{{adv.author.email}}</td>
                     </tr>
                 </table>
             </div>
@@ -302,7 +298,11 @@
         <div ng-if="adv.equipments!=null">
             <h4>Equipment</h4>
             <div class="row">
-                <div class="col-md-1" ng-repeat="equipment in adv.equipments">{{equipment}}</div>
+
+                    <div class="col-md-2" ng-repeat="equipment in adv.equipments">
+                        <span class="label label-primary">{{equipment}}</span>
+
+                    </div>
 
             </div>
         </div>

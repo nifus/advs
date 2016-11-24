@@ -227,6 +227,10 @@ class Adv extends Model
     {
         $this->attributes['author'] = json_encode($value);
     }
+    public function getAuthorAttribute()
+    {
+        return json_decode($this->attributes['author']);
+    }
 
     public function setEnergyAttribute($value)
     {
@@ -241,6 +245,12 @@ class Adv extends Model
     public function setEquipmentsAttribute($value)
     {
         $this->attributes['equipments'] = json_encode($value);
+    }
+
+    public function getEquipmentsAttribute()
+    {
+        return json_decode($this->attributes['equipments']);
+
     }
 
     public function setFinanceAttribute($value)
@@ -265,10 +275,7 @@ class Adv extends Model
         return json_decode($this->attributes['props']);
     }
 
-    public function getEquipmentsAttribute()
-    {
 
-    }
 
 
     public function setPhotosAttribute($value)

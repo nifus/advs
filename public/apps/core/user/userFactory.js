@@ -82,6 +82,9 @@
             var cache  = cacheService(
                 function(){
                     $http.get('/api/user/get-auth').success( function(response){
+                        if (response.id==undefined){
+                            cache.end( null );
+                        }
                         cache.end( userService(response) );
                     }).error( function(response){
                         cache.end( null );

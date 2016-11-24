@@ -6,15 +6,15 @@
 <div ng-show="env.loading===false">
     <div>
         <ol class="breadcrumb">
-            <li><a href="/">home</a></li>
-            <li><a href="">Search real estate</a></li>
-            <li class="active">48643 results</li>
+            <li><a href="/">Home</a></li>
+            <li><a ng-href="/{{env.search.query.type}}?id={{env.search.id}}">Search form</a></li>
+            <li class="active">{{env.search.number_of_results}} results</li>
         </ol>
     </div>
 
     <div class="row">
         <div class="col-md-2">
-            48643 Flats found
+            {{env.search.number_of_results}} Flats found
             <hr>
             <button type="button" class="btn btn-primary">Search</button>
             <hr>
