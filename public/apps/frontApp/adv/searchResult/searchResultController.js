@@ -59,7 +59,7 @@
                 updateSearch();
             }
             if ($scope.env.display_map === true) {
-                initGoogleMaps()
+                initGoogleMapsView()
             }
         };
 
@@ -108,19 +108,6 @@
             );
         };
 
-        function initGoogleMaps() {
-
-            var interval = $interval(function () {
-                if (document.getElementById('map')) {
-                    $scope.env.map = new google.maps.Map(document.getElementById('map'), {
-                        center: {lat: -34.397, lng: 150.644},
-                        zoom: 8
-                    });
-                    $interval.cancel(interval);
-                }
-            }, 1000)
-
-        }
 
 
 
@@ -135,10 +122,7 @@
             }
         };
 
-        $scope.displayMap = function () {
-            $scope.env.display_map = true;
 
-        };
 
         $scope.displayPhotos = function () {
             $scope.env.display_map = false;
@@ -196,17 +180,23 @@
 
         }
 
-        function initGoogleMaps() {
-            var interval = $interval(function(){
-                if ( document.getElementById('map') ){
-                    $scope.env.map = new google.maps.Map(document.getElementById('map'), {
-                        center: {lat: -34.397, lng: 150.644},
-                        zoom: 8
-                    });
-                    $interval.cancel(interval);
-                }
-            },1000)
-
+        function initGoogleMapsView() {
+            if (!$scope.env.map ){
+                var interval = $interval(function(){
+                    if ( document.getElementById('map') ){
+                        $scope.env.map = new google.maps.Map(document.getElementById('map'), {
+                            center: {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1},
+                            zoom: 15
+                        });
+                        new google.maps.Marker({
+                            position: {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1},
+                            map: $scope.env.map
+                        });
+                        // $scope.env.map.setCenter( {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1} )
+                        $interval.cancel(interval);
+                    }
+                },1000)
+            }
         }
 
         function restoreContactData() {
@@ -256,7 +246,9 @@
 
             var advPromise = advFactory.getById($scope.env.adv_id).then( function(response){
                 $scope.adv=response;
+                    console.log(response)
             });
+
             $scope.promises.push(advPromise);
 
             if ( $scope.env.search==null ){
@@ -264,7 +256,7 @@
                     $scope.env.search = response;
                 });
                 $scope.promises.push(searchPromise);
-                initGoogleMaps();
+                //initGoogleMaps();
             }
 
 

@@ -32,14 +32,24 @@ class AdvSeeder extends Seeder
 
             $category = $faker->numberBetween(1,9);
             $eq_category = $faker->randomElement([1,2,4,6,7,8]);
+            $user = $faker->randomElement($users);
+
+            @mkdir(public_path('uploads/adv/full/' . $user));
+            @mkdir(public_path('uploads/adv/preview/' . $user));
+            foreach ($images as $image) {
+                copy(public_path('uploads/sample/' . $image), public_path('uploads/adv/full/' . $user . '/' . $image));
+                Image::make(public_path('uploads/adv/full/' . $user . '/' . $image))->resize(100, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(public_path('uploads/adv/preview/' . $user . '/' . $image));
+            }
 
             $place = $faker->randomElement($places);
 
             $adv = Adv::create([
-                'user_id' => $faker->randomElement($users),
+                'user_id' => $user,
                 'status' => $faker->randomElement(['payment_waiting', 'active', 'disabled', 'expired', 'blocked']),
                 'type' => $faker->randomElement(['rent', 'sale']),
-                'photos' => implode(',', $images),
+                'photos' => json_encode($images),
                 'visited' => $faker->randomDigitNotNull,
                 'favorite' => $faker->randomDigitNotNull,
                 'move_date'=> $faker->dateTimeThisMonth(),
@@ -76,14 +86,7 @@ class AdvSeeder extends Seeder
             ]);
 
 
-            @mkdir(public_path('uploads/adv/full/' . $adv->id));
-            @mkdir(public_path('uploads/adv/preview/' . $adv->id));
-            foreach ($images as $image) {
-                copy(public_path('uploads/sample/' . $image), public_path('uploads/adv/full/' . $adv->id . '/' . $image));
-                Image::make(public_path('uploads/adv/full/' . $adv->id . '/' . $image))->resize(100, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save(public_path('uploads/adv/preview/' . $adv->id . '/' . $image));
-            }
+
 
 
 

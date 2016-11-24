@@ -1,5 +1,6 @@
 <div class="progress" ng-show="env.loading===true">
-    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+         aria-valuemax="100" style="width: 100%">
     </div>
 </div>
 
@@ -12,50 +13,54 @@
         <li class="active">advert: {{adv.id}}</li>
     </ol>
 
-    <nav class="navbar navbar-default" >
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="col-md-5 navbar-left navbar-form" >
+            <div class="col-md-5 navbar-left navbar-form">
                 ID: {{adv.id}}
             </div>
-            <div class="col-md-5 navbar-right navbar-form" >
-                <button type="button" class="btn btn-warning" ng-click="goBack()">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            <div class="col-md-5 navbar-right navbar-form ">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-warning" ng-click="goBack()">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        Go to Search Results
+                    </button>
 
-                    Go to Search Results</button>
+                    <button class="btn btn-primary" style="float:right;width:180px"
+                            ng-if="!adv.isFav(user)"
+                            ng-click="favlist(true)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        To watchlist
+                    </button>
 
-
-
-                <button class="btn btn-primary" style="float:right"
-                        ng-if="!adv.isFav(user)"
-                        ng-click="favlist(true)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    To watchlist</button>
-
-
-                <button class="btn btn-danger" style="float:right"
-                        ng-if="adv.isFav(user)"
-                        ng-click="favlist(false)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    Remove from watchlist</button>
+                    <button class="btn btn-danger" style="float:right;width:180px"
+                            ng-if="adv.isFav(user)"
+                            ng-click="favlist(false)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        Remove from watchlist
+                    </button>
+                </div>
             </div>
 
         </div>
     </nav>
 
 
-
     <div class="col-md-6">
         <div class="row">
-            <nav class="navbar navbar-default" >
+            <nav class="navbar navbar-default">
                 <div class="container-fluid">
-                    <div class="col-md-5 navbar-right navbar-form" >
+                    <div class="col-md-5 navbar-right navbar-form">
                         <button class="btn btn-success" style="float:right"
                                 ng-if="env.display_map==false"
-                                ng-click="displayMap()"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                            Display map</button>
+                                ng-click="displayMap(true)"><span class="glyphicon glyphicon-map-marker"
+                                                              aria-hidden="true"></span>
+                            Display map
+                        </button>
 
                         <button class="btn btn-success" style="float:right"
                                 ng-if="env.display_map==true"
-                                ng-click="displayPhotos()"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-                            Display photos</button>
+                                ng-click="displayPhotos()"><span class="glyphicon glyphicon-picture"
+                                                                 aria-hidden="true"></span>
+                            Display photos
+                        </button>
                     </div>
 
                 </div>
@@ -65,17 +70,17 @@
 
         <div class="row" id="photo-block" photo-block ng-if="env.display_map==false">
             <div class="col-md-12 main">
-                <img ng-src="{{adv.MainPhoto}}" >
+                <img ng-src="{{adv.MainPhoto}}">
                 <div class="back navigate hide"></div>
                 <div class="next navigate hide"></div>
             </div>
 
             <div class="preview col-md-12">
-                <img ng-repeat="photo in adv.photos" ng-src="{{photo}}"    >
+                <img ng-repeat="photo in adv.photos" ng-src="{{photo}}">
             </div>
         </div>
 
-        <div class="row" ng-if="env.display_map==true">
+        <div class="row" ng-show="env.display_map==true">
             <div id="map" style="height: 500px;width:100%"></div>
         </div>
 
@@ -83,10 +88,22 @@
             <div class="col-md-5">
                 <h4>Vendor</h4>
                 <table class="table">
-                    <tr><td>Contact person:</td><td></td></tr>
-                    <tr><td>Phone:</td><td></td></tr>
-                    <tr><td>Mobile 1:</td><td></td></tr>
-                    <tr><td>Email:</td><td></td></tr>
+                    <tr>
+                        <td>Contact person:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Phone:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Mobile 1:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td></td>
+                    </tr>
                 </table>
             </div>
             <div class="col-md-7">
@@ -99,11 +116,11 @@
                         <div class="col-sm-10">
                             <label class="radio-inline">
                                 <input type="radio" name="sex" ng-model="message.sex" value="male"
-                                       required>  Mister
+                                       required> Mister
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="sex" ng-model="message.sex" value="female"
-                                       required>  Miss
+                                       required> Miss
                             </label>
                         </div>
                     </div>
@@ -111,23 +128,24 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Your name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control"  ng-model="message.name">
+                            <input type="text" class="form-control" ng-model="message.name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Your phone</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control"  ng-model="message.phone" >
+                            <input type="text" class="form-control" ng-model="message.phone">
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="{ 'has-error': messageForm.email.$invalid && env.submit==true }">
                         <label class="col-sm-2 control-label">Your email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email"  required ng-model="message.email">
+                            <input type="email" class="form-control" name="email" required ng-model="message.email">
                         </div>
                     </div>
-                    <div class="form-group" ng-class="{ 'has-error': messageForm.message.$invalid && env.submit==true }">
+                    <div class="form-group"
+                         ng-class="{ 'has-error': messageForm.message.$invalid && env.submit==true }">
                         <textarea class="form-control" ng-model="message.message" name="message" required></textarea>
                     </div>
 
@@ -135,7 +153,8 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="button"
                                     ng-disabled="env.submit==true"
-                                    ng-click="sendMessage(messageForm, message)" class="btn btn-default">Send message</button>
+                                    ng-click="sendMessage(messageForm, message)" class="btn btn-default">Send message
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -149,43 +168,64 @@
             <div class="col-md-6">
                 <table style="width: 100%">
                     <tr>
-                        <td>City:</td><td></td>
+                        <td>City:</td>
+                        <td>{{adv.address.city}}</td>
                     </tr>
                     <tr>
-                        <td>ZIP:</td><td></td>
+                        <td>ZIP:</td>
+                        <td>{{adv.address.zip}}</td>
                     </tr>
                     <tr>
-                        <td>Street / House number:</td><td></td>
+                        <td>Street / House number:</td>
+                        <td>
+                            <div ng-if="adv.address.display_house===true">{{adv.address.street}}
+                                {{adv.address.house_number}}
+                            </div>
+                            <div ng-if="adv.address.display_house===false" class="alert alert-warning" role="alert">
+                                Street and house number were hidden
+                            </div>
+
+                        </td>
                     </tr>
                     <tr>
-                        <td>Building type:</td><td></td>
+                        <td>Building type:</td>
+                        <td>{{adv.subcategory}}</td>
                     </tr>
                     <tr>
-                        <td>Build year:</td><td></td>
+                        <td>Build year:</td>
+                        <td>{{adv.props.build_year}}</td>
                     </tr>
                     <tr>
-                        <td>Floor:</td><td></td>
+                        <td>Floor:</td>
+                        <td>{{adv.floor}}</td>
                     </tr>
                     <tr>
-                        <td>Rooms:</td><td></td>
+                        <td>Rooms:</td>
+                        <td>{{adv.rooms}}</td>
                     </tr>
                     <tr>
-                        <td>Living area:</td><td></td>
+                        <td>Living area:</td>
+                        <td>{{adv.living_area}}</td>
                     </tr>
                     <tr>
-                        <td>Method of heating:</td><td></td>
+                        <td>Method of heating:</td>
+                        <td>{{adv.energy.heating}}</td>
                     </tr>
                     <tr>
-                        <td>Number of Garage / p:</td><td></td>
+                        <td>Number of Garage / p:</td>
+                        <td>{{adv.props.number_of_garage}}</td>
                     </tr>
                     <tr>
-                        <td>Garage / parking place:</td><td></td>
+                        <td>Garage / parking place:</td>
+                        <td>{{adv.props.garage}}</td>
                     </tr>
                     <tr>
-                        <td>Pets:</td><td></td>
+                        <td>Pets:</td>
+                        <td>{{adv.props.pets}}</td>
                     </tr>
                     <tr>
-                        <td>Move in ready:</td><td></td>
+                        <td>Move in ready:</td>
+                        <td>{{adv.move_date}}</td>
                     </tr>
                 </table>
             </div>
@@ -195,36 +235,72 @@
                     <tr class="info">
                         <th colspan="2">Finance</th>
                     </tr>
-                    <tr class="info"><td>Cold rent:</td><td></td></tr>
-                    <tr class="info"><td>Ancillary cost:</td><td></td></tr>
-                    <tr class="info"><td>Heating cost:</td><td></td></tr>
-                    <tr class="info"><td>Total rent:</td><td></td></tr>
-                    <tr class="info"><td>Caution money:</td><td></td></tr>
+                    <tr class="info">
+                        <td>Cold rent:</td>
+                        <td>{{adv.cold_rent}}</td>
+                    </tr>
+                    <tr class="info" ng-if="adv.finance.ancillary_cost_included==1">
+                        <td>Ancillary cost:</td>
+                        <td>{{adv.finance.ancillary_cost}}</td>
+                    </tr>
+                    <tr class="info">
+                        <td>Heating cost:</td>
+                        <td>-</td>
+                    </tr>
+                    <tr class="info">
+                        <td>Total rent:</td>
+                        <td>-</td>
+                    </tr>
+                    <tr class="info">
+                        <td>Caution money:</td>
+                        <td>{{adv.finance.caution_money}}</td>
+                    </tr>
                 </table>
 
                 <table class="table">
                     <tr class="warning">
                         <th colspan="2">Location</th>
                     </tr>
-                    <tr class="warning"><td>Walkway to public transport ca.:.</td><td></td></tr>
-                    <tr class="warning"><td>Driving time to the next central station ca.:</td><td></td></tr>
-                    <tr class="warning"><td>Driving time to the next Autobahn ca.:</td><td></td></tr>
-                    <tr class="warning"><td>Driving time to the next Airport ca.:</td><td></td></tr>
+                    <tr class="warning">
+                        <td>Walkway to public transport ca.:.</td>
+                        <td>{{adv.address.distances.transport}}</td>
+                    </tr>
+                    <tr class="warning">
+                        <td>Driving time to the next central station ca.:</td>
+                        <td>{{adv.address.distances.driving}}</td>
+                    </tr>
+                    <tr class="warning">
+                        <td>Driving time to the next Autobahn ca.:</td>
+                        <td>{{adv.address.distances.autoban}}</td>
+                    </tr>
+                    <tr class="warning">
+                        <td>Driving time to the next Airport ca.:</td>
+                        <td>{{adv.address.distances.airport}}</td>
+                    </tr>
                 </table>
 
                 <table class="table">
                     <tr class="success">
                         <th colspan="2">Energy</th>
                     </tr>
-                    <tr class="success"><td>Energy pass</td><td></td></tr>
-                    <tr class="success"><td>Energy pass type</td><td></td></tr>
-                    <tr class="success"><td>Energy consumption value</td><td></td></tr>
+                    <tr class="success">
+                        <td>Energy pass</td>
+                        <td>{{adv.energy.pass}}</td>
+                    </tr>
+                    <tr class="success">
+                        <td>Energy pass type</td>
+                        <td>{{adv.energy.pass_type}}</td>
+                    </tr>
+                    <tr class="success">
+                        <td>Energy consumption value</td>
+                        <td>{{adv.energy.consumption}}</td>
+                    </tr>
                 </table>
             </div>
         </div>
 
         <div ng-if="adv.equipments!=null">
-        <h4>Equipment</h4>
+            <h4>Equipment</h4>
             <div class="row">
                 <div class="col-md-1" ng-repeat="equipment in adv.equipments">{{equipment}}</div>
 
@@ -233,7 +309,6 @@
 
         <h4>Description</h4>
         <div ng-bind-html="adv.desc|to_trusted"></div>
-
 
 
         <div>ADV</div>

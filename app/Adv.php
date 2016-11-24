@@ -218,6 +218,10 @@ class Adv extends Model
     {
         $this->attributes['address'] = json_encode($value);
     }
+    public function getAddressAttribute()
+    {
+        return json_decode($this->attributes['address']);
+    }
 
     public function setAuthorAttribute($value)
     {
@@ -229,6 +233,11 @@ class Adv extends Model
         $this->attributes['energy'] = json_encode($value);
     }
 
+    public function getEnergyAttribute()
+    {
+        return json_decode($this->attributes['energy']);
+    }
+
     public function setEquipmentsAttribute($value)
     {
         $this->attributes['equipments'] = json_encode($value);
@@ -237,13 +246,23 @@ class Adv extends Model
     public function setFinanceAttribute($value)
     {
         $this->attributes['finance'] = json_encode($value);
-
     }
+
+    public function getFinanceAttribute()
+    {
+        return json_decode($this->attributes['finance']);
+    }
+
 
     public function setPropsAttribute($value)
     {
         $this->attributes['props'] = json_encode($value);
 
+    }
+
+    public function getPropsAttribute()
+    {
+        return json_decode($this->attributes['props']);
     }
 
     public function getEquipmentsAttribute()
@@ -254,16 +273,17 @@ class Adv extends Model
 
     public function setPhotosAttribute($value)
     {
+
         if (is_array($value)) {
             $result = [];
 
             foreach ($value as $image) {
                 $name = time() . rand(1, 10000) . '.' . pathinfo($image['filename'], PATHINFO_EXTENSION);
-                file_put_contents(public_path('uploads/adv/full/' . $this->user_id . '/' . $name), base64_decode($image['base64']));
+                file_put_contents(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name), base64_decode($image['base64']));
 
-                \Image::make(public_path('uploads/adv/full/' . $this->user_id . '/' . $name))->resize(100, null, function ($constraint) {
+                \Image::make(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name))->resize(100, null, function ($constraint) {
                     $constraint->aspectRatio();
-                })->save(public_path('uploads/adv/preview/' . $this->user_id . '/' . $name));
+                })->save(public_path('uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $name));
                 array_push($result, $name);
             }
 
@@ -283,7 +303,7 @@ class Adv extends Model
             return ['/images/no-photo.jpg'];
         }
         $images = explode(',', $this->attributes['photos']);
-        return '/uploads/adv/full/' . $this->user_id . '/' . $images[0];
+        return '/uploads/adv/full/' . $this->attributes['user_id'] . '/' . $images[0];
     }
 
     public function getLastPhotosAttribute()
@@ -298,7 +318,7 @@ class Adv extends Model
         $result = [];
         //unset($images[0]);
         foreach ($images as $photo) {
-            array_push($result, '/uploads/adv/preview/' . $this->user_id . '/' . $photo);
+            array_push($result, '/uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $photo);
         }
         return $result;
     }
@@ -308,10 +328,11 @@ class Adv extends Model
         if (is_null($this->attributes['photos'])) {
             return ['/images/no-photo.jpg'];
         }
-        $photos = explode(',', $this->attributes['photos']);
+
+        $photos = json_decode($this->attributes['photos']);
         $result = [];
         foreach ($photos as $photo) {
-            array_push($result, '/uploads/adv/full/' . $this->user_id . '/' . $photo);
+            array_push($result, '/uploads/adv/full/' . $this->attributes['user_id'] . '/' . $photo);
         }
         return $result;
     }
@@ -414,6 +435,7 @@ class Adv extends Model
     {
 
         $data['user_id'] = $user_id;
+
         $data['status'] = 'payment_waiting';
 
         $general_riles = [
@@ -501,7 +523,10 @@ class Adv extends Model
             $city_place = Place::createCity($country, $region, $city, $zip);
         }
         $data['city_id'] = $city_place->id;
+        $photos = $data['photos'];
+        unset($data['photos']);
         $adv = self::create($data);
+        $adv->update(['photos'=>$photos]);
         return $adv;
     }
 
