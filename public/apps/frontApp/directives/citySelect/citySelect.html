@@ -8,7 +8,10 @@
                 </div>-->
                 <input type="text" class="form-control" ng-model="search.city">
                 <ul class="autocomplete" ng-show="env.search_results.length>0">
-                    <li ng-repeat="result in env.search_results" ng-click="select(result)">{{result.description}}</li>
+                    <li
+                            ng-repeat="result in env.search_results track by $index"
+                            ng-class="{'active': env.selected==$index}"
+                            ng-click="select(result)">{{result.description}}</li>
                 </ul>
             </div>
         </div>

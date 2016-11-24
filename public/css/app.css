@@ -313,6 +313,12 @@ ul.autocomplete{
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     overflow-y: auto;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding-bottom: 40px;
+    min-width: 300px;
+    background-image: url(http://adv.dev/images/vendors/desktop/powered_by_google_on_white.png);
+
 }
 ul.autocomplete li{
     list-style-type: none;
@@ -322,7 +328,9 @@ ul.autocomplete li{
 ul.autocomplete li:hover{
     background-color: lightgray;
 }
-
+ul.autocomplete li.active{
+    background-color: lightgray;
+}
 
 li.disabled{
     opacity: 0.5;

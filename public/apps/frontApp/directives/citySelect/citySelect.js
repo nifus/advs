@@ -15,7 +15,6 @@
 
         function citySelectLink($scope, element) {
 
-            var key = 'AIzaSyDhoywlfGZRVpt8hcYkJORK4ioyBeEIweU';
             $scope.search = {
                 radius: "1",
                 city: null,
@@ -34,20 +33,45 @@
                     {radius: "80", zoom: 6}
                 ],
                 search_results: [],
-                display_map: false
+                display_map: false,
+                selected: -1,
+                old_search_key: null
             };
 
             var map = null;
             var cityCircle = null;
             var location = null;
 
-
             element.find('input').on('keyup', function (e) {
+
                 var value = $(this).val();
+                if (value==$scope.env.old_search_key){
+                    return;
+                }
                 if (value.length > 1) {
                     $scope.cityAutocomplete(value).then(function (response) {
                         $scope.env.search_results = response;
                     })
+                }
+            });
+            element.find('input').on('keydown', function (e) {
+                if ( e.keyCode==40 ){
+                        //  вниз
+                    if ( $scope.env.selected<$scope.env.search_results.length-1){
+                        $scope.env.selected=$scope.env.selected+1;
+                    }
+                    e.preventDefault();
+                    $scope.$apply()
+                }else if( e.keyCode==38 ){
+                    //  вверх
+                    if ( $scope.env.selected>0){
+                        $scope.env.selected=$scope.env.selected-1;
+                    }
+                    e.preventDefault();
+                    $scope.$apply()
+                }
+                else if( e.keyCode==13 ){
+                    $scope.select($scope.env.search_results[$scope.env.selected])
                 }
             });
             $timeout(function(){
@@ -56,6 +80,7 @@
 
 
             $scope.cityAutocomplete = function (value) {
+                $scope.env.old_search_key = value;
                 var defer = $q.defer();
 
                 $http.get('/api/search/cities/'+value).then(function (response) {
@@ -138,6 +163,7 @@
                 }
 
                 $scope.env.search_results = [];
+                $scope.$apply();
             };
 
             function updatePlaces() {
