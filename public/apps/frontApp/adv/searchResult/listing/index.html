@@ -37,7 +37,7 @@
                     <div class="col-md-5 navbar-right navbar-form" disable-all="env.display_map===true">
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1">Sort by</span>
-                            <select class="form-control" ng-model="env.sortby" ng-change="changeSort(env.sortby)">
+                            <select class="form-control" ng-model="env.sortby" ng-change="changeSort(env.sortby, true)">
                                 <option value="date_create">Date Created</option>
                                 <option value="price_up">Price Up</option>
                                 <option value="price_down">Price Down</option>
@@ -50,10 +50,10 @@
                         <div class="btn-toolbar" role="toolbar" >
                             <div class="btn-group input-group" role="group"  disable-all="env.display_map===true">
                                 <span class="input-group-addon" >Per page</span>
-                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==5}" ng-click="changePerPage(5)">5</button>
-                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==10}" ng-click="changePerPage(10)">10</button>
-                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==20}" ng-click="changePerPage(20)">20</button>
-                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==50}" ng-click="changePerPage(50)">50</button>
+                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==5}" ng-click="changePerPage(5, undefined, true)">5</button>
+                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==10}" ng-click="changePerPage(10, undefined, true)">10</button>
+                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==20}" ng-click="changePerPage(20, undefined, true)">20</button>
+                                <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==50}" ng-click="changePerPage(50, undefined, true)">50</button>
                             </div>
 
                         </div>

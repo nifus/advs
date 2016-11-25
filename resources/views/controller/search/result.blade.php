@@ -6,8 +6,6 @@
 @section('content')
 
     <script src="/apps/frontApp/adv/searchResult/searchResultController.js"></script>
-    <script src="/apps/frontApp/adv/searchResult/listing/searchResultListingController.js"></script>
-    <script src="/apps/frontApp/adv/searchResult/view/searchResultViewController.js"></script>
     <script src="/apps/frontApp/directives/photoBlock/photoBlock.js"></script>
 
 

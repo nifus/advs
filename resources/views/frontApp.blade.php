@@ -60,6 +60,7 @@
     <script src="/apps/frontApp/mainController.js"></script>
     <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
     <script src="/apps/frontApp/directives/citySelect/citySelect.js"></script>
+    <script src="/components/markerclustererplus/dist/markerclusterer.min.js"></script>
 
 </head>
 <body ng-app="frontApp" ng-controller="mainController" >

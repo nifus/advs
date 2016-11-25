@@ -29,13 +29,15 @@
 
 
 
-        $scope.changePerPage = function (value, page) {
+        $scope.changePerPage = function (value, page, need_update) {
             $scope.env.per_page = value * 1;
             if (page==undefined){
                 $scope.env.page = value * 1;
                 $scope.setPage(1);
             }
-            updateSearch();
+            if ( need_update!=undefined && need_update==true){
+                updateSearch();
+            }
         };
 
         $scope.range = function (min, max, step) {
@@ -59,11 +61,16 @@
                 updateSearch();
             }
             if ($scope.env.display_map === true) {
-                initGoogleMapsView()
+                if ($scope.env.adv_id){
+                    initGoogleMapsView();
+                }else{
+                    initGoogleMapsListing();
+                }
+
             }
         };
 
-        $scope.changeSort = function (value) {
+        $scope.changeSort = function (value, need_update) {
             $scope.env.sortby = value;
             if (value == 'date_create') {
                 $scope.env.rows = $filter('orderBy')($scope.env.rows, '-created_at');
@@ -73,7 +80,10 @@
                 $scope.env.rows = $filter('orderBy')($scope.env.rows, '-cold_rent');
             }
             updatePagination();
-            updateSearch();
+
+            if ( need_update!=undefined && need_update==true){
+                updateSearch();
+            }
         };
 
         $scope.addToFav = function (adv, flag) {
@@ -169,7 +179,7 @@
             }else{
                 initView();
             }
-        })
+        });
 
         $scope.goBack = function () {
             if ( $scope.env.rows ){
@@ -177,7 +187,40 @@
             }else{
                 window.location.href='/search/'+$scope.env.result_id+'#/page1';
             }
+        };
 
+
+        function initGoogleMapsListing() {
+            if (!$scope.env.map ){
+                var interval = $interval(function(){
+                    if ( document.getElementById('map') ){
+                        $scope.env.map = new google.maps.Map(document.getElementById('map'), {
+                            center: {lat: $scope.env.search.query.lat*1, lng: $scope.env.search.query.lng*1},
+                            zoom: 15
+                        });
+                        var markers = [];
+                        var bounds = new google.maps.LatLngBounds();
+
+                        for( var i in $scope.env.rows ){
+                            var marker = new google.maps.Marker({
+                                position: {lat: $scope.env.rows[i].lat*1, lng: $scope.env.rows[i].lng*1},
+                            });
+                            markers.push(marker)
+
+
+                            bounds.extend(marker.getPosition());
+
+
+
+                        }
+                        $scope.env.map.fitBounds(bounds);
+                        var markerCluster = new MarkerClusterer($scope.env.map, markers);
+
+                        // $scope.env.map.setCenter( {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1} )
+                        $interval.cancel(interval);
+                    }
+                },1000)
+            }
         }
 
         function initGoogleMapsView() {
@@ -225,7 +268,9 @@
 
             $q.all($scope.promises).then(function () {
                 $scope.env.loading = false;
-
+                if ($scope.env.search.config && $scope.env.search.config.display_map) {
+                    $scope.displayMap($scope.env.search.config.display_map, false);
+                }
 
                 $scope.setPage($scope.env.page);
 
@@ -235,9 +280,7 @@
                 if ($scope.env.search.config && $scope.env.search.config.sortby) {
                     $scope.changeSort($scope.env.search.config.sortby)
                 }
-                if ($scope.env.search.config && $scope.env.search.config.display_map) {
-                    $scope.displayMap($scope.env.search.config.display_map, false);
-                }
+
             });
         }
 

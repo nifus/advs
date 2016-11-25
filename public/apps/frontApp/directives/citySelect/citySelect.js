@@ -176,9 +176,7 @@
                     map.setZoom( getZoom(value) );
                     cityCircle.setRadius(value * 1000)
                 }
-                console.log($scope.ngModel)
                 $scope.ngModel.radius = value;
-              //  $scope.env.radius = value * 1000;
             });
 
             $scope.$watch('radius', function (value) {
@@ -198,7 +196,6 @@
 
             $scope.$watch('ngModel', function(value){
                 if ( value.address!=undefined){
-                    console.log(value)
                     element.find('input').val(value.address);
                     map = new google.maps.Map(document.getElementById('map'), {
                         center: {lat: value.lat, lng: value.lng},
