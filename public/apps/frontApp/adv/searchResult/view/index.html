@@ -49,14 +49,14 @@
                 <div class="container-fluid">
                     <div class="col-md-5 navbar-right navbar-form">
                         <button class="btn btn-success" style="float:right"
-                                ng-if="env.display_map==false"
+                                ng-if="env.display_view_map==false"
                                 ng-click="displayMap(true)"><span class="glyphicon glyphicon-map-marker"
                                                               aria-hidden="true"></span>
                             Display map
                         </button>
 
                         <button class="btn btn-success" style="float:right"
-                                ng-if="env.display_map==true"
+                                ng-if="env.display_view_map==true"
                                 ng-click="displayPhotos()"><span class="glyphicon glyphicon-picture"
                                                                  aria-hidden="true"></span>
                             Display photos
@@ -68,7 +68,7 @@
 
         </div>
 
-        <div class="row" id="photo-block" photo-block ng-if="env.display_map==false">
+        <div class="row" id="photo-block" photo-block ng-if="env.display_view_map==false">
             <div class="col-md-12 main">
                 <img ng-src="{{adv.MainPhoto}}">
                 <div class="back navigate hide"></div>
@@ -80,8 +80,8 @@
             </div>
         </div>
 
-        <div class="row" ng-show="env.display_map==true">
-            <div id="map" style="height: 500px;width:100%"></div>
+        <div class="row" ng-show="env.display_view_map==true">
+            <div id="view_map" style="height: 500px;width:100%"></div>
         </div>
 
         <div class="row">

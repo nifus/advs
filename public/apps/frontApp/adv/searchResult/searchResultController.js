@@ -21,6 +21,7 @@
             pages: null,
             current: [],
             display_map: false,
+            display_view_map: false,
             map: null,
             submit: false,
             rows: null
@@ -57,6 +58,7 @@
 
         $scope.displayMap = function (flag, need_update) {
             $scope.env.display_map = flag;
+            $scope.env.display_view_map = flag;
             if (need_update) {
                 updateSearch();
             }
@@ -113,7 +115,10 @@
                 {
                     per_page: $scope.env.per_page,
                     sortby: $scope.env.sortby,
-                    display_map: $scope.env.display_map
+                    display_map: $scope.env.display_map,
+                    zoom: $scope.env.zoom,
+                    lat: $scope.env.lat,
+                    lng: $scope.env.lng
                 }
             );
         };
@@ -191,55 +196,88 @@
 
 
         function initGoogleMapsListing() {
-            if (!$scope.env.map ){
+
                 var interval = $interval(function(){
                     if ( document.getElementById('map') ){
-                        $scope.env.map = new google.maps.Map(document.getElementById('map'), {
-                            center: {lat: $scope.env.search.query.lat*1, lng: $scope.env.search.query.lng*1},
-                            zoom: 15
+                        if ( $scope.env.zoom!=null ){
+
+                            $scope.env.map = new google.maps.Map(document.getElementById('map'), {
+                                center: {lat: $scope.env.lat, lng: $scope.env.lng},
+                                zoom:  $scope.env.zoom
+                            });
+                        }else{
+                            $scope.env.map = new google.maps.Map(document.getElementById('map'), {
+                                center: {lat: $scope.env.search.query.lat*1, lng: $scope.env.search.query.lng*1},
+                                zoom: 15
+                            });
+                        }
+                        $scope.env.map.addListener('zoom_changed', function() {
+                            $scope.env.zoom = $scope.env.map.getZoom();
+                            updateSearch();
+                        });
+                        $scope.env.map.addListener('center_changed', function(e, val) {
+                            var center = $scope.env.map.getCenter();
+                            $scope.env.lat = center.lat();
+                            $scope.env.lng = center.lng();
+                            updateSearch();
                         });
                         var markers = [];
                         var bounds = new google.maps.LatLngBounds();
-
+                        var infowindow = null;
                         for( var i in $scope.env.rows ){
                             var marker = new google.maps.Marker({
                                 position: {lat: $scope.env.rows[i].lat*1, lng: $scope.env.rows[i].lng*1},
                             });
-                            markers.push(marker)
-
-
+                            marker.adv = $scope.env.rows[i];
+                            marker.addListener('click', function (e) {
+                                if ( infowindow!=null ){
+                                    infowindow.close()
+                                }
+                                 infowindow = new google.maps.InfoWindow({
+                                    content: getAdvContent(this.adv)
+                                });
+                                infowindow.open($scope.env.map, this);
+                            });
+                            markers.push(marker);
                             bounds.extend(marker.getPosition());
-
-
-
                         }
-                        $scope.env.map.fitBounds(bounds);
+
+                        if ( $scope.env.zoom==null ){
+                            $scope.env.map.fitBounds(bounds);
+                        }
+                        $scope.env.zoom = $scope.env.map.getZoom();
+                       // console.log($scope.env.zoom)
+                        var center = $scope.env.map.getCenter();
+                        $scope.env.lat = center.lat();
+                        $scope.env.lng = center.lng();
+                        updateSearch();
+
                         var markerCluster = new MarkerClusterer($scope.env.map, markers);
 
                         // $scope.env.map.setCenter( {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1} )
                         $interval.cancel(interval);
                     }
                 },1000)
-            }
+
         }
 
         function initGoogleMapsView() {
-            if (!$scope.env.map ){
+
                 var interval = $interval(function(){
-                    if ( document.getElementById('map') ){
-                        $scope.env.map = new google.maps.Map(document.getElementById('map'), {
+                    if ( document.getElementById('view_map') ){
+                        var map = new google.maps.Map(document.getElementById('view_map'), {
                             center: {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1},
                             zoom: 15
                         });
                         new google.maps.Marker({
                             position: {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1},
-                            map: $scope.env.map
+                            map: map
                         });
                         // $scope.env.map.setCenter( {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1} )
                         $interval.cancel(interval);
                     }
                 },1000)
-            }
+
         }
 
         function restoreContactData() {
@@ -254,6 +292,14 @@
             if ( $scope.env.search==null ) {
                 var searchPromise = searchLogFactory.getById($scope.env.result_id).then(function (response) {
                     $scope.env.search = response;
+                    console.log(response)
+
+                    if (response.config.zoom){
+                        $scope.env.zoom = response.config.zoom;
+                        $scope.env.lng = response.config.lng;
+                        $scope.env.lat = response.config.lat;
+                    }
+
                 });
                 $scope.promises.push(searchPromise);
             }
@@ -286,7 +332,7 @@
 
         function initView() {
             $scope.env.loading = true;
-
+            $scope.env.display_view_map = false;
             var advPromise = advFactory.getById($scope.env.adv_id).then( function(response){
                 $scope.adv=response;
                     console.log(response)
@@ -306,6 +352,18 @@
             $q.all($scope.promises).then(function () {
                 $scope.env.loading = false;
             });
+        }
+
+        function getAdvContent(adv) {
+            return '<div class="media"> ' +
+                '<div class="media-left"> ' +
+                '<a href="/search/'+$scope.env.result_id+'#/view'+adv.id+'"><img class="media-object" style="width:150px" src="'+adv.photos[0]+'" "></a> ' +
+                '</div> ' +
+                '<div class="media-body"> ' +
+                '<h4 class="media-heading">'+adv.title+'</h4> ' +
+                '</div> ' +
+                '</div>';
+
         }
 
 

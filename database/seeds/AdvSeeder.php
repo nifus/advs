@@ -28,7 +28,7 @@ class AdvSeeder extends Seeder
         \DB::table('advs')->truncate();
         \DB::table('advs_fav')->truncate();
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 500; $i++) {
 
             $category = $faker->numberBetween(1,9);
             $eq_category = $faker->randomElement([1,2,4,6,7,8]);

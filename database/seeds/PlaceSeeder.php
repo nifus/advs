@@ -25,15 +25,22 @@ class PlaceSeeder extends Seeder
             'Севастьяново, Ленинградская область'
         ];
 
+        $faker = Faker\Factory::create();
+        $faker->addProvider(new Faker\Provider\en_US\Address($faker));
+
 
         \DB::table('places')->truncate();
 
-        foreach ($cities as $city) {
-
-            $url = "https://maps.google.com/maps/api/geocode/json?address=".urlencode($city);
-            $resp_json = file_get_contents($url);
-            $resp = json_decode($resp_json, true);
-            if ($resp['status'] == 'OK') {
+        for($i=0;$i<100;$i++){
+            Place::create([
+                'city' => $faker->city,
+                'lat' => $faker->latitude,
+                'lng' => $faker->longitude,
+            ]);
+            //$url = "https://maps.google.com/maps/api/geocode/json?address=".urlencode($city);
+            //$resp_json = file_get_contents($url);
+            //$resp = json_decode($resp_json, true);
+            /*if ($resp['status'] == 'OK') {
 
                 // get the important data
                 $lati = $resp['results'][0]['geometry']['location']['lat'];
@@ -49,7 +56,7 @@ class PlaceSeeder extends Seeder
 
                 }
 
-            }
+            }*/
 
 
         }

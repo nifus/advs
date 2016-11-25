@@ -96,7 +96,7 @@ class SearchController extends Controller
     }
 
     function searchUpdate($id, Request $request ){
-        $fields = $request->only(['per_page','sortby','display_map']);
+        $fields = $request->only(['per_page','sortby','display_map','lat','lng','zoom']);
         $log = SearchLog::find($id);
         $log->update(['config'=>$fields]);
         return response()->json(['search'=>$log->toArray()]);
