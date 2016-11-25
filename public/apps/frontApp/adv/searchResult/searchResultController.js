@@ -24,7 +24,7 @@
             display_view_map: false,
             map: null,
             submit: false,
-            rows: null
+            rows: null,
         };
         $scope.promises = [];
 
@@ -51,7 +51,11 @@
         };
 
         $scope.setPage = function (page) {
-            window.location.href = "/search/" + $scope.env.result_id + "#/page" + page;
+            if ( $scope.env.page==1 && page==1 ){
+
+            }else{
+                window.location.href = "/search/" + $scope.env.result_id + "#/page" + page;
+            }
             $scope.env.page = page;
             updatePagination();
         };
@@ -120,7 +124,7 @@
                     lat: $scope.env.lat,
                     lng: $scope.env.lng
                 }
-            );
+            )
         };
 
 
@@ -140,7 +144,7 @@
 
 
         $scope.displayPhotos = function () {
-            $scope.env.display_map = false;
+            $scope.env.display_view_map = false;
         };
 
         $scope.sendMessage = function (form, data) {
@@ -190,14 +194,14 @@
             if ( $scope.env.rows ){
                 window.history.back()
             }else{
-                window.location.href='/search/'+$scope.env.result_id+'#/page1';
+                window.location.href='/search/'+$scope.env.result_id;
             }
         };
 
 
         function initGoogleMapsListing() {
-
                 var interval = $interval(function(){
+
                     if ( document.getElementById('map') ){
                         if ( $scope.env.zoom!=null ){
 
@@ -206,6 +210,7 @@
                                 zoom:  $scope.env.zoom
                             });
                         }else{
+
                             $scope.env.map = new google.maps.Map(document.getElementById('map'), {
                                 center: {lat: $scope.env.search.query.lat*1, lng: $scope.env.search.query.lng*1},
                                 zoom: 15
@@ -286,12 +291,13 @@
 
         //
         function initListing() {
-            $scope.env.loading = true;
+            console.log('initListing')
 
+            $scope.env.loading = true;
+            $scope.promises = [];
             if ( $scope.env.search==null ) {
                 var searchPromise = searchLogFactory.getById($scope.env.result_id).then(function (response) {
                     $scope.env.search = response;
-                    console.log(response)
 
                     if (response.config && response.config.zoom){
                         $scope.env.zoom = response.config.zoom;
@@ -312,7 +318,9 @@
             }
 
             $q.all($scope.promises).then(function () {
+                console.log('promise end')
                 $scope.env.loading = false;
+                console.log($scope.env.search)
                 if ($scope.env.search.config && $scope.env.search.config.display_map) {
                     $scope.displayMap($scope.env.search.config.display_map, false);
                 }
@@ -334,7 +342,6 @@
             $scope.env.display_view_map = false;
             var advPromise = advFactory.getById($scope.env.adv_id).then( function(response){
                 $scope.adv=response;
-                    console.log(response)
             });
 
             $scope.promises.push(advPromise);
@@ -359,7 +366,7 @@
                 '<a href="/search/'+$scope.env.result_id+'#/view'+adv.id+'"><img class="media-object" style="width:150px" src="'+adv.photos[0]+'" "></a> ' +
                 '</div> ' +
                 '<div class="media-body"> ' +
-                '<h4 class="media-heading">'+adv.title+'</h4> ' +
+                '<h4 class="media-heading"><a href="/search/'+$scope.env.result_id+'#/view'+adv.id+'">'+adv.title+'</a></h4> ' +
                 '</div> ' +
                 '</div>';
 

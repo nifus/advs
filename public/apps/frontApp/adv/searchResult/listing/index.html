@@ -24,15 +24,7 @@
         <div class="col-md-10" >
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
-                    <div class="col-md-5 navbar-left navbar-form" >
-                        <nav  ng-show="env.pages!=null" >
-                            <ul class="pagination " style="margin:0px">
-                                <li ng-repeat="n in range(1,env.pages)" ng-class="{'active':env.page==n,'disabled':env.display_map===true}">
-                                    <a  class="link" ng-click="setPage(n)">{{n}}</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+
 
                     <div class="col-md-5 navbar-right navbar-form" disable-all="env.display_map===true">
                         <div class="input-group">
