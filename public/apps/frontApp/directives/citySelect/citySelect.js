@@ -8,18 +8,15 @@
             templateUrl: '/apps/frontApp/directives/citySelect/citySelect.html',
 
             scope: {
-                ngModel: '='
+                ngModel: '=',
+                radius: '='
+
             }
         };
 
 
         function citySelectLink($scope, element) {
 
-            $scope.search = {
-                radius: "1",
-                city: null,
-                cities: []
-            };
 
             $scope.env = {
                 zoom_radius: [
@@ -35,8 +32,11 @@
                 search_results: [],
                 display_map: false,
                 selected: -1,
-                old_search_key: null
+                old_search_key: null,
+                radius: "1"
             };
+            $scope.env.radius = $scope.radius==undefined ? "1" : $scope.radius;
+
 
             var map = null;
             var cityCircle = null;
@@ -109,13 +109,14 @@
             };
 
             $scope.select = function (row) {
+
                 if (row.lat && row.lng ){
-                    $scope.ngModel={lat: row.lat, lng: row.lng, radius: $scope.search.radius * 1000, city_id: row.id};
+                    $scope.ngModel={lat: row.lat, lng: row.lng, radius: $scope.env.radius , address: row.description};
                     location = {lat: row.lat, lng: row.lng};
                         element.find('input').val(row.description);
                         map = new google.maps.Map(document.getElementById('map'), {
                             center: {lat: row.lat, lng: row.lng},
-                            zoom: getZoom($scope.search.radius)
+                            zoom: getZoom($scope.env.radius)
                         });
 
                         google.maps.event.addListenerOnce(map, 'idle', function () {
@@ -127,22 +128,23 @@
                                 fillOpacity: 0.35,
                                 map: map,
                                 center: {lat: row.lat, lng: row.lng},
-                                radius: $scope.search.radius * 1000
+                                radius: $scope.env.radius * 1000
                             });
                         });
-                        $scope.search.cities=[];
-                        //updatePlaces()
+
+
 
                 }else{
                     var service = new google.maps.places.PlacesService(document.getElementById('map'));
                     service.getDetails(row, function (response) {
                         element.find('input').val(response.formatted_address);
                         location = response.geometry.location;
-                        $scope.ngModel={lat: location.lat, lng: location.lng, radius: $scope.search.radius * 1000};
+                        $scope.ngModel={lat: location.lat(), lng: location.lng(), radius: $scope.env.radius ,address: response.formatted_address };
+                        $scope.$apply();
 
                         map = new google.maps.Map(document.getElementById('map'), {
                             center: {lat: location.lat(), lng: location.lng()},
-                            zoom: getZoom($scope.search.radius)
+                            zoom: getZoom($scope.env.radius)
                         });
                         google.maps.event.addListenerOnce(map, 'idle', function () {
                             cityCircle = new google.maps.Circle({
@@ -153,49 +155,20 @@
                                 fillOpacity: 0.35,
                                 map: map,
                                 center: {lat: location.lat(), lng: location.lng()},
-                                radius: $scope.search.radius * 1000
+                                radius: $scope.radius * 1000
                             });
                         });
-                        $scope.search.cities=[];
 
                         //updatePlaces()
                     });
                 }
 
                 $scope.env.search_results = [];
-                $scope.$apply();
+                //$scope.$apply();
             };
 
-            function updatePlaces() {
-                var service = new google.maps.places.PlacesService(map);
-                var request  = {
-                   // key: key,
-                    location: location,
-                    radius:  $scope.search.radius*1000,
-                     types: ['locality','sublocality']
-                };
-                $scope.search.cities = [];
-                service.nearbySearch(request, function(response,status, pagination){
 
-                    response.forEach( function(city){
-                        //if (city.types.indexOf('political')!==-1 && city.types.indexOf('locality')!==-1){
-                            $scope.search.cities.push(city.name);
-                        //}
-                    });
-
-                   // $scope.search.cities = cities;
-                    if (pagination.hasNextPage) {
-                        pagination.nextPage();
-                    }else{
-                        $scope.$apply();
-                    }
-
-                });
-            }
-
-
-
-            $scope.$watch('search.radius', function (value) {
+            $scope.$watch('env.radius', function (value) {
                 if ( map==null ){
                     return;
                 }
@@ -203,8 +176,16 @@
                     map.setZoom( getZoom(value) );
                     cityCircle.setRadius(value * 1000)
                 }
-                $scope.ngModel={lat: location.lat, lng: location.lng, radius: $scope.search.radius * 1000};
-                //updatePlaces()
+                console.log($scope.ngModel)
+                $scope.ngModel.radius = value;
+              //  $scope.env.radius = value * 1000;
+            });
+
+            $scope.$watch('radius', function (value) {
+                if (value!=undefined){
+
+                    $scope.env.radius = value+"";
+                }
             });
 
             function getZoom(radius) {
@@ -215,9 +196,29 @@
                 }
             }
 
-            $scope.$watch('search', function(value){
-              //  $scope.ngModel=value;
-            }, true)
+            $scope.$watch('ngModel', function(value){
+                if ( value.address!=undefined){
+                    console.log(value)
+                    element.find('input').val(value.address);
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: value.lat, lng: value.lng},
+                        zoom: getZoom($scope.env.radius)
+                    });
+                    google.maps.event.addListenerOnce(map, 'idle', function () {
+                        cityCircle = new google.maps.Circle({
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: '#FF0000',
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: {lat: value.lat, lng: value.lng},
+                            radius: $scope.radius * 1000
+                        });
+                    });
+                }
+            });
+
 
 
         }

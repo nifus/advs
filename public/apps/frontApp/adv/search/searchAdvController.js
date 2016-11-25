@@ -8,7 +8,7 @@
         $scope.env = {
             loading: true,
             submit: false,
-            address: null,
+            address: {},
             id: null,
             promises: [],
                 heating_systems:[
@@ -20,9 +20,8 @@
             display_city_field: true
         };
         if ( window.location.search.indexOf('id=')!==-1 ){
-            $scope.env.id = window.location.search.match(/id=([0-9*])/)[1];
+            $scope.env.id = window.location.search.match(/id=([0-9]*)/)[1];
         }
-
 
         var dataSetPromise = advFactory.getDataSets().then(function(response){
             $scope.env.subcats = response.sub_categories;
@@ -35,6 +34,12 @@
             var searchPromise = $http.get('/api/search/'+$scope.env.id).then(function(response){
                 if ( response.data.success==true ){
                     $scope.search = response.data.search.query;
+                    $scope.env.address = {
+                        address: response.data.search.query.address,
+                        lat: response.data.search.query.lat,
+                        lng: response.data.search.query.lng,
+                        radius: response.data.search.query.radius,
+                    };
                     $scope.env.place = response.data.place;
                 }
             });
@@ -74,13 +79,17 @@
 
 
         $scope.$watch('env.address', function (value) {
-            if (value!=undefined){
-                $scope.search.lat=value.lat
-                $scope.search.lng=value.lng
-                $scope.search.radius=value.radius
+            if ( angular.isObject(value)){
+                $scope.search.lat=value.lat;
+                $scope.search.lng=value.lng;
+                $scope.search.radius=value.radius;
+                if (value.city_id!=undefined){
+                    $scope.search.city_id=value.city_id
+                }
+                if (value.address!=undefined){
+                    $scope.search.address=value.address
+                }
             }
-
-
 
         }, true);
 
