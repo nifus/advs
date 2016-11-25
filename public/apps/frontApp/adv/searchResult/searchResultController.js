@@ -94,7 +94,6 @@
 
         $scope.addToFav = function (adv, flag) {
             if (flag === true) {
-                console.log($scope.user)
                 adv.addToFavList($scope.user);
                 alertify.success('Adv added to watchlist');
             } else {
@@ -191,6 +190,7 @@
         });
 
         $scope.goBack = function () {
+            $scope.adv = null;
             if ( $scope.env.rows ){
                 window.history.back()
             }else{
@@ -251,7 +251,6 @@
                             $scope.env.map.fitBounds(bounds);
                         }
                         $scope.env.zoom = $scope.env.map.getZoom();
-                       // console.log($scope.env.zoom)
                         var center = $scope.env.map.getCenter();
                         $scope.env.lat = center.lat();
                         $scope.env.lng = center.lng();
@@ -291,7 +290,6 @@
 
         //
         function initListing() {
-            console.log('initListing')
 
             $scope.env.loading = true;
             $scope.promises = [];
@@ -318,9 +316,7 @@
             }
 
             $q.all($scope.promises).then(function () {
-                console.log('promise end')
                 $scope.env.loading = false;
-                console.log($scope.env.search)
                 if ($scope.env.search.config && $scope.env.search.config.display_map) {
                     $scope.displayMap($scope.env.search.config.display_map, false);
                 }
@@ -340,11 +336,22 @@
         function initView() {
             $scope.env.loading = true;
             $scope.env.display_view_map = false;
-            var advPromise = advFactory.getById($scope.env.adv_id).then( function(response){
-                $scope.adv=response;
-            });
 
-            $scope.promises.push(advPromise);
+            if ( $scope.env.rows ){
+                for( var i in $scope.env.rows){
+                    if ( $scope.env.rows[i].id==$scope.env.adv_id ){
+                        $scope.adv =  $scope.env.rows[i];
+                        break;
+                    }
+                }
+            }else{
+                var advPromise = advFactory.getById($scope.env.adv_id).then( function(response){
+                    $scope.adv=response;
+                });
+                $scope.promises.push(advPromise);
+            }
+
+
 
             if ( $scope.env.search==null ){
                 var searchPromise = searchLogFactory.getById($scope.env.result_id).then(function (response) {
@@ -357,6 +364,7 @@
 
             $q.all($scope.promises).then(function () {
                 $scope.env.loading = false;
+                $('body').scrollTop();
             });
         }
 

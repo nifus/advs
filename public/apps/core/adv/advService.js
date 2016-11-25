@@ -4,6 +4,10 @@
     advService.$inject = ['$http', '$q', '$cookies'];
 
     function advService($http, $q, $cookies) {
+        var advs = $cookies.get('fav-advs');
+        if (advs!=undefined){
+            advs = JSON.parse(advs);
+        }
         return function (data) {
             var Object = data;
             Object.waiting = false;
@@ -11,7 +15,7 @@
             Object.EndDate = moment(data.created_at).format('DD.MM.Y');
             Object.DeleteDate = moment(data.created_at).format('DD.MM.Y');
             Object.MainPhoto = getMainPhoto(data.photos);
-
+            Object.IsFav = angular.isArray(advs) && advs.indexOf(data.id)!==-1 ? true : data.IsFav;
 
             Object.isFav = function (user) {
                 if (user == null) {
@@ -43,8 +47,9 @@
                     $cookies.putObject('fav-advs',advs,{expires:expireDate});
                 }else{
                     $http.post('/api/advs/'+Object.id+'/fav',{'action':'add'} );
-                    Object.IsFav = true;
                 }
+                Object.IsFav = true;
+
             }
 
             Object.deleteFromFavList = function(user){
@@ -59,8 +64,8 @@
                     }
                 }else{
                     $http.post('/api/advs/'+Object.id+'/fav',{'action':'delete'} );
-                    Object.IsFav = false;
                 }
+                Object.IsFav = false;
             }
 
             Object.deleteFromWatchList = function () {
