@@ -252,9 +252,8 @@
                         $scope.env.lng = center.lng();
                         updateSearch();
 
-                        var markerCluster = new MarkerClusterer($scope.env.map, markers);
+                         new MarkerClusterer($scope.env.map, markers);
 
-                        // $scope.env.map.setCenter( {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1} )
                         $interval.cancel(interval);
                     }
                 },1000)
@@ -294,7 +293,7 @@
                     $scope.env.search = response;
                     console.log(response)
 
-                    if (response.config.zoom){
+                    if (response.config && response.config.zoom){
                         $scope.env.zoom = response.config.zoom;
                         $scope.env.lng = response.config.lng;
                         $scope.env.lat = response.config.lat;
