@@ -2,9 +2,9 @@
     'use strict';
     angular.module('frontApp').controller('searchResultController', searchResultController);
 
-    searchResultController.$inject = ['$scope', 'searchLogFactory', '$q', '$interval', '$filter','advFactory' ,'$cookies'];
+    searchResultController.$inject = ['$scope', 'searchLogFactory', '$q', '$interval', '$filter','advFactory' ,'$cookies','$http'];
 
-    function searchResultController($scope, searchLogFactory, $q, $interval, $filter, advFactory, $cookies) {
+    function searchResultController($scope, searchLogFactory, $q, $interval, $filter, advFactory, $cookies, $http) {
 
         $scope.adv = null;
         $scope.message = {
@@ -197,7 +197,18 @@
                 window.location.href='/search/'+$scope.env.result_id;
             }
         };
-
+        $scope.backToSearchForm = function () {
+            window.location.href='/'+$scope.env.search.query.type+'?id='+$scope.env.search.id;
+        };
+        $scope.newSearch = function () {
+            $scope.env.submit = true;
+            $http.post('/api/search', {query:$scope.env.search.query}).then(function(response){
+                $scope.env.submit = false;
+                if ( response.data.success==true){
+                    window.location.href = '/search/'+response.data.id;
+                }
+            })
+        }
 
         function initGoogleMapsListing() {
                 var interval = $interval(function(){
@@ -296,7 +307,6 @@
             if ( $scope.env.search==null ) {
                 var searchPromise = searchLogFactory.getById($scope.env.result_id).then(function (response) {
                     $scope.env.search = response;
-
                     if (response.config && response.config.zoom){
                         $scope.env.zoom = response.config.zoom;
                         $scope.env.lng = response.config.lng;
