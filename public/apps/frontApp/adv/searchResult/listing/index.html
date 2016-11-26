@@ -8,14 +8,14 @@
     <div>
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li><a ng-click="backToSearchForm()">Search form</a></li>
+            <li><a ng-href="/{{env.search.query.type}}?id={{env.search.id}}">Search form</a></li>
             <li class="active">{{env.search.number_of_results}} results</li>
         </ol>
     </div>
 
     <div class="row">
         <div class="col-md-2">
-            {{env.search.number_of_results}} Flats found
+            {{env.search.number_of_results}} advs found
             <hr>
 
             <div
@@ -24,6 +24,30 @@
             <div
                     ng-include="'/apps/frontApp/adv/searchResult/listing/inc_menu/house.html'"
                     ng-if="env.search.query.category==2"></div>
+            <div
+                    ng-include="'/apps/frontApp/adv/searchResult/listing/inc_menu/garage.html'"
+                    ng-if="env.search.query.category==3"></div>
+
+            <div
+                    ng-include="'/apps/frontApp/adv/searchResult/listing/inc_menu/office.html'"
+                    ng-if="env.search.query.category==4"></div>
+
+            <div
+                    ng-include="'/apps/frontApp/adv/searchResult/listing/inc_menu/hotel.html'"
+                    ng-if="env.search.query.category==6"></div>
+
+            <div
+                    ng-include="'/apps/frontApp/adv/searchResult/listing/inc_menu/hall.html'"
+                    ng-if="env.search.query.category==7"></div>
+
+            <div
+                    ng-include="'/apps/frontApp/adv/searchResult/listing/inc_menu/retail.html'"
+                    ng-if="env.search.query.category==8"></div>
+
+            <div
+                    ng-include="'/apps/frontApp/adv/searchResult/listing/inc_menu/commercial.html'"
+                    ng-if="env.search.query.category==9"></div>
+
 
             <div style="text-align: right">
                 <button type="button" class="btn btn-primary"

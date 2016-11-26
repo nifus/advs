@@ -1,7 +1,7 @@
 @extends('frontApp')
 
 @section('meta-header')
-    Search result
+    Search results
 @endsection
 @section('content')
 

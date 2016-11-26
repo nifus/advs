@@ -51,6 +51,11 @@ class SearchController extends Controller
     function createSearch( Request $request ){
         $query = $request->get('query');
         $log = SearchLog::create(['query'=>json_encode($query)]);
+
+        $sql =Adv::orderBy('title','ASC');
+        $count = $sql->count();
+        $log->update(['number_of_results'=>$count]);
+
         return response()->json(['success'=>true,'id'=>$log->id]);
     }
 
