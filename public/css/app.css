@@ -317,7 +317,7 @@ ul.autocomplete{
     background-position: bottom;
     padding-bottom: 40px;
     min-width: 300px;
-    background-image: url(http://adv.dev/images/vendors/desktop/powered_by_google_on_white.png);
+    background-image: url(../images/vendors/desktop/powered_by_google_on_white.png);
 
 }
 ul.autocomplete li{
@@ -338,4 +338,8 @@ li.disabled{
 
 textarea.desc{
     height: 100px!important;
+}
+
+div.left input{
+    width:100px
 }

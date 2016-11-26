@@ -13,9 +13,17 @@
     </div>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 left">
             {{env.search.number_of_results}} Flats found
             <hr>
+
+            <div
+                    ng-include="'/apps/frontApp/adv/searchResult/listing/inc_menu/flat.html'"
+                    ng-if="env.search.query.category==1"></div>
+            <div
+                    ng-include="'/apps/frontApp/adv/searchResult/listing/inc_menu/house.html'"
+                    ng-if="env.search.query.category==2"></div>
+
             <button type="button" class="btn btn-primary">Search</button>
             <hr>
             <a href="/">Back to searching details</a>

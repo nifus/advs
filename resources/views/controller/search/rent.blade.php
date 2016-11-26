@@ -68,7 +68,7 @@
                 </div>
                 <h4>Location</h4>
                 <div class="col-md-12">
-                    <city-select ng-model="env.address" radius="search.radius" ></city-select>
+                    <city-select ng-model="search" ></city-select>
                 </div>
 
 

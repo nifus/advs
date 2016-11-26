@@ -57,7 +57,6 @@
             heating: 'Any',
             pets: 'Any',
             radius: "1",
-            cities:[]
         };
 
 
@@ -78,7 +77,7 @@
 
 
 
-        $scope.$watch('env.address', function (value) {
+       /* $scope.$watch('env.address', function (value) {
             if ( angular.isObject(value)){
                 $scope.search.lat=value.lat;
                 $scope.search.lng=value.lng;
@@ -90,8 +89,7 @@
                     $scope.search.address=value.address
                 }
             }
-
-        }, true);
+        }, true);*/
 
 
         $scope.clearCityField = function(){
