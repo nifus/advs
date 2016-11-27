@@ -46,7 +46,7 @@
 
                         <div class="col-md-2">
                             <label class="radio-inline">
-                                <input type="radio"  ng-model="env.filters.type" value="sell"> Selling
+                                <input type="radio"  ng-model="env.filters.type" value="sale"> saleing
                             </label>
                         </div>
 
@@ -60,7 +60,7 @@
                     </div>
                 </div>
 
-                <div ng-show="env.filters.type!='sell'">
+                <div ng-show="env.filters.type!='sale'">
                 <h4>Renting</h4>
                 <div class="row" ng-repeat="adv in env.advs.rent">
                     <div class="col-md-11">
@@ -128,8 +128,8 @@
 
                 <div ng-show="env.filters.type!='rent'">
 
-                <h4>Selling</h4>
-                <div class="row" ng-repeat="adv in env.advs.sell">
+                <h4>saleing</h4>
+                <div class="row" ng-repeat="adv in env.advs.sale">
                     <div class="col-md-11">
                         <table class="table adv">
                             <tr>

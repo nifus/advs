@@ -19,7 +19,7 @@
                     expired: 0,
                     blocked: 0
                 },
-                sell:{
+                sale:{
                     total: 0,
                     payment_waiting: 0,
                     active: 0,

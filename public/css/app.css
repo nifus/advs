@@ -340,3 +340,6 @@ textarea.desc{
     height: 100px!important;
 }
 
+#listing div.adv {
+    height: 270px
+}

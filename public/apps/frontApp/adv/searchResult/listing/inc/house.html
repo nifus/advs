@@ -1,9 +1,9 @@
-<div class="col-md-5" style="height: 270px" ng-repeat="row in env.current">
+<div class="col-md-5 adv" ng-repeat="row in env.current">
     <table class="table table-bordered">
         <tr class="info">
             <td colspan="3">
                 <div style="float: left;width:80%;overflow: hidden">
-                    <a ng-href="/search/{{root.result_id}}#/view{{row.id}}" ng-click="openAdv(row.id)" ng-bind-html="row.title|to_trusted"></a>
+                    <a ng-href="/search/{{env.result_id}}#/view{{row.id}}"  ng-bind-html="row.title|to_trusted"></a>
                 </div>
 
                 <div style="float: right;width: 50px">
@@ -17,8 +17,8 @@
             </td>
         </tr>
         <tr>
-            <td rowspan="5" style="width: 200px">
-                <a ng-href="/search/{{root.result_id}}#/view{{row.id}}">
+            <td rowspan="6" style="width: 200px">
+                <a ng-href="/search/{{env.result_id}}#/view{{row.id}}">
                     <img ng-src="{{row.MainPhoto}}" style="width:200px" alt="">
                 </a>
             </td>
@@ -26,17 +26,23 @@
             <td>{{row.living_area}} m<sup>2</sup></td>
         </tr>
         <tr>
+            <td translate>Plot area</td>
+            <td>{{row.plot_area}} m<sup>2</sup></td>
+        </tr>
+        <tr>
             <td translate>Rooms</td>
             <td>{{row.rooms}}</td>
         </tr>
         <tr>
             <td translate>City</td>
-            <td>{{env.city.city}}</td>
+            <td>{{row.address.city}}</td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align: center">Private</td>
+            <td colspan="2" style="text-align: center">
+                <strong>{{row.author.IsPrivate===true ? "Private" : "ESTATE AGENCY"}} </strong>
+            </td>
         </tr>
-        <tr style="border-top: blue 2px solid">
+        <tr>
             <td translate>Cold rent</td>
             <td>{{row.cold_rent|currency:'€'}}</td>
         </tr>

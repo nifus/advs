@@ -28,7 +28,7 @@ class AdvSeeder extends Seeder
         \DB::table('advs')->truncate();
         \DB::table('advs_fav')->truncate();
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 1500; $i++) {
 
             $category = $faker->numberBetween(1,9);
             $eq_category = $faker->randomElement([1,2,4,6,7,8]);
@@ -57,7 +57,6 @@ class AdvSeeder extends Seeder
                 'title' => $faker->sentence,
                 'category' => $category,
                 'desc' => $faker->text,
-                'props'=> '',
                 'subcategory'=> $faker->randomElement(Adv::getSubCategories($category))['id'],
                 'equipments'=> $faker->randomElements( Adv::getEquipments($eq_category) ),
                 'created_at' => $faker->dateTimeThisMonth(),
@@ -79,6 +78,56 @@ class AdvSeeder extends Seeder
                 'lat' => $place['lat'],
                 'city_id' => $place['id'],
 
+                'address'=>[
+                    "city"=>"Приозерск",
+                    "region"=>"Ленинградская область",
+                    "country"=>"RU",
+                    "house_number"=>"37",
+                    "street"=>"Чапаева",
+                    "zip"=>"610035",
+                    "distances"=>[
+                        "transport"=>1,
+                        "driving"=>2,
+                        "autoban"=>3,
+                        "airport"=>4
+                    ],
+                    "display_house"=>true
+                ],
+                "energy"=>[
+                    "class"=>"Any",
+                    "source"=>"Geothermal energy",
+                    "modernization_year"=>1,
+                    "heating"=>"Self-contained central heating",
+                    "pass"=>"Available",
+                    "pass_date"=>"Till 30.04.14 (EnEV 2009)",
+                    "pass_type"=>"Requirement pass",
+                    "consumption"=>"1234"
+                ],
+                "author"=>[
+                    "sex"=>"male",
+                    "name"=>"Alex",
+                    "surname"=>"Bunzya",
+                    "email"=>"a.bunzya@gmail.com",
+                    "phone"=>"1231321222",
+                    "hide_contacts"=>true,
+                    "IsPrivate"=> $faker->randomElement([true, false])
+                ],
+                "finance"=>[
+                    "ancillary_cost_included"=>"0",
+                    "no_ancillary_cost"=>true,
+                    "no_caution_money"=>false,
+                    "ancillary_cost"=>2,
+                    "heating_cost"=>3,
+                    "total_cost"=>4,
+                    "caution_money"=>5
+                ],
+                "props"=>[
+                    "pets"=>"Any",
+                    "floor_cover"=>"Any",
+                    "build_year"=>1222,
+                    "number_of_garage"=>5,
+                    "garage"=>"Duplex"
+                ]
 
                 //air_conditioner
                 //edp_cabling

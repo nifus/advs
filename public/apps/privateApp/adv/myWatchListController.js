@@ -10,7 +10,7 @@
         $scope.env = {
             advs: {
                 rent:[1],
-                sell:[]
+                sale:[]
             },
             loading: true,
             news: [],
@@ -19,7 +19,7 @@
             },
             order: 'created_down',
             current_rent: 1,
-            current_sell: 1
+            current_sale: 1
         };
 
 
@@ -31,7 +31,7 @@
 
 
                 $scope.env.advs.rent = $filter('filter')(result,{type:'rent'})
-                $scope.env.advs.rent = $filter('filter')(result,{type:'sell'})
+                $scope.env.advs.rent = $filter('filter')(result,{type:'sale'})
                 console.log($scope.env.advs)
             });
 
@@ -51,7 +51,7 @@
                         return true;
                     }
                 })
-                $scope.env.advs.sell = $scope.env.advs.sell.filter( function(adv){
+                $scope.env.advs.sale = $scope.env.advs.sale.filter( function(adv){
                     if ( adv.id!=item.id){
                         return true;
                     }
@@ -63,20 +63,20 @@
             switch(value){
                 case('price_up'):
                     $scope.env.advs.rent = $filter('orderBy')($scope.env.advs.rent,'-total_rent',1);
-                    $scope.env.advs.sell = $filter('orderBy')($scope.env.advs.sell,'-total_rent',1);
+                    $scope.env.advs.sale = $filter('orderBy')($scope.env.advs.sale,'-total_rent',1);
                     break;
                 case('price_down'):
                     $scope.env.advs.rent = $filter('orderBy')($scope.env.advs.rent,'-total_rent');
-                    $scope.env.advs.sell = $filter('orderBy')($scope.env.advs.sell,'-total_rent');
+                    $scope.env.advs.sale = $filter('orderBy')($scope.env.advs.sale,'-total_rent');
 
                     break;
                 case('created_up'):
                     $scope.env.advs.rent = $filter('orderBy')($scope.env.advs.rent,'-created_at',1);
-                    $scope.env.advs.sell = $filter('orderBy')($scope.env.advs.sell,'-created_at',1);
+                    $scope.env.advs.sale = $filter('orderBy')($scope.env.advs.sale,'-created_at',1);
                     break;
                 case('created_down'):
                     $scope.env.advs.rent = $filter('orderBy')($scope.env.advs.rent,'-created_at');
-                    $scope.env.advs.sell = $filter('orderBy')($scope.env.advs.sell,'-created_at');
+                    $scope.env.advs.sale = $filter('orderBy')($scope.env.advs.sale,'-created_at');
 
                     break;
             }

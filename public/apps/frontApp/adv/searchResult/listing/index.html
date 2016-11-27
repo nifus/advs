@@ -121,14 +121,17 @@
             </nav>
 
 
-            <div class="row" ng-if="env.display_map===false">
+            <div class="row" id="listing" ng-if="env.display_map===false">
                 <div
                         ng-include="'/apps/frontApp/adv/searchResult/listing/inc/flat.html'"
                         ng-if="env.search.query.category==1"></div>
+
                 <div
                         ng-include="'/apps/frontApp/adv/searchResult/listing/inc/house.html'"
                         ng-if="env.search.query.category==2"></div>
-
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/garage.html'"
+                        ng-if="env.search.query.category==3"></div>
             </div>
 
 
