@@ -21,9 +21,9 @@
         function uploadLink(scope, element, el2) {
 
             if (!scope.hideResult) {
-                var html = '<div class="row" style="margin:10px"><div style="margin:5px" class="col-md-3" ng-repeat="item in ngModel" style="text-align: right">' +
-                    '<img ng-src="data:{{item.filetype}};base64,{{item.base64}}" style="width: 200px" ng-show="item.base64!=undefined">' +
-                    '<img ng-src="{{item.base64==undefined ? item : \'\'}}" style="width: 200px" ng-show="item.base64==undefined">' +
+                var html = '<div class="row" style="margin:10px"><div style="margin:5px" class="col-md-2" ng-repeat="item in ngModel" style="text-align: right">' +
+                    '<img ng-src="data:{{item.filetype}};base64,{{item.base64}}" style="width: 100%;" ng-show="item.base64!=undefined">' +
+                    '<img ng-src="{{item.base64==undefined ? item : \'\'}}" style="width: 100%;" ng-show="item.base64==undefined">' +
                     '<button type="button" style="position: absolute;left:15px;top:0px" ng-click="deleteItem($index)" class="btn btn-danger">' +
                     '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div></div>';
             } else {
@@ -83,8 +83,14 @@
 
                 if (angular.isArray($scope.ngModel) && angular.isArray(value)) {
                     for (var i in value) {
-                        if ($scope.ngModel.length < max)
-                            $scope.ngModel.push(value[i])
+                        if ($scope.ngModel.length < max){
+                            if ( value[i].filetype.indexOf('image')!==-1){
+                                $scope.ngModel.push(value[i])
+                            }else{
+                                alertify.error( 'File '+value[i].filename+' is not an image' );
+                            }
+                        }
+
                     }
                 } else if (angular.isArray($scope.ngModel) && angular.isObject(value)) {
                     if ($scope.ngModel.length < max)
@@ -94,7 +100,7 @@
                 if ($scope.ngChange) {
                     $scope.ngChange($scope.ngModel);
                 }
-                console.log($scope.ngModel)
+
             }, true);
 
 

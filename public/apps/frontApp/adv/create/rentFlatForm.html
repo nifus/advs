@@ -10,7 +10,7 @@
                 <input type="text" ng-autocomplete ng-model="env.address.value" details="env.address.details"
                        name="address"
                        class="form-control" id="address_field" required>
-                <div class="alert alert-warning" role="alert" ng-if="env.display_addr_error && env.submit" translate>You should enter valid address</div>
+                <div class="alert alert-warning" role="alert" style="margin: 5px;" ng-if="env.display_addr_error && env.submit" translate>You should enter valid address</div>
 
             </div>
         </div>
@@ -271,7 +271,7 @@
         <label class="col-sm-2 control-label" translate>Energy source </label>
         <div class="col-sm-10">
             <select class="form-control" ng-model="model.energy.source"
-                    ng-options="source for source in env.energy_source">
+                    ng-options="obj.id as obj.value for obj in env.energy_source">
                 <option value="" translate>Please select</option>
             </select>
 
@@ -282,7 +282,7 @@
         <label class="col-sm-2 control-label" translate>Method of heating</label>
         <div class="col-sm-10">
             <select class="form-control" ng-model="model.energy.heating"
-                    ng-options="source for source in env.heating">
+                    ng-options="obj.id as obj.value for obj in env.heating">
                 <option value="" translate>Please select</option>
             </select>
 
@@ -362,7 +362,7 @@
         <label class="col-sm-2 control-label" translate>Energy efficiency class</label>
         <div class="col-sm-10 ">
             <select class="form-control" ng-model="model.energy.class"
-                    ng-options="source for source in env.energy_class ">
+                    ng-options="obj.id as obj.value for obj in env.energy_class ">
                 <option value="" translate>Please select</option>
             </select>
         </div>
@@ -392,8 +392,13 @@
     <div class="form-group">
         <div class="col-md-12">
             <upload ng-model="model.photos" number-of-files="12" style="text-align: center;">
-                <img src="/images/upload.png" alt="" style=" width:100px" class="link">
-                <span translate>Click to upload</span>
+                <div style="text-align: center" ng-show="model.photos.length<12">
+                    <div style="width: 100px;margin-left:auto;margin-right:auto">
+                        <img src="/images/upload.png" alt="" style=" width:100px" class="link">
+                        <span translate>Click to upload</span>
+                    </div>
+
+                </div>
             </upload>
         </div>
 
@@ -407,7 +412,7 @@
     <div class="form-group" ng-class="{ 'has-error': adv_form.title.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Title of your advertisement</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.title" name="title" required>
+            <input type="text" class="form-control" ng-model="model.title" name="title" required max="80" maxlength="80">
         </div>
     </div>
 
