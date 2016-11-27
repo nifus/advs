@@ -5,20 +5,24 @@
         <div class="form-group" ng-class="{ 'has-error': adv_form.address.$invalid && env.submit==true }">
             <label class="col-sm-2 control-label" translate>Address</label>
             <div class="col-sm-10">
+
+
                 <input type="text" ng-autocomplete ng-model="env.address.value" details="env.address.details"
                        name="address"
-                       class="form-control" required>
+                       class="form-control" id="address_field" required>
+                <div class="alert alert-warning" role="alert" style="margin: 5px;" ng-if="env.display_addr_error && env.submit" translate>You should enter valid address</div>
+
             </div>
         </div>
 
 
-        <div class="form-group" ng-show="env.display_addr_details"
+        <div class="form-group" ng-if="env.display_addr_details"
              ng-class="{ 'has-error': (adv_form.street.$invalid || adv_form.house_number.$invalid) && env.submit==true }">
             <label class="col-sm-2 control-label" translate>Street, House number</label>
             <div class="col-sm-10 form-inline">
-                <input type="text" ng-model="model.address.street" style="width:70%" class="form-control"
+                <input type="text" ng-model="model.address.street" style="width:70%" class="form-control" disabled
                        placeholder="{{'Street'|translate}}" name="street" required>
-                <input type="text" ng-model="model.address.house_number" class="form-control"
+                <input type="text" ng-model="model.address.house_number" class="form-control" disabled
                        placeholder="{{'House number'|translate}}" name="house_number" required>
             </div>
         </div>
@@ -27,9 +31,9 @@
             <label class="col-sm-2 control-label" translate>Zip, City</label>
             <div class="col-sm-10 form-inline">
                 <input type="text" ng-model="model.address.zip" class="form-control" placeholder="{{'Zip'|translate}}"
-                       name="zip" required>
+                       name="zip" required disabled>
                 <input type="text" ng-model="model.address.city" style="width:70%" class="form-control" name="city"
-                       required
+                       required disabled
                        placeholder="{{'City'|translate}}">
             </div>
         </div>
@@ -135,7 +139,17 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Supply</label>
         <div class="col-sm-10">
-            <select class="form-control" ng-model="model.supply">
+            <select class="form-control" ng-model="model.props.supply">
+                <option value="Any" translate>Any</option>
+                <option value="Direct entrance" translate>Direct entrance</option>
+                <option value="No direct approach" translate>No direct approach</option>
+                <option value="Passenger car approach" translate>Passenger car approach</option>
+                <option value="Approach from ahead" translate>Approach from ahead</option>
+                <option value="Approach from behind" translate>Approach from behind</option>
+                <option value="Full-time" translate>Full-time</option>
+                <option value="Before noon" translate>Before noon</option>
+                <option value="Afternoon" translate>Afternoon</option>
+
             </select>
         </div>
     </div>
@@ -143,14 +157,14 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Number of garage/parking space</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.number_of_garage">
+            <input type="text" class="form-control" ng-model="model.props.number_of_garage">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Type of garage/parking space</label>
         <div class="col-sm-10">
-            <select class="form-control" ng-model="model.address.garage">
+            <select class="form-control" ng-model="model.props.garage">
                 <option value="Outdoor parking" translate>Outdoor parking</option>
                 <option value="Carport" translate>Carport</option>
                 <option value="Duplex" translate>Duplex</option>
@@ -165,13 +179,13 @@
         <label class="col-sm-2 control-label" translate>Air conditioner available</label>
         <div class="col-sm-10">
             <label class="radio-inline">
-                <input type="radio" ng-model="model.air_conditioner" value="Yes"> {{'Yes'|translate}}
+                <input type="radio" ng-model="model.props.air_conditioner" value="Yes"> {{'Yes'|translate}}
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.air_conditioner" value="No"> {{'No'|translate}}
+                <input type="radio" ng-model="model.props.air_conditioner" value="No"> {{'No'|translate}}
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.air_conditioner" value="By agreement"> {{'By agreement'|translate}}
+                <input type="radio" ng-model="model.props.air_conditioner" value="By agreement"> {{'By agreement'|translate}}
             </label>
         </div>
     </div>
@@ -208,7 +222,7 @@
                 <input type="radio" ng-model="model.price_type" value="Price per month"> {{'Price per month'|translate}}
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.price_type" value="Price per m2"> {{'Price per m2'|translate}}
+                <input type="radio" ng-model="model.price_type" value="Price per m2"> {{'Price per '|translate}} m<sup>2</sup>
             </label>
             <label class="radio-inline">
                 <input type="radio" ng-model="model.price_type" value="Price on request"> {{'Price on request'|translate}}
@@ -226,7 +240,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Ancillary cost(in &euro;)</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" placeholder="&euro;" ng-model="model.ancillary_cost">
+            <input type="number"  class="form-control"  ng-model="model.finance.ancillary_cost">
         </div>
     </div>
 
@@ -234,10 +248,10 @@
         <label class="col-sm-2 control-label" translate>Heating costs included in ancillary cost?</label>
         <div class="col-sm-10">
             <label class="radio-inline">
-                <input type="radio" value="1" ng-model="model.ancillary_cost_included"> {{'Yes'|translate}}
+                <input type="radio" value="1" ng-model="model.finance.ancillary_cost_included"> {{'Yes'|translate}}
             </label>
             <label class="radio-inline">
-                <input type="radio" value="0" ng-model="model.ancillary_cost_included"> {{'No'|translate}}
+                <input type="radio" value="0" ng-model="model.finance.ancillary_cost_included"> {{'No'|translate}}
             </label>
         </div>
     </div>
@@ -246,8 +260,8 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Please enter the heating costs</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.heating_cost"
-                   ng-disabled="model.ancillary_cost_included==1">
+            <input type="number"  class="form-control" ng-model="model.finance.heating_cost"
+                   ng-disabled="model.finance.ancillary_cost_included==1">
         </div>
     </div>
 
@@ -256,7 +270,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Caution money (in &euro;)</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.caution_money">
+            <input type="number"  class="form-control" ng-model="model.finance.caution_money">
         </div>
     </div>
 </div>
@@ -267,16 +281,16 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Last modernization of the building (in year)</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control"
-                   ng-model="model.address.energy_modernization_year">
+            <input type="number" class="form-control"
+                   ng-model="model.energy.modernization_year">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Energy source </label>
         <div class="col-sm-10">
-            <select class="form-control" ng-model="model.address.energy_source"
-                    ng-options="source for source in env.energy_source">
+            <select class="form-control" ng-model="model.energy.source"
+                    ng-options="obj.id as obj.value for obj in env.energy_source">
                 <option value="" translate>Please select</option>
             </select>
 
@@ -286,8 +300,8 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Method of heating</label>
         <div class="col-sm-10">
-            <select class="form-control" ng-model="model.address.heating"
-                    ng-options="source for source in env.heating">
+            <select class="form-control" ng-model="model.energy.heating"
+                    ng-options="obj.id as obj.value for obj in env.heating">
                 <option value="" translate>Please select</option>
             </select>
 
@@ -298,47 +312,47 @@
         <label class="col-sm-2 control-label" translate>Energy pass</label>
         <div class="col-sm-10">
             <label class="radio-inline">
-                <input type="radio" ng-model="model.address.energy_pass" value="Available"> {{'Available'|translate}}
+                <input type="radio" ng-model="model.energy.pass" value="Available"> {{'Available'|translate}}
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.address.energy_pass" value="Available on inspection"> {{'Available
+                <input type="radio" ng-model="model.energy.pass" value="Available on inspection"> {{'Available
                 on inspection'|translate}}
 
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.address.energy_pass" value="Underlies not EnEV"> {{'Underlies not
+                <input type="radio" ng-model="model.energy.pass" value="Underlies not EnEV"> {{'Underlies not
                 EnEV'|translate}}
             </label>
         </div>
     </div>
 
-    <div class="form-group" ng-show="model.address.energy_pass=='Available'">
+    <div class="form-group" ng-show="model.energy.pass=='Available'">
         <label class="col-sm-2 control-label" translate>Energy pass date</label>
         <div class="col-sm-10">
             <label class="radio-inline">
-                <input type="radio" ng-model="model.address.energy_pass_date" value="Till 30.04.14 (EnEV 2009)">
+                <input type="radio" ng-model="model.energy.pass_date" value="Till 30.04.14 (EnEV 2009)">
                 {{'Till 30.04.14 (EnEV 2009)'|translate}}
 
 
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.address.energy_pass_date" value="After 01.05.14 (EnEV 2014)">
+                <input type="radio" ng-model="model.energy.pass_date" value="After 01.05.14 (EnEV 2014)">
                 {{'After 01.05.14 (EnEV 2014)'|translate}}
             </label>
 
         </div>
     </div>
 
-    <div class="form-group" ng-show="model.address.energy_pass=='Available' && model.address.energy_pass_date">
+    <div class="form-group" ng-show="model.energy.pass=='Available' && model.energy.pass_date">
         <label class="col-sm-2 control-label" translate>Energy pass type</label>
         <div class="col-sm-10">
             <label class="radio-inline">
-                <input type="radio" ng-model="model.address.energy_pass_type" value="Requirement pass">
+                <input type="radio" ng-model="model.energy.pass_type" value="Requirement pass">
                 {{'Requirement pass'|translate}}
 
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.address.energy_pass_type" value="Consumption pass">
+                <input type="radio" ng-model="model.energy.pass_type" value="Consumption pass">
                 {{'Consumption pass'|translate}}
             </label>
 
@@ -347,27 +361,27 @@
 
 
     <div class="form-group"
-         ng-show="model.address.energy_pass=='Available' && model.address.energy_pass_date && model.address.energy_pass_type">
+         ng-show="model.energy.pass=='Available' && model.energy.pass_date && model.energy.pass_type">
         <label class="col-sm-2 control-label" translate>Energy consumption value</label>
         <div class="col-sm-10 form-inline">
             <div class="input-group">
-                <input type="text" class="form-control" ng-model="model.address.energy_consumption">
-                <span class="input-group-addon" translate>kWh/(m2*a)</span>
+                <input type="text" class="form-control" ng-model="model.energy.consumption">
+                <span class="input-group-addon" translate>kWh/(m<sup>2</sup>*a)</span>
             </div>
 
-            <label ng-show="model.address.energy_pass_type=='Consumption pass'">
-                <input type="checkbox" ng-model="model.address.energy_water_included"> {{'Warm water
+            <label ng-show="model.energy.pass_type=='Consumption pass'">
+                <input type="checkbox" ng-model="model.energy.water_included"> {{'Warm water
                 included'|translate}}
             </label>
         </div>
     </div>
 
     <div class="form-group"
-         ng-show="model.address.energy_pass_date=='After 01.05.14 (EnEV 2014)' && model.address.energy_pass=='Available'">
+         ng-show="model.energy.pass_date=='After 01.05.14 (EnEV 2014)' && model.energy.pass=='Available'">
         <label class="col-sm-2 control-label" translate>Energy efficiency class</label>
         <div class="col-sm-10 ">
-            <select class="form-control" ng-model="model.address.energy_class"
-                    ng-options="source for source in env.energy_class ">
+            <select class="form-control" ng-model="model.energy.class"
+                    ng-options="obj.id as obj.value for obj in env.energy_class ">
                 <option value="" translate>Please select</option>
             </select>
         </div>
@@ -378,12 +392,10 @@
 
 <div class="row">
     <h4 translate>Equipment</h4>
-
-
     <div class="form-group">
         <label class="col-sm-2 control-label"></label>
         <div class="col-sm-10">
-            <div class="col-md-4" ng-repeat="equipment in env.equipments">
+            <div class="col-md-4" ng-repeat="equipment in env.equipments[model.category]">
                 <label>
                     <input type="checkbox" checklist-model="model.equipments" checklist-value="equipment">
                     {{equipment}}
@@ -399,8 +411,13 @@
     <div class="form-group">
         <div class="col-md-12">
             <upload ng-model="model.photos" number-of-files="12" style="text-align: center;">
-                <img src="/images/upload.png" alt="" style=" width:100px" class="link">
-                <span translate>Click to upload</span>
+                <div style="text-align: center" ng-show="model.photos.length<12">
+                    <div style="width: 100px;margin-left:auto;margin-right:auto">
+                        <img src="/images/upload.png" alt="" style=" width:100px" class="link">
+                        <span translate>Click to upload</span>
+                    </div>
+
+                </div>
             </upload>
         </div>
 
@@ -414,14 +431,14 @@
     <div class="form-group" ng-class="{ 'has-error': adv_form.title.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Title of your advertisement</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.title" name="title" required>
+            <input type="text" class="form-control" ng-model="model.title" name="title" required max="80" maxlength="80">
         </div>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error': adv_form.desc.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Description</label>
         <div class="col-sm-10">
-            <textarea class="form-control" ng-model="model.desc" name="desc" required></textarea>
+            <textarea class="form-control desc" ng-model="model.desc" name="desc" required></textarea>
         </div>
     </div>
 </div>
@@ -433,40 +450,40 @@
         <label class="col-sm-2 control-label" translate>Title</label>
         <div class="col-sm-10">
             <label class="radio-inline">
-                <input type="radio" ng-model="model.author_sex" value="male"> {{'Mister'|translate}}
+                <input type="radio" ng-model="model.author.sex" value="male"> {{'Mister'|translate}}
             </label>
             <label class="radio-inline">
-                <input type="radio" ng-model="model.author_sex" value="female"> {{'Miss'|translate}}
+                <input type="radio" ng-model="model.author.sex" value="female"> {{'Miss'|translate}}
             </label>
         </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.author_name.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.author.name.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Forename</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.author_name" name="author_name" required>
+            <input type="text" class="form-control" ng-model="model.author.name" name="author_name" required>
         </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.author_surname.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.author.surname.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Surname</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.author_surname" name="author_surname" required>
+            <input type="text" class="form-control" ng-model="model.author.surname" name="author_surname" required>
         </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.author_surname.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.author.email.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Email</label>
         <div class="col-sm-10">
-            <input type="email" class="form-control" ng-model="model.author_email" name="author_email" required>
+            <input type="email" class="form-control" ng-model="model.author.email" name="author_email" required>
         </div>
     </div>
 
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.author_surname.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.author.phone.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Phone number</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.author_phone" name="author_phone" required>
+            <input type="text" class="form-control" ng-model="model.author.phone" name="author_phone" required>
         </div>
     </div>
 
@@ -479,9 +496,10 @@
 
         <div class="col-sm-10">
             <label class="checkbox-inline">
-                <input type="checkbox" ng-model="model.hide_contacts">
+                <input type="checkbox" ng-model="model.author.hide_contacts">
             </label>
 
         </div>
     </div>
+
 </div>

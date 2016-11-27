@@ -5,20 +5,24 @@
         <div class="form-group" ng-class="{ 'has-error': adv_form.address.$invalid && env.submit==true }">
             <label class="col-sm-2 control-label" translate>Address</label>
             <div class="col-sm-10">
+
+
                 <input type="text" ng-autocomplete ng-model="env.address.value" details="env.address.details"
                        name="address"
-                       class="form-control" required>
+                       class="form-control" id="address_field" required>
+                <div class="alert alert-warning" role="alert" style="margin: 5px;" ng-if="env.display_addr_error && env.submit" translate>You should enter valid address</div>
+
             </div>
         </div>
 
 
-        <div class="form-group" ng-show="env.display_addr_details"
+        <div class="form-group" ng-if="env.display_addr_details"
              ng-class="{ 'has-error': (adv_form.street.$invalid || adv_form.house_number.$invalid) && env.submit==true }">
             <label class="col-sm-2 control-label" translate>Street, House number</label>
             <div class="col-sm-10 form-inline">
-                <input type="text" ng-model="model.address.street" style="width:70%" class="form-control"
+                <input type="text" ng-model="model.address.street" style="width:70%" class="form-control" disabled
                        placeholder="{{'Street'|translate}}" name="street" required>
-                <input type="text" ng-model="model.address.house_number" class="form-control"
+                <input type="text" ng-model="model.address.house_number" class="form-control" disabled
                        placeholder="{{'House number'|translate}}" name="house_number" required>
             </div>
         </div>
@@ -27,9 +31,9 @@
             <label class="col-sm-2 control-label" translate>Zip, City</label>
             <div class="col-sm-10 form-inline">
                 <input type="text" ng-model="model.address.zip" class="form-control" placeholder="{{'Zip'|translate}}"
-                       name="zip" required>
+                       name="zip" required disabled>
                 <input type="text" ng-model="model.address.city" style="width:70%" class="form-control" name="city"
-                       required
+                       required disabled
                        placeholder="{{'City'|translate}}">
             </div>
         </div>
@@ -187,8 +191,13 @@
     <div class="form-group">
         <div class="col-md-12">
             <upload ng-model="model.photos" number-of-files="12" style="text-align: center;">
-                <img src="/images/upload.png" alt="" style=" width:100px" class="link">
-                <span translate>Click to upload</span>
+                <div style="text-align: center" ng-show="model.photos.length<12">
+                    <div style="width: 100px;margin-left:auto;margin-right:auto">
+                        <img src="/images/upload.png" alt="" style=" width:100px" class="link">
+                        <span translate>Click to upload</span>
+                    </div>
+
+                </div>
             </upload>
         </div>
 
@@ -202,14 +211,14 @@
     <div class="form-group" ng-class="{ 'has-error': adv_form.title.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Title of your advertisement</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.title" name="title" required>
+            <input type="text" class="form-control" ng-model="model.title" name="title" required max="80" maxlength="80">
         </div>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error': adv_form.desc.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Description</label>
         <div class="col-sm-10">
-            <textarea class="form-control" ng-model="model.desc" name="desc" required></textarea>
+            <textarea class="form-control desc" ng-model="model.desc" name="desc" required></textarea>
         </div>
     </div>
 </div>
@@ -229,21 +238,21 @@
         </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.author_name.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.author.name.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Forename</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" ng-model="model.author.name" name="author_name" required>
         </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.author_surname.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.author.surname.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Surname</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" ng-model="model.author.surname" name="author_surname" required>
         </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.author_email.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.author.email.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Email</label>
         <div class="col-sm-10">
             <input type="email" class="form-control" ng-model="model.author.email" name="author_email" required>
@@ -251,7 +260,7 @@
     </div>
 
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.author_phone.$invalid && env.submit==true }">
+    <div class="form-group" ng-class="{ 'has-error': adv_form.author.phone.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Phone number</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" ng-model="model.author.phone" name="author_phone" required>
