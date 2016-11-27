@@ -19,6 +19,7 @@ class CreateCity extends Migration
             $table->string('country')->nullable();
             $table->string('region')->nullable();
             $table->integer('zip')->nullable();
+            $table->string('radius')->default("1");
             $table->decimal('lng',9,6)->nullable();
             $table->decimal('lat',9,6)->nullable();
             $table->timestamps();

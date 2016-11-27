@@ -50,6 +50,7 @@
                 city: null,
                 zoom_radius: [
                     {radius: "1", zoom: 12},
+                    {radius: "2", zoom: 12},
                     {radius: "5", zoom: 11},
                     {radius: "10", zoom: 10},
                     {radius: "15", zoom: 10},
@@ -113,6 +114,10 @@
                 } else {
                     var service = new google.maps.places.PlacesService(document.getElementById('map'));
                     service.getDetails(row, function (response) {
+
+                        var radius = getRadius(response.geometry.viewport);
+                        radius = convertRadiusToNearest(radius);
+                        $scope.env.radius = radius.toString();
                         $scope.env.city = response.formatted_address;
                         var location = response.geometry.location;
                         initMap(location.lat(), location.lng(), $scope.env.radius).then(function (response) {
@@ -193,6 +198,40 @@
                         return $scope.env.zoom_radius[i].zoom;
                     }
                 }
+            }
+
+            function getRadius(bounds) {
+                var center = bounds.getCenter();
+                var ne = bounds.getNorthEast();
+                var r = 3963.0;
+                var lat1 = center.lat() / 57.2958;
+                var lon1 = center.lng() / 57.2958;
+                var lat2 = ne.lat() / 57.2958;
+                var lon2 = ne.lng() / 57.2958;
+                var dis = r * Math.acos(Math.sin(lat1) * Math.sin(lat2) +
+                        Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1));
+                return dis;
+            }
+
+            function convertRadiusToNearest(radius) {
+                var ar = [];
+                for (var i in  $scope.env.zoom_radius) {
+                    ar.push(parseInt($scope.env.zoom_radius[i].radius))
+                }
+                return closest(radius, ar);
+            }
+
+            function closest(num, arr) {
+                var curr = arr[0];
+                var diff = Math.abs(num - curr);
+                for (var val = 0; val < arr.length; val++) {
+                    var newdiff = Math.abs(num - arr[val]);
+                    if (newdiff < diff) {
+                        diff = newdiff;
+                        curr = arr[val];
+                    }
+                }
+                return curr;
             }
         }
     }
