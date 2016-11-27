@@ -2,15 +2,15 @@
     'use strict';
     angular.module('privateApp').controller('dashboardController', dashboardController);
 
-    dashboardController.$inject = ['$scope', 'userFactory', 'newsFactory','$q'];
+    dashboardController.$inject = ['$scope', 'userFactory', 'newsFactory', '$q'];
 
-    function dashboardController($scope, userFactory, newsFactory,$q) {
+    function dashboardController($scope, userFactory, newsFactory, $q) {
         $scope.user = null;
         $scope.promises = null;
         $scope.env = {
             loading: true,
             news: [],
-            stat:{
+            stat: {
                 rent: {
                     total: 0,
                     payment_waiting: 0,
@@ -19,7 +19,7 @@
                     expired: 0,
                     blocked: 0
                 },
-                sale:{
+                sale: {
                     total: 0,
                     payment_waiting: 0,
                     active: 0,
@@ -34,9 +34,9 @@
             $scope.user = $scope.$parent.env.user;
 
             var newsPromise = null;
-            if ($scope.user.isPrivateAccount()){
+            if ($scope.user.isPrivateAccount()) {
                 newsPromise = newsFactory.getLastPrivateNews();
-            }else{
+            } else {
                 newsPromise = newsFactory.getLastBusinessNews();
             }
 
@@ -44,13 +44,13 @@
                 $scope.env.news = news;
             });
 
-            var statPromise = $scope.user.getAdvStat().then( function(result){
+            var statPromise = $scope.user.getAdvStat().then(function (result) {
                 $scope.env.stat = result;
             });
 
-            $q.all([statPromise,newsPromise]).then(function(){
-               $scope.env.loading = false;
-            })
+            $q.all([statPromise, newsPromise]).then(function () {
+                $scope.env.loading = false;
+            });
             return deferred.promise;
         }
 

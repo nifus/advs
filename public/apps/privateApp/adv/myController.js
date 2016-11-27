@@ -7,6 +7,7 @@
     function myController($scope, userFactory,  $q, $filter, $state) {
         $scope.user = null;
         $scope.promises = null;
+        $scope.translate = $filter('translate');
         $scope.env = {
             advs: [],
             loading: true,

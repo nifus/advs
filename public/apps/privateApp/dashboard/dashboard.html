@@ -1,10 +1,11 @@
 <ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li class="active">Dashboard</li>
+    <li><a href="/" translate>Home</a></li>
+    <li class="active" translate>Dashboard</li>
 </ol>
 
 <div class="progress" ng-show="env.loading==true">
-    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+         aria-valuemax="100" style="width: 100%">
         <span class="sr-only">45% Complete</span>
     </div>
 </div>
@@ -17,7 +18,7 @@
     <div class="col-md-9">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Account overview</h3>
+                <h3 class="panel-title" translate>Account overview</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -26,33 +27,33 @@
                         <div class="col-md-6">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Advert type: Renting</h3>
+                                    <h3 class="panel-title" translate>Advert type: Renting</h3>
                                 </div>
                                 <div class="panel-body">
                                     <ul class="list-group">
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.rent.total}}</span>
-                                            Adverts currently:
+                                            {{'Adverts currently:'|translate}}
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.rent.payment_waiting}}</span>
-                                            Waiting for payment:
+                                            {{'Waiting for payment:'|translate}}
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.rent.active}}</span>
-                                            Advert active:
+                                            {{'Advert active:'|translate}}
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.rent.disabled}}</span>
-                                            Advert disabled:
+                                            {{'Advert disabled:'|translate}}
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.rent.expired}}</span>
-                                            Advert expired:
+                                            {{'Advert expired:'|translate}}
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.rent.blocked}}</span>
-                                            Advert blocked:
+                                            {{'Advert blocked:'|translate}}
                                         </li>
                                     </ul>
                                 </div>
@@ -62,33 +63,33 @@
                         <div class="col-md-6">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Advert type: Selling</h3>
+                                    <h3 class="panel-title" translate>Advert type: Selling</h3>
                                 </div>
                                 <div class="panel-body">
                                     <ul class="list-group">
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.sale.total}}</span>
-                                            Adverts currently:
+                                            {{'Adverts currently:'|translate}}
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.sale.payment_waiting}}</span>
-                                            Waiting for payment:
+                                            {{'Waiting for payment:'|translate}}
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.sale.active}}</span>
-                                            Advert active:
+                                            {{'Advert active:'|translate}}
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.sale.disabled}}</span>
-                                            Advert disabled:
+                                            {{'Advert disabled:'|translate}}
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.sale.expired}}</span>
-                                            Advert expired:
+                                            {{'Advert expired:'|translate}}
                                         </li>
                                         <li class="list-group-item">
                                             <span class="badge">{{env.stat.sale.blocked}}</span>
-                                            Advert blocked:
+                                            {{'Advert blocked:'|translate}}
                                         </li>
                                     </ul>
                                 </div>
@@ -97,20 +98,23 @@
 
 
                         <div class="col-md-12">
-                            <h4>On our own behalf</h4>
-                            <p>
-                                At first we want to say „Thank you“ for your decision to use ImmoSterne!
-                                We are willing to provide you a clear and comfortable platform.... And more...
-                            </p>
+                            <h4 translate>On our own behalf</h4>
+                            <div translate>
+                                <p>
+                                    At first we want to say „Thank you“ for your decision to use ImmoSterne!
+                                    We are willing to provide you a clear and comfortable platform.... And more...
+                                </p>
 
-                            <p>
-                                We wish you many fun and success by watching and creating advertisements on
-                                ImmoSterne,
-                            </p>
+                                <p>
+                                    We wish you many fun and success by watching and creating advertisements on
+                                    ImmoSterne,
+                                </p>
 
-                            <p>
-                                Your ImmoSterne Team
-                            </p>
+                                <p>
+                                    Your ImmoSterne Team
+                                </p>
+                            </div>
+
                         </div>
                     </div>
 
@@ -119,7 +123,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Notifications</h3>
+                                <h3 class="panel-title" translate>Notifications</h3>
                             </div>
                             <div class="panel-body" id="news">
 
@@ -129,7 +133,7 @@
                                     <p class="desc">{{post.desc}}</p>
                                 </div>
 
-                                <div ng-show="env.news.length==0">Sorry, not yet</div>
+                                <div ng-show="env.news.length==0" translate>Sorry, not yet</div>
                             </div>
                         </div>
 

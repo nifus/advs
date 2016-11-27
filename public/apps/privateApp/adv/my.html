@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li class="active">My advertisements</li>
+    <li><a href="/" translate>Home</a></li>
+    <li class="active" translate>My advertisements</li>
 </ol>
 
 <div class="progress" ng-show="env.loading==true">
@@ -18,35 +18,33 @@
         <div class="panel panel-primary">
             <div class="panel-heading" style="height:50px">
                 <select ng-model="env.order" style="float:right;width:300px" class="form-control">
-                    <option value="price_up">Price upward</option>
-                    <option value="price_down">Price downward</option>
-                    <option value="created_up">Created upward</option>
-                    <option value="created_down">Created downward</option>
+                    <option value="price_up" translate>Price upward</option>
+                    <option value="price_down" translate>Price downward</option>
+                    <option value="created_up" translate>Created upward</option>
+                    <option value="created_down" translate>Created downward</option>
                 </select>
 
-                <h3 class="panel-title"  style="float:left">My Advertisements</h3>
+                <h3 class="panel-title"  style="float:left" translate>My Advertisements</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="col-md-2">
-                            Show
-                        </div>
+                        <div class="col-md-2" translate>Show</div>
                         <div class="col-md-2">
                             <label class="radio-inline">
-                                <input type="radio"   ng-model="env.filters.type" value="all"> All
+                                <input type="radio"   ng-model="env.filters.type" value="all"> {{'All'|translate}}
                             </label>
                         </div>
 
                         <div class="col-md-2">
                             <label class="radio-inline">
-                                <input type="radio"   ng-model="env.filters.type" value="rent"> Renting
+                                <input type="radio"   ng-model="env.filters.type" value="rent"> {{'Renting'|translate}}
                             </label>
                         </div>
 
                         <div class="col-md-2">
                             <label class="radio-inline">
-                                <input type="radio"  ng-model="env.filters.type" value="sale"> saleing
+                                <input type="radio"  ng-model="env.filters.type" value="sale"> {{'Selling'|translate}}
                             </label>
                         </div>
 
@@ -55,13 +53,13 @@
 
                     <div class="col-md-6 text-right">
                         <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom<br>1"  >
-                            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Page description
+                            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> {{'Page description'|translate}}
                         </button>
                     </div>
                 </div>
 
                 <div ng-show="env.filters.type!='sale'">
-                <h4>Renting</h4>
+                <h4 translate>Renting</h4>
                 <div class="row" ng-repeat="adv in env.advs.rent">
                     <div class="col-md-11">
                         <table class="table adv">
@@ -71,37 +69,37 @@
                                 <td  colspan="2" style="background-color: lightblue;" class="text-right">{{adv.total_rent| currency:"€"}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left"  style="width: 15%">Area:</td>
+                                <td class="text-left"  style="width: 15%" translate>Area:</td>
                                 <td class="text-right" style="border-right:1px solid lightblue;width: 15%">{{adv.area}} m2</td>
-                                <td class="text-left" style="width: 25%">Created on:</td>
+                                <td class="text-left" style="width: 25%" translate>Created on:</td>
                                 <td class="text-right"  style="border-right:1px solid lightblue;width: 25%" >{{adv.CreateDate}}</td>
-                                <td class="text-left"  style="width: 20%">Visited</td>
+                                <td class="text-left"  style="width: 20%" translate>Visited</td>
                                 <td class="text-right" style="width: 20%">{{adv.visited}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">Rooms:</td>
+                                <td class="text-left" translate>Rooms:</td>
                                 <td class="text-right" style="border-right:1px solid lightblue">{{adv.rooms}}</td>
-                                <td class="text-left">Ends on:</td>
+                                <td class="text-left" translate>Ends on:</td>
                                 <td class="text-right"  style="border-right:1px solid lightblue">{{adv.EndDate}}</td>
                                 <td class="text-left"></td>
                                 <td class="text-right"></td>
                             </tr>
                             <tr>
-                                <td class="text-left">Floor/s:</td>
+                                <td class="text-left" translate>Floor/s:</td>
                                 <td class="text-right" style="border-right:1px solid lightblue">{{adv.floor}} of {{adv.floors}}</td>
-                                <td class="text-left">Deletion on:</td>
+                                <td class="text-left" translate>Deletion on:</td>
                                 <td class="text-right"  style="border-right:1px solid lightblue">{{adv.DeleteDate}}</td>
-                                <td class="text-left">On watchlist:</td>
+                                <td class="text-left" translate>On watchlist:</td>
                                 <td class="text-right">{{adv.favorite}}</td>
                             </tr>
                             <tr class="{{adv.status}}">
                                 <td class="text-center">{{adv.StatusStr}}</td>
                                 <td colspan="6">
-                                    {{adv.status=='blocked' ? 'This advert is BLOCKED. Please react on this advert otherwise it will be automatically deleted.' : ''}}
-                                    {{adv.status=='active' ? 'This advert is active. It can be found and watched by everyone.' : ''}}
-                                    {{adv.status=='payment_waiting' ? 'This advert is active. It can be found and watched by everyone.' : ''}}
-                                    {{adv.status=='disabled' ? 'You have disabled this advert. It can NOT be found and watched by everyone.' : ''}}
-                                    {{adv.status=='expired' ? 'This advert is expired. If you don‘t reactivate it, it will be automatically deleted.' : ''}}
+                                    {{adv.status=='blocked' ? translate('This advert is BLOCKED. Please react on this advert otherwise it will be automatically deleted.') : ''}}
+                                    {{adv.status=='active' ? translate('This advert is active. It can be found and watched by everyone.') : ''}}
+                                    {{adv.status=='payment_waiting' ? translate('This advert is active. It can be found and watched by everyone.') : ''}}
+                                    {{adv.status=='disabled' ? translate('You have disabled this advert. It can NOT be found and watched by everyone.') : ''}}
+                                    {{adv.status=='expired' ? translate('This advert is expired. If you don‘t reactivate it, it will be automatically deleted.') : ''}}
                                 </td>
                             </tr>
                         </table>
@@ -109,17 +107,17 @@
                     <div class="col-md-1">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action <span class="caret"></span>
+                                {{'Action'|translate}} <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="link" ng-click="editAdv(adv)">Edit</a></li>
-                                <li><a class="link" ng-click="extendAdv(adv)" ng-show="adv.status=='expired'">Extend</a></li>
+                                <li><a class="link" ng-click="editAdv(adv)" translate>Edit</a></li>
+                                <li><a class="link" ng-click="extendAdv(adv)" ng-show="adv.status=='expired'" translate>Extend</a></li>
 
-                                <li><a class="link" ng-click="disableAdv(adv)"  ng-show="(adv.status!='disabled' && adv.status!='blocked' && adv.status!='expired')">Disable</a></li>
-                                <li><a class="link" ng-click="enableAdv(adv)"  ng-show="adv.status=='disabled' ">Enable</a></li>
+                                <li><a class="link" ng-click="disableAdv(adv)"  ng-show="(adv.status!='disabled' && adv.status!='blocked' && adv.status!='expired')" translate>Disable</a></li>
+                                <li><a class="link" ng-click="enableAdv(adv)"  ng-show="adv.status=='disabled' " translate>Enable</a></li>
 
-                                <li><a class="link" ng-click="deleteAdv(adv)" >Delete</a></li>
-                                <li><a class="link" ng-click="editAdv(adv)" ng-show="adv.status=='blocked'">React</a></li>
+                                <li><a class="link" ng-click="deleteAdv(adv)" translate>Delete</a></li>
+                                <li><a class="link" ng-click="editAdv(adv)" ng-show="adv.status=='blocked'" translate>React</a></li>
                             </ul>
                         </div>
                     </div>
@@ -128,7 +126,7 @@
 
                 <div ng-show="env.filters.type!='rent'">
 
-                <h4>saleing</h4>
+                <h4 translate>Selling</h4>
                 <div class="row" ng-repeat="adv in env.advs.sale">
                     <div class="col-md-11">
                         <table class="table adv">
@@ -138,37 +136,37 @@
                                 <td  colspan="2" style="background-color: lightblue;" class="text-right">{{adv.total_rent| currency:"€"}} </td>
                             </tr>
                             <tr>
-                                <td class="text-left"  style="width: 15%">Area:</td>
-                                <td class="text-right" style="border-right:1px solid lightblue;width: 15%">{{adv.area}} m2</td>
-                                <td class="text-left" style="width: 25%">Created on:</td>
+                                <td class="text-left"  style="width: 15%" translate>Area:</td>
+                                <td class="text-right" style="border-right:1px solid lightblue;width: 15%">{{adv.area}} m<sup>2</sup></td>
+                                <td class="text-left" style="width: 25%" translate>Created on:</td>
                                 <td class="text-right"  style="border-right:1px solid lightblue;width: 25%" >{{adv.CreateDate}}</td>
-                                <td class="text-left"  style="width: 20%">Visited</td>
+                                <td class="text-left"  style="width: 20%" translate>Visited</td>
                                 <td class="text-right" style="width: 20%">{{adv.visited}}</td>
                             </tr>
                             <tr>
-                                <td class="text-left">Rooms:</td>
+                                <td class="text-left" translate>Rooms:</td>
                                 <td class="text-right" style="border-right:1px solid lightblue">{{adv.rooms}}</td>
-                                <td class="text-left">Ends on:</td>
+                                <td class="text-left" translate>Ends on:</td>
                                 <td class="text-right"  style="border-right:1px solid lightblue">{{adv.EndDate}}</td>
                                 <td class="text-left"></td>
                                 <td class="text-right"></td>
                             </tr>
                             <tr>
-                                <td class="text-left">Floor/s:</td>
+                                <td class="text-left" translate>Floor/s:</td>
                                 <td class="text-right" style="border-right:1px solid lightblue">{{adv.floor}} of {{adv.floors}}</td>
-                                <td class="text-left">Deletion on:</td>
+                                <td class="text-left" translate>Deletion on:</td>
                                 <td class="text-right"  style="border-right:1px solid lightblue">{{adv.DeleteDate}}</td>
-                                <td class="text-left">On watchlist:</td>
+                                <td class="text-left" translate>On watchlist:</td>
                                 <td class="text-right">{{adv.favorite}}</td>
                             </tr>
                             <tr class="{{adv.status}}">
                                 <td class="text-center">{{adv.StatusStr}}</td>
                                 <td colspan="6">
-                                    {{adv.status=='blocked' ? 'This advert is BLOCKED. Please react on this advert otherwise it will be automatically deleted.' : ''}}
-                                    {{adv.status=='active' ? 'This advert is active. It can be found and watched by everyone.' : ''}}
-                                    {{adv.status=='payment_waiting' ? 'This advert is active. It can be found and watched by everyone.' : ''}}
-                                    {{adv.status=='disabled' ? 'You have disabled this advert. It can NOT be found and watched by everyone.' : ''}}
-                                    {{adv.status=='expired' ? 'This advert is expired. If you don‘t reactivate it, it will be automatically deleted.' : ''}}
+                                    {{adv.status=='blocked' ? translate('This advert is BLOCKED. Please react on this advert otherwise it will be automatically deleted.') : ''}}
+                                    {{adv.status=='active' ? translate('This advert is active. It can be found and watched by everyone.') : ''}}
+                                    {{adv.status=='payment_waiting' ? translate('This advert is active. It can be found and watched by everyone.') : ''}}
+                                    {{adv.status=='disabled' ? translate('You have disabled this advert. It can NOT be found and watched by everyone.') : ''}}
+                                    {{adv.status=='expired' ? translate('This advert is expired. If you don‘t reactivate it, it will be automatically deleted.') : ''}}
                                 </td>
                             </tr>
                         </table>
@@ -176,17 +174,17 @@
                     <div class="col-md-1">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action <span class="caret"></span>
+                                {{'Action'|translate}} <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="link" ng-click="editAdv(adv)">Edit</a></li>
-                                <li><a class="link" ng-click="extendAdv(adv)" ng-show="adv.status=='expired'">Extend</a></li>
+                                <li><a class="link" ng-click="editAdv(adv)" translate>Edit</a></li>
+                                <li><a class="link" ng-click="extendAdv(adv)" ng-show="adv.status=='expired'" translate>Extend</a></li>
 
-                                <li><a class="link" ng-click="disableAdv(adv)"  ng-show="(adv.status!='disabled' && adv.status!='blocked' && adv.status!='expired')">Disable</a></li>
-                                <li><a class="link" ng-click="enableAdv(adv)"  ng-show="adv.status=='disabled' ">Enable</a></li>
+                                <li><a class="link" ng-click="disableAdv(adv)"  ng-show="(adv.status!='disabled' && adv.status!='blocked' && adv.status!='expired')" translate>Disable</a></li>
+                                <li><a class="link" ng-click="enableAdv(adv)"  ng-show="adv.status=='disabled' " translate>Enable</a></li>
 
-                                <li><a class="link" ng-click="deleteAdv(adv)" >Delete</a></li>
-                                <li><a class="link" ng-click="editAdv(adv)" ng-show="adv.status=='blocked'">React</a></li>
+                                <li><a class="link" ng-click="deleteAdv(adv)" translate>Delete</a></li>
+                                <li><a class="link" ng-click="editAdv(adv)" ng-show="adv.status=='blocked'" translate>React</a></li>
                             </ul>
                         </div>
                     </div>

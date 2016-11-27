@@ -12,6 +12,7 @@ return [
         ['id'=>6, 'name'=>'Pack 30', 'slots'=>30, 'price'=>525, 'additional'=>17.5],
         ['id'=>7, 'name'=>'Pack 40', 'slots'=>40, 'price'=>600, 'additional'=>15],
     ],
+
     'agb'=>'Stand: September 2015
                 1. Allgemeines / Vertragsabschluss
                 1.1 Diese Allgemeinen Geschäftsbedingungen (nachfolgend „AGB“) der/des ALTERNATE GmbH (nachfolgend „Verkäufer“) gelten für alle Verträge, die ein Verbraucher oder Unternehmer (nachfolgend „Kunde“)

@@ -184,7 +184,12 @@ class Adv extends Model
     {
         return $this->belongsToMany('App\User', 'advs_fav', 'adv_id','user_id');
     }
-
+    function toArray()
+    {
+        $array = parent::toArray();
+        $array['StatusStr'] = $this->StatusStr;
+        return $array;
+    }
     function getArray($user_id=null)
     {
         $array = parent::toArray();

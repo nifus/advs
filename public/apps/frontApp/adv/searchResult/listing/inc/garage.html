@@ -1,0 +1,40 @@
+<div class="col-md-5 adv" ng-repeat="row in env.current">
+    <table class="table table-bordered">
+        <tr class="info">
+            <td colspan="3">
+                <div style="float: left;width:80%;overflow: hidden">
+                    <a ng-href="/search/{{env.result_id}}#/view{{row.id}}"  ng-bind-html="row.title|to_trusted"></a>
+                </div>
+
+                <div style="float: right;width: 50px">
+
+                    <button
+                            ng-click="addToFav(row, !row.IsFav)"
+                            ng-class="{'btn-default':row.IsFav===false,'btn-danger':row.IsFav===true}"
+                            type="button" class="btn"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3" style="width: 200px">
+                <a ng-href="/search/{{env.result_id}}#/view{{row.id}}">
+                    <img ng-src="{{row.MainPhoto}}" style="width:200px" alt="">
+                </a>
+            </td>
+            <td translate>Area</td>
+            <td>{{row.area}} m<sup>2</sup></td>
+        </tr>
+
+
+        <tr>
+            <td colspan="2" style="text-align: center">
+                <strong>{{row.author.IsPrivate===true ? "Private" : "ESTATE AGENCY"}} </strong>
+            </td>
+        </tr>
+        <tr>
+            <td translate>Rent price</td>
+            <td>{{row.rent_price|currency:'€'}}</td>
+        </tr>
+    </table>
+</div>
