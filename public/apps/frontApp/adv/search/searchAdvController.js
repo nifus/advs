@@ -57,6 +57,10 @@
             heating: 'Any',
             pets: 'Any',
             radius: "1",
+            air_conditioner:"Any",
+            edp_cabling:"Any",
+            development:"Any",
+            building_permission:"Any"
         };
 
 

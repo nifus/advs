@@ -142,13 +142,14 @@
                     <div ng-include="'apps/frontApp/adv/create/rentCommercialLandForm.html'" ng-if="model.category==9 && model.type=='rent'"></div>
 
                     <div ng-include="'apps/frontApp/adv/create/saleFlatForm.html'"  ng-if="model.category==1 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHouseForm.html'" ng-if="model.category==2 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentGarageForm.html'" ng-if="model.category==3 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentOfficeForm.html'" ng-if="model.category==4 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHotelForm.html'" ng-if="model.category==6 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHallForm.html'" ng-if="model.category==7 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentRetailForm.html'" ng-if="model.category==8 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentCommercialLandForm.html'" ng-if="model.category==9 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/saleHouseForm.html'" ng-if="model.category==2 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/saleGarageForm.html'" ng-if="model.category==3 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/saleOfficeForm.html'" ng-if="model.category==4 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/saleBuildingForm.html'" ng-if="model.category==5 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/saleHotelForm.html'" ng-if="model.category==6 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/saleHallForm.html'" ng-if="model.category==7 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/saleRetailForm.html'" ng-if="model.category==8 && model.type=='sale'"></div>
+                    <div ng-include="'apps/frontApp/adv/create/saleCommercialLandForm.html'" ng-if="model.category==9 && model.type=='sale'"></div>
 
 
                     <div class="row form-horizontal" ng-show="model.category">
