@@ -2,12 +2,6 @@
     'use strict';
     angular.module('privateApp', ['core', 'satellizer', 'ngCookies', 'ui.router', 'ui.bootstrap', 'validation.match', 'ngAutocomplete', 'gettext']).config(function ($stateProvider, $urlRouterProvider) {
 
-        /*var refer = window.location.href;
-         if ( refer.indexOf('pr64-coworking')==-1 ){
-         window.server = 'http://coworking.ru/';
-         }else{
-         window.server = '/';
-         }*/
 
         $urlRouterProvider.otherwise('/dashboard');
 
@@ -59,7 +53,6 @@
 
     }).filter('limitFromTo', function () {
         return function (input, from, to) {
-            //console.log(input)
             return (input != undefined) ? input.slice(from, to) : '';
         }
     });

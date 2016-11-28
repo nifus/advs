@@ -343,3 +343,67 @@ textarea.desc{
 #listing div.adv {
     height: 270px
 }
+
+table.tariffs td, table.tariffs th {
+    border-top:none!important;
+}
+
+table.tariffs td{
+    cursor: pointer;
+}
+table.tariffs th {
+    border:none;
+    border-bottom: solid 1px orange;
+    border-right: solid 1px orange;
+    text-align: center;
+    padding:0px;
+}
+table.tariffs th.last {
+    border-bottom: solid 1px orange;
+    border-right: none
+}
+
+
+table.tariffs td {
+    border-right: solid 1px orange;
+    text-align: center;
+}
+table.tariffs td.first, table.tariffs td.last{
+     border-right: none;
+    padding:0px;
+    vertical-align: middle;
+}
+
+
+table div{
+    margin:10px;
+    font-weight: 100;
+}
+table td div.package {
+    background-color: #fcf8e3;
+}
+table th div.package {
+    background-color: #faebcc;
+}
+
+
+table td div.slots {
+    background-color: #d9edf7;
+}
+table th div.slots {
+    background-color: #bce8f1;
+}
+
+
+table td div.price {
+    background-color: #dff0d8;
+}
+table th div.price {
+    background-color: #d6e9c6;
+}
+table td div.extra {
+     background-color: #f5f5f5;
+ }
+table th div.extra {
+    background-color: #ccc;
+}

@@ -3,14 +3,14 @@
     <li class="active" translate>My subscription</li>
 </ol>
 
-<div class="progress" ng-show="env.loading==true">
+<div class="progress" ng-if="env.loading==true">
     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
          aria-valuemax="100" style="width: 100%">
         <span class="sr-only">45% Complete</span>
     </div>
 </div>
 
-<div class="row" ng-show="env.loading==false">
+<div class="row" ng-if="env.loading==false">
     <div class="col-md-3">
         <left-menu></left-menu>
     </div>
@@ -151,15 +151,15 @@
                             </table>
                         </div>
                         <div class="col-md-4">
-                            <h4>Advert type: Renting</h4>
+                            <h4 translate>Advert type: Renting</h4>
                             <table style="width: 100%">
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Adverts currently:</td>
-                                    <td style="width:20%;text-align: right">4</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.rent.total}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Waiting for payment:</td>
-                                    <td style="width:20%;text-align: right">1</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.rent.payment_waiting}}</td>
                                 </tr>
 
                                 <tr style="height: 50px">
@@ -168,32 +168,32 @@
 
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Advert active:</td>
-                                    <td style="width:20%;text-align: right">15</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.rent.active}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Advert disabled:</td>
-                                    <td style="width:20%;text-align: right">1</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.rent.disabled}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Advert expired:</td>
-                                    <td style="width:20%;text-align: right">2</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.rent.expired}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Advert blocked</td>
-                                    <td style="width:20%;text-align: right">2</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.rent.blocked}}</td>
                                 </tr>
                             </table>
                         </div>
                         <div class="col-md-4">
-                            <h4>Advert type: Selling</h4>
+                            <h4 translate>Advert type: Selling</h4>
                             <table style="width: 100%">
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Adverts currently:</td>
-                                    <td style="width:20%;text-align: right">4</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.sale.total}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Waiting for payment:</td>
-                                    <td style="width:20%;text-align: right">1</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.sale.payment_waiting}}</td>
                                 </tr>
 
                                 <tr style="height: 50px">
@@ -202,19 +202,19 @@
 
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Advert active:</td>
-                                    <td style="width:20%;text-align: right">15</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.sale.active}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Advert disabled:</td>
-                                    <td style="width:20%;text-align: right">1</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.sale.disabled}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Advert expired:</td>
-                                    <td style="width:20%;text-align: right">2</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.sale.expired}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Advert blocked</td>
-                                    <td style="width:20%;text-align: right">2</td>
+                                    <td style="width:20%;text-align: right">{{env.stat.sale.blocked}}</td>
                                 </tr>
                             </table>
                         </div>
@@ -227,49 +227,36 @@
                         <h3 class="panel-title" translate>Change subscription</h3>
                     </div>
                     <div class="panel-body">
-                        <table class="table">
+                        <table class="table tariffs table-hover" >
                             <tr>
-                                <td colspan="2">Package</td>
-                                <td>Slots per month</td>
-                                <td>Price per month</td>
-                                <td>Each extra slot</td>
+                                <th colspan="2"><div class="package" translate>Package</div></th>
+                                <th ><div class="slots" translate>Slots per month</div></th>
+                                <th ><div class="price" translate>Price per month</div></th>
+                                <th class="last"> <div class="extra" translate>Each extra slot</div></th>
                             </tr>
-                            <tr>
-                                <td><input type="radio"></td>
-                                <td>Pack 1</td>
-                                <td>1</td>
-                                <td>30,00 €</td>
-                                <td>+ 30,00 €</td>
+                            <tr ng-repeat="tariff in env.tariffs" ng-click="">
+                                <td class="first"><input type="radio" ng-model="user.tariff" value="{{tariff.id}}"></td>
+                                <td ><div class="package" translate>{{tariff.name}}</div></td>
+                                <td> <div class="slots">{{tariff.slots}}</div></td>
+                                <td> <div class="price">{{tariff.price| currency:'€'}}</div></td>
+                                <td class="last"> <div class="extra">+ {{tariff.additional| currency:'€'}}</div></td>
                             </tr>
                         </table>
 
                         <hr>
                         <div class="alert alert-warning" role="alert">Please note that the new subscription will work after your current subscription runs out.</div>
 
-                        <table style="width: 100%">
-                            <tr>
-                                <td style="width: 80%;text-align: left">
-                                    At the moment your current subscription (Pack 20) is valid to: <br>
-                                    <div class="alert alert-success" role="alert">It will be automatically extended if it will not be terminated</div>
 
+                        <div  class="alert alert-warning" role="alert">
+                            At the moment your current subscription (Pack 20) is valid to: <strong>12.08.2016</strong>
+                        </div>
+                        <div class="alert alert-warning" role="alert">It will be automatically extended if it will not be terminated</div>
 
-                                </td>
-                                <td style="width: 20%;text-align: right">12.08.2016</td>
-                            </tr>
-                            <tr>
+                        <div class="row">
+                            <div class="col-md-6 text-left"><button type="button" class="btn btn-primary">End subscription</button></div>
+                            <div class="col-md-6 text-right"><button type="button" class="btn btn-primary">Change subscription</button></div>
+                        </div>
 
-                                <td style="width: 80%;text-align: left">A new subscription would work from:</td>
-                                <td style="width: 20%;text-align: right">12.08.2016</td>
-                            </tr>
-
-                            <tr>
-
-                                <td style="width: 80%;text-align: left"><button type="button" class="btn btn-primary">End subscription</button>
-                                </td>
-                                <td style="width: 20%;text-align: right"><button type="button" class="btn btn-primary">Change subscription</button>
-                                </td>
-                            </tr>
-                        </table>
                     </div>
                 </div>
             </div>
