@@ -1,13 +1,18 @@
 <div>
     <div class="list-group">
         <a ui-sref="dashboard" ui-sref-active="active" class="list-group-item">
-            Private Account <br>
+            <span translate ng-if="user.group_id==3">Business Account</span>
+            <span translate ng-if="user.group_id==2">Private Account</span>
+            <br>
             {{user.email}}
         </a>
-        <a ui-sref="my-adv" ui-sref-active="active" class="list-group-item">My advertisements</a>
-        <a ui-sref="my-watch-list" ui-sref-active="active" class="list-group-item">My watchlist</a>
-        <a ui-sref="my-settings" ui-sref-active="active"  class="list-group-item">My settings</a>
-        <a ui-sref="help" ui-sref-active="active" class="list-group-item">Help</a>
+        <a ui-sref="my-adv" ui-sref-active="active" class="list-group-item" translate>My advertisements</a>
+        <a ui-sref="my-watch-list" ui-sref-active="active" class="list-group-item" translate>My watchlist</a>
+
+        <br>
+        <a ui-sref="my-subscription" ui-sref-active="active"  class="list-group-item" translate ng-if="user.group_id==3">My subscription</a>
+        <a ui-sref="my-settings" ui-sref-active="active"  class="list-group-item" translate>My settings</a>
+        <a ui-sref="help" ui-sref-active="active" class="list-group-item" translate>Help</a>
     </div>
 
     <div class="adv">ADV</div>

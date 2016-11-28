@@ -1,0 +1,281 @@
+<ol class="breadcrumb">
+    <li><a href="/" translate>Home</a></li>
+    <li class="active" translate>My subscription</li>
+</ol>
+
+<div class="progress" ng-show="env.loading==true">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+         aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">45% Complete</span>
+    </div>
+</div>
+
+<div class="row" ng-show="env.loading==false">
+    <div class="col-md-3">
+        <left-menu></left-menu>
+    </div>
+    <div class="col-md-9">
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" translate>Your current subscription</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 50%;text-align: left">Current Status:</td>
+                                <td style="width: 50%;text-align: right;color:green">Active</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%;text-align: left">Active from</td>
+                                <td style="width: 50%;text-align: right">12.07.2016</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%;text-align: left">Active to</td>
+                                <td style="width: 50%;text-align: right">12.08.2016</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%;text-align: left">Running out in</td>
+                                <td style="width: 50%;text-align: right">16 Days</td>
+                            </tr>
+                            <tr style="height: 50px">
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%;text-align: left">Ordered package</td>
+                                <td style="width: 50%;text-align: right"><strong>Pack 20</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%;text-align: left">Additional slots</td>
+                                <td style="width: 50%;text-align: right"><strong>3</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%;text-align: left">Monthly rate</td>
+                                <td style="width: 50%;text-align: right">550,00 €</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" translate>Buy additional slot</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>You can buy unlimited additionals slots
+                            to your subscription.
+                            The price of each slot depends from
+                            your booked package (see table on the
+                            right).</p>
+                        <p>But please note, that each additional
+                            slot can only be used ONE time. So you
+                            can only create ONE advertisement for
+                            ONE additional slot.</p>
+                        <p>
+                            This means
+                            advertisement, which was created via
+                            an additional slot – this slot is also be
+                            deleted and you have to buy a new
+                            additional slot (of course only if you
+                            need one more again).</p>
+
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 70%;text-align: left">Current addtional slots in use</td>
+                                <td style="width: 30%;text-align: right">1</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70%;text-align: left">Unused addtional slots</td>
+                                <td style="width: 30%;text-align: right">2</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70%;text-align: left">Buy additional slot</td>
+                                <td style="width: 30%;text-align: right">2</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70%;text-align: left">Price <br>( - x 20,00 € )</td>
+                                <td style="width: 30%;text-align: right">0,00 €</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> <button>Buy additional slot</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        <div class="col-md-8">
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" translate>Current overview</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-4">
+                            <h4>Package: Pack 20</h4>
+                            <table style="width: 100%">
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Max. package slots</td>
+                                    <td style="width:20%;text-align: right">20</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Package slots in use</td>
+                                    <td style="width:20%;text-align: right">5</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Package slots free</td>
+                                    <td style="width:20%;text-align: right">15</td>
+                                </tr>
+                                <tr style="height: 50px">
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Addtional slots in use</td>
+                                    <td style="width:20%;text-align: right">1</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Addtional slots useable</td>
+                                    <td style="width:20%;text-align: right">2</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Advert type: Renting</h4>
+                            <table style="width: 100%">
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Adverts currently:</td>
+                                    <td style="width:20%;text-align: right">4</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Waiting for payment:</td>
+                                    <td style="width:20%;text-align: right">1</td>
+                                </tr>
+
+                                <tr style="height: 50px">
+                                    <td colspan="2"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Advert active:</td>
+                                    <td style="width:20%;text-align: right">15</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Advert disabled:</td>
+                                    <td style="width:20%;text-align: right">1</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Advert expired:</td>
+                                    <td style="width:20%;text-align: right">2</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Advert blocked</td>
+                                    <td style="width:20%;text-align: right">2</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Advert type: Selling</h4>
+                            <table style="width: 100%">
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Adverts currently:</td>
+                                    <td style="width:20%;text-align: right">4</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Waiting for payment:</td>
+                                    <td style="width:20%;text-align: right">1</td>
+                                </tr>
+
+                                <tr style="height: 50px">
+                                    <td colspan="2"></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Advert active:</td>
+                                    <td style="width:20%;text-align: right">15</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Advert disabled:</td>
+                                    <td style="width:20%;text-align: right">1</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Advert expired:</td>
+                                    <td style="width:20%;text-align: right">2</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%;text-align: left" translate>Advert blocked</td>
+                                    <td style="width:20%;text-align: right">2</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" translate>Change subscription</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td colspan="2">Package</td>
+                                <td>Slots per month</td>
+                                <td>Price per month</td>
+                                <td>Each extra slot</td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio"></td>
+                                <td>Pack 1</td>
+                                <td>1</td>
+                                <td>30,00 €</td>
+                                <td>+ 30,00 €</td>
+                            </tr>
+                        </table>
+
+                        <hr>
+                        <div class="alert alert-warning" role="alert">Please note that the new subscription will work after your current subscription runs out.</div>
+
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 80%;text-align: left">
+                                    At the moment your current subscription (Pack 20) is valid to: <br>
+                                    <div class="alert alert-success" role="alert">It will be automatically extended if it will not be terminated</div>
+
+
+                                </td>
+                                <td style="width: 20%;text-align: right">12.08.2016</td>
+                            </tr>
+                            <tr>
+
+                                <td style="width: 80%;text-align: left">A new subscription would work from:</td>
+                                <td style="width: 20%;text-align: right">12.08.2016</td>
+                            </tr>
+
+                            <tr>
+
+                                <td style="width: 80%;text-align: left"><button type="button" class="btn btn-primary">End subscription</button>
+                                </td>
+                                <td style="width: 20%;text-align: right"><button type="button" class="btn btn-primary">Change subscription</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

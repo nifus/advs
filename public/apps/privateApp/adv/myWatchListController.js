@@ -2,9 +2,9 @@
     'use strict';
     angular.module('privateApp').controller('myWatchListController', myWatchListController);
 
-    myWatchListController.$inject = ['$scope', 'userFactory', '$filter', '$q'];
+    myWatchListController.$inject = ['$scope', 'userFactory', '$filter', '$q','$window'];
 
-    function myWatchListController($scope, userFactory, $filter, $q) {
+    function myWatchListController($scope, userFactory, $filter, $q, $window) {
         $scope.user = null;
         $scope.promises = null;
         $scope.env = {
@@ -25,6 +25,7 @@
 
         function initPage(deferred) {
             $scope.user = $scope.$parent.env.user;
+            $window.document.title = $filter('translate')('Watch List');
 
             var advPromise = $scope.user.getMyWatchAdvs().then(function (result) {
                 result = $filter('orderBy')(result,'-created_at');

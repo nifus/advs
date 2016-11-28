@@ -2,9 +2,9 @@
     'use strict';
     angular.module('privateApp').controller('settingsController', settingsController);
 
-    settingsController.$inject = ['$scope', '$state', '$filter', '$q'];
+    settingsController.$inject = ['$scope', '$state', '$filter', '$q','$window'];
 
-    function settingsController($scope, $state, $filter, $q) {
+    function settingsController($scope, $state, $filter, $q, $window) {
         $scope.user = null;
         $scope.promises = null;
         $scope.env = {
@@ -38,6 +38,8 @@
 
         function initPage(deferred) {
             $scope.user = $scope.$parent.env.user;
+            $window.document.title = $filter('translate')('Settings');
+
 
             $scope.payment_form = $scope.user;
             $scope.contact_form = $scope.user;

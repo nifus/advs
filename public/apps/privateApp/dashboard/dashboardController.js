@@ -2,9 +2,9 @@
     'use strict';
     angular.module('privateApp').controller('dashboardController', dashboardController);
 
-    dashboardController.$inject = ['$scope', 'userFactory', 'newsFactory', '$q'];
+    dashboardController.$inject = ['$scope', 'userFactory', 'newsFactory', '$q', '$window', '$filter'];
 
-    function dashboardController($scope, userFactory, newsFactory, $q) {
+    function dashboardController($scope, userFactory, newsFactory, $q, $window, $filter) {
         $scope.user = null;
         $scope.promises = null;
         $scope.env = {
@@ -31,6 +31,7 @@
         };
 
         function initPage(deferred) {
+            $window.document.title = $filter('translate')('Dashboard');
             $scope.user = $scope.$parent.env.user;
 
             var newsPromise = null;

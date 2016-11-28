@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('privateApp', ['core', 'satellizer', 'ngCookies', 'ui.router', 'ui.bootstrap', 'validation.match', 'ngAutocomplete','gettext']).config(function ($stateProvider, $urlRouterProvider) {
+    angular.module('privateApp', ['core', 'satellizer', 'ngCookies', 'ui.router', 'ui.bootstrap', 'validation.match', 'ngAutocomplete', 'gettext']).config(function ($stateProvider, $urlRouterProvider) {
 
         /*var refer = window.location.href;
          if ( refer.indexOf('pr64-coworking')==-1 ){
@@ -16,6 +16,7 @@
             templateUrl: 'apps/privateApp/dashboard/dashboard.html',
             controller: 'dashboardController'
         }).state('help', {
+            title: 'Help',
             url: '/help',
             templateUrl: 'apps/privateApp/help/help.html',
             controller: 'helpController'
@@ -31,6 +32,10 @@
             url: '/my-settings',
             templateUrl: 'apps/privateApp/settings/settings.html',
             controller: 'settingsController'
+        }).state('my-subscription', {
+            url: '/my-subscription',
+            templateUrl: 'apps/privateApp/subscription/subscription.html',
+            controller: 'subscriptionController'
         }).state('delete-account', {
             url: '/delete-account',
             templateUrl: 'apps/privateApp/deleteAccount/deleteAccount.html',
@@ -50,6 +55,8 @@
         var lang = localStorage.getItem('lang');
         lang = lang == undefined ? 'en' : lang;
         gettextCatalog.setCurrentLanguage(lang);
+
+
     }).filter('limitFromTo', function () {
         return function (input, from, to) {
             //console.log(input)

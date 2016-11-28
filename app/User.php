@@ -29,10 +29,10 @@ class User extends Authenticatable
     ];
 
 
-    public function Group()
+    /*public function Group()
     {
         return $this->hasOne('App\Group', 'id', 'group_id');
-    }
+    }*/
     public function Fav()
     {
         return $this->belongsToMany('App\Adv', 'advs_fav', 'user_id','adv_id');

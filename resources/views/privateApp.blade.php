@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  ng-app="privateApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('meta-header')</title>
+    <title></title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -50,8 +50,10 @@
     <script src="/apps/privateApp/dashboard/dashboardController.js"></script>
     <script src="/apps/privateApp/mainController.js"></script>
     <script src="/apps/privateApp/adv/myController.js"></script>
+    <script src="/apps/privateApp/subscription/subscriptionController.js"></script>
 
     <script src="/apps/privateApp/adv/myWatchListController.js"></script>
+    <script src="/apps/privateApp/settings/settingsController.js"></script>
     <script src="/apps/privateApp/settings/settingsController.js"></script>
     <script src="/apps/privateApp/deleteAccount/deleteAccountController.js"></script>
     <script src="/apps/privateApp/directives/leftMenu/leftMenu.js"></script>
@@ -63,7 +65,7 @@
 
 
 </head>
-<body ng-app="privateApp" ng-controller="mainController" >
+<body ng-controller="mainController" >
     {!!$composer_header_menu!!}
 
     <div id="main-menu" >

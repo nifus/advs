@@ -2,9 +2,9 @@
     'use strict';
     angular.module('privateApp').controller('myController', myController);
 
-    myController.$inject = ['$scope', 'userFactory', '$q', '$filter','$state'];
+    myController.$inject = ['$scope', 'userFactory', '$q', '$filter','$state','$window'];
 
-    function myController($scope, userFactory,  $q, $filter, $state) {
+    function myController($scope, userFactory,  $q, $filter, $state, $window) {
         $scope.user = null;
         $scope.promises = null;
         $scope.translate = $filter('translate');
@@ -37,6 +37,8 @@
         };
 
         function initPage(deferred) {
+            $window.document.title = $filter('translate')('My Advertisements');
+
             $scope.user = $scope.$parent.env.user;
 
 
