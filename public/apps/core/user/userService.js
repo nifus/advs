@@ -1,9 +1,9 @@
 (function (angular, window) {
     'use strict';
     angular.module('core').service('userService', userService);
-    userService.$inject = ['$http' ,'advFactory'];
+    userService.$inject = ['$http' ,'advFactory','tariffFactory'];
 
-    function userService($http, advFactory) {
+    function userService($http, advFactory, tariffFactory) {
         return function (data) {
             var Object = data;
             Object.waiting = false;
@@ -28,6 +28,16 @@
 
             Object.getAdvStat = function(){
                 return $http.get('/api/user/adv-stat').then( function(response){
+                    return response.data;
+                })
+            };
+
+            Object.getTariff = function(){
+                return tariffFactory.getActiveTariff();
+            };
+
+            Object.buyTariff = function(tariff_id){
+                return $http.post('/api/user/tariff',{tariff_id: tariff_id}).then( function(response){
                     return response.data;
                 })
             };

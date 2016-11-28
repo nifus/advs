@@ -11,10 +11,8 @@
 
         function leftController($scope) {
             function initPage(deferred) {
-                $scope.user = $scope.$parent.env.user;
                 return deferred.promise;
             }
-
             $scope.$parent.init.push(initPage);
         }
     }

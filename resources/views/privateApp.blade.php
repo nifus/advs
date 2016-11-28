@@ -45,6 +45,9 @@
     <script src="/apps/core/adv/advFactory.js"></script>
     <script src="/apps/core/adv/advService.js"></script>
 
+    <script src="/apps/core/tariff/tariffFactory.js"></script>
+    <script src="/apps/core/tariff/tariffService.js"></script>
+
     <script src="/apps/privateApp/privateApp.js"></script>
     <script src="/apps/privateApp/login/loginController.js"></script>
     <script src="/apps/privateApp/dashboard/dashboardController.js"></script>

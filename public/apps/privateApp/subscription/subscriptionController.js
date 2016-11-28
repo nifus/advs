@@ -2,22 +2,28 @@
     'use strict';
     angular.module('privateApp').controller('subscriptionController', subscriptionController);
 
-    subscriptionController.$inject = ['$scope', '$state', '$filter', '$q', '$window', '$http'];
+    subscriptionController.$inject = ['$scope', '$filter', '$q', '$window', '$http'];
 
-    function subscriptionController($scope, $state, $filter, $q, $window, $http) {
-        $scope.user = null;
+    function subscriptionController($scope, $filter, $q, $window, $http) {
         $scope.promises = null;
         $scope.env = {
-            loading: false,
-            tariffs: []
+            loading: true,
+            submit: false,
+            tariffs: [],
+            tariff:null
         };
-
+        $scope.model = {
+            type_id: null
+        }
+        $scope.slot_form = {
+            number_of: 1
+        }
 
         function initPage(deferred) {
-            $scope.user = $scope.$parent.env.user;
+
             $window.document.title = $filter('translate')('Subscription');
 
-            var tariffPromise = $http.get('/api/tariffs').then(function (response) {
+            var tariffsPromise = $http.get('/api/tariffs').then(function (response) {
                 $scope.env.tariffs = response.data;
             });
 
@@ -25,8 +31,18 @@
                 $scope.env.stat = result;
             });
 
-            $q.all([tariffPromise, statPromise]).then(function () {
+
+            var tariffPromise = $scope.user.getTariff().then(function (tariff) {
+                $scope.env.tariff = tariff;
+                if ( tariff!=null ){
+                    $scope.model.tariff = tariff.type_id;
+                }
+                console.log(tariff)
+            });
+
+            $q.all([tariffsPromise, statPromise, tariffPromise]).then(function () {
                 $scope.env.loading = false;
+                deferred.resolve()
             });
             return deferred.promise;
         }
@@ -35,6 +51,22 @@
         $scope.$parent.init.push(initPage);
 
 
+        $scope.buyTariff = function (tarif_id) {
+            $scope.user.buyTariff(tarif_id).then(function (response) {
+                if (response.success==true){
+                    window.location.reload(true)
+                }
+            })
+        }
+
+        $scope.buyAdditionalSlot = function () {
+            $scope.env.submit = true;
+            $scope.user.buyAdditionalSlot.then(function (response) {
+                if (response.success==true){
+                    window.location.reload(true)
+                }
+            })
+        }
     }
 })();
 

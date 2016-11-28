@@ -25,10 +25,16 @@ class CreateSubscription extends Migration
         Schema::create('tariffs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->integer('type_id');
+            $table->integer('tariff_id');
             $table->enum('is_future',['0','1'])->default('0');
             $table->enum('is_paid',['0','1'])->default('0');
-            $table->datetime('buy_time');
+            $table->datetime('begin_time');
+            $table->datetime('end_time');
+            $table->decimal('price',8,2);
+            $table->decimal('extra',8,2);
+            $table->smallInteger('slots');
+
+
             $table->timestamps();
         });
 
@@ -36,11 +42,11 @@ class CreateSubscription extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('tariff_id');
-            $table->integer('adv_id');
+            $table->integer('adv_id')->nullable();
 
             $table->enum('is_extra_slot',['0','1'])->default('0');
-            $table->datetime('buy_time');
-            $table->datetime('activate_time');
+            $table->datetime('buy_time')->nullable();
+            $table->datetime('activate_time')->nullable();
             $table->enum('is_paid',['0','1'])->default('0');
 
             $table->timestamps();

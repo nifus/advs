@@ -5,7 +5,6 @@
     myController.$inject = ['$scope', 'userFactory', '$q', '$filter','$state','$window'];
 
     function myController($scope, userFactory,  $q, $filter, $state, $window) {
-        $scope.user = null;
         $scope.promises = null;
         $scope.translate = $filter('translate');
         $scope.env = {
@@ -39,7 +38,6 @@
         function initPage(deferred) {
             $window.document.title = $filter('translate')('My Advertisements');
 
-            $scope.user = $scope.$parent.env.user;
 
 
 

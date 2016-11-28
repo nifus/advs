@@ -169,6 +169,14 @@ class User extends Authenticatable
         $this->Fav()->sync($result);
     }
 
+    public function getActualTariff(){
+        return Tariff::getActiveTariff($this->id);
+    }
+
+    public function addTariff($tariff_id){
+        return Tariff::addNewTariff($this->id, $tariff_id);
+    }
+
     static function createPrivateAccount($data){
         $validator = [
             'sex' => 'required',

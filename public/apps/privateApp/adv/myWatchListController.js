@@ -2,10 +2,9 @@
     'use strict';
     angular.module('privateApp').controller('myWatchListController', myWatchListController);
 
-    myWatchListController.$inject = ['$scope', 'userFactory', '$filter', '$q','$window'];
+    myWatchListController.$inject = ['$scope', '$filter', '$q','$window'];
 
-    function myWatchListController($scope, userFactory, $filter, $q, $window) {
-        $scope.user = null;
+    function myWatchListController($scope, $filter, $q, $window) {
         $scope.promises = null;
         $scope.env = {
             advs: {
@@ -24,16 +23,12 @@
 
 
         function initPage(deferred) {
-            $scope.user = $scope.$parent.env.user;
             $window.document.title = $filter('translate')('Watch List');
 
             var advPromise = $scope.user.getMyWatchAdvs().then(function (result) {
                 result = $filter('orderBy')(result,'-created_at');
-
-
                 $scope.env.advs.rent = $filter('filter')(result,{type:'rent'})
                 $scope.env.advs.rent = $filter('filter')(result,{type:'sale'})
-                console.log($scope.env.advs)
             });
 
             $q.all([ advPromise]).then(function () {

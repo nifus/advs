@@ -5,7 +5,6 @@
     dashboardController.$inject = ['$scope', 'userFactory', 'newsFactory', '$q', '$window', '$filter'];
 
     function dashboardController($scope, userFactory, newsFactory, $q, $window, $filter) {
-        $scope.user = null;
         $scope.promises = null;
         $scope.env = {
             loading: true,
@@ -32,7 +31,6 @@
 
         function initPage(deferred) {
             $window.document.title = $filter('translate')('Dashboard');
-            $scope.user = $scope.$parent.env.user;
 
             var newsPromise = null;
             if ($scope.user.isPrivateAccount()) {

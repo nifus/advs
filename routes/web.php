@@ -63,6 +63,10 @@ Route::group(['prefix'=>'api'], function () {
         Route::put('/change-contact-data', 'UserController@changeContactData' );
         Route::delete('/', 'UserController@deleteAccount' );
 
+        Route::group(['prefix'=>'tariff'], function () {
+            Route::get('/', 'TariffController@getUserTariff');
+            Route::post('/', 'TariffController@store');
+        });
 
         Route::post('/private-account', 'UserController@createPrivateAccount' );
         Route::post('/business-account', 'UserController@createBusinessAccount' );

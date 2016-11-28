@@ -24,59 +24,66 @@
                     </div>
                     <div class="panel-body">
 
-                        <table style="width: 100%">
+                        <table style="width: 100%" ng-if="env.tariff!=null">
                             <tr>
-                                <td style="width: 50%;text-align: left">Current Status:</td>
-                                <td style="width: 50%;text-align: right;color:green">Active</td>
+                                <td style="width: 50%;text-align: left" translate>Current Status:</td>
+                                <td style="width: 50%;text-align: right;color:green" translate>Active</td>
                             </tr>
                             <tr>
-                                <td style="width: 50%;text-align: left">Active from</td>
-                                <td style="width: 50%;text-align: right">12.07.2016</td>
+                                <td style="width: 50%;text-align: left" translate>Active from</td>
+                                <td style="width: 50%;text-align: right">{{env.tariff.StartDate}}</td>
                             </tr>
                             <tr>
-                                <td style="width: 50%;text-align: left">Active to</td>
-                                <td style="width: 50%;text-align: right">12.08.2016</td>
+                                <td style="width: 50%;text-align: left" translate>Active to</td>
+                                <td style="width: 50%;text-align: right">{{env.tariff.EndDate}}</td>
                             </tr>
                             <tr>
-                                <td style="width: 50%;text-align: left">Running out in</td>
-                                <td style="width: 50%;text-align: right">16 Days</td>
+                                <td style="width: 50%;text-align: left" translate>Running out in</td>
+                                <td style="width: 50%;text-align: right">
+                                    <span ng-if="env.tariff.Range>1" translate>Days</span>
+                                    <span ng-if="env.tariff.Range==1" translate>Day</span>
+                                </td>
                             </tr>
                             <tr style="height: 50px">
                                 <td colspan="2"></td>
                             </tr>
                             <tr>
-                                <td style="width: 50%;text-align: left">Ordered package</td>
-                                <td style="width: 50%;text-align: right"><strong>Pack 20</strong></td>
+                                <td style="width: 50%;text-align: left" translate>Ordered package</td>
+                                <td style="width: 50%;text-align: right"><strong>{{env.tariff.TariffName}}</strong></td>
                             </tr>
                             <tr>
-                                <td style="width: 50%;text-align: left">Additional slots</td>
-                                <td style="width: 50%;text-align: right"><strong>3</strong></td>
+                                <td style="width: 50%;text-align: left" translate>Additional slots</td>
+                                <td style="width: 50%;text-align: right"><strong>{{env.tariff.AdditionalSlots}}</strong></td>
                             </tr>
                             <tr>
-                                <td style="width: 50%;text-align: left">Monthly rate</td>
-                                <td style="width: 50%;text-align: right">550,00 €</td>
+                                <td style="width: 50%;text-align: left" translate>Monthly rate</td>
+                                <td style="width: 50%;text-align: right">{{env.tariff.price|currency:'€'}}</td>
                             </tr>
                         </table>
+
+                        <div class="alert alert-warning" role="alert" ng-if="env.tariff==null" translate>You have not active subscription</div>
+
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-12" ng-if="env.tariff!=null">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title" translate>Buy additional slot</h3>
                     </div>
                     <div class="panel-body">
-                        <p>You can buy unlimited additionals slots
+
+                        <p translate>You can buy unlimited additional slots
                             to your subscription.
                             The price of each slot depends from
                             your booked package (see table on the
                             right).</p>
-                        <p>But please note, that each additional
+                        <p translate>But please note, that each additional
                             slot can only be used ONE time. So you
                             can only create ONE advertisement for
                             ONE additional slot.</p>
-                        <p>
+                        <p translate>
                             This means
                             advertisement, which was created via
                             an additional slot – this slot is also be
@@ -84,27 +91,32 @@
                             additional slot (of course only if you
                             need one more again).</p>
 
-                        <table style="width: 100%">
+                        <table style="width: 100%" >
                             <tr>
-                                <td style="width: 70%;text-align: left">Current addtional slots in use</td>
-                                <td style="width: 30%;text-align: right">1</td>
+                                <td style="width: 70%;text-align: left" translate>Current additional slots in use</td>
+                                <td style="width: 30%;text-align: right">{{env.tariff.UsedAdditionalSlots}}</td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: left">Unused addtional slots</td>
-                                <td style="width: 30%;text-align: right">2</td>
+                                <td style="width: 70%;text-align: left" translate>Unused additional slots</td>
+                                <td style="width: 30%;text-align: right">{{env.tariff.FreeAdditionalSlots}}</td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: left">Buy additional slot</td>
-                                <td style="width: 30%;text-align: right">2</td>
+                                <td style="width: 70%;text-align: left" translate>Buy additional slot</td>
+                                <td style="width: 30%;text-align: right"><input type="number" class="form-control" ng-model="slot_form.number_of" min="1"></td>
                             </tr>
                             <tr>
-                                <td style="width: 70%;text-align: left">Price <br>( - x 20,00 € )</td>
+                                <td style="width: 70%;text-align: left">Price <br>( - x {{env.tariff.extra|currency:'€'}} )</td>
                                 <td style="width: 30%;text-align: right">0,00 €</td>
                             </tr>
                             <tr>
-                                <td colspan="2"> <button>Buy additional slot</button></td>
+                                <td colspan="2"><button type="button"
+                                                        ng-disabled="env.submit==true"
+                                                        ng-click="buyAdditionalSlot()" class="btn btn-success" translate>Buy additional slot</button>
+                                 </td>
                             </tr>
                         </table>
+
+
                     </div>
                 </div>
             </div>
@@ -116,7 +128,7 @@
 
         <div class="col-md-8">
 
-            <div class="col-md-12">
+            <div class="col-md-12" ng-if="env.tariff!=null">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title" translate>Current overview</h3>
@@ -127,26 +139,26 @@
                             <table style="width: 100%">
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Max. package slots</td>
-                                    <td style="width:20%;text-align: right">20</td>
+                                    <td style="width:20%;text-align: right">{{env.tariff.slots}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Package slots in use</td>
-                                    <td style="width:20%;text-align: right">5</td>
+                                    <td style="width:20%;text-align: right">{{env.tariff.UsedSlots}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width:80%;text-align: left" translate>Package slots free</td>
-                                    <td style="width:20%;text-align: right">15</td>
+                                    <td style="width:20%;text-align: right">{{env.tariff.FreeSlots}}</td>
                                 </tr>
                                 <tr style="height: 50px">
                                     <td colspan="2"></td>
                                 </tr>
                                 <tr>
-                                    <td style="width:80%;text-align: left" translate>Addtional slots in use</td>
-                                    <td style="width:20%;text-align: right">1</td>
+                                    <td style="width:80%;text-align: left" translate>Additional slots in use</td>
+                                    <td style="width:20%;text-align: right">{{env.tariff.UsedAdditionalSlots}}</td>
                                 </tr>
                                 <tr>
-                                    <td style="width:80%;text-align: left" translate>Addtional slots useable</td>
-                                    <td style="width:20%;text-align: right">2</td>
+                                    <td style="width:80%;text-align: left" translate>Additional slots useable</td>
+                                    <td style="width:20%;text-align: right">{{env.tariff.FreeAdditionalSlots}}</td>
                                 </tr>
                             </table>
                         </div>
@@ -224,7 +236,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title" translate>Change subscription</h3>
+                        <h3 class="panel-title" translate>Buy subscription</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table tariffs table-hover" >
@@ -234,8 +246,8 @@
                                 <th ><div class="price" translate>Price per month</div></th>
                                 <th class="last"> <div class="extra" translate>Each extra slot</div></th>
                             </tr>
-                            <tr ng-repeat="tariff in env.tariffs" ng-click="">
-                                <td class="first"><input type="radio" ng-model="user.tariff" value="{{tariff.id}}"></td>
+                            <tr ng-repeat="tariff in env.tariffs" ng-click="model.type_id=tariff.id">
+                                <td class="first"><input type="radio" ng-model="model.type_id" value="{{tariff.id}}"></td>
                                 <td ><div class="package" translate>{{tariff.name}}</div></td>
                                 <td> <div class="slots">{{tariff.slots}}</div></td>
                                 <td> <div class="price">{{tariff.price| currency:'€'}}</div></td>
@@ -244,17 +256,24 @@
                         </table>
 
                         <hr>
-                        <div class="alert alert-warning" role="alert">Please note that the new subscription will work after your current subscription runs out.</div>
+                        <div class="alert alert-warning" role="alert" ng-if="env.tariff!=null">Please note that the new subscription will work after your current subscription runs out.</div>
 
 
-                        <div  class="alert alert-warning" role="alert">
+                        <div  class="alert alert-warning" role="alert" ng-if="env.tariff!=null">
                             At the moment your current subscription (Pack 20) is valid to: <strong>12.08.2016</strong>
                         </div>
-                        <div class="alert alert-warning" role="alert">It will be automatically extended if it will not be terminated</div>
+                        <div class="alert alert-warning" role="alert" ng-if="env.tariff!=null">It will be automatically extended if it will not be terminated</div>
 
                         <div class="row">
-                            <div class="col-md-6 text-left"><button type="button" class="btn btn-primary">End subscription</button></div>
-                            <div class="col-md-6 text-right"><button type="button" class="btn btn-primary">Change subscription</button></div>
+                            <div class="col-md-6 text-left">
+                                <button type="button" class="btn btn-primary" ng-if="env.tariff!=null" translate>End subscription</button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button type="button"
+                                        ng-disabled="model.type_id==null"
+                                        ng-click="buyTariff(model.type_id)"
+                                        class="btn btn-primary" translate>Buy subscription</button>
+                            </div>
                         </div>
 
                     </div>
