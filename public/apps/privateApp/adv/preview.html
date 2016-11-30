@@ -13,13 +13,25 @@
 
 <div class="row" ng-show="env.loading==false">
 
-    <div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="col-md-5 navbar-left navbar-form">
+                ID: {{adv.id}}
+            </div>
+            <div class="col-md-5 navbar-right navbar-form ">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-warning" ng-click="goBack()">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        Go to Back
+                    </button>
 
-        <button class="btn btn-primary">Back</button>
-    </div>
-    <div class="col-md-6">
+                </div>
+            </div>
 
-    </div>
-    <div class="col-md-6"></div>
+        </div>
+    </nav>
+
+    <adv-preview adv="adv" user="user" hide-contact-form="true"></adv-preview>
+
 
 </div>

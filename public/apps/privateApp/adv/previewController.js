@@ -5,7 +5,7 @@
     previewController.$inject = ['$scope', 'advFactory', '$q', '$filter','$state'];
 
     function previewController($scope, advFactory,  $q, $filter, $state) {
-        $scope.user = null;
+       // $scope.user = null;
         $scope.adv = null;
         $scope.env = {
             id: $state.params.id,
@@ -14,7 +14,7 @@
         };
 
         function initPage(deferred) {
-            $scope.user = $scope.$parent.env.user;
+            //$scope.user = $scope.$parent.env.user;
 
             var advPromise = advFactory.getUserAdvById($scope.env.id).then(function(adv){
                 $scope.adv = adv;

@@ -146,29 +146,7 @@
             $scope.env.display_view_map = false;
         };
 
-        $scope.sendMessage = function (form, data) {
-            $scope.env.submit = true;
-            if ( form.$invalid ){
-                return false;
-            }
-            $scope.adv.sendMessage(data).then(function(response){
-                var expireDate = new Date();
-                expireDate.setDate(expireDate.getDate() + 199);
-                $cookies.putObject('contact',{
-                    name:data.name,
-                    sex: data.sex,
-                    email: data.email,
-                    phone: data.phone
-                }, {expires:expireDate});
-                $scope.env.submit = false;
-                if (response.success){
-                    alertify.success( 'Message send to owner adv' );
-                    $scope.message = {};
-                }else{
-                    alertify.error( response.error );
-                }
-            })
-        };
+
 
         $scope.$watch(function(){return window.location.href},function (value) {
 
@@ -275,29 +253,9 @@
 
         }
 
-        function initGoogleMapsView() {
 
-                var interval = $interval(function(){
-                    if ( document.getElementById('view_map') ){
-                        var map = new google.maps.Map(document.getElementById('view_map'), {
-                            center: {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1},
-                            zoom: 15
-                        });
-                        new google.maps.Marker({
-                            position: {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1},
-                            map: map
-                        });
-                        // $scope.env.map.setCenter( {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1} )
-                        $interval.cancel(interval);
-                    }
-                },1000)
 
-        }
 
-        function restoreContactData() {
-            var data = $cookies.getObject('contact');
-            $scope.message = data;
-        }
 
         //
         function initListing() {

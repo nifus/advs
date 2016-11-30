@@ -52,6 +52,8 @@
     <script src="/apps/core/adv/advFactory.js"></script>
     <script src="/apps/core/adv/advService.js"></script>
 
+    <script src="/apps/core/tariff/tariffFactory.js"></script>
+    <script src="/apps/core/tariff/tariffService.js"></script>
 
     <script src="/apps/core/searchLog/searchLogFactory.js"></script>
     <script src="/apps/core/searchLog/searchLogService.js"></script>
@@ -61,6 +63,7 @@
     <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
     <script src="/apps/frontApp/directives/citySelect/citySelect.js"></script>
     <script src="/components/markerclustererplus/dist/markerclusterer.min.js"></script>
+    <script src="/apps/directives/advPreview/advPreview.js"></script>
 
 </head>
 <body ng-app="frontApp" ng-controller="mainController" >

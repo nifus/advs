@@ -55,7 +55,11 @@
         return function (input, from, to) {
             return (input != undefined) ? input.slice(from, to) : '';
         }
-    });
+    }).filter('to_trusted', ['$sce', function ($sce) {
+        return function (text) {
+            return $sce.trustAsHtml(text);
+        };
+    }]);
 
 
 })(angular);
