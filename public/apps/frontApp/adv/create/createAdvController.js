@@ -127,7 +127,7 @@
 
         $scope.save = function (data) {
             $scope.env.submit = true;
-            if (!$scope.adv_form.$invalid && $scope.env.display_addr_error === false) {
+            if (!$scope.adv_form.$invalid ) {
                 $scope.env.send = true;
                 advFactory.store(data).then(function (response) {
                         $scope.env.send = false;
@@ -141,9 +141,7 @@
 
         };
 
-        /* $scope.$watch('model', function (value) {
-         console.log(value)
-         }, true);*/
+
 
 
         $scope.$watch('env.move_date', function (value) {
@@ -153,7 +151,6 @@
 
         $scope.$watch('env.address', function (value) {
             var sum = 0;
-
             if (value.value != undefined && value.details && value.details.address_components) {
                 for (var i in value.details.address_components) {
                     var el = angular.copy(value.details.address_components[i]);
@@ -189,10 +186,7 @@
                 $scope.env.tmp_address = value.details.formatted_address;
                 $scope.model.lat = value.details.geometry.location.lat();
                 $scope.model.lng = value.details.geometry.location.lng();
-                initGoogleMap($scope.model.lat, $scope.model.lng);
-
-
-
+                $scope.initGoogleMap($scope.model.lat, $scope.model.lng);
             } else {
                 $scope.model.address = {};
                 $scope.model.lat = null;
@@ -202,8 +196,12 @@
             }
         }, true);
 
-        function initGoogleMap(lat, lng) {
-            if ( $scope.env.map==null ){
+        $scope.initGoogleMap = function (lat, lng, reload) {
+
+            if ( lat==null || lng==null ){
+                return;
+            }
+            if ( $scope.env.map==null || reload==true ){
                 var interval = $interval(function () {
                     if (document.getElementById('map')) {
                         $scope.env.map = new google.maps.Map(document.getElementById('map'), {
@@ -243,6 +241,7 @@
                 $scope.env.map.setCenter($scope.env.marker.getPosition());
             }
         }
+
     }
 })();
 

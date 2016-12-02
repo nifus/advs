@@ -29,7 +29,8 @@
     <script src="/components/angular-cookies/angular-cookies.min.js"></script>
     <script src="/components/satellizer/dist/satellizer.min.js"></script>
     <script src="/components/checklist-model/checklist-model.js"></script>
-    <script src="/components/moment/min/moment.min.js"></script>
+    <script src="/components/moment/min/moment-with-locales.js"></script>
+
     <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
     <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
     <script type="text/javascript" src="/components/angular-base64-upload/dist/angular-base64-upload.min.js"></script>

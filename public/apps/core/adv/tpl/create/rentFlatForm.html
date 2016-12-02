@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-init="initGoogleMap(model.lat, model.lng, true)">
     <h4 translate>Location</h4>
     <div class="col-md-6">
 
@@ -10,7 +10,6 @@
                 <input type="text" ng-autocomplete ng-model="env.address.value" details="env.address.details"
                        name="address"
                        class="form-control" id="address_field" required>
-                <div class="alert alert-warning" role="alert" style="margin: 5px;" ng-if="env.display_addr_error && env.submit" translate>You should enter valid address</div>
 
             </div>
         </div>
@@ -53,7 +52,7 @@
             <label class="col-sm-2 control-label" translate>Walkway to public transport ca.</label>
             <div class="col-sm-10">
                 <input type="number" class="form-control" placeholder="{{'minutes'|translate}}"
-                       ng-model="model.address.distances.transport" name="distances_transport">
+                       ng-model="model.address.distances.transport" name="distances_transport" min="1">
             </div>
         </div>
 
@@ -61,7 +60,7 @@
             <label class="col-sm-2 control-label" translate>Driving time to the next central station ca.</label>
             <div class="col-sm-10">
                 <input type="number"  class="form-control" placeholder="{{'minutes'|translate}}"
-                       ng-model="model.address.distances.driving" name="distances_driving">
+                       ng-model="model.address.distances.driving" name="distances_driving" min="1">
             </div>
         </div>
 
@@ -69,7 +68,7 @@
             <label class="col-sm-2 control-label" translate>Driving time to the next Autobahn ca.</label>
             <div class="col-sm-10">
                 <input type="number"  name="distances_autoban" class="form-control" placeholder="{{'minutes'|translate}}"
-                       ng-model="model.address.distances.autoban">
+                       ng-model="model.address.distances.autoban" min="1">
             </div>
         </div>
 
@@ -77,7 +76,7 @@
             <label class="col-sm-2 control-label" translate>Driving time to the next Airport ca.</label>
             <div class="col-sm-10">
                 <input type="number" class="form-control" placeholder="{{'minutes'|translate}}"
-                       ng-model="model.address.distances.airport" name="distances_airport">
+                       ng-model="model.address.distances.airport" name="distances_airport" min="1">
             </div>
         </div>
 
@@ -112,7 +111,7 @@
         <label class="col-sm-2 control-label" translate>Build year</label>
         <div class="col-sm-10">
             <input type="number"  class="form-control" placeholder="{{'In year'|translate}}"
-                   ng-model="model.props.build_year" name="build_year">
+                   ng-model="model.props.build_year" name="build_year" minlength="4" maxlength="4" min="1500">
         </div>
     </div>
     <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid && env.submit==true }">
@@ -142,7 +141,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Number of garage/parking space</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control" ng-model="model.props.number_of_garage">
+            <input type="number" class="form-control" ng-model="model.props.number_of_garage" min="0">
         </div>
     </div>
 
@@ -214,7 +213,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Ancillary cost(in &euro;)</label>
         <div class="col-sm-10">
-            <input type="number"  class="form-control"  ng-model="model.finance.ancillary_cost">
+            <input type="number" min="0"  class="form-control"  ng-model="model.finance.ancillary_cost">
         </div>
     </div>
 
@@ -234,7 +233,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Please enter the heating costs</label>
         <div class="col-sm-10">
-            <input type="number"  class="form-control" ng-model="model.finance.heating_cost"
+            <input type="number" min="0"   class="form-control" ng-model="model.finance.heating_cost"
                    ng-disabled="model.finance.ancillary_cost_included==1">
         </div>
     </div>
@@ -243,14 +242,14 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Total cost (in &euro;)</label>
         <div class="col-sm-10">
-            <input type="number"  class="form-control" ng-model="model.finance.total_cost">
+            <input type="number" min="0"   class="form-control" ng-model="model.finance.total_cost">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Caution money (in &euro;)</label>
         <div class="col-sm-10">
-            <input type="number"  class="form-control" ng-model="model.finance.caution_money">
+            <input type="number"  min="0"  class="form-control" ng-model="model.finance.caution_money">
         </div>
     </div>
 </div>
@@ -261,7 +260,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Last modernization of the building (in year)</label>
         <div class="col-sm-10">
-            <input type="number" class="form-control"
+            <input type="number" class="form-control" min="0"
                    ng-model="model.energy.modernization_year">
         </div>
     </div>

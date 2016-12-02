@@ -209,5 +209,6 @@
         @endif
     </div>
 
+    </div>
     <br style="clear: both">
 @endsection

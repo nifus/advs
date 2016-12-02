@@ -15,6 +15,7 @@
         var lang = localStorage.getItem('lang');
         lang = lang == undefined ? 'en' : lang;
         gettextCatalog.setCurrentLanguage(lang);
+        moment.locale("de")
     }).filter('to_trusted', ['$sce', function ($sce) {
         return function (text) {
             return $sce.trustAsHtml(text);
