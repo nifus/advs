@@ -1,0 +1,65 @@
+<div class="progress" ng-if="env.loading==true">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+         aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">45% Complete</span>
+    </div>
+</div>
+
+<div  ng-if="env.loading==false">
+    <ol class="breadcrumb">
+        <li><a href="/" translate>Home</a></li>
+        <li><a ui-sref="dashboard" class="link" translate>My account</a></li>
+        <li><a ui-sref="my-adv" class="link" translate>My advertisements</a></li>
+        <li class="active" translate>Edit advert {{adv.id}}</li>
+    </ol>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title" translate>EDIT Advert - {{adv.id}}</h3>
+        </div>
+        <div class="panel-body">
+            <form name="edit-adv" class="form-horizontal">
+                <div class="alert alert-warning" role="alert">
+                    Here you can make some changes on your advert. <br>
+                    Due to technical reasons not all parameters can be changed.<br>
+                    Thanks for understanding.
+                </div>
+
+                <div style="border-bottom:3px solid #00b3ee;height:30px;margin-bottom: 30px" class="row">
+                    <label class="col-sm-2" style="font-size: 18px;padding-left:0px;font-weight: bold">Advert
+                        type</label>
+
+                    <div class="col-sm-10">
+                        {{adv.type}} - {{env.category_name}}
+                    </div>
+                </div>
+
+               
+                <div ng-include="'apps/privateApp/adv/inc/rentFlatForm.html'"  ng-if="model.category==1 && model.type=='rent'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/rentHouseForm.html'" ng-if="model.category==2 && model.type=='rent'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/rentGarageForm.html'" ng-if="model.category==3 && model.type=='rent'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/rentOfficeForm.html'" ng-if="model.category==4 && model.type=='rent'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/rentHotelForm.html'" ng-if="model.category==6 && model.type=='rent'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/rentHallForm.html'" ng-if="model.category==7 && model.type=='rent'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/rentRetailForm.html'" ng-if="model.category==8 && model.type=='rent'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/rentCommercialLandForm.html'" ng-if="model.category==9 && model.type=='rent'"></div>
+
+                <div ng-include="'apps/privateApp/adv/inc/saleFlatForm.html'"  ng-if="model.category==1 && model.type=='sale'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/saleHouseForm.html'" ng-if="model.category==2 && model.type=='sale'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/saleGarageForm.html'" ng-if="model.category==3 && model.type=='sale'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/saleOfficeForm.html'" ng-if="model.category==4 && model.type=='sale'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/saleBuildingForm.html'" ng-if="model.category==5 && model.type=='sale'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/saleHotelForm.html'" ng-if="model.category==6 && model.type=='sale'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/saleHallForm.html'" ng-if="model.category==7 && model.type=='sale'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/saleRetailForm.html'" ng-if="model.category==8 && model.type=='sale'"></div>
+                <div ng-include="'apps/privateApp/adv/inc/saleCommercialLandForm.html'" ng-if="model.category==9 && model.type=='sale'"></div>
+                
+
+
+
+            </form>
+        </div>
+    </div>
+
+
+</div>

@@ -33,7 +33,9 @@
         // initPage();
         $scope.$parent.init.push(initPage);
 
-
+        $scope.goBack = function(){
+            $state.go('my-adv')
+        }
 
 
 

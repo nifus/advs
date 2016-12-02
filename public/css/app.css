@@ -235,6 +235,7 @@ table.adv tr.payment_waiting :last-child{
 }
 #photo-block div.main img{
     width:100%;
+    cursor:pointer;
 }
 #photo-block div.preview{
     padding:0px
@@ -406,4 +407,9 @@ table td div.extra {
  }
 table th div.extra {
     background-color: #ccc;
+}
+
+div.panel-body div.row {
+    margin-left:0px;
+    margin-right:0px;
 }

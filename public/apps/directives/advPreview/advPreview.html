@@ -1,7 +1,4 @@
 <div>
-
-
-
     <div class="col-md-6">
         <div class="row">
             <nav class="navbar navbar-default">
@@ -27,15 +24,15 @@
 
         </div>
 
-        <div class="row" id="photo-block" photo-block ng-if="env.display_view_map==false">
-            <div class="col-md-12 main">
-                <img ng-src="{{adv.MainPhoto}}">
+        <div class="row" id="photo-block" ng-if="env.display_view_map==false" lightbox>
+            <div class="col-md-12 main" >
+                <img ng-src="{{adv.MainPhoto}}" data-lightbox="image-1" >
                 <div class="back navigate hide"></div>
                 <div class="next navigate hide"></div>
             </div>
 
             <div class="preview col-md-12">
-                <img ng-repeat="photo in adv.photos" ng-src="{{photo}}">
+                <img ng-repeat="photo in adv.photos" ng-src="{{photo}}" data-lightbox="image-{{$index}}" >
             </div>
         </div>
 

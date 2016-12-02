@@ -44,7 +44,8 @@
             address: {},
             display_addr_details: false,
             display_addr_error: false,
-            tmp_address: null
+            tmp_address: null,
+            map: null
         };
 
 
@@ -185,16 +186,13 @@
                         $scope.model.address.region = (el.long_name);
                     }
                 }
-                if (sum >= 5) {
-                    $scope.env.tmp_address = value.details.formatted_address;
-                    $scope.model.lat = value.details.geometry.location.lat();
-                    $scope.model.lng = value.details.geometry.location.lng();
-                    $scope.env.display_addr_details = true;
-                    $scope.env.display_addr_error = false;
-                } else {
-                    $scope.env.display_addr_error = true;
-                    $scope.env.display_addr_details = false;
-                }
+                $scope.env.tmp_address = value.details.formatted_address;
+                $scope.model.lat = value.details.geometry.location.lat();
+                $scope.model.lng = value.details.geometry.location.lng();
+                initGoogleMap($scope.model.lat, $scope.model.lng);
+
+
+
             } else {
                 $scope.model.address = {};
                 $scope.model.lat = null;
@@ -204,7 +202,47 @@
             }
         }, true);
 
+        function initGoogleMap(lat, lng) {
+            if ( $scope.env.map==null ){
+                var interval = $interval(function () {
+                    if (document.getElementById('map')) {
+                        $scope.env.map = new google.maps.Map(document.getElementById('map'), {
+                            center: {lat: lat, lng: lng},
+                            zoom: 18
+                        });
+                        $scope.env.marker = new google.maps.Marker({
+                            position: {lat: lat, lng: lng},
+                            map: $scope.env.map,
+                            draggable: true,
+                            animation: google.maps.Animation.DROP
+                        });
+                        $scope.env.marker.addListener('dragend', function() {
+                            var c = this.getPosition();
 
+                            var geocoder = new google.maps.Geocoder();
+                            geocoder.geocode({
+                                'latLng': c
+                            }, function (results, status) {
+                                if (status === google.maps.GeocoderStatus.OK) {
+                                    if (results[0]){
+                                        $scope.model.lat = results[0].geometry.location.lat();
+                                        $scope.model.lng = results[0].geometry.location.lng();
+                                    }
+
+                                }
+                            });
+                        });
+                        // $scope.env.map.setCenter( {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1} )
+                        $interval.cancel(interval);
+                    }
+                }, 1000)
+
+            }else{
+
+                $scope.env.marker.setPosition( new google.maps.LatLng(lat, lng) );
+                $scope.env.map.setCenter($scope.env.marker.getPosition());
+            }
+        }
     }
 })();
 

@@ -40,8 +40,8 @@
             controller: 'previewController'
         }).state('adv-edit', {
             url: '/adv/:id/edit',
-            templateUrl: 'apps/privateApp/dashboard/dashboard.html',
-            controller: 'dashboardController'
+            templateUrl: 'apps/privateApp/adv/edit.html',
+            controller: 'editController'
         })
 
     }).run(function (gettextCatalog) {

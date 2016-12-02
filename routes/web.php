@@ -100,6 +100,7 @@ Route::group(['prefix'=>'api'], function () {
         $sets = [
             'sub_categories'=>Adv::getSubCategories(),
             'equipments'=>Adv::getEquipments(),
+            'categories'=>Category::getCategories()
         ];
         return response()->json($sets);
     } );

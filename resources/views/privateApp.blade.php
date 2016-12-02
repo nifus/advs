@@ -13,6 +13,7 @@
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/components/alertify.js/themes/alertify.core.css" rel="stylesheet" type="text/css">
     <link href="/components/alertify.js/themes/alertify.default.css" rel="stylesheet" type="text/css">
+    <link href="/components/lightbox2/dist/css/lightbox.min.css" rel="stylesheet" type="text/css">
 
 
 
@@ -31,6 +32,7 @@
     <script src="/components/alertify.js/lib/alertify.min.js"></script>
     <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
     <script src='/components/angular-gettext/dist/angular-gettext.min.js'></script>
+    <script src='/components/lightbox2/dist/js/lightbox.min.js'></script>
 
     <script src="/apps/core/core.js"></script>
     <script src="/apps/core/cacheService.js"></script>
@@ -63,6 +65,7 @@
     <script src="/apps/privateApp/help/helpController.js"></script>
     <script src="/apps/privateApp/adv/previewController.js"></script>
     <script src="/apps/directives/advPreview/advPreview.js"></script>
+    <script src="/apps/privateApp/adv/editController.js"></script>
 
 
 

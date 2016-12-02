@@ -5,7 +5,6 @@
 @endsection
 @section('content')
 
-    <script src="/apps/frontApp/adv/search/searchAdvController.js"></script>
 
     <div ng-controller="searchAdvController">
 
@@ -76,14 +75,14 @@
                     banner
                 </div>
             </div>
-            <div ng-include="'apps/frontApp/adv/search/rentFlatSearchDetails.html'"  ng-if="search.category==1"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentHouseSearchDetails.html'"  ng-if="search.category==2"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentGarageSearchDetails.html'"  ng-if="search.category==3"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentOfficeSearchDetails.html'"  ng-if="search.category==4"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentHotelSearchDetails.html'"  ng-if="search.category==6"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentHallSearchDetails.html'"  ng-if="search.category==7"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentRetailSearchDetails.html'"  ng-if="search.category==8"></div>
-            <div ng-include="'apps/frontApp/adv/search/rentCommercialLandSearchDetails.html'"  ng-if="search.category==9"></div>
+            <div ng-include="'apps/core/adv/tpl/searchForm/rentFlatSearchDetails.html'"  ng-if="search.category==1"></div>
+            <div ng-include="'apps/core/adv/tpl/searchForm/rentHouseSearchDetails.html'"  ng-if="search.category==2"></div>
+            <div ng-include="'apps/core/adv/tpl/searchForm/rentGarageSearchDetails.html'"  ng-if="search.category==3"></div>
+            <div ng-include="'apps/core/adv/tpl/searchForm/rentOfficeSearchDetails.html'"  ng-if="search.category==4"></div>
+            <div ng-include="'apps/core/adv/tpl/searchForm/rentHotelSearchDetails.html'"  ng-if="search.category==6"></div>
+            <div ng-include="'apps/core/adv/tpl/searchForm/rentHallSearchDetails.html'"  ng-if="search.category==7"></div>
+            <div ng-include="'apps/core/adv/tpl/searchForm/rentRetailSearchDetails.html'"  ng-if="search.category==8"></div>
+            <div ng-include="'apps/core/adv/tpl/searchForm/rentCommercialLandSearchDetails.html'"  ng-if="search.category==9"></div>
 
 
         </div>

@@ -64,6 +64,8 @@
     <script src="/apps/frontApp/directives/citySelect/citySelect.js"></script>
     <script src="/components/markerclustererplus/dist/markerclusterer.min.js"></script>
     <script src="/apps/directives/advPreview/advPreview.js"></script>
+    <script src="/apps/frontApp/adv/create/createAdvController.js"></script>
+    <script src="/apps/frontApp/adv/search/searchAdvController.js"></script>
 
 </head>
 <body ng-app="frontApp" ng-controller="mainController" >

@@ -5,25 +5,24 @@
 @endsection
 @section('content')
 
-    <script src="/apps/frontApp/adv/create/createAdvController.js"></script>
 
     <div>
         <ol class="breadcrumb">
-            <li><a href="/" >{{ trans('main.home') }}</a></li>
-            <li class="active" >{{ trans('main.create_adv') }}</li>
+            <li><a href="/">{{ trans('main.home') }}</a></li>
+            <li class="active">{{ trans('main.create_adv') }}</li>
         </ol>
 
         @if(is_null($user))
-            <div class="alert alert-danger" role="alert" >
+            <div class="alert alert-danger" role="alert">
                 {!! trans('main.create_adv_need_register',['link'=>route('register.private')]) !!}
             </div>
         @else
             <div ng-controller="createAdvController">
                 <form class="form-horizontal" name="adv_form">
                     <div class="row">
-                        <h4 >{{ trans('main.create_adv_type') }}</h4>
+                        <h4>{{ trans('main.create_adv_type') }}</h4>
 
-                        <div class="col-md-3" >
+                        <div class="col-md-3">
                             {{ trans('main.create_adv_select') }}
                         </div>
 
@@ -32,7 +31,7 @@
 
                             <div class="header"
                                  style="background-color: orange;padding:20px;margin:0px;text-align: center">
-                                <strong >{{ trans('main.create_adv_rent') }}</strong></div>
+                                <strong>{{ trans('main.create_adv_rent') }}</strong></div>
                             <div class="type"
                                  style="background-color: lightyellow;padding:10px;margin:0px;height:120px">
                                 @foreach($categories as $category)
@@ -80,7 +79,7 @@
                         </div>
                         <div class="col-md-4">
                             <div style="background-color: lightcoral;margin:0px;padding:20px;text-align: center">
-                                <strong >{{ trans('main.create_adv_sale') }}</strong></div>
+                                <strong>{{ trans('main.create_adv_sale') }}</strong></div>
 
 
                             <div class="type" style="background-color: oldlace;margin:0px;padding:10px;height:120px">
@@ -132,28 +131,45 @@
                     </div>
 
 
-                    <div ng-include="'apps/frontApp/adv/create/rentFlatForm.html'"  ng-if="model.category==1 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHouseForm.html'" ng-if="model.category==2 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentGarageForm.html'" ng-if="model.category==3 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentOfficeForm.html'" ng-if="model.category==4 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHotelForm.html'" ng-if="model.category==6 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentHallForm.html'" ng-if="model.category==7 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentRetailForm.html'" ng-if="model.category==8 && model.type=='rent'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/rentCommercialLandForm.html'" ng-if="model.category==9 && model.type=='rent'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/rentFlatForm.html'"
+                         ng-if="model.category==1 && model.type=='rent'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/rentHouseForm.html'"
+                         ng-if="model.category==2 && model.type=='rent'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/rentGarageForm.html'"
+                         ng-if="model.category==3 && model.type=='rent'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/rentOfficeForm.html'"
+                         ng-if="model.category==4 && model.type=='rent'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/rentHotelForm.html'"
+                         ng-if="model.category==6 && model.type=='rent'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/rentHallForm.html'"
+                         ng-if="model.category==7 && model.type=='rent'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/rentRetailForm.html'"
+                         ng-if="model.category==8 && model.type=='rent'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/rentCommercialLandForm.html'"
+                         ng-if="model.category==9 && model.type=='rent'"></div>
 
-                    <div ng-include="'apps/frontApp/adv/create/saleFlatForm.html'"  ng-if="model.category==1 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/saleHouseForm.html'" ng-if="model.category==2 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/saleGarageForm.html'" ng-if="model.category==3 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/saleOfficeForm.html'" ng-if="model.category==4 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/saleBuildingForm.html'" ng-if="model.category==5 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/saleHotelForm.html'" ng-if="model.category==6 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/saleHallForm.html'" ng-if="model.category==7 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/saleRetailForm.html'" ng-if="model.category==8 && model.type=='sale'"></div>
-                    <div ng-include="'apps/frontApp/adv/create/saleCommercialLandForm.html'" ng-if="model.category==9 && model.type=='sale'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/saleFlatForm.html'"
+                         ng-if="model.category==1 && model.type=='sale'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/saleHouseForm.html'"
+                         ng-if="model.category==2 && model.type=='sale'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/saleGarageForm.html'"
+                         ng-if="model.category==3 && model.type=='sale'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/saleOfficeForm.html'"
+                         ng-if="model.category==4 && model.type=='sale'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/saleBuildingForm.html'"
+                         ng-if="model.category==5 && model.type=='sale'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/saleHotelForm.html'"
+                         ng-if="model.category==6 && model.type=='sale'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/saleHallForm.html'"
+                         ng-if="model.category==7 && model.type=='sale'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/saleRetailForm.html'"
+                         ng-if="model.category==8 && model.type=='sale'"></div>
+                    <div ng-include="'apps/core/adv/tpl/create/saleCommercialLandForm.html'"
+                         ng-if="model.category==9 && model.type=='sale'"></div>
 
 
                     <div class="row form-horizontal" ng-show="model.category">
-                        <h4 >
+                        <h4>
                             {{ trans('main.create_adv_finish') }}
                         </h4>
 
@@ -177,11 +193,11 @@
 
                             <div class="col-sm-10">
                                 <div class="alert alert-warning" role="alert"
-                                     ng-show="adv_form.$invalid && env.submit==true" >{{trans('main.create_adv_not_fill_fields')}}
+                                     ng-show="adv_form.$invalid && env.submit==true">{{trans('main.create_adv_not_fill_fields')}}
                                 </div>
 
                                 <button class="btn btn-primary" type="button" ng-click="save(model)"
-                                        ng-disabled="env.send==true" >
+                                        ng-disabled="env.send==true">
                                     {{ trans('main.create_adv_send') }}
                                 </button>
                             </div>
@@ -191,10 +207,7 @@
 
             </div>
         @endif
-
-
     </div>
 
-    </div>
     <br style="clear: both">
 @endsection
