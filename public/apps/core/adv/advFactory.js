@@ -4,11 +4,40 @@
 
     angular.module('core')
         .factory('advFactory', advFactory);
-    advFactory.$inject = ['advService', '$http', '$q'];
+    advFactory.$inject = ['advService', '$http', '$q','$filter'];
 
-    function advFactory(advService, $http, $q) {
+    function advFactory(advService, $http, $q, $filter) {
 
         return {
+            energy_source: [
+                {id: 'Geothermal energy', value: $filter('translate')('Geothermal energy')},
+                {id: 'Solar', value: $filter('translate')('Solar')},
+                {id: 'Wood', value: $filter('translate')('Wood')},
+                {id: 'Gas', value: $filter('translate')('Gas')},
+                {id: 'Oil', value: $filter('translate')('Oil')},
+                {id: 'Teleheating', value: $filter('translate')('Teleheating')},
+                {id: 'Electricity', value: $filter('translate')('Electricity')},
+                {id: 'Coal', value: $filter('translate')('Coal')},
+                {id: 'Other', value: $filter('translate')('Other')}
+            ],
+            heating: [
+                {id: 'Self-contained central heating', value: $filter('translate')('Self-contained central heating')},
+                {id: 'Centralheating', value: $filter('translate')('Centralheating')},
+                {id: 'Teleheating', value: $filter('translate')('Teleheating')},
+                {id: 'Other', value: $filter('translate')('Other')}
+            ],
+            energy_class: [
+                {id: 'Any', value: $filter('translate')('Any')},
+                {id: 'A+', value: $filter('translate')('A+')},
+                {id: 'A', value: $filter('translate')('A')},
+                {id: 'B', value: $filter('translate')('B')},
+                {id: 'C', value: $filter('translate')('C')},
+                {id: 'D', value: $filter('translate')('D')},
+                {id: 'E', value: $filter('translate')('E')},
+                {id: 'F', value: $filter('translate')('F')},
+                {id: 'G', value: $filter('translate')('G')},
+                {id: 'H', value: $filter('translate')('H')}
+            ],
             store: store,
             getUserAdvById: getUserAdvById,
             getByUser: getByUser,

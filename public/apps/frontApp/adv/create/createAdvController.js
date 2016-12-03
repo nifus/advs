@@ -12,35 +12,9 @@
             move_date: null,
             is_business_rent: 0,
             is_business_sale: 0,
-            energy_source: [
-                {id: 'Geothermal energy', value: $filter('translate')('Geothermal energy')},
-                {id: 'Solar', value: $filter('translate')('Solar')},
-                {id: 'Wood', value: $filter('translate')('Wood')},
-                {id: 'Gas', value: $filter('translate')('Gas')},
-                {id: 'Oil', value: $filter('translate')('Oil')},
-                {id: 'Teleheating', value: $filter('translate')('Teleheating')},
-                {id: 'Electricity', value: $filter('translate')('Electricity')},
-                {id: 'Coal', value: $filter('translate')('Coal')},
-                {id: 'Other', value: $filter('translate')('Other')}
-            ],
-            heating: [
-                {id: 'Self-contained central heating', value: $filter('translate')('Self-contained central heating')},
-                {id: 'Centralheating', value: $filter('translate')('Centralheating')},
-                {id: 'Teleheating', value: $filter('translate')('Teleheating')},
-                {id: 'Other', value: $filter('translate')('Other')}
-            ],
-            energy_class: [
-                {id: 'Any', value: $filter('translate')('Any')},
-                {id: 'A+', value: $filter('translate')('A+')},
-                {id: 'A', value: $filter('translate')('A')},
-                {id: 'B', value: $filter('translate')('B')},
-                {id: 'C', value: $filter('translate')('C')},
-                {id: 'D', value: $filter('translate')('D')},
-                {id: 'E', value: $filter('translate')('E')},
-                {id: 'F', value: $filter('translate')('F')},
-                {id: 'G', value: $filter('translate')('G')},
-                {id: 'H', value: $filter('translate')('H')}
-            ],
+            energy_source: advFactory.energy_source,
+            heating: advFactory.heating,
+            energy_class: advFactory.energy_class,
             address: {},
             display_addr_details: false,
             display_addr_error: false,
@@ -62,6 +36,8 @@
             props: {
                 pets: 'Any',
                 floor_cover: 'Any',
+                air_conditioner: 'By agreement',
+                recommended_usage: 'Any'
             },
             finance: {
                 ancillary_cost_included: 1,
@@ -69,7 +45,9 @@
             author: {},
             air_conditioner: 'By agreement',
             edp_cabling: 'By agreement',
-            price_type: 'Price per month'
+            price_type: 'Price per month',
+            development: 'Developed',
+            building_permission: 'Yes'
         };
 
         function initPage(deferred) {
@@ -141,11 +119,13 @@
 
         };
 
-
+        $scope.$watch('model', function (value) {
+            console.log(value)
+        },true );
 
 
         $scope.$watch('env.move_date', function (value) {
-            $scope.model.move_date = $filter('date')(value, 'yyyy-MM-dd')
+            $scope.model.move_date = $filter('date')(value, 'dd-MM-yyyy');
         });
 
 

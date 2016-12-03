@@ -49,8 +49,11 @@ class CreateAdv extends Migration
             $table->string('price_type')->nullable();
             $table->string('air_conditioner')->nullable();
             $table->string('edp_cabling')->nullable();
+            $table->string('development')->nullable();
+            $table->string('building_permission')->nullable();
             $table->smallInteger('number_beds')->nullable();
             $table->double('storey_height')->nullable();
+            $table->double('length_shop_window')->nullable();
 
 
 

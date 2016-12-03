@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('privateApp', ['core', 'satellizer', 'ngCookies', 'ui.router', 'ui.bootstrap', 'validation.match', 'ngAutocomplete', 'gettext']).config(function ($stateProvider, $urlRouterProvider) {
+    angular.module('privateApp', ['core', 'satellizer', 'ngCookies', 'ui.router', 'ui.bootstrap', 'validation.match', 'ngAutocomplete', 'gettext','ui.bootstrap.datetimepicker','checklist-model','naif.base64']).config(function ($stateProvider, $urlRouterProvider) {
 
 
         $urlRouterProvider.otherwise('/dashboard');
@@ -49,6 +49,7 @@
         var lang = localStorage.getItem('lang');
         lang = lang == undefined ? 'en' : lang;
         gettextCatalog.setCurrentLanguage(lang);
+        moment.locale("de")
 
 
     }).filter('limitFromTo', function () {

@@ -2,7 +2,7 @@
     'use strict';
 
 
-    function uploadDirective($compile) {
+    function uploadDirective($compile, $interval) {
         return {
             ngModel: 'require',
             replace: true,
@@ -19,7 +19,6 @@
 
 
         function uploadLink(scope, element, el2) {
-
             if (!scope.hideResult) {
                 var html = '<div class="row" style="margin:10px"><div style="margin:5px" class="col-md-2" ng-repeat="item in ngModel" style="text-align: right">' +
                     '<img ng-src="data:{{item.filetype}};base64,{{item.base64}}" style="width: 100%;" ng-show="item.base64!=undefined">' +
@@ -40,6 +39,7 @@
 
             var content = linkFn(scope);
             element.append(content);
+
             if (element.find('button').length == 1) {
                 scope.button = element.find('button');
             } else if (element.find('img').length == 1) {
@@ -48,12 +48,9 @@
                 scope.button = element.find('a');
             }
 
-            // scope.buttonText = scope.button.html();
-
             scope.button.click(function () {
                 element.find('input[type=file]').trigger('click')
             })
-
         }
 
         uploadController.$inject = ['$scope'];
@@ -63,12 +60,12 @@
             $scope.allowAddNewFiles = false;
             $scope.count = 0;
             var max = $scope.numberOfFiles == undefined || $scope.numberOfFiles <= 1 ? 1 : $scope.numberOfFiles;
-
             $scope.$watch('ngModel', function (value) {
                 if (angular.isString(value)) {
                     $scope.ngModel = [value]
+                }else if( angular.isArray(value) ) {
+                    $scope.ngModel = value
                 }
-
                 rematch(value)
             }, true);
 

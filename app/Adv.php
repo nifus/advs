@@ -22,7 +22,7 @@ class Adv extends Model
         'address', 'author', 'category', 'move_date', 'is_deleted', 'energy', 'equipments', 'props', 'subcategory', 'finance', 'floor', 'floors', 'living_area','plot_area','area',
         'rooms', 'hide_contacts',
         'city_id','region_id','country_id',
-        'edp_cabling','air_conditioner','number_beds','storey_height','users_fav','shop_window','development','building_permission'
+        'edp_cabling','air_conditioner','number_beds','storey_height','users_fav','length_shop_window','development','building_permission'
     ];
 
     static private $categories = [

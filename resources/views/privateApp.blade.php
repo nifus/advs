@@ -14,6 +14,7 @@
     <link href="/components/alertify.js/themes/alertify.core.css" rel="stylesheet" type="text/css">
     <link href="/components/alertify.js/themes/alertify.default.css" rel="stylesheet" type="text/css">
     <link href="/components/lightbox2/dist/css/lightbox.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
 
 
 
@@ -26,16 +27,22 @@
     <script src="/components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
     <script src="/components/angular-cookies/angular-cookies.min.js"></script>
     <script src="/components/satellizer/dist/satellizer.min.js"></script>
-    <script src="/components/moment/min/moment.min.js"></script>
+    <script src="/components/moment/min/moment-with-locales.js"></script>
     <script src="/components/angular-bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
     <script src="/components/angular-validation-match/dist/angular-validation-match.min.js"></script>
     <script src="/components/alertify.js/lib/alertify.min.js"></script>
     <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
     <script src='/components/angular-gettext/dist/angular-gettext.min.js'></script>
     <script src='/components/lightbox2/dist/js/lightbox.min.js'></script>
+    <script src="/components/checklist-model/checklist-model.js"></script>
+    <script type="text/javascript" src="/components/angular-base64-upload/dist/angular-base64-upload.min.js"></script>
 
+
+    <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+    <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
     <script src="/apps/core/core.js"></script>
     <script src="/apps/core/cacheService.js"></script>
+    <script src="/apps/directives/upload/upload.js"></script>
 
     <script src="/apps/core/user/userFactory.js"></script>
     <script src="/apps/core/user/userService.js"></script>
@@ -102,7 +109,7 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyDhoywlfGZRVpt8hcYkJORK4ioyBeEIweU"></script>
 
 </body>
 </html>
