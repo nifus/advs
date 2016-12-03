@@ -89,7 +89,7 @@
 
 
 <div class="row">
-    <h4 translate>Office/praxis type</h4>
+    <h4 translate>Hall/Production type</h4>
     <div class="form-group">
         <label class="col-sm-2 control-label"></label>
         <div class="col-sm-10">
@@ -107,63 +107,87 @@
 <div class="row">
     <h4 translate>Basic Information</h4>
 
-    <div class="form-group" >
-        <label class="col-sm-2 control-label" translate>Build year</label>
+
+
+    <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid  && env.submit==true }">
+        <label class="col-sm-2 control-label" translate>Total area</label>
         <div class="col-sm-10 input-group">
-            <input type="number"  class="form-control" placeholder="{{'In year'|translate}}"
-                   ng-model="model.props.build_year" name="build_year" minlength="4" maxlength="4" min="1500">
-        </div>
-    </div>
-    <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid && env.submit==true }">
-        <label class="col-sm-2 control-label" translate>Office/Praxis area</label>
-        <div class="col-sm-10 input-group">
-            <input type="number" min="1" class="form-control"  ng-model="model.area" name="area" required>
+            <input type="number" class="form-control"
+                   ng-model="model.area" required name="area" min="1" >
             <span class="input-group-addon">m<sup>2</sup></span>
 
         </div>
     </div>
 
+    <div class="form-group" >
+        <label class="col-sm-2 control-label" translate>Production area</label>
+        <div class="col-sm-10  input-group">
+            <input type="number" class="form-control"
+                   ng-model="model.props.production_area"  min="0" >
+            <span class="input-group-addon">m<sup>2</sup></span>
 
-    <div class="form-group form-inline" ng-class="{ 'has-error': adv_form.floor.$invalid  && env.submit==true }">
-        <label class="col-sm-2 control-label" translate>Floor</label>
-        <div class="col-sm-10" style="padding-left:0px">
-            <input type="number" min="1" class="form-control" placeholder="{{'Your Floor'|translate}}" ng-model="model.floor" name="floor" required>
-            {{'of'|translate}}
-            <input type="number" class="form-control" placeholder="{{'All Floors'|translate}}"
-                   ng-model="model.props.floors" name="floors">
         </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.rooms.$invalid  && env.submit==true }">
-        <label class="col-sm-2 control-label" translate>Number of rooms</label>
-        <div class="col-sm-10  input-group">
-            <input type="number" min="1" class="form-control" placeholder="{{'Room/Rooms'|translate}}" ng-model="model.rooms" required name="rooms">
+    <div class="form-group" >
+        <label class="col-sm-2 control-label" translate>Warehouse area</label>
+        <div class="col-sm-10 input-group">
+            <input type="number" class="form-control"
+                   ng-model="model.props.warehouse_area"  min="0" >
+            <span class="input-group-addon">m<sup>2</sup></span>
+        </div>
+    </div>
+
+    <div class="form-group" >
+        <label class="col-sm-2 control-label" translate>Office area</label>
+        <div class="col-sm-10 input-group">
+            <input type="number" class="form-control"
+                   ng-model="model.props.office_area" min="0"  >
+            <span class="input-group-addon">m<sup>2</sup></span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error': adv_form.storey_height.$invalid  && env.submit==true }">
+        <label class="col-sm-2 control-label" translate>Storey height</label>
+        <div class="col-sm-10 input-group">
+            <input type="number" class="form-control"
+                   ng-model="model.storey_height" required name="storey_height" min="1" >
+            <span class="input-group-addon">m</span>
         </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Floor cover</label>
+        <label class="col-sm-2 control-label" translate>Number of floors</label>
+        <div class="col-sm-10 input-group">
+            <input type="number" class="form-control"
+                   ng-model="model.floors" min="0" >
+        </div>
+    </div>
+
+
+
+    <div class="form-group" >
+        <label class="col-sm-2 control-label" translate>Floor loading</label>
+        <div class="col-sm-10 input-group">
+            <input type="number" class="form-control"
+                   ng-model="model.props.floor_loading" min="0" >
+            <span class="input-group-addon">kg/m<sup>2</sup></span>
+        </div>
+    </div>
+
+    <div class="form-group" >
+        <label class="col-sm-2 control-label" translate>Power connection value</label>
         <div class="col-sm-10  input-group">
-            <select class="form-control" ng-model="model.props.floor_cover">
-                <option value="Any" translate>Any</option>
-                <option value="Cement" translate>Cement</option>
-                <option value="Epoxy resin floor" translate>Epoxy resin floor</option>
-                <option value="Tiles" translate>Tiles</option>
-                <option value="FloorBoards" translate>FloorBoards</option>
-                <option value="Laminate" translate>Laminate</option>
-                <option value="Parquet" translate>Parquet</option>
-                <option value="PVC" translate>PVC</option>
-                <option value="Carpet" translate>Carpet</option>
-                <option value="According to leaser wish" translate>According to leaser wish</option>
-                <option value="No floor cover" translate>No floor cover</option>
-            </select>
+            <input type="number" class="form-control"
+                   ng-model="model.props.power_connection_value" min="0"  >
+            <span class="input-group-addon">kVA</span>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Number of garage/parking space</label>
         <div class="col-sm-10 input-group">
-            <input type="number" class="form-control" ng-model="model.props.number_of_garage" min="0">
+            <input type="number" class="form-control" min="0" ng-model="model.props.number_of_garage">
         </div>
     </div>
 
@@ -181,39 +205,12 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Air conditioner available</label>
-        <div class="col-sm-10 input-group">
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.air_conditioner" value="Yes"> {{'Yes'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.air_conditioner" value="No"> {{'No'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.air_conditioner" value="By agreement"> {{'By agreement'|translate}}
-            </label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>EDP cabling</label>
-        <div class="col-sm-10 input-group">
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.edp_cabling" value="Yes"> {{'Yes'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.edp_cabling" value="No"> {{'No'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.edp_cabling" value="By agreement"> {{'By agreement'|translate}}
-            </label>
-        </div>
-    </div>
+
 
 
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Available from now on</label>
-        <div class="col-sm-10  input-group">
+        <div class="col-sm-10 input-group">
             <div class="dropdown">
                 <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown"
                    data-target="#" href="">
@@ -236,64 +233,13 @@
 <div class="row">
     <h4 translate>Finance</h4>
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Price type</label>
+    <div class="form-group" ng-class="{ 'has-error': adv_form.price.$invalid  && env.submit==true }">
+        <label class="col-sm-2 control-label" translate>Sales price(in &euro;)</label>
         <div class="col-sm-10">
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.price_type" value="Price per month"> {{'Price per month'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.price_type" value="Price per m2"> {{'Price per '|translate}} m<sup>2</sup>
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.price_type" value="Price on request"> {{'Price on request'|translate}}
-            </label>
+            <input type="number" class="form-control" placeholder="&euro;" min="1" ng-model="model.price" required name="price">
         </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.rental_price.$invalid  && env.submit==true }">
-        <label class="col-sm-2 control-label" translate>Rental price(in &euro;)</label>
-        <div class="col-sm-10">
-            <input type="number" min="1" class="form-control" placeholder="&euro;" ng-model="model.rental_price" required name="rental_price">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Ancillary cost(in &euro;)</label>
-        <div class="col-sm-10">
-            <input type="number" class="form-control" min="0" placeholder="&euro;" ng-model="model.finance.ancillary_cost">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Heating costs included in ancillary cost?</label>
-        <div class="col-sm-10">
-            <label class="radio-inline">
-                <input type="radio" value="1" ng-model="model.finance.ancillary_cost_included"> {{'Yes'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" value="0" ng-model="model.finance.ancillary_cost_included"> {{'No'|translate}}
-            </label>
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Please enter the heating costs</label>
-        <div class="col-sm-10">
-            <input type="number" min="0"   class="form-control" ng-model="model.finance.heating_cost"
-                   ng-disabled="model.finance.ancillary_cost_included==1">
-        </div>
-    </div>
-
-
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Caution money (in &euro;)</label>
-        <div class="col-sm-10">
-            <input type="number"  min="0"  class="form-control" ng-model="model.finance.caution_money">
-        </div>
-    </div>
 </div>
 
 <div class="row">

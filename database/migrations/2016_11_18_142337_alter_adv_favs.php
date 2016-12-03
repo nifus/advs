@@ -15,9 +15,9 @@ class AlterAdvFavs extends Migration
     {
         Schema::table('advs', function (Blueprint $table) {
             $table->text('users_fav')->default(null)->nullable();
-            $table->integer('shop_window')->default(null)->nullable();
-            $table->string('development')->default(null)->nullable();
-            $table->string('building_permission')->default(null)->nullable();
+           // $table->integer('shop_window')->default(null)->nullable();
+           // $table->string('development')->default(null)->nullable();
+           // $table->string('building_permission')->default(null)->nullable();
         });
     }
 

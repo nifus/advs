@@ -22,11 +22,9 @@
                     <div class="row">
                         <h4>{{ trans('main.create_adv_type') }}</h4>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             {{ trans('main.create_adv_select') }}
                         </div>
-
-
                         <div class="col-md-4">
 
                             <div class="header"
@@ -128,6 +126,11 @@
 
 
                         </div>
+                        <div class="col-md-2">
+                            <div class="alert alert-warning" role="alert">
+                                {!! trans('main.create_adv_type_help') !!}
+                            </div>
+                        </div>
                     </div>
 
 
@@ -177,8 +180,8 @@
                             <label class="col-sm-2 control-label"></label>
                             <div class="col-sm-10">
 
-                                <textarea class="form-control" style="height: 200px"
-                                          disabled>{{ config('app.agb') }}</textarea> <br>
+    <textarea class="form-control" style="height: 200px"
+              disabled>{{ config('app.agb') }}</textarea> <br>
                                 <label class="checkbox-inline">
                                     <input type="checkbox" name="agb" ng-model="model.agb"
                                            required> {{ trans('main.register_agb_accept') }}

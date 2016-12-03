@@ -39,6 +39,7 @@
     <script src="/components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
     <script src="/components/angular-disable-all/dist/angular-disable-all.js"></script>
     <script src="/components/alertify.js/lib/alertify.min.js"></script>
+    <script src="/components/angular-text-counter/src/textCounter.js"></script>
 
 
 

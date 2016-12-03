@@ -17,7 +17,7 @@ class Adv extends Model
         'title', 'desc', 'created_at', 'type', 'updated_at', 'user_id', 'status', 'photos', 'visited', 'favorite',
         'lng','lat',
 
-        'cold_rent', 'monthly_rent','rental_price','price_type',
+        'cold_rent', 'monthly_rent','rental_price','price_type', 'price','emphyteusis_per_year',
 
         'address', 'author', 'category', 'move_date', 'is_deleted', 'energy', 'equipments', 'props', 'subcategory', 'finance', 'floor', 'floors', 'living_area','plot_area','area',
         'rooms', 'hide_contacts',
@@ -219,6 +219,12 @@ class Adv extends Model
         $this->update(['status' => $status]);
     }
 
+
+    public function setMoveDateAttribute($value)
+    {
+        $date = new \DateTime($value);
+        $this->attributes['move_date'] = $date->format('Y-m-d');
+    }
     public function setAddressAttribute($value)
     {
         $this->attributes['address'] = json_encode($value);

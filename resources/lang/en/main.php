@@ -155,6 +155,7 @@ return [
                     <li>Credit Card</li>
                 </ul>',
 
+        // offer form
     'create_adv'=> 'Create advertisement',
     'create_adv_need_register'=>'You need <a href=":link">
                     create an account</a> or <a ng-click="displayLoginForm()" class="link">login</a>
@@ -168,6 +169,8 @@ return [
     'create_adv_not_fill_fields'=>'You did not fill in all
                                     fields',
     'create_adv_send'=>'Send',
+    'create_adv_type_help' => ' Based on your selection you will receive the
+                                corresponding template',
 
     'category_Flat'=>'Flat',
     'category_House'=>'House',
@@ -240,5 +243,7 @@ return [
     'subcategory_Buildings'=>'Buildings',
     'subcategory_Parking'=>'Parking',
     'subcategory_Garden / Farming'=>'Garden / Farming',
+
+
 
 ];
