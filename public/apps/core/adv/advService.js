@@ -89,6 +89,18 @@
                 return deferred.promise;
             };
 
+            Object.update = function (data) {
+                var deferred = $q.defer();
+                Object.waiting = true;
+                $http.post('/api/user/advs/' + Object.id, data).then(function (response) {
+                    Object.waiting = false;
+                    deferred.resolve(response);
+                }, function (error) {
+                    deferred.reject(error.data);
+                });
+                return deferred.promise;
+            };
+
             Object.disable = function () {
                 var deferred = $q.defer();
                 Object.waiting = true;

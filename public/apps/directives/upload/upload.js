@@ -39,7 +39,6 @@
 
             var content = linkFn(scope);
             element.append(content);
-
             if (element.find('button').length == 1) {
                 scope.button = element.find('button');
             } else if (element.find('img').length == 1) {

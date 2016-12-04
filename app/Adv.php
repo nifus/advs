@@ -292,19 +292,24 @@ class Adv extends Model
     public function setPhotosAttribute($value)
     {
 
-        if (is_array($value)) {
+        if ( is_array($value)) {
+
             $result = [];
 
             foreach ($value as $image) {
-                $name = time() . rand(1, 10000) . '.' . pathinfo($image['filename'], PATHINFO_EXTENSION);
-                file_put_contents(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name), base64_decode($image['base64']));
+                if ( is_array($image) ){
+                    $name = time() . rand(1, 10000) . '.' . pathinfo($image['filename'], PATHINFO_EXTENSION);
+                    file_put_contents(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name), base64_decode($image['base64']));
 
-                \Image::make(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name))->resize(100, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save(public_path('uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $name));
-                array_push($result, $name);
+                    \Image::make(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name))->resize(100, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save(public_path('uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $name));
+                    array_push($result, ($name) );
+
+                }else{
+                    array_push($result, basename($image) );
+                }
             }
-
             $result = sizeof($result)>0 ? json_encode($result) : null;
         } elseif (is_string($value)) {
             $result = $value;
@@ -344,7 +349,8 @@ class Adv extends Model
     public function getPhotosAttribute()
     {
         if (is_null($this->attributes['photos'])) {
-            return ['/images/no-photo.jpg'];
+            return [];
+            //return ['/images/no-photo.jpg'];
         }
 
         $photos = json_decode($this->attributes['photos']);
@@ -425,6 +431,18 @@ class Adv extends Model
         return $log;
     }
 
+    public function itsAuthor($user_id){
+        if ( $this->attributes['user_id']==$user_id ){
+            return true;
+        }
+        return false;
+    }
+
+    public function updateAdv($data){
+        self::advValidation($data);
+        $this->update($data);
+    }
+
     static function getByUserWithStatus($user_id)
     {
         return self::where('user_id', $user_id)->where('is_deleted', '0')->get(['status', 'type']);
@@ -449,14 +467,8 @@ class Adv extends Model
         return $adv;
     }
 
-    static function createNewAdv($data, $user_id)
-    {
-
-        $data['user_id'] = $user_id;
-
-        $data['status'] = 'payment_waiting';
-
-        $general_riles = [
+    static function advValidation($data){
+        $general_rules = [
             'type' => 'required',
             'title' => 'required',
             'category' => 'required',
@@ -477,7 +489,7 @@ class Adv extends Model
             'lat' => 'required',
             'lng' => 'required',
         ];
-        $validator = \Validator::make($data, $general_riles);
+        $validator = \Validator::make($data, $general_rules);
         if ($validator->fails()) {
             $messages = $validator->messages();
             throw new \Exception($messages->first());
@@ -530,6 +542,17 @@ class Adv extends Model
             $messages = $validator->messages();
             throw new \Exception($messages->first());
         }
+        return true;
+    }
+
+    static function createNewAdv($data, $user_id)
+    {
+
+        $data['user_id'] = $user_id;
+
+        $data['status'] = 'payment_waiting';
+
+        self::advValidation($data);
 
         $country = isset($data['address']['country']) ? $data['address']['country'] : null;
         $region = isset($data['address']['region']) ? $data['address']['region'] : null;

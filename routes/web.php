@@ -74,6 +74,7 @@ Route::group(['prefix'=>'api'], function () {
 
         Route::group(['prefix'=>'advs'], function () {
             Route::post('/', 'AdvController@store' );
+            Route::post('/{id}', 'AdvController@update' );
 
             Route::get('/{id}', 'AdvController@getUserAdvById' );
             Route::put('/', 'AdvController@getByUser' );
@@ -100,7 +101,8 @@ Route::group(['prefix'=>'api'], function () {
         $sets = [
             'sub_categories'=>Adv::getSubCategories(),
             'equipments'=>Adv::getEquipments(),
-            'categories'=>Category::getCategories()
+            'categories'=>Category::getCategories(),
+            'agb' =>  \Config::get('app.agb')
         ];
         return response()->json($sets);
     } );

@@ -28,9 +28,27 @@ class AdvController extends Controller
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
-
-
     }
+
+    function update( $id,  Request $request){
+        try{
+            $user = UserModel::getUser();
+            if ( is_null($user) ){
+                abort(403);
+            }
+            $adv = AdvModel::findOrDie($id);
+            if ( !$adv->itsAuthor($user->id) ){
+                abort(403);
+            }
+            $data = $request->all();
+            $adv->updateAdv($data);
+            return response()->json($adv->toArray());
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
+
+
 
     function create(){
         $user = UserModel::getUser();

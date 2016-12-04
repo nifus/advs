@@ -17,10 +17,10 @@
     <link rel="stylesheet" href="/components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
 
 
+    <script src="/components/jquery/dist/jquery.min.js"></script>
 
     <script src="/components/angular/angular.min.js"></script>
     <script src="/components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="/components/jquery/dist/jquery.min.js"></script>
     <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 

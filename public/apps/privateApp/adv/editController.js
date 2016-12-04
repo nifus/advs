@@ -2,9 +2,9 @@
     'use strict';
     angular.module('privateApp').controller('editController', editController);
 
-    editController.$inject = ['$scope', 'advFactory', '$q', '$interval', '$state'];
+    editController.$inject = ['$scope', 'advFactory', '$q', '$interval', '$state','$filter','$timeout'];
 
-    function editController($scope, advFactory, $q, $interval, $state) {
+    function editController($scope, advFactory, $q, $interval, $state, $filter, $timeout) {
         // $scope.user = null;
         $scope.model = {
         };
@@ -12,6 +12,7 @@
         var promises = [];
 
         $scope.env = {
+            submit: false,
             id: $state.params.id,
             loading: true,
             subcats: [],
@@ -36,6 +37,7 @@
                 $scope.env.subcats = response.sub_categories;
                 $scope.env.equipments = response.equipments;
                 $scope.env.categories = response.categories;
+                $scope.env.agb = response.agb;
             });
             promises.push(dataSetPromise);
 
@@ -63,6 +65,25 @@
         $scope.$watch('model', function (value) {
             console.log(value)
         },true );
+
+        $scope.save = function (data, form) {
+            $scope.env.submit = true;
+            if (!form.$invalid ) {
+                $scope.env.send = true;
+                $scope.adv.update(data).then(function (response) {
+                        $scope.env.send = false;
+                        alertify.success( $filter('translate')("Advert changed") );
+                        $timeout(function () {
+                            $state.go("my-adv")
+                        },2000);
+                    },
+                    function (error) {
+                        $scope.env.send = false;
+                        console.log(error)
+                    })
+            }
+
+        };
 
         function getCategoryName(id, cats) {
             for (var i in cats) {
