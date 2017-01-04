@@ -35,7 +35,7 @@ class UserController extends Controller
 
     public function authenticate(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password','remember','is_admin');
         try {
             $user = User::getUserByLogin($credentials['email']);
             if ( is_null($user) ){
@@ -53,11 +53,14 @@ class UserController extends Controller
             }elseif ( $user->isBusinessAccount() && $user->isNotApproved()){
                 throw new JWTException( trans('main.error_user_not_approved') );
             }
+            if ( $credentials['is_admin'] && !$user->isAdminAccount() ){
+                throw new JWTException( trans('main.error_user_not_admin') );
+            }
             $token = JWTAuth::fromUser($user);
         } catch (JWTException $e) {
             return response()->json(['success'=>false,'error' => $e->getMessage()], 500);
         }
-        return response()->json(['success'=>true,'token'=>$token]);
+        return response()->json(['success'=>true,'token'=>$token,'user'=>$user->toArray()]);
     }
 
 
@@ -242,6 +245,7 @@ class UserController extends Controller
                 JWTAuth::invalidate(JWTAuth::getToken());
                 throw new \Exception('no user');
             }
+
             return response()->json($user->toArray()  );
         }catch( \Exception $e ){
             return response()->json( null );

@@ -1,0 +1,8 @@
+#announcement textarea{
+    height:400px;
+}
+
+#announcement div.counter{
+    color:lightgrey;
+    font-size: 12px;
+}

@@ -1,0 +1,31 @@
+<div class="container" style="margin-top:70px">
+    <div class="col-sm-4 col-sm-offset-4" >
+        <div class="well">
+            <h3 translate>Login Form</h3>
+
+
+            <form name="loginForm">
+                <div class="alert alert-danger" role="alert" ng-show="env.error">{{env.error}}</div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="E-Mail" ng-model="model.email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="*****" ng-model="model.password"
+                           required>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="model.remember"> stay logged in
+                    </label>
+                </div>
+
+                <button type="button" class="btn btn-primary"
+                        ng-click="signIn(model.email, model.password, model.remember)" ng-disabled="loginForm.$invalid || env.waiting==true"
+                        translate>
+                    Submit
+                </button>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>

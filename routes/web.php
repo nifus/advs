@@ -91,6 +91,7 @@ Route::group(['prefix'=>'api'], function () {
     });
 
     Route::get('/news/{type}', 'News@getLastNews' );
+    //Route::get('/config', 'ConfigController@getConfig' );
 
     Route::get('/advs/{id}', 'AdvController@getAdvById' );
 
@@ -118,6 +119,9 @@ Route::group(['prefix'=>'api'], function () {
     Route::post('/search/{id}', ['as'=>'adv.search','uses'=>'SearchController@search'])->where('id','[0-9]*');
     Route::post('/search/{id}/update', 'SearchController@searchUpdate')->where('id','[0-9]*');
 
+    Route::group(['prefix'=>'back'], function () {
+        Route::post('/config/announcement/{type}', 'ConfigController@announcement' )->where('type','private|business');
+    });
 });
 
 

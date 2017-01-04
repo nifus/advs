@@ -45,24 +45,22 @@
 
 
         function logout() {
-            $cookies.put('token',null);
+            $cookies.put('token',null,{'path':'/'});
             $auth.logout();
             $rootScope.$broadcast('logout');
         }
 
 
 
-        function login(credentials) {
+        function login(credentials ) {
             var deferred =$q.defer();
             var promise = deferred.promise;
 
             $auth.login(credentials).then(function (response) {
                // $rootScope.$broadcast('login');
-                deferred.resolve({success: true, token: response.data.token});
-
+                deferred.resolve({success: true, token: response.data.token, user:response.data.user});
             }).catch(function (response) {
                 deferred.resolve({success: false, error: response.data.error});
-
             });
             return promise;
         }

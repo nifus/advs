@@ -177,6 +177,10 @@ class User extends Authenticatable
         return $this->attributes['group_id']==3 ? true : false;
     }
 
+    public function isAdminAccount(){
+        return $this->attributes['group_id']==1 ? true : false;
+    }
+
     public function isWaitApprove(){
         return $this->attributes['is_approved']==0 ? true : false;
     }

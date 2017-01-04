@@ -28,6 +28,7 @@ return [
     'error_user_wait_approve'=>'User Wait Approve',
     'error_user_not_approved'=>'User Not Approved',
     'error_user_not_activated'=>'User Not Activated',
+    'error_user_not_admin'=>'User have not admin access',
 
 
         //  reset pass page

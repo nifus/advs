@@ -15,7 +15,16 @@ class UserSeeder extends Seeder
 
         \DB::table('users')->truncate();
 
-
+        User::create([
+            'name'=>'Admin',
+            'email'=>'admin@gmail.com',
+            'is_activated'=>'1',
+            'group_id'=>'1',
+            'surname'=>'Bunzya',
+            'sex'=>'male',
+            'password'=>'testpass',
+            'activate_key'=>1
+        ]);
         User::create([
                 'name'=>'Alex',
                 'email'=>'a.bunzya@gmail.com',

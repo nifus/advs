@@ -25,6 +25,12 @@
                 return false;
             };
 
+            Object.isAdminAccount = function(){
+                if (Object.group_id==1){
+                    return true;
+                }
+                return false;
+            };
 
             Object.getAdvStat = function(){
                 return $http.get('/api/user/adv-stat').then( function(response){

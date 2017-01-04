@@ -32,7 +32,6 @@
                     $cookies.put('email', $scope.form.email, {'expires': expireDate,'path':'/'});
 
                     if ($scope.form.remember===true){
-
                         $cookies.put('token', response.token, {'expires': expireDate,'path':'/'});
                     }else{
                         $cookies.put('token', response.token,{'path':'/'});
