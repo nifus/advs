@@ -73,6 +73,7 @@
     <script src="/apps/privateApp/adv/previewController.js"></script>
     <script src="/apps/directives/advPreview/advPreview.js"></script>
     <script src="/apps/privateApp/adv/editController.js"></script>
+    <script src="/apps/privateApp/adv/reactController.js"></script>
 
 
 

@@ -10,7 +10,6 @@
             async defer
     ></script>
     <script src="/apps/frontApp/register/registerController.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
 
     <div class="panel panel-info" ng-controller="registerController">
         <div class="panel-heading"><h3>{{ trans('main.business_header') }}</h3></div>
@@ -303,6 +302,9 @@
 
                         </div>
                     </div>
+
+                    <div class="alert alert-warning" role="alert">...</div>
+
 
                     <div style="text-align: center">
                         <button

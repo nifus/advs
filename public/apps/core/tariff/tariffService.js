@@ -9,10 +9,10 @@
             var Object = tariff;
             Object.tariffs = tariffs;
             Object.details = tariffDetails;
-            Object.StartDate = moment(Object.start_time).format('DD.MM.YYYY HH:mm');
+            Object.StartDate = moment(Object.begin_time).format('DD.MM.YYYY HH:mm');
             Object.EndDate = moment(Object.end_time).format('DD.MM.YYYY HH:mm');
             Object.EndDate = moment(Object.end_time).format('DD.MM.YYYY HH:mm');
-            Object.Range = moment(Object.end_time).diff( moment(Object.start_time), 'days');
+            Object.Range = moment(Object.end_time).diff( moment(Object.begin_time), 'days');
             Object.TariffName =  tariffs.filter( function (tariff) {
                 if ( tariff.id==Object.tariff_id  ){
                     return true;

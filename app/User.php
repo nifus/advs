@@ -173,6 +173,20 @@ class User extends Authenticatable
         return Tariff::getActiveTariff($this->id);
     }
 
+    public function isBusinessAccount(){
+        return $this->attributes['group_id']==3 ? true : false;
+    }
+
+    public function isWaitApprove(){
+        return $this->attributes['is_approved']==0 ? true : false;
+    }
+    public function isNotApproved(){
+        return $this->attributes['is_approved']==2 ? true : false;
+    }
+    public function isActivated(){
+        return $this->attributes['is_activated']==1 ? true : false;
+    }
+
     public function addTariff($tariff_id){
         return Tariff::addNewTariff($this->id, $tariff_id);
     }
@@ -244,9 +258,7 @@ class User extends Authenticatable
     }
 
     static function getUserByLogin($login){
-        return self::where('email', $login)
-            ->where('is_activated', 1)
-            ->get()->first();
+        return self::where('email', $login)->first();
 
     }
 

@@ -440,6 +440,9 @@ class Adv extends Model
 
     public function updateAdv($data){
         self::advValidation($data);
+        if ( $this->attributes['status']=='blocked' ){
+            $data['status']='approve_waiting';
+        }
         $this->update($data);
     }
 

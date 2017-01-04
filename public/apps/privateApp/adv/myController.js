@@ -122,6 +122,10 @@
             $state.go('adv-edit',{'id':adv.id})
         };
 
+        $scope.reactAdv = function(adv){
+            $state.go('adv-react',{'id':adv.id, react: 1})
+        };
+
         $scope.$watch('env.order', function(value){
             switch(value){
                 case('price_up'):

@@ -23,6 +23,11 @@ return [
     'address'=>'Anschrift',
     'agb-head'=>'Allgemeine Geschäftsbedingungen (AGB)',
     'profile' => 'Profile',
+    'error_user_not_found'=>'User not found',
+    'error_user_was_deleted'=>'User was deleted',
+    'error_user_wait_approve'=>'User Wait Approve',
+    'error_user_not_approved'=>'User Not Approved',
+    'error_user_not_activated'=>'User Not Activated',
 
 
         //  reset pass page

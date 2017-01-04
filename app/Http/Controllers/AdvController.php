@@ -203,7 +203,8 @@ class AdvController extends Controller
                 'active' => 0,
                 'disabled' => 0,
                 'expired' => 0,
-                'blocked' => 0
+                'blocked' => 0,
+                'approve_waiting'=>0
 
             ],
             'sale' => [
@@ -212,7 +213,8 @@ class AdvController extends Controller
                 'active' => 0,
                 'disabled' => 0,
                 'expired' => 0,
-                'blocked' => 0
+                'blocked' => 0,
+                'approve_waiting'=>0
             ]
         ];
 

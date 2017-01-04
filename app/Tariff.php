@@ -9,7 +9,7 @@ class Tariff extends Model
     public $table='tariffs';
 
     protected $fillable = [
-        'user_id','created_at','updated_at','tariff_id','is_future' ,'is_paid','start_time','end_time','slots','extra','price'
+        'user_id','created_at','updated_at','tariff_id','is_future' ,'is_paid','begin_time','end_time','slots','extra','price'
     ];
 
     public function Details()
@@ -24,7 +24,7 @@ class Tariff extends Model
                 $date = new \DateTime();
                 $t = self::create([
                     'user_id'=> $user_id,
-                    'start_time'=> $date->format('Y-m-d H:i:s'),
+                    'begin_time'=> $date->format('Y-m-d H:i:s'),
                     'end_time'=> $date->modify('+1 month')->format('Y-m-d H:i:s'),
                     'is_paid' => '1',
                     'is_future'=>'0',
@@ -45,7 +45,7 @@ class Tariff extends Model
         $now = $date->format('Y-m-d H:i:s');
 
         return self::where('user_id',$user_id)
-            ->where('start_time','<=', $now)
+            ->where('begin_time','<=', $now)
             ->where('end_time','>', $now)
             ->where('is_paid','1')
             ->where('is_future','0')

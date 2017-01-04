@@ -16,7 +16,7 @@ class CreateAdv extends Migration
         Schema::create('advs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->enum('status',['payment_waiting','active','disabled','expired','blocked'])->default('payment_waiting');
+            $table->enum('status',['approve_waiting','payment_waiting','active','disabled','expired','blocked'])->default('payment_waiting');
             $table->enum('type',['rent','sale'])->default('rent');
             $table->text('photos')->nullable();
             $table->integer('visited')->default(0);

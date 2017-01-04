@@ -110,14 +110,14 @@
                                 {{'Action'|translate}} <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="link" ng-click="editAdv(adv)" translate>Edit</a></li>
+                                <li><a class="link" ng-click="editAdv(adv)" ng-show="adv.status!='blocked'"  translate>Edit</a></li>
                                 <li><a class="link" ng-click="extendAdv(adv)" ng-show="adv.status=='expired'" translate>Extend</a></li>
 
                                 <li><a class="link" ng-click="disableAdv(adv)"  ng-show="(adv.status!='disabled' && adv.status!='blocked' && adv.status!='expired')" translate>Disable</a></li>
                                 <li><a class="link" ng-click="enableAdv(adv)"  ng-show="adv.status=='disabled' " translate>Enable</a></li>
 
                                 <li><a class="link" ng-click="deleteAdv(adv)" translate>Delete</a></li>
-                                <li><a class="link" ng-click="editAdv(adv)" ng-show="adv.status=='blocked'" translate>React</a></li>
+                                <li><a class="link" ng-click="reactAdv(adv)" ng-show="adv.status=='blocked'" translate>React</a></li>
                             </ul>
                         </div>
                     </div>

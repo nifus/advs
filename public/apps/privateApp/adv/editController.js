@@ -14,6 +14,8 @@
         $scope.env = {
             submit: false,
             id: $state.params.id,
+            react: $state.params.react,
+            display_form: !$state.params.react==1,
             loading: true,
             subcats: [],
             equipments: [],

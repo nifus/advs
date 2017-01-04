@@ -42,6 +42,10 @@
             url: '/adv/:id/edit',
             templateUrl: 'apps/privateApp/adv/edit.html',
             controller: 'editController'
+        }).state('adv-react', {
+            url: '/adv/:id/edit/:react',
+            templateUrl: 'apps/privateApp/adv/edit.html',
+            controller: 'editController'
         })
 
     }).run(function (gettextCatalog) {

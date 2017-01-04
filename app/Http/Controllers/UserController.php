@@ -39,10 +39,19 @@ class UserController extends Controller
         try {
             $user = User::getUserByLogin($credentials['email']);
             if ( is_null($user) ){
-                throw new JWTException( 'Пользователь не найден' );
+                throw new JWTException( trans('main.error_user_not_found') );
+            }
+
+            if ( false===$user->isActivated()){
+                throw new JWTException( trans('main.error_user_not_activated') );
             }
             if ($user->isDeletedAccount()){
-                throw new JWTException( 'Пользователь не найден' );
+                throw new JWTException( trans('main.error_user_was_deleted') );
+            }
+            if ( $user->isBusinessAccount() && $user->isWaitApprove()){
+                throw new JWTException( trans('main.error_user_wait_approve') );
+            }elseif ( $user->isBusinessAccount() && $user->isNotApproved()){
+                throw new JWTException( trans('main.error_user_not_approved') );
             }
             $token = JWTAuth::fromUser($user);
         } catch (JWTException $e) {
