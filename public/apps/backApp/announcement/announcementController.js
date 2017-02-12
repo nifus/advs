@@ -38,7 +38,19 @@
                 console.log(response);
                 alertify.success($filter('translate')('Announcement updated'));
             })
-        }
+        };
+
+        $scope.$watch('model.private.status', function (value) {
+            if ( value=='0' ){
+                $scope.model.private.text = $filter('translate')('At the moment there are no errors or news');
+            }
+        });
+
+        $scope.$watch('model.business.status', function (value) {
+            if ( value=='0' ){
+                $scope.model.business.text = $filter('translate')('At the moment there are no errors or news');
+            }
+        });
     }
 
 })();

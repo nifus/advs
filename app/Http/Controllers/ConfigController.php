@@ -20,14 +20,26 @@ class ConfigController extends Controller
 
     function announcement($type, Request $request){
         $user = User::getUser();
-
         $data = $request->all();
-
         $config = self::getConfig();
         $date = new \DateTime();
         $data['updated_at'] = $date->format('Y-m-d H:i:s');
         $data['author'] = $user->email;
         $config->announcement->$type = $data;
+        self::saveConfig($config);
+        return response()->json(['success'=>true]);
+    }
+
+    function instruction(Request $request){
+
+        $data = $request->all();
+        $config = self::getConfig();
+        if ( isset($config->instructions) ){
+            array_push($config->instructions,$data);
+        }else{
+            $config->instructions = [$data];
+        }
+
         self::saveConfig($config);
         return response()->json(['success'=>true]);
     }

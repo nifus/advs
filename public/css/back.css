@@ -1,8 +1,14 @@
-#announcement textarea{
+#announcement textarea,
+#help-desk textarea
+{
     height:400px;
 }
 
-#announcement div.counter{
+#announcement div.counter,
+#help-desk div.counter
+{
     color:lightgrey;
     font-size: 12px;
 }
+
+

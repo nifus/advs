@@ -2,7 +2,6 @@
 
 return [
 
-
     'tariffs'=>[
         ['id'=>1, 'name'=>'Pack 1', 'slots'=>1, 'price'=>30, 'additional'=>30],
         ['id'=>2, 'name'=>'Pack 2', 'slots'=>2, 'price'=>55, 'additional'=>27.5],
@@ -204,8 +203,7 @@ return [
         /*
          * Package Service Providers...
          */
-
-        //
+        Laravel\Tinker\TinkerServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -219,7 +217,6 @@ return [
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
-        //Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*
@@ -239,6 +236,8 @@ return [
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
+        'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
+        'Bus' => Illuminate\Support\Facades\Bus::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,

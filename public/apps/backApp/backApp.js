@@ -20,7 +20,7 @@
             controller: 'announcementController'
         }).state('help-desk', {
             url: '/help-desk',
-            templateUrl: '../apps/backApp/announcement/helpDesk.html',
+            templateUrl: '../apps/backApp/helpDesk/helpDesk.html',
             controller: 'helpDeskController'
         })
 

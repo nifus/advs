@@ -121,6 +121,8 @@ Route::group(['prefix'=>'api'], function () {
 
     Route::group(['prefix'=>'back'], function () {
         Route::post('/config/announcement/{type}', 'ConfigController@announcement' )->where('type','private|business');
+        Route::post('/config/instruction', 'ConfigController@instruction' );
+        Route::post('/config/faq', 'ConfigController@faq' );
     });
 });
 

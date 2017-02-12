@@ -11,6 +11,8 @@
         return {
             get:get,
             saveAnnouncement:saveAnnouncement,
+            saveInstruction:saveInstruction,
+            saveFaq:saveFaq,
             //getCurrencyList:getCurrencyList
         };
 
@@ -34,7 +36,25 @@
             return defer.promise;
         }
 
+        function saveInstruction(data) {
+            var defer = $q.defer();
+            $http.post('/api/back/config/instruction', data).then(function (response) {
+                defer.resolve(response.data)
+            },function (response) {
+                defer.reject({error:'error'})
+            });
+            return defer.promise;
+        }
 
+        function saveFaq(data) {
+            var defer = $q.defer();
+            $http.post('/api/back/config/faq', data).then(function (response) {
+                defer.resolve(response.data)
+            },function (response) {
+                defer.reject({error:'error'})
+            });
+            return defer.promise;
+        }
 
     }
 
