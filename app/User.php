@@ -16,7 +16,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','surname','sex','group_id','is_activated','activate_key','is_approved','company','contact_email','giro_account','payment_type','paypal_email','phone','tariff','website','commercial_country' ,'commercial_id','commercial_additional','address_additional','address_city','address_number','address_street','address_zip','allow_notifications','is_deleted'
+        'name', 'email', 'password', 'surname', 'sex', 'group_id',  'activate_key', 'company', 'contact_email', 'giro_account', 'payment_type', 'paypal_email', 'phone', 'tariff', 'website', 'commercial_country', 'commercial_id', 'commercial_additional', 'address_additional', 'address_city', 'address_number', 'address_street', 'address_zip', 'allow_notifications', 'is_deleted','status',
+
+        // removing
+        'is_activated', 'is_approved',
     ];
 
     /**
@@ -35,46 +38,79 @@ class User extends Authenticatable
     }*/
     public function Fav()
     {
-        return $this->belongsToMany('App\Adv', 'advs_fav', 'user_id','adv_id');
+        return $this->belongsToMany('App\Adv', 'advs_fav', 'user_id', 'adv_id');
     }
+
     public function Adv()
     {
         return $this->hasMany('App\Adv');
     }
 
-    public function setPasswordAttribute($value){
+    public function toArray()
+    {
+        $data =  parent::toArray();
+        $data['StatusTitle'] = $this->StatusTitle;
+        $data['CreateDateWithTime'] = $this->CreateDateWithTime;
+        return $data;
+    }
+
+    public function setPasswordAttribute($value)
+    {
         $this->attributes['password'] = \Hash::make($value);
     }
 
-    public function isDeletedAccount(){
-        return $this->attributes['is_deleted']==1 ? true : false;
+    public function isDeletedAccount()
+    {
+        return $this->attributes['is_deleted'] == 1 ? true : false;
     }
-    public function activate($key){
 
-        if ($this->is_activated==1){
+    public function getStatusTitleAttribute(){
+        if ($this->status=='active'){
+            return 'Active';
+        }elseif ($this->status=='email_confirmation'){
+            return 'Email confirmation';
+        }elseif ($this->status=='wait_approve'){
+            return 'Wait for approve';
+        }elseif ($this->status=='blocked'){
+            return 'Blocked';
+        }
+    }
+
+    public function getCreateDateWithTimeAttribute(){
+        $date = new \DateTime($this->created_at);
+          return $date->format('d-m-y H:i');
+    }
+
+    public function activate($key)
+    {
+
+        if ($this->is_activated == 1) {
             throw new \Exception('user_is_activated');
         }
-        if ($this->activate_key!=$key){
+        if ($this->activate_key != $key) {
             throw new \Exception('user_activate_key_invalid');
         }
-        $this->update(['is_activated'=>1]);
+        $this->update(['is_activated' => 1]);
     }
 
-    public function resetPassword(){
+    public function resetPassword()
+    {
         $new_pass = str_random(8);
         $activate_key = md5(str_random(8));
-        $this->update(['password'=>$new_pass,'activate_key'=>$activate_key]);
+        $this->update(['password' => $new_pass, 'activate_key' => $activate_key]);
         return $new_pass;
     }
 
-    public function getWatch(){
+    public function getWatch()
+    {
         return $this->with('Fav')->get();
     }
 
-    public function changeEmail($email, $re_email){
+    public function changeEmail($email, $re_email)
+    {
         $data = [
-            'email'=>$email,
-            're_email'=>$re_email,
+            'email' => $email,
+            're_email' => $re_email,
         ];
         $validator = [
             'email' => 'required|email|min:6|unique:users,email',
@@ -86,19 +122,22 @@ class User extends Authenticatable
             throw new \Exception($messages->first());
         }
 
-        $this->update(['email'=>$email]);
+        $this->update(['email' => $email]);
     }
-    public function updateConfirmCode(){
-        $key=md5( time().rand(0, 10000));
-        $this->update(['activate_key'=>$key]);
+
+    public function updateConfirmCode()
+    {
+        $key = md5(time() . rand(0, 10000));
+        $this->update(['activate_key' => $key]);
         return $key;
     }
 
-    public function changePassword($current, $new, $re){
+    public function changePassword($current, $new, $re)
+    {
         $data = [
-            'current'=>$current,
-            'new'=>$new,
-            're'=>$re,
+            'current' => $current,
+            'new' => $new,
+            're' => $re,
         ];
         $validator = [
             'current' => 'required|min:6',
@@ -111,31 +150,40 @@ class User extends Authenticatable
             throw new \Exception($messages->first());
         }
 
-        if ( !\Hash::check($current, $this->password) ){
+        if (!\Hash::check($current, $this->password)) {
             throw new \Exception('Wrong Current password');
         }
 
 
-        $this->update(['password'=>$new]);
+        $this->update(['password' => $new]);
     }
 
-    public function deleteAccount(){
-        $this->update(['is_deleted'=>1]);
+    public function deleteAccount()
+    {
+        $this->update(['is_deleted' => 1]);
 
         $advs = $this->Adv()->get();
-        foreach($advs as $adv){
+        foreach ($advs as $adv) {
             $adv->delete();
         }
     }
 
-    public function changeAllowNotifications($value){
-        $this->update(['allow_notifications'=>$value]);
+    public function changeAllowNotifications($value)
+    {
+        $this->update(['allow_notifications' => $value]);
     }
 
-    public function changePayment($data){
+    public function changePayment($data)
+    {
         $this->update($data);
     }
-    public function changeContactData($data){
+
+    public function setActivateStatus(){
+        $this->update(['status'=>'active']);
+    }
+
+    public function changeContactData($data)
+    {
         $validator = [
             'sex' => 'required',
             'name' => 'required|min:2',
@@ -152,50 +200,62 @@ class User extends Authenticatable
         $this->update($data);
     }
 
-    public function addFavAdv($adv_id){
+    public function addFavAdv($adv_id)
+    {
         $ids = $this->Fav()->pluck('adv_id')->toArray();
-        array_push($ids,$adv_id);
+        array_push($ids, $adv_id);
         $this->Fav()->sync($ids);
     }
 
-    public function removeFavAdv($adv_id){
+    public function removeFavAdv($adv_id)
+    {
         $result = [];
-        $ids= $this->Fav()->pluck('adv_id')->toArray();
-        foreach($ids as $id){
-            if( $id!=$adv_id){
+        $ids = $this->Fav()->pluck('adv_id')->toArray();
+        foreach ($ids as $id) {
+            if ($id != $adv_id) {
                 array_push($result, $id);
             }
         }
         $this->Fav()->sync($result);
     }
 
-    public function getActualTariff(){
+    public function getActualTariff()
+    {
         return Tariff::getActiveTariff($this->id);
     }
 
-    public function isBusinessAccount(){
-        return $this->attributes['group_id']==3 ? true : false;
+    public function isBusinessAccount()
+    {
+        return $this->attributes['group_id'] == 3 ? true : false;
     }
 
-    public function isAdminAccount(){
-        return $this->attributes['group_id']==1 ? true : false;
+    public function isAdminAccount()
+    {
+        return $this->attributes['group_id'] == 1 ? true : false;
     }
 
-    public function isWaitApprove(){
-        return $this->attributes['is_approved']==0 ? true : false;
-    }
-    public function isNotApproved(){
-        return $this->attributes['is_approved']==2 ? true : false;
-    }
-    public function isActivated(){
-        return $this->attributes['is_activated']==1 ? true : false;
+    public function isWaitApprove()
+    {
+        return $this->attributes['is_approved'] == 0 ? true : false;
     }
 
-    public function addTariff($tariff_id){
+    public function isNotApproved()
+    {
+        return $this->attributes['is_approved'] == 2 ? true : false;
+    }
+
+    public function isActivated()
+    {
+        return $this->attributes['is_activated'] == 1 ? true : false;
+    }
+
+    public function addTariff($tariff_id)
+    {
         return Tariff::addNewTariff($this->id, $tariff_id);
     }
 
-    static function createPrivateAccount($data){
+    static function createPrivateAccount($data)
+    {
         $validator = [
             'sex' => 'required',
             'name' => 'required|min:2',
@@ -205,7 +265,7 @@ class User extends Authenticatable
             're_password' => 'required|min:6|same:password',
             'email' => 'required|min:6',
             're_email' => 'required|min:6|same:email',
-            'captcha'=>'required|captcha'
+            'captcha' => 'required|captcha'
         ];
         $validator = \Validator::make($data, $validator);
         if ($validator->fails()) {
@@ -214,17 +274,18 @@ class User extends Authenticatable
         }
 
         $count = self::where('email', $data['email'])->count();
-        if ($count>0){
-            throw new \Exception( trans('validation.exist_email') );
+        if ($count > 0) {
+            throw new \Exception(trans('validation.exist_email'));
         }
 
-        $data['group_id']=2;
-        $data['activate_key']=md5( time().rand(0, 10000));
+        $data['group_id'] = 2;
+        $data['activate_key'] = md5(time() . rand(0, 10000));
         return self::create($data);
 
     }
 
-    static function createBusinessAccount($data){
+    static function createBusinessAccount($data)
+    {
         $validator = [
             'sex' => 'required',
             'name' => 'required|min:2',
@@ -234,14 +295,14 @@ class User extends Authenticatable
             're_password' => 'required|min:6|same:password',
             'email' => 'required|min:6',
             're_email' => 'required|min:6|same:email',
-            'captcha'=>'required|captcha',
-            'company'=>'required|min:2',
-            'commercial_country'=>'required',
-            'commercial_id'=>'required',
-            'address_city'=>'required',
-            'address_number'=>'required',
-            'address_street'=>'required',
-            'address_zip'=>'required',
+            'captcha' => 'required|captcha',
+            'company' => 'required|min:2',
+            'commercial_country' => 'required',
+            'commercial_id' => 'required',
+            'address_city' => 'required',
+            'address_number' => 'required',
+            'address_street' => 'required',
+            'address_zip' => 'required',
 
         ];
         $validator = \Validator::make($data, $validator);
@@ -251,46 +312,149 @@ class User extends Authenticatable
         }
 
         $count = self::where('email', $data['email'])->count();
-        if ($count>0){
-            throw new \Exception( trans('validation.exist_email') );
+        if ($count > 0) {
+            throw new \Exception(trans('validation.exist_email'));
         }
 
-        $data['group_id']=3;
-        $data['activate_key']=md5( time().rand(0, 10000));
+        $data['group_id'] = 3;
+        $data['activate_key'] = md5(time() . rand(0, 10000));
         return self::create($data);
 
     }
 
-    static function getUserByLogin($login){
-        return self::where('email', $login)->first();
+    static function getUserByEmail($email)
+    {
+        $validator = [
+            'email' => 'required|email',
+        ];
+        $validator = \Validator::make(['email' => $email], $validator);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new \Exception($messages->first());
+        }
+        return self::where('email', $email)->first();
 
     }
 
-    static function getUser(){
-        if (!isset($_COOKIE['token'])){
-            return null;
-        }
-        try{
-            $user =  JWTAuth::setToken( $_COOKIE['token'] )->authenticate();
-            if ( false===$user){
+    static function getUser($token = null)
+    {
+        try {
+            $parse_token = JWTAuth::getToken();
+
+            if ($parse_token) {
+                $user = JWTAuth::setToken($parse_token)->authenticate();
+            } else if (!is_null($token)) {
+                $user = JWTAuth::setToken($token)->authenticate();
+            } else if (isset($_COOKIE['token'])) {
+                $user = JWTAuth::setToken($_COOKIE['token'])->authenticate();
+            }
+            if (false === $user) {
                 return null;
             }
             return $user;
-        }catch( \Exception $e){
+        } catch (\Exception $e) {
             return null;
         }
+
     }
 
-    static function getUserOrDie(){
-       $user = self::getUser();
-        if ( is_null($user) ){
+    static function getUserOrDie()
+    {
+        $user = self::getUser();
+        if (is_null($user)) {
             throw new \Exception('User not found');
         }
         return $user;
 
     }
 
-    static function getUserIds(){
-        return self::whereIn('group_id',[2,3])->pluck('id')->toArray();
+    static function getUserIds()
+    {
+        return self::whereIn('group_id', [2, 3])->pluck('id')->toArray();
     }
+
+
+    static function getTotal($filter)
+    {
+        $sql = self::orderBy('id','DESC');
+        if (isset($filter['id'])) {
+            $sql = $sql->where('id', $filter['id']);
+        }
+        if (isset($filter['company'])) {
+            $sql = $sql->where('company', 'LIKE', '%'.trim($filter['company']).'%');
+        }
+        if (isset($filter['commercial_id'])) {
+            $sql = $sql->where('commercial_id', 'LIKE', '%'.trim($filter['commercial_id']).'%');
+        }if (isset($filter['name'])) {
+        $sql = $sql->where('name', 'LIKE', '%'.trim($filter['name']).'%');
+    }if (isset($filter['surname'])) {
+        $sql = $sql->where('surname', 'LIKE', '%'.trim($filter['surname']).'%');
+    }
+        if (isset($filter['email'])) {
+            $sql = $sql->where('email', trim($filter['email']));
+        }
+        if (isset($filter['address_zip'])) {
+            $sql = $sql->where('address_zip', trim($filter['address_zip']));
+        }if (isset($filter['address_city'])) {
+        $sql = $sql->where('address_city', trim($filter['address_city']));
+    }if (isset($filter['commercial_country'])) {
+        $sql = $sql->where('commercial_country', trim($filter['commercial_country']));
+    }
+        if (isset($filter['group_id']) and sizeof($filter['group_id'])>0) {
+            $sql = $sql->whereIn('group_id', $filter['group_id']);
+        }
+        if (isset($filter['status']) and sizeof($filter['group_id'])>0 ) {
+            $sql = $sql->whereIn('status', $filter['status']);
+        }
+
+        // dd($sql->getQuery()->toSql());
+        $sql = $sql->where('is_deleted', '0')->where('group_id','>' ,1);
+        return
+            $sql->count();
+    }
+
+    static function getByPage($page, $limit, $filter)
+    {
+
+        // dd($filter);
+        $offset = ($page - 1) * $limit;
+        $sql = self::orderBy('id','DESC');
+        if (isset($filter['id'])) {
+            $sql = $sql->where('id', $filter['id']);
+        }
+        if (isset($filter['company'])) {
+            $sql = $sql->where('company', 'LIKE', '%'.trim($filter['company']).'%');
+        }
+        if (isset($filter['commercial_id'])) {
+            $sql = $sql->where('commercial_id', 'LIKE', '%'.trim($filter['commercial_id']).'%');
+        }if (isset($filter['name'])) {
+            $sql = $sql->where('name', 'LIKE', '%'.trim($filter['name']).'%');
+        }if (isset($filter['surname'])) {
+            $sql = $sql->where('surname', 'LIKE', '%'.trim($filter['surname']).'%');
+        }
+        if (isset($filter['email'])) {
+            $sql = $sql->where('email', trim($filter['email']));
+        }
+        if (isset($filter['address_zip'])) {
+            $sql = $sql->where('address_zip', trim($filter['address_zip']));
+        }if (isset($filter['address_city'])) {
+            $sql = $sql->where('address_city', trim($filter['address_city']));
+        }if (isset($filter['commercial_country'])) {
+            $sql = $sql->where('commercial_country', trim($filter['commercial_country']));
+        }
+        if (isset($filter['group_id']) and sizeof($filter['group_id'])>0) {
+            $sql = $sql->whereIn('group_id', $filter['group_id']);
+        }
+        if (isset($filter['status']) and sizeof($filter['group_id'])>0 ) {
+            $sql = $sql->whereIn('status', $filter['status']);
+        }
+
+        // dd($sql->getQuery()->toSql());
+        $sql = $sql->where('is_deleted', '0')->where('group_id','>' ,1)->offset($offset)
+            ->limit($limit);
+        return
+            $sql->get();
+    }
+
+
 }

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../components/alertify.js/themes/alertify.core.css"/>
     <link rel="stylesheet" href="../components/alertify.js/themes/alertify.default.css"/>
 
+    <link rel="stylesheet" href="../css/app.css">
 
     <link rel="stylesheet" href="../css/back.css">
 
@@ -20,12 +21,14 @@
 
     <script src="../components/jquery/dist/jquery.min.js"></script>
     <script src="../components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyDhoywlfGZRVpt8hcYkJORK4ioyBeEIweU"></script>
+
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 </head>
 
 
-<body ng-app="backApp" ng-controller="mainController">
+<body ng-app="backApp" ng-controller="baseController">
 
 <div class="progress" ng-if="!loaded">
     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
@@ -48,20 +51,62 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+
+
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Portal <span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Portal <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref="announcement">Announcement</a></li>
-                            <li><a ui-sref="help-desk" href="#">HelpDesk</a></li>
+                            <li><a ui-sref="announcement" translate>Announcement</a></li>
+                            <li><a ui-sref="help-desk" translate>HelpDesk</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" ng-click="logout()">Exit</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Advert <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="adverts-search" translate>Search adverts</a></li>
+                            <li><a ui-sref="adverts-blocked" translate>Blocked adverts</a></li>
+                            <li><a ui-sref="adverts-reported" translate>Reported adverts</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Accounts <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="accounts-search" translate>Search accounts</a></li>
+                            <li><a ui-sref="accounts-create" translate>New business accounts</a></li>
+                            <li><a ui-sref="accounts-blocked" translate>Blocked accounts</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Mailing <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="announcement" translate>Send</a></li>
+                            <li><a ui-sref="help-desk" translate>Template</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a  translate>Statistics</a>
+                    </li>
+                    <li class="dropdown">
+                        <a  translate>Prices</a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Administration <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="announcement" translate>Users</a></li>
+                            <li><a ui-sref="help-desk" translate>Roles</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" ng-click="logout()" translate>Exit</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="container-fluid" ui-view></div>
+
+
 </div>
 
 <script src="../components/angular/angular.js"></script>
@@ -74,6 +119,7 @@
 <script src="../components/alertify.js/lib/alertify.min.js"></script>
 <script src="../components/angular-gettext/dist/angular-gettext.min.js"></script>
 <script src="../components/angular-text-counter/src/textCounter.js"></script>
+<script src="../components/checklist-model/checklist-model.js"></script>
 
 
 
@@ -82,22 +128,32 @@
 
 <script src="../apps/core/user/userFactory.js"></script>
 <script src="../apps/core/user/userService.js"></script>
-<script src="../apps/core/mainController.js"></script>
 <script src="../apps/core/cacheService.js"></script>
 <script src="../apps/core/adv/advFactory.js"></script>
 <script src="../apps/core/adv/advService.js"></script>
 <script src="../apps/core/tariff/tariffFactory.js"></script>
 <script src="../apps/core/tariff/tariffService.js"></script>
 <script src="../apps/core/config/configFactory.js"></script>
-
+<script src="../apps/core/faq/faqFactory.js"></script>
+<script src="../apps/core/faq/faqService.js"></script>
+<script src="../apps/core/searchLog/searchLogFactory.js"></script>
+<script src="../apps/core/searchLog/searchLogService.js"></script>
+<script src="../apps/directives/advPreview/advPreview.js"></script>
 
 <script src="../apps/backApp/backApp.js"></script>
+<script src="../apps/backApp/baseController.js"></script>
 
 <script src="../apps/backApp/dashboard/dashboard.js"></script>
 <script src="../apps/backApp/signIn/signIn.js"></script>
 <script src="../apps/backApp/announcement/announcementController.js"></script>
 <script src="../apps/backApp/helpDesk/helpDeskController.js"></script>
+<script src="../apps/backApp/adverts/advertsSearchController.js"></script>
+<script src="../apps/backApp/adverts/advertsReportedController.js"></script>
+<script src="../apps/backApp/adverts/advertsBlockedController.js"></script>
 
+<script src="../apps/backApp/accounts/accountsSearchController.js"></script>
+<script src="../apps/backApp/accounts/accountsCreateController.js"></script>
+<script src="../apps/backApp/accounts/accountsBlockedController.js"></script>
 
 <script src="../apps/directives/upload/upload.js"></script>
 

@@ -51,12 +51,21 @@ Route::get('/disclaimer', ['as'=>'disclaimer','uses'=>function () {
 
 Route::group(['prefix'=>'api'], function () {
 
+    Route::group(['prefix'=>'search'], function () {
+        Route::post('/{type}', 'SearchController@createSearch')->where('type','advs|accounts');
+        Route::get('/{id}', 'SearchController@getSearch');
+        Route::post('/{id}/update', 'SearchController@searchUpdate')->where('id','[0-9]*');
+        Route::post('/{id}', ['as'=>'adv.search','uses'=>'SearchController@search'])->where('id','[0-9]*');
+    });
+
     Route::group(['prefix'=>'user'], function () {
         Route::get('/get-auth', 'UserController@getAuth' );
         Route::post('/authenticate', 'UserController@authenticate' );
         Route::post('/forgot-password', 'UserController@forgotPassword' );
         Route::put('/change-email', 'UserController@changeEmail' );
         Route::post('/send-confirm-code', 'UserController@sendConfirmCode' );
+        Route::post('/{id}/set-active-status', 'UserController@setActiveStatus' );
+        Route::delete('/{id}', 'UserController@deleteAccountById' );
         Route::put('/change-password', 'UserController@changePassword' );
         Route::put('/allow-notifications', 'UserController@allowNotifications' );
         Route::put('/change-payment', 'UserController@changePayment' );
@@ -88,13 +97,14 @@ Route::group(['prefix'=>'api'], function () {
         Route::delete('/watch-advs/{id}', 'AdvController@removeWatch' );
 
 
+
+
     });
 
     Route::get('/news/{type}', 'News@getLastNews' );
     //Route::get('/config', 'ConfigController@getConfig' );
 
     Route::get('/advs/{id}', 'AdvController@getAdvById' );
-
     Route::post('/advs/{id}/fav', 'AdvController@favlist' );
     Route::post('/advs/{id}/message', 'AdvController@message' );
 
@@ -103,26 +113,37 @@ Route::group(['prefix'=>'api'], function () {
             'sub_categories'=>Adv::getSubCategories(),
             'equipments'=>Adv::getEquipments(),
             'categories'=>Category::getCategories(),
-            'agb' =>  \Config::get('app.agb')
+            'agb' =>  \Config::get('app.agb'),
+            'disabled_msg'=>\Config::get('app.disabled_msg'),
+            'google_key'=> ''
         ];
         return response()->json($sets);
     } );
 
    // Route::get('/address', 'AddressController@search');
     Route::get('/search/cities/{key}', 'SearchController@findCity');
-    Route::post('/search', 'SearchController@createSearch');
-    Route::get('/search/{id}', 'SearchController@getSearch');
+
+
 
 
     Route::get('/tariffs', 'TariffController@getAll' );
 
-    Route::post('/search/{id}', ['as'=>'adv.search','uses'=>'SearchController@search'])->where('id','[0-9]*');
-    Route::post('/search/{id}/update', 'SearchController@searchUpdate')->where('id','[0-9]*');
+
 
     Route::group(['prefix'=>'back'], function () {
         Route::post('/config/announcement/{type}', 'ConfigController@announcement' )->where('type','private|business');
         Route::post('/config/instruction', 'ConfigController@instruction' );
         Route::post('/config/faq', 'ConfigController@faq' );
+
+        Route::post('/faqs', 'FaqController@store' );
+        Route::get('/faqs', 'FaqController@getAll' );
+        Route::post('/faqs/{id}', 'FaqController@update' );
+        Route::delete('/faqs/{id}', 'FaqController@delete' );
+
+        Route::group(['prefix'=>'users'], function () {
+            Route::get('/countries', 'UserController@getAllCountries');
+            Route::post('/search', 'UserController@search');
+        });
     });
 });
 

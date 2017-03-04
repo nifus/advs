@@ -42,9 +42,9 @@
                     }else{
                         $cookies.put('token', response.token,{'path':'/'});
                     }
-                   // window.location.reload(true);
-                    $scope.user = response.user;
-                    $state.go('dashboard', {}, {reload: true});
+                    $scope.$parent.user = response.user;
+                    
+                    $state.go('dashboard');
                 }
             })
         }

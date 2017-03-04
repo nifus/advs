@@ -1,0 +1,261 @@
+<div id="help-desk">
+    <div class="col-md-12" ng-if="!env.adv">
+        <div class="panel panel-default">
+            <div class="panel-heading" translate>Search adverts</div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" translate>Advert ID</label>
+                                <div class="col-sm-9">
+                                    <input type="number" ng-model="filter.id" class="form-control" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" translate>Account ID</label>
+                                <div class="col-sm-9">
+                                    <input type="number" ng-model="filter.user_id" class="form-control" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" translate>Email address</label>
+                                <div class="col-sm-9">
+                                    <input type="email" ng-model="filter.email" class="form-control" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" translate>Account type</label>
+                                <div class="col-sm-9">
+
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="filter.account" value="all">
+                                            {{'All'|translate}}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="filter.account" value="private">
+                                            {{'Private'|translate}}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="filter.account" value="business">
+                                            {{'Business'|translate}}
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" translate>Advert type</label>
+                                <div class="col-sm-9">
+                                    <div class="radio">
+                                        <label >
+                                            <input type="radio" ng-model="filter.adv_type" value="all">
+                                            {{'All'|translate}}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="filter.adv_type" value="rent">
+                                             {{'RENT'|translate}}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="filter.adv_type" value="sale">
+                                            {{'SALE'|translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" translate>Status</label>
+                                <div class="col-sm-9">
+                                    <div class="checkbox" ng-repeat="status in env.statuses">
+                                        <label>
+                                            <input
+                                                    ng-disabled="status.id!='all' && filter.statuses.indexOf('all')!==-1"
+                                                    type="checkbox" checklist-model="filter.statuses" checklist-value="status.id" >
+                                            {{status.title}}
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" translate>Price</label>
+                                <div class="col-sm-9 form-inline">
+                                    <input type="number" class="form-control" ng-model="filter.price_begin">
+                                    <input type="number" class="form-control" ng-model="filter.price_end">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" translate>Sort by</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="filter.sort">
+                                        <option value="" translate>Creation date upwards</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="row text-right">
+                        <div class="col-md-12">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-primary" ng-click="search(filter)" translate>Search</button>
+                                <button type="button" class="btn btn-primary" ng-click="reset()" translate>Reset filter</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <hr>
+                <div class="row text-right" style="margin-bottom:10px">
+                    <div class="col-md-12">
+                        <div class="btn-group " role="group" aria-label="...">
+                            <button type="button" class="btn btn-default"  disabled translate>Results per page</button>
+                            <button type="button" class="btn" ng-class="{'btn-primary': env.per_page==10,'btn-default': env.per_page!=10}" ng-click="setPerPage(10)">10</button>
+                            <button type="button" class="btn" ng-class="{'btn-primary': env.per_page==20,'btn-default': env.per_page!=20}" ng-click="setPerPage(20)">20</button>
+                            <button type="button" class="btn" ng-class="{'btn-primary': env.per_page==40,'btn-default': env.per_page!=40}" ng-click="setPerPage(40)">40</button>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th translate>Advert ID</th>
+                        <th translate>Advert type</th>
+                        <th translate>Customer ID</th>
+                        <th translate>Account type</th>
+                        <th translate>Status</th>
+                        <th translate>Created</th>
+                        <th translate>End on</th>
+                    </tr>
+                    <tr ng-repeat="adv in env.advs">
+                        <td><input type="checkbox" checklist-model="selected" checklist-value="adv.id"></td>
+                        <td><a ng-click="setAdv(adv)" class="link">{{adv.id}}</a></td>
+                        <td>{{adv.type}}</td>
+                        <td><a href="">{{adv.user_id}}</a></td>
+                        <td>{{adv.owner.group_id==2 ? 'Private' : (adv.owner.group_id==3 ? 'Business' : '')}}</td>
+                        <td>{{adv.StatusStr}}</td>
+                        <td>{{adv.CreateDateWithTime}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" ng-if="env.adv">
+        <div class="panel panel-default">
+            <div class="panel-heading"  style="height:40px">
+                <div class="col-md-6  text-left" translate>
+                    Search adverts
+                </div>
+                <div class="col-md-6 text-right" >
+                    <button class="btn btn-primary" ng-click="closeAdv()" translate>Close</button>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width: 50%;padding:3px;font-weight: bold;" translate>Advert ID</td>
+                                <td style="width: 50%"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;font-weight: bold;padding:3px;" translate>Advert type</td>
+                                <td style="text-align: right;padding:3px;">{{env.adv.type}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;font-weight: bold;padding:3px;" translate>Status</td>
+                                <td style="text-align: right;padding:3px;">{{env.adv.StatusStr}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;font-weight: bold;padding:3px;" translate>Account email</td>
+                                <td style="text-align: right;padding:3px;">{{env.adv.owner.email}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;font-weight: bold;padding:3px;" translate>Account type</td>
+                                <td style="text-align: right;padding:3px;">{{env.adv.owner.group_id==2 ? 'Private' : (env.adv.owner.group_id==3 ? 'Business' : '')}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;font-weight: bold;padding:3px;" translate>Account ID</td>
+                                <td style="text-align: right;padding:3px;">{{env.adv.owner.id}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+
+                        <table style="width:100%">
+                            <tr>
+                                <td colspan="2" style="text-align: center">
+                                    <button class="btn btn-default" translate>Activate this advert</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left" translate>Activated on</td>
+                                <td style="text-align: right"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left" translate>Created on:</td>
+                                <td style="text-align: right">{{env.adv.CreateDateWithTime}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left" translate>Ends on:</td>
+                                <td style="text-align: right"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left" translate>Deletion on:</td>
+                                <td style="text-align: right"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="env.adv.blocked_flag" ng-true-value="1" ng-false-value="0"> Block this advert
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button ng-disabled="!env.adv.blocked_flag" class="btn btn-default" translate>Block this advert</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <textarea style="height:100px"
+                                      ng-model="env.blocked_message"
+                                      ng-disabled="env.adv.blocked_flag" class="form-control">
+
+
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <adv-preview ng-if="env.adv" adv="env.adv" user="$parent.user"></adv-preview>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('backApp', ['ui.router', 'satellizer', 'core', 'naif.base64', 'ngCookies', 'gettext','textCounter']).config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
+    angular.module('backApp', ['ui.router', 'satellizer', 'core', 'naif.base64', 'ngCookies', 'gettext', 'textCounter', "checklist-model"]).config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
 
 
         $authProvider.loginUrl = '/api/user/authenticate';
@@ -22,6 +22,30 @@
             url: '/help-desk',
             templateUrl: '../apps/backApp/helpDesk/helpDesk.html',
             controller: 'helpDeskController'
+        }).state('adverts-search', {
+            url: '/adverts/search',
+            templateUrl: '../apps/backApp/adverts/search.html',
+            controller: 'advertsSearchController'
+        }).state('adverts-blocked', {
+            url: '/adverts/blocked',
+            templateUrl: '../apps/backApp/adverts/blocked.html',
+            controller: 'advertsBlockedController'
+        }).state('adverts-reported', {
+            url: '/adverts/reported',
+            templateUrl: '../apps/backApp/adverts/reported.html',
+            controller: 'advertsReportedController'
+        }).state('accounts-search', {
+            url: '/accounts/search',
+            templateUrl: '../apps/backApp/accounts/search.html',
+            controller: 'accountsSearchController'
+        }).state('accounts-create', {
+            url: '/accounts/create',
+            templateUrl: '../apps/backApp/accounts/create.html',
+            controller: 'accountsCreateController'
+        }).state('accounts-blocked', {
+            url: '/accounts/blocked',
+            templateUrl: '../apps/backApp/accounts/blocked.html',
+            controller: 'accountsReportedController'
         })
 
     }]).run(function (gettextCatalog) {

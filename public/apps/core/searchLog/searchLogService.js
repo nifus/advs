@@ -1,9 +1,9 @@
 (function (angular, window) {
     'use strict';
     angular.module('core').service('searchLogService', searchLogService);
-    searchLogService.$inject = ['$http', '$q'];
+    searchLogService.$inject = ['$http', '$q','userService','advService'];
 
-    function searchLogService($http, $q) {
+    function searchLogService($http, $q, userService, advService) {
         return function (data) {
             var Object = data;
             Object.waiting = false;
@@ -19,10 +19,25 @@
                     deferred.resolve();
                 }, function (error) {
                     deferred.reject(error.data);
-                    console.log(error);
                 });
                 return deferred.promise;
             };
+
+            Object.getAccountResults = function (page,per_page) {
+                var deferred = $q.defer();
+                Object.waiting = true;
+                $http.post('/api/search/' + Object.id , {page:page,per_page:per_page}).then(function (response) {
+                    Object.waiting = false;
+                    var accounts = []
+                    for (var i in response.data.rows) {
+                        accounts.push( new userService(response.data.rows[i]) ) ;
+                    }
+                    deferred.resolve(accounts);
+                }, function (error) {
+                    deferred.reject(error.data);
+                });
+                return deferred.promise;
+            }
 
 
             return (Object);

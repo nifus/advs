@@ -12,6 +12,7 @@
             var Object = data;
             Object.waiting = false;
             Object.CreateDate = moment(data.created_at).format('DD.MM.Y');
+            Object.CreateDateWithTime = moment(data.created_at).format('DD.MM.Y H:m');
             Object.EndDate = moment(data.created_at).format('DD.MM.Y');
             Object.DeleteDate = moment(data.created_at).format('DD.MM.Y');
             Object.MainPhoto = getMainPhoto(data.photos);
@@ -115,7 +116,21 @@
                 return deferred.promise;
             };
 
-            Object.disable = function () {
+            Object.block = function () {
+                var deferred = $q.defer();
+                Object.waiting = true;
+                $http.put('/api/user/advs/' + Object.id + '/status', {status: 'block'}).then(function (response) {
+                    Object.waiting = false;
+                    Object.status = 'block';
+                    deferred.resolve(response);
+                }, function (error) {
+                    deferred.reject(error.data);
+                    console.log(error);
+                });
+                return deferred.promise;
+            };
+
+            Object.activate = function () {
                 var deferred = $q.defer();
                 Object.waiting = true;
                 $http.put('/api/user/advs/' + Object.id + '/status', {status: 'active'}).then(function (response) {

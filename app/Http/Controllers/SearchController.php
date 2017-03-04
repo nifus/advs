@@ -48,24 +48,6 @@ class SearchController extends Controller
         ]);
     }
 
-    function createSearch( Request $request ){
-        $query = $request->get('query');
-        $log = SearchLog::create(['query'=>json_encode($query)]);
-
-        $sql =Adv::orderBy('title','ASC');
-        $count = $sql->count();
-        $log->update(['number_of_results'=>$count]);
-
-        return response()->json(['success'=>true,'id'=>$log->id]);
-    }
-
-    function getSearch($id){
-        $log = SearchLog::find($id);
-        //$place = Place::find($log->query->city_id);
-
-        return response()->json(['success'=>true,'search'=>$log->toArray(),'place'=>null], 200, [], JSON_NUMERIC_CHECK);
-    }
-
     function searchResult($id){
         $log = SearchLog::find($id);
         $search_back = $log->query->type=='rent' ? route('adv.rent') : route('adv.sale');
@@ -78,32 +60,72 @@ class SearchController extends Controller
         ]);
     }
 
-    function search($id){
+    function createSearch( $type, Request $request ){
+        $query = $request->get('query');
+
+        if ($type=='accounts'){
+            $count = User::getTotal($query);
+        }else{
+            $sql =Adv::orderBy('title','ASC');
+            $count = $sql->count();
+        }
+
+        $log = SearchLog::create(['query'=>($query),'type'=>$type, 'number_of_results'=>$count]);
+        return response()->json($log->toArray());
+    }
+
+    function getSearch($id){
         $log = SearchLog::find($id);
+        //$place = Place::find($log->query->city_id);
+        return response()->json(['success'=>true,'search'=>$log->toArray(),'place'=>null], 200, [], JSON_NUMERIC_CHECK);
+    }
+
+
+
+    function search($id, Request $request ){
+        $configs = $request->only(['page','per_page']);
+        $log = SearchLog::find($id);
+        $config = $log->config;
+        foreach($configs as $field=>$value ){
+            $config[$field]=$value;
+        }
+        $log->update(['config'=>$config]);
         $user = User::getUser();
         $user_id = !is_null($user) ? $user->id : null;
         //$place = Place::find($log->query->city_id);
 
         //SELECT id, ( 3959 * acos( cos( radians(37) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( lat ) ) ) ) AS distance FROM markers HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;
-        $sql =Adv::orderBy('title','ASC');
-        //$sql = Adv::where('category',$log->query->category);
-
-        //$sql = $sql->where('city_id', $log->query->city_id);
-
-        //$count = $sql->count();
-        $advs = $sql->get();
-        $result = [];
-        foreach($advs as $adv){
-            array_push($result, $adv->getArray($user_id) );
+        if ($log->type=='advs'){
+            if ($user->isAdminAccount()){
+                $sql =Adv::with('Owner')->orderBy('title','ASC');
+            }else{
+                $sql =Adv::orderBy('title','ASC');
+            }
+            $advs = $sql->get();
+            $result = [];
+            foreach($advs as $adv){
+                array_push($result, $adv->getArray($user_id) );
+            }
+        }else{
+            $result = User::getByPage($log->config['page'],$log->config['per_page'],$log->query);
         }
 
-        return response()->json(['search'=>$log->toArray(),'advs'=>$result,'city'=>null]);
+
+        return response()->json(['search'=>$log->toArray(),'rows'=>$result]);
     }
 
     function searchUpdate($id, Request $request ){
-        $fields = $request->only(['per_page','sortby','display_map','lat','lng','zoom']);
+       // $fields = $request->only(['per_page','sortby','display_map','lat','lng','zoom','page']);
+        $filters = $request->all();
+
         $log = SearchLog::find($id);
-        $log->update(['config'=>$fields]);
+        if ($log->type=='accounts'){
+            $count = User::getTotal($filters);
+        }else{
+            $sql =Adv::orderBy('title','ASC');
+            $count = $sql->count();
+        }
+        $log->update(['query'=>$filters,'number_of_results'=>$count]);
         return response()->json(['search'=>$log->toArray()]);
 
     }
@@ -113,4 +135,7 @@ class SearchController extends Controller
         return response()->json(['cities'=>$result->toArray()], 200, [], JSON_NUMERIC_CHECK);
 
     }
+
+
+
 }

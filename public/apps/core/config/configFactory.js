@@ -31,7 +31,8 @@
             $http.post('/api/back/config/announcement/'+type, data).then(function (response) {
                 defer.resolve(response.data)
             },function (response) {
-                defer.reject({error:'error'})
+                var error = response.data.error ? response.data.error : response.statusText
+                defer.reject({error:error})
             });
             return defer.promise;
         }

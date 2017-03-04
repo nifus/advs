@@ -20,13 +20,30 @@ class ConfigController extends Controller
 
     function announcement($type, Request $request){
         $user = User::getUser();
-        $data = $request->all();
-        $config = self::getConfig();
-        $date = new \DateTime();
-        $data['updated_at'] = $date->format('Y-m-d H:i:s');
-        $data['author'] = $user->email;
-        $config->announcement->$type = $data;
-        self::saveConfig($config);
+        if ( is_null($user) || !$user->isAdminAccount() ){
+            return response()->json(['success'=>false],403);
+        }
+        try{
+            $data = $request->only(['status','text']);
+            $validator = [
+                'status' => 'required',
+                'text' => 'required',
+            ];
+            $validator = \Validator::make($data, $validator);
+            if ($validator->fails()) {
+                $messages = $validator->messages();
+                throw new \Exception($messages->first());
+            }
+            $config = self::getConfig();
+            $date = new \DateTime();
+            $data['updated_at'] = $date->format('Y-m-d H:i:s');
+            $data['author'] = $user->email;
+            $config->announcement->$type = $data;
+            self::saveConfig($config);
+        }catch ( \Exception $e ){
+            return response()->json(['success'=>false, 'error'=>$e->getMessage()],500);
+
+        }
         return response()->json(['success'=>true]);
     }
 

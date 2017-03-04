@@ -188,6 +188,7 @@ class Adv extends Model
     {
         $array = parent::toArray();
         $array['StatusStr'] = $this->StatusStr;
+        $array['CreateDateWithTime'] = $this->CreateDateWithTime;
         return $array;
     }
     function getArray($user_id=null)
@@ -217,6 +218,11 @@ class Adv extends Model
     public function changeStatus($status)
     {
         $this->update(['status' => $status]);
+    }
+
+    public function getCreateDateWithTimeAttribute(){
+        $date = new \DateTime($this->created_at);
+        return $date->format('d-m-y H:i');
     }
 
 

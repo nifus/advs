@@ -17,6 +17,7 @@ class CreateSearchLog extends Migration
             $table->increments('id');
             $table->text('query');
             $table->text('config')->nullable()->default(null);
+            $table->enum('type',['accounts','advs'])->default('advs');
             $table->timestamps();
         });
     }

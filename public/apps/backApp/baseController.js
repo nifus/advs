@@ -1,10 +1,10 @@
 (function () {
     'use strict';
-    angular.module('core').controller('mainController', mainController);
+    angular.module('backApp').controller('baseController', baseController);
 
-    mainController.$inject = ['$scope', '$q', 'userFactory', '$cookies','$state'];
+    baseController.$inject = ['$scope', '$q', 'userFactory', '$cookies','$state'];
 
-    function mainController($scope, $q, userFactory, $cookies, $state) {
+    function baseController($scope, $q, userFactory, $cookies, $state) {
 
         $scope.display_form = false;
         $scope.form_type = 'login';

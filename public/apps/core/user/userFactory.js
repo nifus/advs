@@ -4,9 +4,9 @@
 
     angular.module('core')
         .factory('userFactory', userFactory);
-    userFactory.$inject = [ '$http', '$rootScope','$auth','$q','$cookies','cacheService','userService'];
+    userFactory.$inject = ['$http', '$rootScope', '$auth', '$q', '$cookies', 'cacheService', 'userService'];
 
-    function userFactory( $http, $rootScope,$auth,$q,$cookies,cacheService,userService) {
+    function userFactory($http, $rootScope, $auth, $q, $cookies, cacheService, userService) {
 
         return {
             createPrivateAccount: createPrivateAccount,
@@ -20,45 +20,47 @@
 
             refresh: refresh,
             getAuthUser: getAuthUser,
-            getAll:getAll,
-            getById:getById,
-            store:store
+            getAll: getAll,
+            getById: getById,
+            store: store,
+            search: search,
+            getCountries: getCountries
         };
 
 
         function forgot(email) {
-            return $http.post('/api/user/forgot-password', {email:email}).then( function(response){
+            return $http.post('/api/user/forgot-password', {email: email}).then(function (response) {
                 return response.data;
             })
         }
+
         function createPrivateAccount(data) {
-            return $http.post('/api/user/private-account', data).then( function(response){
+            return $http.post('/api/user/private-account', data).then(function (response) {
                 return response.data;
             })
         }
 
         function createBusinessAccount(data) {
-            return $http.post('/api/user/business-account', data).then( function(response){
+            return $http.post('/api/user/business-account', data).then(function (response) {
                 return response.data;
             })
         }
 
 
         function logout() {
-            $cookies.put('token',null,{'path':'/'});
+            $cookies.put('token', null, {'path': '/'});
             $auth.logout();
             $rootScope.$broadcast('logout');
         }
 
 
-
-        function login(credentials ) {
-            var deferred =$q.defer();
+        function login(credentials) {
+            var deferred = $q.defer();
             var promise = deferred.promise;
 
             $auth.login(credentials).then(function (response) {
-               // $rootScope.$broadcast('login');
-                deferred.resolve({success: true, token: response.data.token, user:response.data.user});
+                // $rootScope.$broadcast('login');
+                deferred.resolve({success: true, token: response.data.token, user: response.data.user});
             }).catch(function (response) {
                 deferred.resolve({success: false, error: response.data.error});
             });
@@ -76,62 +78,50 @@
          * Get UserService with current user
          * @returns promise
          */
-        function getAuthUser(){
-            var cache  = cacheService(
-                function(){
-                    $http.get('/api/user/get-auth').success( function(response){
-                        if (response.id==undefined){
-                            cache.end( null );
-                        }
-                        cache.end( userService(response) );
-                    }).error( function(response){
-                        cache.end( null );
-                    })
-                }, 'user_getAuthUser', 20
-            );
-            return cache.promise;
+        function getAuthUser() {
+            var defer = $q.defer();
+            $http.get('/api/user/get-auth').success(function (response) {
+                defer.resolve( new userService(response) );
+            }).error(function (response) {
+                defer.reject(response)
+            });
+            return defer.promise;
         }
 
 
-
-
-        function refresh(){
-            return $http.get(window.SERVER+'/backend/user/update-token').then( function(response){
+        function refresh() {
+            return $http.get(window.SERVER + '/backend/user/update-token').then(function (response) {
                 $auth.setToken(response.data.token)
             })
         }
 
 
-
-
-
-        function getAll(){
-            var cache  = cacheService(
-               function(){
-                   $http.get(window.SERVER+'/backend/user/get-all').success(function (answer) {
-                       var users = [];
-                       var i;
-                       for( i in answer ){
-                           users.push( userService(answer[i]) );
-                       }
-                       cache.end( users );
-                   }).error(function (data, code) {
-                       cache.end({success: false, error: data.error});
-                   })
-               }, 'user_getAllUsers', 10
+        function getAll() {
+            var cache = cacheService(
+                function () {
+                    $http.get(window.SERVER + '/backend/user/get-all').success(function (answer) {
+                        var users = [];
+                        var i;
+                        for (i in answer) {
+                            users.push(userService(answer[i]));
+                        }
+                        cache.end(users);
+                    }).error(function (data, code) {
+                        cache.end({success: false, error: data.error});
+                    })
+                }, 'user_getAllUsers', 10
             );
             return cache.promise;
         }
 
 
-
-        function getById(id){
-            var cache  = cacheService(
-                function(){
-                    $http.get(window.SERVER+'/backend/user/'+id).success(function (response) {
-                        cache.end( userService(response) );
-                    }).error( function(response){
-                        cache.end( null );
+        function getById(id) {
+            var cache = cacheService(
+                function () {
+                    $http.get(window.SERVER + '/backend/user/' + id).success(function (response) {
+                        cache.end(userService(response));
+                    }).error(function (response) {
+                        cache.end(null);
                     })
                 }, 'user_getById'
             );
@@ -139,10 +129,20 @@
         }
 
 
-
-
         function store(data) {
-            return $http.post(window.SERVER+'/backend/user', data).then( function(response){
+            return $http.post(window.SERVER + '/backend/user', data).then(function (response) {
+                return response.data;
+            })
+        }
+
+        function getCountries() {
+            return $http.get( '/api/back/users/countries').then(function (response) {
+                return response.data;
+            })
+        }
+
+        function search(page, limit, filters) {
+            return $http.post( '/api/back/users/search',{'page':page,'limit':limit,'filters':filters}).then(function (response) {
                 return response.data;
             })
         }

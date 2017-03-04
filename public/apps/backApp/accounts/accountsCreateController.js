@@ -2,11 +2,11 @@
     'use strict';
     angular
         .module('backApp')
-        .controller('helpDeskController', helpDeskController);
+        .controller('accountsCreateController', accountsCreateController);
 
-    helpDeskController.$inject = ['$scope', 'faqFactory', '$q', '$filter'];
+    accountsCreateController.$inject = ['$scope', 'faqFactory', '$q', '$filter'];
 
-    function helpDeskController($scope, faqFactory, $q, $filter) {
+    function accountsCreateController($scope, faqFactory, $q, $filter) {
         $scope.env  = {
             display_instruction_form: false,
             display_faq_form: false

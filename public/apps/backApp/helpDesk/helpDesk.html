@@ -1,33 +1,40 @@
-<div  id="help-desk">
+<div id="help-desk">
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading" translate>Instructions</div>
             <div class="panel-body">
                 <div>
-                    <button  type="button" class="btn btn-default" ng-click="addInstruction()" translate>Add instruction</button>
+                    <button type="button" class="btn btn-default" ng-click="addInstruction()" translate>Add
+                        instruction
+                    </button>
                 </div>
                 <div style="margin-top:20px" ng-if="env.display_instruction_form">
                     <hr>
                     <form name="instruction_form">
                         <div class="form-group">
-                            <input type="text" required ng-model="model.title" class="form-control" placeholder="{{'Title'|translate}}">
+                            <input type="text" required ng-model="model_instruction.title" class="form-control"
+                                   placeholder="{{'Title'|translate}}">
                         </div>
 
                         <div class="form-group">
-                            <textarea ng-model="model.text" maxlength="5000" placeholder="{{'Text'|translate}}" class="form-control" required></textarea>
+                            <textarea ng-model="model_instruction.desc" maxlength="5000" placeholder="{{'Text'|translate}}"
+                                      class="form-control" required></textarea>
                             <div class="counter">
-                                <text-counter text="model.text" reverse="true" max-length="5000"></text-counter>
+                                <text-counter text="model_instruction.desc" reverse="true" max-length="5000"></text-counter>
                                 {{' characters left'|translate}}
                             </div>
                         </div>
                         <div class="btn-group">
 
-                        <button  type="button" class="btn btn-primary" ng-disabled="instruction_form.$invalid" ng-click="saveInstruction(model)" translate>
-                            <span class=" glyphicon glyphicon-ok" aria-hidden="true"></span>
-                            Save</button>
-                        <button  type="button" class="btn btn-danger" ng-click="cancelInstruction()" translate>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            Cancel</button>
+                            <button type="button" class="btn btn-primary" ng-disabled="instruction_form.$invalid"
+                                    ng-click="saveInstruction(model_instruction)" translate>
+                                <span class=" glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-danger" ng-click="cancelInstruction()" translate>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                Cancel
+                            </button>
 
                         </div>
                     </form>
@@ -35,17 +42,21 @@
                 </div>
 
                 <div>
-                    <div ng-repeat="instruction in instructions">
-                        <input type="checkbox">
-                        <h4>{{instruction.title}}</h4>
+                    <div ng-repeat="instruction in instructions" class="checkbox">
+
+                        <label>
+                            <input type="checkbox" checklist-model="selected.instructions" checklist-value="instruction"> <a ng-click="editInstruction(instruction)">{{instruction.title}}</a>
+
+                        </label>
                     </div>
                 </div>
 
 
-                <div>
-                    <button  type="button" class="btn btn-danger" ng-click="deleteSelectedInstructions()" translate>
+                <div ng-if="selected.instructions.length>0">
+                    <button type="button" class="btn btn-danger" ng-click="deleteSelectedInstructions()" translate>
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        Delete selected</button>
+                        Delete selected
+                    </button>
                 </div>
             </div>
         </div>
@@ -56,94 +67,61 @@
             <div class="panel-heading" translate>FAQ‘s</div>
             <div class="panel-body">
                 <div>
-                    <button  type="button" class="btn btn-default" ng-click="saveAnnouncement('business')" translate>Save</button>
+                    <button type="button" class="btn btn-default" ng-click="addFaq()" translate>Add
+                        faq
+                    </button>
+                </div>
+                <div style="margin-top:20px" ng-if="env.display_faq_form">
+                    <hr>
+                    <form name="faq_form">
+                        <div class="form-group">
+                            <input type="text" required ng-model="model_faq.title" class="form-control"
+                                   placeholder="{{'Title'|translate}}">
+                        </div>
+
+                        <div class="form-group">
+                            <textarea ng-model="model_faq.desc" maxlength="5000" placeholder="{{'Text'|translate}}"
+                                      class="form-control" required></textarea>
+                            <div class="counter">
+                                <text-counter text="model_faq.desc" reverse="true" max-length="5000"></text-counter>
+                                {{' characters left'|translate}}
+                            </div>
+                        </div>
+                        <div class="btn-group">
+
+                            <button type="button" class="btn btn-primary" ng-disabled="faq_form.$invalid"
+                                    ng-click="saveFaq(model_faq)" translate>
+                                <span class=" glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-danger" ng-click="cancelFaq()" translate>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                Cancel
+                            </button>
+
+                        </div>
+                    </form>
+                    <hr>
+                </div>
+
+                <div>
+                    <div ng-repeat="faq in faqs" class="checkbox">
+
+                        <label>
+                            <input type="checkbox" checklist-model="selected.faqs" checklist-value="faq"> <a ng-click="editFaq(faq)">{{faq.title}}</a>
+
+                        </label>
+                    </div>
+                </div>
+
+
+                <div ng-if="selected.faqs.length>0">
+                    <button type="button" class="btn btn-danger" ng-click="deleteSelectedFaqs()" translate>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Delete selected
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--
-<div class="panel panel-default">
-    <div class="panel-heading" translate>Announcements</div>
-    <div class="panel-body">
-        <div class="col-md-6">
-            <div class="alert alert-success" role="alert" translate>Announcement for all private accounts</div>
-            <div class="radio">
-                <label>
-                    <input type="radio" ng-model="model.private.status"  value="1" >
-                    {{'Activate'|translate}}
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" ng-model="model.private.status"  value="0" >
-                    {{'Disable'|translate}}
-                </label>
-            </div>
-
-            <div class="form-group">
-                <textarea maxlength="5000" ng-disabled="model.private.status=='0'" class="form-control" ng-model="model.private.text"></textarea>
-                <div class="counter">
-                    <text-counter text="model.private.text" reverse="true" max-length="5000"></text-counter>
-                    {{' characters left'|translate}}
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6"  ng-if="model.private.updated_at">
-                    <div translate>Last announcement written:</div>
-                    <div translate>Written on:</div>
-
-                </div>
-                <div class="col-md-5"  ng-if="model.private.updated_at">
-                    <div>{{model.private.updated_at}}</div>
-                    <div>{{model.private.author}}</div>
-                </div>
-                <div class="col-md-1 text-right">
-                    <button  type="button" class="btn btn-default" ng-click="saveAnnouncement('private')" translate>Save</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="alert alert-warning" role="alert" translate>Announcement for all business accounts</div>
-            <div class="radio">
-                <label>
-                    <input type="radio" ng-model="model.business.status"  value="1" >
-                    {{'Activate'|translate}}
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" ng-model="model.business.status"  value="0" >
-                    {{'Disable'|translate}}
-                </label>
-            </div>
-
-            <div class="form-group">
-                <textarea maxlength="5000" ng-disabled="model.business.status=='0'" class="form-control" ng-model="model.business.text"></textarea>
-                <div class="counter">
-                    <text-counter text="model.business.text" reverse="true" max-length="5000"></text-counter>
-                    {{' characters left'|translate}}
-                </div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-6" ng-if="model.business.updated_at">
-                    <div translate>Written on:</div>
-                    <div translate>Last announcement written:</div>
-                </div>
-                <div class="col-md-5"  ng-if="model.business.updated_at">
-                    <div>{{model.business.updated_at}}</div>
-                    <div>{{model.business.author}}</div>
-                </div>
-                <div class="col-md-1 text-right">
-                    <button  type="button" class="btn btn-default" ng-click="saveAnnouncement('business')" translate>Save</button>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-</div>
--->

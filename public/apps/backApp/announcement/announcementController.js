@@ -23,7 +23,6 @@
                 if (response.announcement) {
                     $scope.model = response.announcement
                 }
-                console.log($scope.model.announcement)
             });
             $q.all([config_promise]).then(function () {
                 return deferred.promise;
@@ -35,8 +34,9 @@
 
         $scope.saveAnnouncement = function (type) {
             configFactory.saveAnnouncement(type, $scope.model[type]).then(function (response) {
-                console.log(response);
                 alertify.success($filter('translate')('Announcement updated'));
+            },function (response) {
+                alertify.error(response.error);
             })
         };
 
