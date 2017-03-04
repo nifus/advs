@@ -80,6 +80,19 @@
             //$scope.search($scope.filter)
             $scope.setPage(1);
         };
+        $scope.displayHistoryTab = function () {
+            $scope.env.tab='history';
+            $scope.env.user.getEventsLog().then(function (response) {
+                $scope.env.user.events_log = response.data;
+            })
+        };
+
+        $scope.updateEventsLog = function () {
+            $scope.env.user.events_log = undefined;
+            $scope.env.user.getEventsLog().then(function (response) {
+                $scope.env.user.events_log = response.data;
+            })
+        }
         $scope.search = function (data) {
             $scope.env.loading = true;
             var search_defer = $q.defer();
@@ -89,7 +102,8 @@
                     $scope.env.search.getAccountResults($scope.env.page, $scope.env.per_page).then(function (users) {
                         $scope.env.users = users;
                         $scope.env.total = $scope.env.search.number_of_results;
-                        $scope.setUser($scope.env.users[0])
+                        $scope.setUser($scope.env.users[0]);
+                        $scope.displayHistoryTab()
                         $scope.env.loading = false;
                     })
                 });

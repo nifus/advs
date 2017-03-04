@@ -210,6 +210,22 @@ class UserController extends Controller
         }
     }
 
+    public function getEventsLog($user_id){
+        try {
+            $user = User::getUser();
+            if (is_null($user) || false===$user->isAdminAccount()){
+                return response()->json(null, 403);
+            }
+
+            $user = User::find($user_id);
+            return response()->json($user->getEventsLog());
+
+        } catch (\Exception $e) {
+            $error = trans('validation.' . $e->getMessage());
+            return response()->json(['error' => $error], 500);
+        }
+    }
+
     public function deleteAccountById($user_id)
     {
 
@@ -314,6 +330,16 @@ class UserController extends Controller
         $user = User::find($user_id);
         $user->setActivateStatus();
         return response()->json(['success'=>true]);
+    }
+
+    static function getAllNewBusiness(){
+        $user = User::getUser();
+        if (is_null($user) || false===$user->isAdminAccount()){
+            return response()->json(null, 403);
+        }
+
+        return response()->json(User::getAllNewBusiness());
+
     }
 
 

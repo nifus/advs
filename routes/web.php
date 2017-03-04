@@ -59,12 +59,14 @@ Route::group(['prefix'=>'api'], function () {
     });
 
     Route::group(['prefix'=>'user'], function () {
+        Route::get('/get-all-new-business', 'UserController@getAllNewBusiness' );
         Route::get('/get-auth', 'UserController@getAuth' );
         Route::post('/authenticate', 'UserController@authenticate' );
         Route::post('/forgot-password', 'UserController@forgotPassword' );
         Route::put('/change-email', 'UserController@changeEmail' );
         Route::post('/send-confirm-code', 'UserController@sendConfirmCode' );
         Route::post('/{id}/set-active-status', 'UserController@setActiveStatus' );
+        Route::get('/{id}/events-log', 'UserController@getEventsLog' );
         Route::delete('/{id}', 'UserController@deleteAccountById' );
         Route::put('/change-password', 'UserController@changePassword' );
         Route::put('/allow-notifications', 'UserController@allowNotifications' );

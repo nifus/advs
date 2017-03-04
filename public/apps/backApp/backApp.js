@@ -38,10 +38,10 @@
             url: '/accounts/search',
             templateUrl: '../apps/backApp/accounts/search.html',
             controller: 'accountsSearchController'
-        }).state('accounts-create', {
-            url: '/accounts/create',
-            templateUrl: '../apps/backApp/accounts/create.html',
-            controller: 'accountsCreateController'
+        }).state('accounts-created', {
+            url: '/accounts/created',
+            templateUrl: '../apps/backApp/accounts/created.html',
+            controller: 'accountsCreatedController'
         }).state('accounts-blocked', {
             url: '/accounts/blocked',
             templateUrl: '../apps/backApp/accounts/blocked.html',

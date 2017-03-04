@@ -17,11 +17,8 @@
             logout: logout,
             isAuthenticated: isAuthenticated,
 
-
-            refresh: refresh,
             getAuthUser: getAuthUser,
-            getAll: getAll,
-            getById: getById,
+            getAllNewBusinessUsers: getAllNewBusinessUsers,
             store: store,
             search: search,
             getCountries: getCountries
@@ -81,7 +78,7 @@
         function getAuthUser() {
             var defer = $q.defer();
             $http.get('/api/user/get-auth').success(function (response) {
-                defer.resolve( new userService(response) );
+                defer.resolve(new userService(response));
             }).error(function (response) {
                 defer.reject(response)
             });
@@ -89,44 +86,6 @@
         }
 
 
-        function refresh() {
-            return $http.get(window.SERVER + '/backend/user/update-token').then(function (response) {
-                $auth.setToken(response.data.token)
-            })
-        }
-
-
-        function getAll() {
-            var cache = cacheService(
-                function () {
-                    $http.get(window.SERVER + '/backend/user/get-all').success(function (answer) {
-                        var users = [];
-                        var i;
-                        for (i in answer) {
-                            users.push(userService(answer[i]));
-                        }
-                        cache.end(users);
-                    }).error(function (data, code) {
-                        cache.end({success: false, error: data.error});
-                    })
-                }, 'user_getAllUsers', 10
-            );
-            return cache.promise;
-        }
-
-
-        function getById(id) {
-            var cache = cacheService(
-                function () {
-                    $http.get(window.SERVER + '/backend/user/' + id).success(function (response) {
-                        cache.end(userService(response));
-                    }).error(function (response) {
-                        cache.end(null);
-                    })
-                }, 'user_getById'
-            );
-            return cache.promise;
-        }
 
 
         function store(data) {
@@ -135,14 +94,34 @@
             })
         }
 
+
+        function getAllNewBusinessUsers() {
+            var defer = $q.defer();
+            $http.get('/api/user/get-all-new-business').then(function (response) {
+                var users = [];
+                for (var i in response.data) {
+                    users.push(new userService(response.data[i]));
+                }
+                defer.resolve(users);
+            },function (data, code) {
+                defer.reject({success: false, error: data.error});
+            });
+            return defer.promise;
+        }
+
+
         function getCountries() {
-            return $http.get( '/api/back/users/countries').then(function (response) {
+            return $http.get('/api/back/users/countries').then(function (response) {
                 return response.data;
             })
         }
 
         function search(page, limit, filters) {
-            return $http.post( '/api/back/users/search',{'page':page,'limit':limit,'filters':filters}).then(function (response) {
+            return $http.post('/api/back/users/search', {
+                'page': page,
+                'limit': limit,
+                'filters': filters
+            }).then(function (response) {
                 return response.data;
             })
         }

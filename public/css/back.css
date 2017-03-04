@@ -12,3 +12,20 @@
 }
 
 
+td.system-type{
+    text-transform: uppercase;
+    color:#c55a11;
+}
+td.mail-type{
+    text-transform: uppercase;
+    color:#4472c4;
+}
+td.owner-type{
+     text-transform: uppercase;
+     color:#b9509c;
+ }
+
+td.initials-type{
+    text-transform: uppercase;
+    color: #70ad47;
+}

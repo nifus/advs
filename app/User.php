@@ -254,6 +254,10 @@ class User extends Authenticatable
         return Tariff::addNewTariff($this->id, $tariff_id);
     }
 
+    public function getEventsLog(){
+        return EventsLog::getEventLogByUser($this);
+    }
+
     static function createPrivateAccount($data)
     {
         $validator = [
@@ -322,6 +326,16 @@ class User extends Authenticatable
 
     }
 
+    static function getAllUsers()
+    {
+        return self::where('is_deleted', '0')->get();
+    }
+
+    static function getAllNewBusiness()
+    {
+        return self::where('group_id',3)->whereIn('status',['wait_approve','email_confirmation'])->where('is_deleted', '0')->get();
+    }
+
     static function getUserByEmail($email)
     {
         $validator = [
@@ -333,7 +347,6 @@ class User extends Authenticatable
             throw new \Exception($messages->first());
         }
         return self::where('email', $email)->first();
-
     }
 
     static function getUser($token = null)

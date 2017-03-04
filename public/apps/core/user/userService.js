@@ -7,6 +7,7 @@
         return function (data) {
             var Object = data;
             Object.waiting = false;
+
             Object.blocked_message = 'Dear customer,' + "\n\r" +
                 'The verification of your commercial register ID failed - this is violates our policy.' + "\n" +
                 'Because of that we had to block your account.' + "\n\r" +
@@ -94,6 +95,9 @@
 
             Object.getAdvs = advFactory.getByUser;
             Object.getMyWatchAdvs = advFactory.getWatchByUser;
+            Object.getEventsLog = function () {
+                return $http.get('/api/user/'+Object.id+'/events-log')
+            };
 
             return Object;
         }

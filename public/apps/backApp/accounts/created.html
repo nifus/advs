@@ -1,0 +1,88 @@
+<div id="help-desk">
+    <div class="col-md-12" >
+        <div class="panel panel-default">
+            <div class="panel-heading" translate>New business accounts</div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-offset-10 col-md-2">
+
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <label class="control-label" translate>Status</label>
+
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="filter.status" value="">
+                                            {{'All'|translate}}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="filter.status" value="email_confirmation">
+                                            {{'Waiting for Email confirmation'|translate}}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" ng-model="filter.status" value="wait_approve">
+                                            {{'Waiting for activation'|translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </form>
+
+                <table class="table">
+                    <tr>
+                        <th></th>
+                        <th translate>Customer ID</th>
+                        <th translate>Company name</th>
+                        <th translate>Contact person</th>
+                        <th translate>Status</th>
+                        <th translate>City</th>
+                        <th translate>Created</th>
+                    </tr>
+                    <tr ng-repeat="user in env.users|filter:filter">
+                        <td><input type="checkbox" checklist-model="env.selected" checklist-value="user"></td>
+                        <td><a ng-click="setUser(user)" class="link">{{user.id}}</a></td>
+                        <td>{{user.company}}</td>
+                        <td>{{user.name}} {{user.surname}}</td>
+                        <td>
+                            <span ng-if="user.status=='active'" translate>Active</span>
+                            <span ng-if="user.status=='wait_approve'" translate>Wait for approve</span>
+                            <span ng-if="user.status=='blocked'" translate>Blocked</span>
+                            <span ng-if="user.status=='email_confirmation'" translate>Email confirmation</span>
+
+                        </td>
+                        <td>{{user.address_city}}</td>
+                        <td>{{user.CreateDateWithTime}}</td>
+                    </tr>
+                </table>
+
+                <hr>
+                <div>
+                    <div class="col-md-6 text-left">
+                        <button type="button" class="btn btn-primary" ng-disabled="env.selected.length==0" translate ng-click="activateSelectedAccounts()">Activate</button>
+                    </div>
+
+                    <div class="col-md-6 text-right form-inline">
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"  ng-model="env.blocked_flag" ng-true-value="1" ng-false-value="0">   Activate deletion
+                            </label>
+                        </div>
+                        <button type="button" class="btn btn-primary" ng-disabled="env.selected.length==0 || env.blocked_flag==0" ng-click="deleteSelectedAccounts()" translate>Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

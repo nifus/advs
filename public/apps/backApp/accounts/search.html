@@ -273,7 +273,7 @@
                             <a class="link" ng-click="env.tab='payment'" translate> Payment</a>
                         </li>
                         <li role="presentation" ng-class="{'active':env.tab=='history'}">
-                            <a class="link" ng-click="env.tab='history'" translate>History</a></li>
+                            <a class="link" ng-click="displayHistoryTab()" translate>History</a></li>
                     </ul>
 
                     <!-- Tab panes -->
@@ -552,7 +552,161 @@
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane active" ng-if="env.tab=='payment'">...</div>
+                        <div role="tabpanel" class="tab-pane active" ng-if="env.tab=='payment'">
+                            <div class="col-md-9">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title" translate>Current overview</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-4">
+                                            <h4>Package: Pack 20</h4>
+                                            <table style="width: 100%">
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Max. package slots</td>
+                                                    <td style="width:20%;text-align: right">{{env.tariff.slots}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Package slots in use</td>
+                                                    <td style="width:20%;text-align: right">{{env.tariff.UsedSlots}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Package slots free</td>
+                                                    <td style="width:20%;text-align: right">{{env.tariff.FreeSlots}}</td>
+                                                </tr>
+                                                <tr style="height: 50px">
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Additional slots in use</td>
+                                                    <td style="width:20%;text-align: right">{{env.tariff.UsedAdditionalSlots}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Additional slots useable</td>
+                                                    <td style="width:20%;text-align: right">{{env.tariff.FreeAdditionalSlots}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4 translate>Advert type: Renting</h4>
+                                            <table style="width: 100%">
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Adverts currently:</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.rent.total}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Waiting for payment:</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.rent.payment_waiting}}</td>
+                                                </tr>
+
+                                                <tr style="height: 50px">
+                                                    <td colspan="2"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Advert active:</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.rent.active}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Advert disabled:</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.rent.disabled}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Advert expired:</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.rent.expired}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Advert blocked</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.rent.blocked}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4 translate>Advert type: Selling</h4>
+                                            <table style="width: 100%">
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Adverts currently:</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.sale.total}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Waiting for payment:</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.sale.payment_waiting}}</td>
+                                                </tr>
+
+                                                <tr style="height: 50px">
+                                                    <td colspan="2"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Advert active:</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.sale.active}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Advert disabled:</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.sale.disabled}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Advert expired:</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.sale.expired}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:80%;text-align: left" translate>Advert blocked</td>
+                                                    <td style="width:20%;text-align: right">{{env.stat.sale.blocked}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title" translate>Buy subscription</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table tariffs table-hover" >
+                                            <tr>
+                                                <th colspan="2"><div class="package" translate>Package</div></th>
+                                                <th ><div class="slots" translate>Slots per month</div></th>
+                                                <th ><div class="price" translate>Price per month</div></th>
+                                                <th class="last"> <div class="extra" translate>Each extra slot</div></th>
+                                            </tr>
+                                            <tr ng-repeat="tariff in env.tariffs" ng-click="model.type_id=tariff.id">
+                                                <td class="first"><input type="radio" ng-model="model.type_id" value="{{tariff.id}}"></td>
+                                                <td ><div class="package" translate>{{tariff.name}}</div></td>
+                                                <td> <div class="slots">{{tariff.slots}}</div></td>
+                                                <td> <div class="price">{{tariff.price| currency:'€'}}</div></td>
+                                                <td class="last"> <div class="extra">+ {{tariff.additional| currency:'€'}}</div></td>
+                                            </tr>
+                                        </table>
+
+                                        <hr>
+                                        <div class="alert alert-warning" role="alert" ng-if="env.tariff!=null">Please note that the new subscription will work after your current subscription runs out.</div>
+
+
+                                        <div  class="alert alert-warning" role="alert" ng-if="env.tariff!=null">
+                                            At the moment your current subscription (Pack 20) is valid to: <strong>12.08.2016</strong>
+                                        </div>
+                                        <div class="alert alert-warning" role="alert" ng-if="env.tariff!=null">It will be automatically extended if it will not be terminated</div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 text-left">
+                                                <button type="button" class="btn btn-primary" ng-if="env.tariff!=null" translate>End subscription</button>
+                                            </div>
+                                            <div class="col-md-6 text-right">
+                                                <button type="button"
+                                                        ng-disabled="model.type_id==null"
+                                                        ng-click="buyTariff(model.type_id)"
+                                                        class="btn btn-primary" translate>Buy subscription</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+
+                            </div>
+                        </div>
                         <div role="tabpanel" class="tab-pane active" ng-if="env.tab=='history'">
                             <div class="row">
                                 <div class="col-md-6">
@@ -622,17 +776,23 @@
                                                 Account history
                                             </div>
                                             <div class="col-md-6 text-right">
-                                                <button class="btn btn-primary" ng-click="close()" translate>Refresh</button>
+                                                <button class="btn btn-primary" ng-click="updateEventsLog()" translate>Refresh</button>
                                             </div>
 
 
                                         </div>
                                         <div class="panel-body">
-                                            <table class="table">
-                                                <tr>
-                                                    <td>03.12.2015 – 19:56</td>
-                                                    <td>SYSTEM</td>
-                                                    <td>Account was created</td>
+                                            <div class="progress"  ng-if="!env.user.events_log">
+                                                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                                    <span class="sr-only">100% Complete</span>
+                                                </div>
+                                            </div>
+
+                                            <table class="table" ng-if="env.user.events_log">
+                                                <tr ng-repeat="event in env.user.events_log">
+                                                    <td>{{event.DateWithTime}}</td>
+                                                    <td ng-class="{'system-type':event.type=='system','initials-type':event.type=='initials','owner-type':event.type=='owner','mail-type':event.type=='mail'}">{{event.type}}</td>
+                                                    <td>{{event.FullDesc}}</td>
                                                 </tr>
                                             </table>
                                         </div>
