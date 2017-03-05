@@ -13,6 +13,8 @@
             saveAnnouncement:saveAnnouncement,
             saveInstruction:saveInstruction,
             saveFaq:saveFaq,
+            savePrivatePrices:savePrivatePrices,
+            saveBusinessPrices:saveBusinessPrices,
             //getCurrencyList:getCurrencyList
         };
 
@@ -50,6 +52,26 @@
         function saveFaq(data) {
             var defer = $q.defer();
             $http.post('/api/back/config/faq', data).then(function (response) {
+                defer.resolve(response.data)
+            },function (response) {
+                defer.reject({error:'error'})
+            });
+            return defer.promise;
+        }
+
+        function savePrivatePrices(data) {
+            var defer = $q.defer();
+            $http.post('/api/back/config/private-prices', data).then(function (response) {
+                defer.resolve(response.data)
+            },function (response) {
+                defer.reject({error:'error'})
+            });
+            return defer.promise;
+        }
+
+        function saveBusinessPrices(data) {
+            var defer = $q.defer();
+            $http.post('/api/back/config/business-prices', data).then(function (response) {
                 defer.resolve(response.data)
             },function (response) {
                 defer.reject({error:'error'})

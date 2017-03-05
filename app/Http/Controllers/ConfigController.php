@@ -48,7 +48,6 @@ class ConfigController extends Controller
     }
 
     function instruction(Request $request){
-
         $data = $request->all();
         $config = self::getConfig();
         if ( isset($config->instructions) ){
@@ -57,6 +56,49 @@ class ConfigController extends Controller
             $config->instructions = [$data];
         }
 
+        self::saveConfig($config);
+        return response()->json(['success'=>true]);
+    }
+
+    function privatePrices(Request $request){
+        $user = User::getUser();
+        if ( is_null($user) || !$user->isAdminAccount() ){
+            return response()->json(['success'=>false],403);
+        }
+
+        $data = $request->all();
+        $config = self::getConfig();
+        if ( isset($config->prices) ){
+            $config->prices->private = $data;
+        }else{
+            $config->prices = new \StdClass();
+            $config->prices->private = $data;
+        }
+        $date = new \DateTime();
+        $config->prices->private['user_id'] = $user->id;
+        $config->prices->private['user_name'] = $user->name.' '.$user->surname;
+        $config->prices->private['updated_at'] = $date->format('Y-m-d H:i:s');
+        self::saveConfig($config);
+        return response()->json(['success'=>true]);
+    }
+
+    function businessPrices(Request $request){
+        $user = User::getUser();
+        if ( is_null($user) || !$user->isAdminAccount() ){
+            return response()->json(['success'=>false],403);
+        }
+        $data = $request->all();
+        $config = self::getConfig();
+        if ( isset($config->prices) ){
+            $config->prices->business = $data;
+        }else{
+            $config->prices = new \StdClass();
+            $config->prices->business = $data;
+        }
+        $date = new \DateTime();
+        $config->prices->business['user_id'] = $user->id;
+        $config->prices->business['user_name'] = $user->name.' '.$user->surname;
+        $config->prices->business['updated_at'] = $date->format('Y-m-d H:i:s');
         self::saveConfig($config);
         return response()->json(['success'=>true]);
     }

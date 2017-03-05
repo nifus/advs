@@ -155,6 +155,8 @@ Route::group(['prefix'=>'api'], function () {
         Route::post('/config/announcement/{type}', 'ConfigController@announcement' )->where('type','private|business');
         Route::post('/config/instruction', 'ConfigController@instruction' );
         Route::post('/config/faq', 'ConfigController@faq' );
+        Route::post('/config/private-prices', 'ConfigController@privatePrices' );
+        Route::post('/config/business-prices', 'ConfigController@businessPrices' );
 
         Route::post('/faqs', 'FaqController@store' );
         Route::get('/faqs', 'FaqController@getAll' );

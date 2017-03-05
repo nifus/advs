@@ -54,6 +54,10 @@
             url: '/statistics',
             templateUrl: '../apps/backApp/statistics/statistics.html',
             controller: 'statisticsController'
+        }).state('prices', {
+            url: '/prices',
+            templateUrl: '../apps/backApp/prices/prices.html',
+            controller: 'pricesController'
         })
 
     }]).run(function (gettextCatalog) {
