@@ -23,7 +23,8 @@
             getAllAdministrationUsers: getAllAdministrationUsers,
             createAdministrator: createAdministrator,
             search: search,
-            getCountries: getCountries
+            getCountries: getCountries,
+            getStatistics: getStatistics,
         };
 
 
@@ -156,6 +157,14 @@
             return $http.get('/api/back/users/countries').then(function (response) {
                 return response.data;
             })
+        }
+
+        function getStatistics() {
+            var defer = $q.defer();
+            $http.get('/api/user/statistics').then(function (response) {
+                defer.resolve(response.data);
+            });
+            return defer.promise;
         }
 
         function search(page, limit, filters) {

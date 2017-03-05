@@ -4,7 +4,7 @@
 
     angular.module('core')
         .factory('advFactory', advFactory);
-    advFactory.$inject = ['advService', '$http', '$q','$filter'];
+    advFactory.$inject = ['advService', '$http', '$q', '$filter'];
 
     function advFactory(advService, $http, $q, $filter) {
 
@@ -45,17 +45,26 @@
             getWatchByUser: getWatchByUser,
             getDataSets: getDataSets,
             getResult: getResult,
+            getStatistics: getStatistics,
 
         };
 
+        function getStatistics() {
+            var defer = $q.defer();
+            $http.get('/api/adv/statistics').then(function (response) {
+                defer.resolve(response.data);
+            });
+            return defer.promise;
+        }
+
         function getResult(id, data) {
             var deferred = $q.defer();
-            $http.post('/api/search/'+id , data).then(function (response) {
+            $http.post('/api/search/' + id, data).then(function (response) {
                 var advs = [];
-                for( var i in response.data.advs){
-                    advs.push( new advService(response.data.advs[i]) )
+                for (var i in response.data.advs) {
+                    advs.push(new advService(response.data.advs[i]))
                 }
-                deferred.resolve({advs:advs, search:response.data.search, city:response.data.city});
+                deferred.resolve({advs: advs, search: response.data.search, city: response.data.city});
             }, function (error) {
                 deferred.reject({success: false, error: error.data});
             });
@@ -63,11 +72,10 @@
         }
 
 
-
         function getDataSets() {
             var deferred = $q.defer();
-            $http.get('/api/adv-data-sets' ).then(function (response) {
-                deferred.resolve( response.data);
+            $http.get('/api/adv-data-sets').then(function (response) {
+                deferred.resolve(response.data);
             }, function (error) {
                 deferred.reject({success: false, error: error.data});
             });
@@ -76,7 +84,7 @@
 
         function store(data) {
             var deferred = $q.defer();
-            $http.post('/api/user/advs',data ).then(function (response) {
+            $http.post('/api/user/advs', data).then(function (response) {
                 deferred.resolve(new advService(response.data));
             }, function (error) {
                 deferred.reject({success: false, error: error.data});
@@ -94,6 +102,7 @@
             });
             return deferred.promise;
         }
+
         function getById(id) {
             var deferred = $q.defer();
             $http.get('/api/advs/' + id).then(function (response) {

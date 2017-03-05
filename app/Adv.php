@@ -452,6 +452,11 @@ class Adv extends Model
         $this->update($data);
     }
 
+    static function getWithStatus()
+    {
+        return self::where('is_deleted', '0')->get(['status', 'type']);
+    }
+
     static function getByUserWithStatus($user_id)
     {
         return self::where('user_id', $user_id)->where('is_deleted', '0')->get(['status', 'type']);

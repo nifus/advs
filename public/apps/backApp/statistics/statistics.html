@@ -1,0 +1,230 @@
+<div id="help-desk">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" translate>Statistics</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="height: 40px" translate>
+                                <div class="col-md-6  text-left" translate>
+                                    Accounts
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-primary btn-xs" ng-click="reloadAccounts()" translate>
+                                        Reload
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div class="panel-body">
+                                <div ng-if="!env.reload_accounts">
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Total accounts</div>
+                                        <div class="col-md-6 text-right">{{env.user_stat.total}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Total private accounts</div>
+                                        <div class="col-md-6 text-right">{{env.user_stat.private}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Total business accounts</div>
+                                        <div class="col-md-6 text-right">{{env.user_stat.business}}</div>
+                                    </div>
+                                </div>
+                                <div ng-if="env.reload_accounts">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                             style="width: 100%">
+                                            <span class="sr-only">45% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="height: 40px">
+                                <div class="col-md-6  text-left" translate>
+                                    Adverts
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-primary btn-xs" ng-click="reloadAdverts()" translate>Reload
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <div ng-if="env.reload_adverts" >
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                             style="width: 100%">
+                                            <span class="sr-only">45% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="!env.reload_adverts">
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Total adverts</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.rent.total+env.adv_stat.sale.total}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>RENT adverts</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.rent.total}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>SALE adverts</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.sale.total}}</div>
+                                    </div>
+                                    <div translate style="margin-top:30px;border-bottom: 3px solid #71A8DB;margin-left:15px">Current <strong>RENT</strong> advert status</div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Active</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.rent.active}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Waiting for payment</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.rent.payment_waiting}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Disabled</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.rent.disabled}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Expired</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.rent.expired}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>BLOCKED</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.rent.blocked}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Waiting for approve</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.rent.approve_waiting}}</div>
+                                    </div>
+
+                                    <div translate style="margin-top:30px;border-bottom: 3px solid #71A8DB;margin-left:15px">Current <strong>SALE</strong> advert status</div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Active</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.sale.active}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Waiting for payment</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.sale.payment_waiting}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Disabled</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.sale.disabled}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Expired</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.sale.expired}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>BLOCKED</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.sale.blocked}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 text-left" translate>Waiting for approve</div>
+                                        <div class="col-md-6 text-right">{{env.adv_stat.sale.approve_waiting}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" translate>Subscriptions</div>
+                            <div class="panel-body">
+                                <h4 translate>Private</h4>
+                                <hr>
+                                <table>
+                                    <tr>
+                                        <td translate>Duration</td>
+                                        <td>1 week</td>
+                                        <td>2 weeks</td>
+                                        <td>1 month</td>
+                                        <td>2 months</td>
+                                        <td>3 months</td>
+                                    </tr>
+                                    <tr>
+                                        <td translate>Price</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td translate>Amount</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                    </tr>
+                                </table>
+
+                                <h4 translate>Businnes</h4>
+                                <hr>
+                                <table>
+                                    <tr>
+                                        <td translate>Package</td>
+                                        <td>1 week</td>
+                                        <td>2 weeks</td>
+                                        <td>1 month</td>
+                                        <td>2 months</td>
+                                        <td>3 months</td>
+                                    </tr>
+                                    <tr>
+                                        <td translate>Slots per month</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td translate>Price per month</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td translate>Amount</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td translate>Each extra slot</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td translate>Amount</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                        <td>10,00 €</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

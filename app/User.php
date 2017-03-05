@@ -591,5 +591,8 @@ class User extends Authenticatable
             $sql->get();
     }
 
-
+    static function getOnlyGroups()
+    {
+        return self::where('is_deleted', '0')->get(['group_id']);
+    }
 }

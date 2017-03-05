@@ -50,6 +50,10 @@
             url: '/administration',
             templateUrl: '../apps/backApp/administration/administration.html',
             controller: 'administrationController'
+        }).state('statistics', {
+            url: '/statistics',
+            templateUrl: '../apps/backApp/statistics/statistics.html',
+            controller: 'statisticsController'
         })
 
     }]).run(function (gettextCatalog) {

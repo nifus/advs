@@ -190,11 +190,51 @@ class AdvController extends Controller
     }
 
 
-    public function getStat()
-    {
+    public function getStatistics(){
+        $current_user = UserModel::getUser();
+        if ( !$current_user->isAdminAccount() ){
+            return response()->json([],403);
+        }
+        $advs = AdvModel::getWithStatus();
 
-        $user = UserModel::getUser();
-        $advs = AdvModel::getByUserWithStatus($user->id);
+        $result = [
+            'rent' => [
+                'total' => 0,
+                'payment_waiting' => 0,
+                'active' => 0,
+                'disabled' => 0,
+                'expired' => 0,
+                'blocked' => 0,
+                'approve_waiting'=>0
+
+            ],
+            'sale' => [
+                'total' => 0,
+                'payment_waiting' => 0,
+                'active' => 0,
+                'disabled' => 0,
+                'expired' => 0,
+                'blocked' => 0,
+                'approve_waiting'=>0
+            ]
+        ];
+
+        foreach ($advs as $adv) {
+            $result[$adv->type][$adv->status]++;
+            $result[$adv->type]['total']++;
+        }
+        return response()->json($result);
+    }
+
+    public function getStatisticsById($user_id)
+    {
+        $current_user = UserModel::getUser();
+        $user_stat = UserModel::find($user_id);
+        if ($current_user->id!=$user_stat && !$current_user->isAdminAccount() ){
+            return response()->json([],403);
+        }
+
+        $advs = AdvModel::getByUserWithStatus($user_stat->id);
 
         $result = [
             'rent' => [

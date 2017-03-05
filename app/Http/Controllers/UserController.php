@@ -418,5 +418,24 @@ class UserController extends Controller
         return response()->json(User::getAllAdministration());
     }
 
+    public function getStatistics(){
+        $current_user = User::getUser();
+        if ( !$current_user->isAdminAccount() ){
+            return response()->json([],403);
+        }
+        $users = User::getOnlyGroups();
+
+        $result = [
+            '1'=>0,
+            '2' => 0,
+            '3' => 0,
+        ];
+
+        foreach ($users as $user) {
+            $result[$user->group_id]++;
+        }
+        return response()->json(['private'=>$result['2'],'business'=>$result['3'],'total'=>$result['2']+$result['3']]);
+    }
+
 
 }

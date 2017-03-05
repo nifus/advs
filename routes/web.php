@@ -51,6 +51,16 @@ Route::get('/disclaimer', ['as'=>'disclaimer','uses'=>function () {
 
 Route::group(['prefix'=>'api'], function () {
 
+
+    Route::get('/adv/{id}/statistics', 'AdvController@getStatisticsById' );
+    Route::get('/adv/statistics', 'AdvController@getStatistics' );
+    Route::get('/user/statistics', 'UserController@getStatistics' );
+    // TODO
+    Route::get('/user/statistics/subscriptions', 'UserController@getSubscriptionsStatistics' );
+
+
+
+
     Route::group(['prefix'=>'search'], function () {
         Route::post('/{type}', 'SearchController@createSearch')->where('type','advs|accounts');
         Route::get('/{id}', 'SearchController@getSearch');
@@ -91,7 +101,6 @@ Route::group(['prefix'=>'api'], function () {
 
         Route::post('/private-account', 'UserController@createPrivateAccount' );
         Route::post('/business-account', 'UserController@createBusinessAccount' );
-        Route::get('/adv-stat', 'AdvController@getStat' );
 
         Route::group(['prefix'=>'advs'], function () {
             Route::post('/', 'AdvController@store' );

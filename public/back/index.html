@@ -86,7 +86,7 @@
                         </ul>
                     </li>
                     <li class="dropdown" ng-if="user.hasPermission('statistics')">
-                        <a  translate>Statistics</a>
+                        <a ui-sref="statistics"  translate>Statistics</a>
                     </li>
                     <li class="dropdown" ng-if="user.hasPermission('prices')">
                         <a  translate>Prices</a>
@@ -152,6 +152,7 @@
 <script src="../apps/backApp/accounts/accountsCreatedController.js"></script>
 <script src="../apps/backApp/accounts/accountsBlockedController.js"></script>
 <script src="../apps/backApp/administration/administrationController.js"></script>
+<script src="../apps/backApp/statistics/statisticsController.js"></script>
 
 <script src="../apps/directives/upload/upload.js"></script>
 
