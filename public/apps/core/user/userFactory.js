@@ -4,9 +4,9 @@
 
     angular.module('core')
         .factory('userFactory', userFactory);
-    userFactory.$inject = ['$http', '$rootScope', '$auth', '$q', '$cookies', 'cacheService', 'userService'];
+    userFactory.$inject = ['$http', '$rootScope', '$auth', '$q', '$cookies', 'userService'];
 
-    function userFactory($http, $rootScope, $auth, $q, $cookies, cacheService, userService) {
+    function userFactory($http, $rootScope, $auth, $q, $cookies, userService) {
 
         return {
             createPrivateAccount: createPrivateAccount,
@@ -19,7 +19,9 @@
 
             getAuthUser: getAuthUser,
             getAllNewBusinessUsers: getAllNewBusinessUsers,
-            store: store,
+            getAllBlockedUsers: getAllBlockedUsers,
+            getAllAdministrationUsers: getAllAdministrationUsers,
+            createAdministrator: createAdministrator,
             search: search,
             getCountries: getCountries
         };
@@ -86,13 +88,25 @@
         }
 
 
-
-
-        function store(data) {
-            return $http.post(window.SERVER + '/backend/user', data).then(function (response) {
-                return response.data;
-            })
+        function createAdministrator(data) {
+            var defer = $q.defer();
+            $http.post('/api/user/administrator', data).then(function (response) {
+                if (response.data.success==false){
+                    defer.reject(response.data.error);
+                }else{
+                    defer.resolve(new userService(response.data));
+                }
+            }, function (response) {
+                defer.reject(response.status+': '+response.statusText);
+            });
+            return defer.promise;
         }
+
+        /* function updateAdministrator(data) {
+         return $http.post( '/api/user/'+, data).then(function (response) {
+         return response.data;
+         })
+         }*/
 
 
         function getAllNewBusinessUsers() {
@@ -103,7 +117,35 @@
                     users.push(new userService(response.data[i]));
                 }
                 defer.resolve(users);
-            },function (data, code) {
+            }, function (data, code) {
+                defer.reject({success: false, error: data.error});
+            });
+            return defer.promise;
+        }
+
+        function getAllBlockedUsers() {
+            var defer = $q.defer();
+            $http.get('/api/user/get-all-blocked').then(function (response) {
+                var users = [];
+                for (var i in response.data) {
+                    users.push(new userService(response.data[i]));
+                }
+                defer.resolve(users);
+            }, function (data, code) {
+                defer.reject({success: false, error: data.error});
+            });
+            return defer.promise;
+        }
+
+        function getAllAdministrationUsers() {
+            var defer = $q.defer();
+            $http.get('/api/user/get-all-administration').then(function (response) {
+                var users = [];
+                for (var i in response.data) {
+                    users.push(new userService(response.data[i]));
+                }
+                defer.resolve(users);
+            }, function (data, code) {
                 defer.reject({success: false, error: data.error});
             });
             return defer.promise;

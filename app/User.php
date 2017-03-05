@@ -16,10 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'surname', 'sex', 'group_id',  'activate_key', 'company', 'contact_email', 'giro_account', 'payment_type', 'paypal_email', 'phone', 'tariff', 'website', 'commercial_country', 'commercial_id', 'commercial_additional', 'address_additional', 'address_city', 'address_number', 'address_street', 'address_zip', 'allow_notifications', 'is_deleted','status',
-
-        // removing
-        'is_activated', 'is_approved',
+        'name', 'email', 'password', 'surname', 'sex', 'group_id', 'activate_key', 'company', 'contact_email', 'giro_account', 'payment_type', 'paypal_email', 'phone', 'tariff', 'website', 'commercial_country', 'commercial_id', 'commercial_additional', 'address_additional', 'address_city', 'address_number', 'address_street', 'address_zip', 'allow_notifications', 'is_deleted', 'status','blocked_at','permissions','initials'
     ];
 
     /**
@@ -48,9 +45,10 @@ class User extends Authenticatable
 
     public function toArray()
     {
-        $data =  parent::toArray();
+        $data = parent::toArray();
         $data['StatusTitle'] = $this->StatusTitle;
         $data['CreateDateWithTime'] = $this->CreateDateWithTime;
+        $data['BlockedDateWithTime'] = $this->BlockedDateWithTime;
         return $data;
     }
 
@@ -64,33 +62,52 @@ class User extends Authenticatable
         return $this->attributes['is_deleted'] == 1 ? true : false;
     }
 
-    public function getStatusTitleAttribute(){
-        if ($this->status=='active'){
+    public function getStatusTitleAttribute()
+    {
+        if ($this->status == 'active') {
             return 'Active';
-        }elseif ($this->status=='email_confirmation'){
+        } elseif ($this->status == 'email_confirmation') {
             return 'Email confirmation';
-        }elseif ($this->status=='wait_approve'){
+        } elseif ($this->status == 'wait_approve') {
             return 'Wait for approve';
-        }elseif ($this->status=='blocked'){
+        } elseif ($this->status == 'blocked') {
             return 'Blocked';
         }
     }
 
-    public function getCreateDateWithTimeAttribute(){
+    public function getPermissionsAttribute()
+    {
+        return json_decode($this->attributes['permissions']);
+    }
+
+    public function setPermissionsAttribute($value)
+    {
+        $this->attributes['permissions'] = json_encode($value);
+    }
+
+
+    public function getCreateDateWithTimeAttribute()
+    {
         $date = new \DateTime($this->created_at);
-          return $date->format('d-m-y H:i');
+        return $date->format('d-m-y H:i');
+    }
+
+    public function getBlockedDateWithTimeAttribute()
+    {
+        $date = new \DateTime($this->blocked_at);
+        return $date->format('d-m-y H:i');
     }
 
     public function activate($key)
     {
 
-        if ($this->is_activated == 1) {
+        if ($this->status != 'wait_approve') {
             throw new \Exception('user_is_activated');
         }
         if ($this->activate_key != $key) {
             throw new \Exception('user_activate_key_invalid');
         }
-        $this->update(['is_activated' => 1]);
+        $this->update(['status' => 'active']);
     }
 
     public function resetPassword()
@@ -161,11 +178,25 @@ class User extends Authenticatable
     public function deleteAccount()
     {
         $this->update(['is_deleted' => 1]);
+        if ( $this->isBusinessAccount() || $this->isPrivateAccount() ){
+            $advs = $this->Adv()->get();
+            foreach ($advs as $adv) {
+                $adv->delete();
+            }
+        }
+        return true;
+    }
 
-        $advs = $this->Adv()->get();
+    public function blockAccount()
+    {
+        $date = new \DateTime();
+        $this->update(['status' => 'blocked','blocked_at'=>$date->format('Y-m-d H:i:s')]);
+
+        /*$advs = $this->Adv()->get();
         foreach ($advs as $adv) {
             $adv->delete();
-        }
+        }*/
+        return true;
     }
 
     public function changeAllowNotifications($value)
@@ -178,8 +209,9 @@ class User extends Authenticatable
         $this->update($data);
     }
 
-    public function setActivateStatus(){
-        $this->update(['status'=>'active']);
+    public function setActivateStatus()
+    {
+        $this->update(['status' => 'active']);
     }
 
     public function changeContactData($data)
@@ -224,6 +256,10 @@ class User extends Authenticatable
         return Tariff::getActiveTariff($this->id);
     }
 
+    public function isPrivateAccount()
+    {
+        return $this->attributes['group_id'] == 2 ? true : false;
+    }
     public function isBusinessAccount()
     {
         return $this->attributes['group_id'] == 3 ? true : false;
@@ -246,7 +282,7 @@ class User extends Authenticatable
 
     public function isActivated()
     {
-        return $this->attributes['is_activated'] == 1 ? true : false;
+        return ($this->attributes['status'] != 'email_confirmation' && $this->attributes['status'] != 'wait_approve') ? true : false;
     }
 
     public function addTariff($tariff_id)
@@ -254,8 +290,49 @@ class User extends Authenticatable
         return Tariff::addNewTariff($this->id, $tariff_id);
     }
 
-    public function getEventsLog(){
+    public function getEventsLog()
+    {
         return EventsLog::getEventLogByUser($this);
+    }
+
+    public function hasPermissions($permission){
+        $permissions = $this->permissions;
+        if ( is_null($permissions) ){
+            return false;
+        }
+        if( in_array($permission, $permissions)){
+            return true;
+        }
+        return false;
+    }
+
+    public function updateAdministratorAccount($data){
+        $validator = [
+            'sex' => 'required',
+            'name' => 'required|min:2',
+            'surname' => 'required|min:2',
+            //'password' => 'required|min:6',
+            'email' => 'required|min:6',
+        ];
+        if ( isset($data['password'])){
+            $validator['password'] = 'required|min:6';
+        }
+        $validator = \Validator::make($data, $validator);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new \Exception($messages->first());
+        }
+
+        $count = self::where('email', $data['email'])->count();
+
+        if ($count > 1) {
+            throw new \Exception(trans('validation.exist_email'));
+        }
+
+       // $data['group_id'] = 1;
+        //$data['activate_key'] = md5(time() . rand(0, 10000));
+         $this->update($data);
+        return true;
     }
 
     static function createPrivateAccount($data)
@@ -326,6 +403,33 @@ class User extends Authenticatable
 
     }
 
+    static function createAdministratorAccount($data)
+    {
+        $validator = [
+            'sex' => 'required',
+            'name' => 'required|min:2',
+            'surname' => 'required|min:2',
+            'password' => 'required|min:6',
+            'email' => 'required|min:6',
+        ];
+        $validator = \Validator::make($data, $validator);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new \Exception($messages->first());
+        }
+
+        $count = self::where('email', $data['email'])->count();
+        if ($count > 0) {
+            throw new \Exception(trans('validation.exist_email'));
+        }
+
+        $data['group_id'] = 1;
+        $data['activate_key'] = md5(time() . rand(0, 10000));
+        $data['status'] = 'active';
+        return self::create($data);
+
+    }
+
     static function getAllUsers()
     {
         return self::where('is_deleted', '0')->get();
@@ -333,7 +437,17 @@ class User extends Authenticatable
 
     static function getAllNewBusiness()
     {
-        return self::where('group_id',3)->whereIn('status',['wait_approve','email_confirmation'])->where('is_deleted', '0')->get();
+        return self::where('group_id', 3)->whereIn('status', ['wait_approve', 'email_confirmation'])->where('is_deleted', '0')->get();
+    }
+
+    static function getAllBlocked()
+    {
+        return self::where('status', 'blocked')->where('is_deleted', '0')->get();
+    }
+
+    static function getAllAdministration()
+    {
+        return self::where('group_id', 1)->where('is_deleted', '0')->get();
     }
 
     static function getUserByEmail($email)
@@ -389,39 +503,43 @@ class User extends Authenticatable
 
     static function getTotal($filter)
     {
-        $sql = self::orderBy('id','DESC');
+        $sql = self::orderBy('id', 'DESC');
         if (isset($filter['id'])) {
             $sql = $sql->where('id', $filter['id']);
         }
         if (isset($filter['company'])) {
-            $sql = $sql->where('company', 'LIKE', '%'.trim($filter['company']).'%');
+            $sql = $sql->where('company', 'LIKE', '%' . trim($filter['company']) . '%');
         }
         if (isset($filter['commercial_id'])) {
-            $sql = $sql->where('commercial_id', 'LIKE', '%'.trim($filter['commercial_id']).'%');
-        }if (isset($filter['name'])) {
-        $sql = $sql->where('name', 'LIKE', '%'.trim($filter['name']).'%');
-    }if (isset($filter['surname'])) {
-        $sql = $sql->where('surname', 'LIKE', '%'.trim($filter['surname']).'%');
-    }
+            $sql = $sql->where('commercial_id', 'LIKE', '%' . trim($filter['commercial_id']) . '%');
+        }
+        if (isset($filter['name'])) {
+            $sql = $sql->where('name', 'LIKE', '%' . trim($filter['name']) . '%');
+        }
+        if (isset($filter['surname'])) {
+            $sql = $sql->where('surname', 'LIKE', '%' . trim($filter['surname']) . '%');
+        }
         if (isset($filter['email'])) {
             $sql = $sql->where('email', trim($filter['email']));
         }
         if (isset($filter['address_zip'])) {
             $sql = $sql->where('address_zip', trim($filter['address_zip']));
-        }if (isset($filter['address_city'])) {
-        $sql = $sql->where('address_city', trim($filter['address_city']));
-    }if (isset($filter['commercial_country'])) {
-        $sql = $sql->where('commercial_country', trim($filter['commercial_country']));
-    }
-        if (isset($filter['group_id']) and sizeof($filter['group_id'])>0) {
+        }
+        if (isset($filter['address_city'])) {
+            $sql = $sql->where('address_city', trim($filter['address_city']));
+        }
+        if (isset($filter['commercial_country'])) {
+            $sql = $sql->where('commercial_country', trim($filter['commercial_country']));
+        }
+        if (isset($filter['group_id']) and sizeof($filter['group_id']) > 0) {
             $sql = $sql->whereIn('group_id', $filter['group_id']);
         }
-        if (isset($filter['status']) and sizeof($filter['group_id'])>0 ) {
+        if (isset($filter['status']) and sizeof($filter['group_id']) > 0) {
             $sql = $sql->whereIn('status', $filter['status']);
         }
 
         // dd($sql->getQuery()->toSql());
-        $sql = $sql->where('is_deleted', '0')->where('group_id','>' ,1);
+        $sql = $sql->where('is_deleted', '0')->where('group_id', '>', 1);
         return
             $sql->count();
     }
@@ -431,39 +549,43 @@ class User extends Authenticatable
 
         // dd($filter);
         $offset = ($page - 1) * $limit;
-        $sql = self::orderBy('id','DESC');
+        $sql = self::orderBy('id', 'DESC');
         if (isset($filter['id'])) {
             $sql = $sql->where('id', $filter['id']);
         }
         if (isset($filter['company'])) {
-            $sql = $sql->where('company', 'LIKE', '%'.trim($filter['company']).'%');
+            $sql = $sql->where('company', 'LIKE', '%' . trim($filter['company']) . '%');
         }
         if (isset($filter['commercial_id'])) {
-            $sql = $sql->where('commercial_id', 'LIKE', '%'.trim($filter['commercial_id']).'%');
-        }if (isset($filter['name'])) {
-            $sql = $sql->where('name', 'LIKE', '%'.trim($filter['name']).'%');
-        }if (isset($filter['surname'])) {
-            $sql = $sql->where('surname', 'LIKE', '%'.trim($filter['surname']).'%');
+            $sql = $sql->where('commercial_id', 'LIKE', '%' . trim($filter['commercial_id']) . '%');
+        }
+        if (isset($filter['name'])) {
+            $sql = $sql->where('name', 'LIKE', '%' . trim($filter['name']) . '%');
+        }
+        if (isset($filter['surname'])) {
+            $sql = $sql->where('surname', 'LIKE', '%' . trim($filter['surname']) . '%');
         }
         if (isset($filter['email'])) {
             $sql = $sql->where('email', trim($filter['email']));
         }
         if (isset($filter['address_zip'])) {
             $sql = $sql->where('address_zip', trim($filter['address_zip']));
-        }if (isset($filter['address_city'])) {
+        }
+        if (isset($filter['address_city'])) {
             $sql = $sql->where('address_city', trim($filter['address_city']));
-        }if (isset($filter['commercial_country'])) {
+        }
+        if (isset($filter['commercial_country'])) {
             $sql = $sql->where('commercial_country', trim($filter['commercial_country']));
         }
-        if (isset($filter['group_id']) and sizeof($filter['group_id'])>0) {
+        if (isset($filter['group_id']) and sizeof($filter['group_id']) > 0) {
             $sql = $sql->whereIn('group_id', $filter['group_id']);
         }
-        if (isset($filter['status']) and sizeof($filter['group_id'])>0 ) {
+        if (isset($filter['status']) and sizeof($filter['group_id']) > 0) {
             $sql = $sql->whereIn('status', $filter['status']);
         }
 
         // dd($sql->getQuery()->toSql());
-        $sql = $sql->where('is_deleted', '0')->where('group_id','>' ,1)->offset($offset)
+        $sql = $sql->where('is_deleted', '0')->where('group_id', '>', 1)->offset($offset)
             ->limit($limit);
         return
             $sql->get();

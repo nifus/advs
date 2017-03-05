@@ -45,7 +45,11 @@
         }).state('accounts-blocked', {
             url: '/accounts/blocked',
             templateUrl: '../apps/backApp/accounts/blocked.html',
-            controller: 'accountsReportedController'
+            controller: 'accountsBlockedController'
+        }).state('administration', {
+            url: '/administration',
+            templateUrl: '../apps/backApp/administration/administration.html',
+            controller: 'administrationController'
         })
 
     }]).run(function (gettextCatalog) {

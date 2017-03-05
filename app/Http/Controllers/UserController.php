@@ -228,7 +228,6 @@ class UserController extends Controller
 
     public function deleteAccountById($user_id)
     {
-
         try {
             $user = User::getUser();
             if (is_null($user) || false===$user->isAdminAccount()){
@@ -237,6 +236,24 @@ class UserController extends Controller
 
             $user = User::find($user_id);
             $user->deleteAccount();
+            return response()->json(['success' => true]);
+
+        } catch (\Exception $e) {
+            $error = trans('validation.' . $e->getMessage());
+            return response()->json(['error' => $error], 500);
+        }
+    }
+
+    public function setBlockStatus($user_id)
+    {
+        try {
+            $user = User::getUser();
+            if (is_null($user) || false===$user->isAdminAccount()){
+                return response()->json(null, 403);
+            }
+
+            $user = User::find($user_id);
+            $user->blockAccount();
             return response()->json(['success' => true]);
 
         } catch (\Exception $e) {
@@ -268,6 +285,53 @@ class UserController extends Controller
             dispatch(new ActivatePrivateAccountJob($user));
 
             return response()->json(['success' => true, 'user' => $user->toArray()]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
+    }
+
+    public function createAdministratorAccount(Request $request){
+        try {
+            $user = User::getUser();
+            if (!$user->isAdminAccount() || $user->hasPermissions(['administration']) ){
+                //return response()->json(null, 403);
+            }
+            $data = $request->only(['sex', 'name', 'email', 'password', 'surname', 'initials','permissions']);
+            $user = User::createAdministratorAccount($data);
+
+           // dispatch(new ActivatePrivateAccountJob($user));
+
+            return response()->json($user->toArray());
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
+    }
+
+    public function updateAdministratorAccount(Request $request, $id){
+        try {
+            $user = User::getUser();
+            if (!$user->isAdminAccount() || $user->hasPermissions(['administration']) ){
+                return response()->json(null, 403);
+            }
+            $data = $request->only(['sex', 'name', 'email', 'password', 'surname', 'initials','permissions']);
+            $user = User::find($id);
+            $user->updateAdministratorAccount($data);
+            return response()->json($user->toArray());
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
+    }
+    public function deleteAdministratorAccount($id){
+        try {
+            $user = User::getUser();
+            if (!$user->isAdminAccount() || $user->hasPermissions(['administration']) ){
+                return response()->json(null, 403);
+            }
+
+            $user = User::find($id);
+            $user->deleteAccount();
+            // dispatch(new ActivatePrivateAccountJob($user));
+            return response()->json(['success'=>true]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
@@ -332,14 +396,26 @@ class UserController extends Controller
         return response()->json(['success'=>true]);
     }
 
-    static function getAllNewBusiness(){
+    public function getAllNewBusiness(){
         $user = User::getUser();
         if (is_null($user) || false===$user->isAdminAccount()){
             return response()->json(null, 403);
         }
-
         return response()->json(User::getAllNewBusiness());
-
+    }
+    public function getAllBlocked(){
+        $user = User::getUser();
+        if (is_null($user) || false===$user->isAdminAccount()){
+            return response()->json(null, 403);
+        }
+        return response()->json(User::getAllBlocked());
+    }
+    public function getAllAdministration(){
+        $user = User::getUser();
+        if (is_null($user) || false===$user->isAdminAccount()){
+            return response()->json(null, 403);
+        }
+        return response()->json(User::getAllAdministration());
     }
 
 

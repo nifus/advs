@@ -88,7 +88,40 @@
                 });
                 return defer.promise;
             };
+            Object.blocked = function () {
+                var defer = $q.defer();
+                $http.post('/api/user/'+Object.id+'/set-blocked-status').then(function () {
+                    Object.status='blocked';
+                });
+                return defer.promise;
+            };
 
+            Object.updateAdministrator = function () {
+                var defer = $q.defer();
+                $http.post('/api/user/'+Object.id+'/administrator',Object).then(function (response) {
+                    if (response.data.success==false){
+                        defer.reject(response.data.error)
+                    }else{
+                        defer.resolve(response.data);
+                    }
+                },function (response) {
+                    defer.reject(response.status+': '+response.statusText);
+                });
+                return defer.promise;
+            };
+            Object.deleteAdministrator = function () {
+                var defer = $q.defer();
+                $http.delete('/api/user/'+Object.id+'/administrator').then(function (response) {
+                    if (response.data.success==false){
+                        defer.reject(response.data.error)
+                    }else{
+                        defer.resolve(response.data);
+                    }
+                },function (response) {
+                    defer.reject(response.status+': '+response.statusText);
+                });
+                return defer.promise;
+            };
             Object.delete = function () {
                 return $http.delete('/api/user/'+Object.id)
             };
@@ -97,6 +130,9 @@
             Object.getMyWatchAdvs = advFactory.getWatchByUser;
             Object.getEventsLog = function () {
                 return $http.get('/api/user/'+Object.id+'/events-log')
+            };
+            Object.hasPermission = function (permission) {
+                return Object.permissions.indexOf(permission)!=-1
             };
 
             return Object;

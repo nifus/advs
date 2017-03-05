@@ -53,14 +53,14 @@
                 <ul class="nav navbar-nav navbar-right">
 
 
-                    <li class="dropdown">
+                    <li class="dropdown" ng-if="user.hasPermission('portal')">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Portal <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="announcement" translate>Announcement</a></li>
                             <li><a ui-sref="help-desk" translate>HelpDesk</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" ng-if="user.hasPermission('advert')">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Advert <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="adverts-search" translate>Search adverts</a></li>
@@ -69,7 +69,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown">
+                    <li class="dropdown" ng-if="user.hasPermission('accounts')">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Accounts <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="accounts-search" translate>Search accounts</a></li>
@@ -78,25 +78,22 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown">
+                    <li class="dropdown" ng-if="user.hasPermission('mailing')">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Mailing <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="announcement" translate>Send</a></li>
                             <li><a ui-sref="help-desk" translate>Template</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" ng-if="user.hasPermission('statistics')">
                         <a  translate>Statistics</a>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" ng-if="user.hasPermission('prices')">
                         <a  translate>Prices</a>
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Administration <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="announcement" translate>Users</a></li>
-                            <li><a ui-sref="help-desk" translate>Roles</a></li>
-                        </ul>
+                    <li class="dropdown" ng-if="user.hasPermission('administration')">
+                        <a ui-sref="administration" translate>Administration </a>
+
                     </li>
                     <li><a href="#" ng-click="logout()" translate>Exit</a></li>
                 </ul>
@@ -154,6 +151,7 @@
 <script src="../apps/backApp/accounts/accountsSearchController.js"></script>
 <script src="../apps/backApp/accounts/accountsCreatedController.js"></script>
 <script src="../apps/backApp/accounts/accountsBlockedController.js"></script>
+<script src="../apps/backApp/administration/administrationController.js"></script>
 
 <script src="../apps/directives/upload/upload.js"></script>
 

@@ -59,20 +59,30 @@ Route::group(['prefix'=>'api'], function () {
     });
 
     Route::group(['prefix'=>'user'], function () {
+        Route::get('/get-all-administration', 'UserController@getAllAdministration' );
         Route::get('/get-all-new-business', 'UserController@getAllNewBusiness' );
+        Route::get('/get-all-blocked', 'UserController@getAllBlocked' );
         Route::get('/get-auth', 'UserController@getAuth' );
+
+        Route::post('/administrator', 'UserController@createAdministratorAccount' );
+        Route::post('/{id}/administrator', 'UserController@updateAdministratorAccount' );
+        Route::delete('/{id}/administrator', 'UserController@deleteAdministratorAccount' );
+
         Route::post('/authenticate', 'UserController@authenticate' );
         Route::post('/forgot-password', 'UserController@forgotPassword' );
         Route::put('/change-email', 'UserController@changeEmail' );
         Route::post('/send-confirm-code', 'UserController@sendConfirmCode' );
-        Route::post('/{id}/set-active-status', 'UserController@setActiveStatus' );
-        Route::get('/{id}/events-log', 'UserController@getEventsLog' );
-        Route::delete('/{id}', 'UserController@deleteAccountById' );
+
         Route::put('/change-password', 'UserController@changePassword' );
         Route::put('/allow-notifications', 'UserController@allowNotifications' );
         Route::put('/change-payment', 'UserController@changePayment' );
         Route::put('/change-contact-data', 'UserController@changeContactData' );
         Route::delete('/', 'UserController@deleteAccount' );
+
+        Route::post('/{id}/set-block-status', 'UserController@setBlockStatus' );
+        Route::post('/{id}/set-active-status', 'UserController@setActiveStatus' );
+        Route::get('/{id}/events-log', 'UserController@getEventsLog' );
+        Route::delete('/{id}', 'UserController@deleteAccountById' );
 
         Route::group(['prefix'=>'tariff'], function () {
             Route::get('/', 'TariffController@getUserTariff');

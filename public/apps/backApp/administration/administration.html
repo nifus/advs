@@ -1,0 +1,158 @@
+<div id="help-desk">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" translate>Users</div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th translate>Initials</th>
+                        <th translate>Title</th>
+                        <th translate>Forename</th>
+                        <th translate>Surname</th>
+                        <th translate>Email address</th>
+                        <th translate>Created</th>
+                    </tr>
+                    <tr ng-repeat="user in env.users" ng-click="editUser(user)" style="cursor: pointer">
+                        <td>{{user.initials}}</td>
+                        <td>{{user.sex}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.surname}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.CreateDateWithTime}}</td>
+                    </tr>
+                </table>
+
+                <hr>
+                <div ng-if="env.user==null">
+                    <button class="btn btn-success" translate ng-click="addUser()">Add user</button>
+                </div>
+
+                <div class="panel panel-default" ng-if="env.user!=null">
+                    <div class="panel-heading" translate>Add or Edit user</div>
+                    <div class="panel-body">
+                        <div class="row form-horizontal">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" translate>Title</label>
+                                    <div class="col-sm-10">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-model="env.user.sex" value="male"> {{'Mister'|translate}}
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-model="env.user.sex" value="female"> {{'Miss'|translate}}
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" translate>Forename</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="env.user.name">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" translate>Surname</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="env.user.surname">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" translate>Initials</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="env.user.initials">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" translate>Email address</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="env.user.email">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" translate>Password</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="env.user.password">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-2">
+
+                                <div class="checkbox">
+                                    <label>
+                                         <input type="checkbox" checklist-model="env.user.permissions" checklist-value="'portal'"> {{'Portal'|translate}}
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                         <input type="checkbox" checklist-model="env.user.permissions" checklist-value="'advert'">  {{'Advert'|translate}}
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                         <input type="checkbox" checklist-model="env.user.permissions" checklist-value="'accounts'"> {{'Accounts'|translate}}
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                         <input type="checkbox"  checklist-model="env.user.permissions" checklist-value="'mailing'"> {{'Mailing'|translate}}
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"  checklist-model="env.user.permissions" checklist-value="'statistics'"> {{'Statistics'|translate}}
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"  checklist-model="env.user.permissions" checklist-value="'prices'"> {{'Prices'|translate}}
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"  checklist-model="env.user.permissions" checklist-value="'payment'"> {{'Payment'|translate}}
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"  checklist-model="env.user.permissions" checklist-value="'administration'"> {{'Administration'|translate}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary" ng-click="save()" ng-disabled="env.submit" translate>Save</button>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-primary" ng-click="cancel()" translate>Cancel</button>
+                                </div>
+
+                                <div class="form-group" ng-if="env.user.id">
+                                    <button class="btn btn-primary" ng-click="delete()" ng-disabled="env.submit" translate>Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
