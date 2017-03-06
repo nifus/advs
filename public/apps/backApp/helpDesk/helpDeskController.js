@@ -2,9 +2,8 @@
     'use strict';
     angular
         .module('backApp')
-        .controller('helpDeskController', helpDeskController);
+        .controller('helpDeskController', ['$scope', 'faqFactory', '$q', '$filter',helpDeskController]);
 
-    helpDeskController.$inject = ['$scope', 'faqFactory', '$q', '$filter'];
 
     function helpDeskController($scope, faqFactory, $q, $filter) {
         $scope.env  = {
@@ -33,8 +32,9 @@
                 });
             });
             $q.all([config_promise]).then(function () {
-                return deferred.promise;
-            })
+                deferred.resolve();
+            });
+            return deferred.promise;
         }
 
         $scope.$parent.init.push(initPage);
@@ -69,7 +69,7 @@
                 });
             }else{
                 faqFactory.storeInstruction(model).then(function (response) {
-                    $scope.instructions.push(response)
+                    $scope.instructions.push(response);
                     alertify.success($filter('translate')('Instruction saved'));
                 },function (response) {
                     alertify.error(response.error);

@@ -122,9 +122,28 @@ class AdvController extends Controller
         }
     }
 
-    function getByUser()
+    function getByUser(Request $request, $user_id)
+    {
+        $token = $request->get('token');
+        $current_user = UserModel::getUser($token);
+
+        if ( is_null($current_user) || !$current_user->hasPermissions('accounts') ){
+            return response()->json(['success'=>false],403);
+        }
+
+        $user = UserModel::find($user_id);
+
+        $advs = AdvModel::getByUser($user->id);
+        return response()->json($advs);
+    }
+
+
+    function getByCurrentUser()
     {
         $user = UserModel::getUser();
+        if (is_null($user)){
+            return response()->json(['success'=>false],403);
+        }
         $advs = AdvModel::getByUser($user->id);
         return response()->json($advs);
     }

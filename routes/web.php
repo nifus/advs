@@ -52,19 +52,6 @@ Route::get('/disclaimer', ['as'=>'disclaimer','uses'=>function () {
 Route::group(['prefix'=>'api'], function () {
 
 
-    Route::get('/adv/{id}/statistics', 'AdvController@getStatisticsById' );
-    Route::get('/adv/statistics', 'AdvController@getStatistics' );
-
-
-
-
-    Route::group(['prefix'=>'search'], function () {
-        Route::post('/{type}', 'SearchController@createSearch')->where('type','advs|accounts');
-        Route::get('/{id}', 'SearchController@getSearch');
-        Route::post('/{id}/update', 'SearchController@searchUpdate')->where('id','[0-9]*');
-        Route::post('/{id}', ['as'=>'adv.search','uses'=>'SearchController@search'])->where('id','[0-9]*');
-    });
-
     Route::group(['prefix'=>'user'], function () {
         Route::get('/statistics', 'UserController@getStatistics' );
         // TODO
@@ -93,10 +80,11 @@ Route::group(['prefix'=>'api'], function () {
         Route::put('/change-contact-data', 'UserController@changeContactData' );
         Route::delete('/', 'UserController@deleteAccount' );
 
-        Route::post('/{id}/set-block-status', 'UserController@setBlockStatus' );
-        Route::post('/{id}/set-active-status', 'UserController@setActiveStatus' );
-        Route::get('/{id}/events-log', 'UserController@getEventsLog' );
-        Route::delete('/{id}', 'UserController@deleteAccountById' );
+        Route::post('{id}/set-block-status', 'UserController@setBlockStatus' );
+        Route::post('{id}/set-active-status', 'UserController@setActiveStatus' );
+        Route::get('{id}/events-log', 'UserController@getEventsLog' );
+        Route::delete('{id}', 'UserController@deleteAccountById' );
+        Route::post('{id}', 'UserController@updateAccount' );
 
         Route::group(['prefix'=>'tariff'], function () {
             Route::get('/', 'TariffController@getUserTariff');
@@ -106,52 +94,48 @@ Route::group(['prefix'=>'api'], function () {
         Route::post('/private-account', 'UserController@createPrivateAccount' );
         Route::post('/business-account', 'UserController@createBusinessAccount' );
 
-        Route::group(['prefix'=>'advs'], function () {
-            Route::post('/', 'AdvController@store' );
-            Route::post('/{id}', 'AdvController@update' );
 
-            Route::get('/{id}', 'AdvController@getUserAdvById' );
-            Route::put('/', 'AdvController@getByUser' );
-
-            Route::delete('{id}', 'AdvController@delete' );
-            Route::put('{id}/status', 'AdvController@changeStatus' );
-
-
-        });
-        Route::put('/watch-advs', 'AdvController@getWatchByUser' );
-        Route::delete('/watch-advs/{id}', 'AdvController@removeWatch' );
 
 
 
 
     });
 
-    Route::get('/news/{type}', 'News@getLastNews' );
-    //Route::get('/config', 'ConfigController@getConfig' );
+    Route::group(['prefix'=>'adv'], function () {
+        Route::get('/{id}/statistics', 'AdvController@getStatisticsById' )->where('id','[0-9]*');
+        Route::get('/statistics', 'AdvController@getStatistics' );
+        Route::post('/', 'AdvController@store' );
+        Route::post('/{id}', 'AdvController@update' )->where('id','[0-9]*');
 
-    Route::get('/advs/{id}', 'AdvController@getAdvById' );
-    Route::post('/advs/{id}/fav', 'AdvController@favlist' );
-    Route::post('/advs/{id}/message', 'AdvController@message' );
+        Route::get('/{id}', 'AdvController@getUserAdvById' )->where('id','[0-9]*');
+        Route::get('/by-user/{id}', 'AdvController@getByUser' )->where('id','[0-9]*');
+        Route::get('/by-current-user', 'AdvController@getByCurrentUser' )->where('id','[0-9]*');
 
-    Route::get('/adv-data-sets', function(){
-        $sets = [
-            'sub_categories'=>Adv::getSubCategories(),
-            'equipments'=>Adv::getEquipments(),
-            'categories'=>Category::getCategories(),
-            'agb' =>  \Config::get('app.agb'),
-            'disabled_msg'=>\Config::get('app.disabled_msg'),
-            'google_key'=> ''
-        ];
-        return response()->json($sets);
-    } );
+        Route::delete('{id}', 'AdvController@delete' )->where('id','[0-9]*');
+        Route::put('{id}/status', 'AdvController@changeStatus' )->where('id','[0-9]*');
 
-   // Route::get('/address', 'AddressController@search');
-    Route::get('/search/cities/{key}', 'SearchController@findCity');
+        Route::put('/watch-advs', 'AdvController@getWatchByUser' );
+        Route::delete('/watch-advs/{id}', 'AdvController@removeWatch' );
 
+        Route::get('/{id}', 'AdvController@getAdvById' );
+        Route::post('/{id}/fav', 'AdvController@favlist' );
+        Route::post('/{id}/message', 'AdvController@message' );
+    });
 
 
 
-    Route::get('/tariffs', 'TariffController@getAll' );
+
+
+
+
+    Route::group(['prefix'=>'search'], function () {
+        Route::get('/cities/{key}', 'SearchController@findCity');
+        Route::post('/{type}', 'SearchController@createSearch')->where('type','advs|accounts');
+        Route::get('/{id}', 'SearchController@getSearch');
+        Route::post('/{id}/update', 'SearchController@searchUpdate')->where('id','[0-9]*');
+        Route::post('/{id}', ['as'=>'adv.search','uses'=>'SearchController@search'])->where('id','[0-9]*');
+    });
+
 
 
 
@@ -170,6 +154,24 @@ Route::group(['prefix'=>'api'], function () {
     Route::delete('/faqs/{id}', 'FaqController@delete' );
 
 
+    // Route::get('/address', 'AddressController@search');
+    Route::get('/news/{type}', 'News@getLastNews' );
+    //Route::get('/config', 'ConfigController@getConfig' );
+
+
+
+    Route::get('/adv-data-sets', function(){
+        $sets = [
+            'sub_categories'=>Adv::getSubCategories(),
+            'equipments'=>Adv::getEquipments(),
+            'categories'=>Category::getCategories(),
+            'agb' =>  \Config::get('app.agb'),
+            'disabled_msg'=>\Config::get('app.disabled_msg'),
+            'google_key'=> ''
+        ];
+        return response()->json($sets);
+    } );
+    Route::get('/tariffs', 'TariffController@getAll' );
 });
 
 

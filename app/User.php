@@ -335,6 +335,28 @@ class User extends Authenticatable
         return true;
     }
 
+    public function updateAccount($data){
+        $validator = [
+            'sex' => 'required',
+            'name' => 'required|min:2',
+            'surname' => 'required|min:2',
+            //'email' => 'required|min:6',
+        ];
+
+        $validator = \Validator::make($data, $validator);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new \Exception($messages->first());
+        }
+
+
+
+       // $data['group_id'] = 1;
+        //$data['activate_key'] = md5(time() . rand(0, 10000));
+         $this->update($data);
+        return true;
+    }
+
     static function createPrivateAccount($data)
     {
         $validator = [
@@ -579,14 +601,17 @@ class User extends Authenticatable
         }
         if (isset($filter['group_id']) and sizeof($filter['group_id']) > 0) {
             $sql = $sql->whereIn('group_id', $filter['group_id']);
+        }else{
+            $sql = $sql->where('group_id', '>', 1);
         }
         if (isset($filter['status']) and sizeof($filter['status']) > 0) {
             $sql = $sql->whereIn('status', $filter['status']);
         }
 
-        // dd($sql->getQuery()->toSql());
-        $sql = $sql->where('is_deleted', '0')->where('group_id', '>', 1)->offset($offset)
+
+        $sql = $sql->where('is_deleted', '0')->offset($offset)
             ->limit($limit);
+       // dd($sql->getQuery()->toSql());
         return
             $sql->get();
     }

@@ -41,6 +41,7 @@
             store: store,
             getUserAdvById: getUserAdvById,
             getByUser: getByUser,
+            getByCurrentUser: getByCurrentUser,
             getById: getById,
             getWatchByUser: getWatchByUser,
             getDataSets: getDataSets,
@@ -113,8 +114,17 @@
             return deferred.promise;
         }
 
-        function getByUser() {
-            return $http.put('/api/user/advs').then(function (response) {
+        function getByUser(user_id) {
+            return $http.get('/api/adv/by-user/'+user_id).then(function (response) {
+                var objs = [];
+                for (var i in response.data) {
+                    objs.push(new advService(response.data[i]))
+                }
+                return objs;
+            })
+        }
+        function getByCurrentUser(user_id) {
+            return $http.get('/api/adv/by-current-user/'+user_id).then(function (response) {
                 var objs = [];
                 for (var i in response.data) {
                     objs.push(new advService(response.data[i]))

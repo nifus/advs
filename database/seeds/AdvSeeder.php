@@ -28,7 +28,7 @@ class AdvSeeder extends Seeder
         \DB::table('advs')->truncate();
         \DB::table('advs_fav')->truncate();
 
-        for ($i = 0; $i < 1500; $i++) {
+        for ($i = 0; $i < 10; $i++) {
 
             $category = $faker->numberBetween(1,9);
             $eq_category = $faker->randomElement([1,2,4,6,7,8]);
@@ -52,7 +52,7 @@ class AdvSeeder extends Seeder
                 'photos' => json_encode($images),
                 'visited' => $faker->randomDigitNotNull,
                 'favorite' => $faker->randomDigitNotNull,
-                'move_date'=> $faker->dateTimeThisMonth(),
+                //'move_date'=> $faker->dateTimeThisMonth(),
                 'is_deleted'=> $faker->randomElement(['0', '1']),
                 'title' => $faker->sentence,
                 'category' => $category,
@@ -140,7 +140,7 @@ class AdvSeeder extends Seeder
 
 
         }
-        for ($i = 1; $i < 100; $i++) {
+        for ($i = 1; $i < 10; $i++) {
             \DB::table('advs_fav')->insert([
                     ['user_id' => 1, 'adv_id' => $i],
                 ]

@@ -94,7 +94,19 @@
                 });
                 return defer.promise;
             };
-
+            Object.update = function () {
+                var defer = $q.defer();
+                $http.post('/api/user/' + Object.id , Object).then(function (response) {
+                    if (response.data.success == false) {
+                        defer.reject(response.data.error)
+                    } else {
+                        defer.resolve(response.data);
+                    }
+                }, function (response) {
+                    defer.reject(response.status + ': ' + response.statusText);
+                });
+                return defer.promise;
+            };
             Object.updateAdministrator = function () {
                 var defer = $q.defer();
                 $http.post('/api/user/' + Object.id + '/administrator', Object).then(function (response) {
@@ -125,7 +137,9 @@
                 return $http.delete('/api/user/' + Object.id)
             };
 
-            Object.getAdvs = advFactory.getByUser;
+            Object.getAdvs = function () {
+                return advFactory.getByUser(Object.id)
+            };
             Object.getMyWatchAdvs = advFactory.getWatchByUser;
             Object.getEventsLog = function () {
                 return $http.get('/api/user/' + Object.id + '/events-log')

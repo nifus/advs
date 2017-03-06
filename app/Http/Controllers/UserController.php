@@ -321,6 +321,23 @@ class UserController extends Controller
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
+
+    public function updateAccount(Request $request, $id){
+        try {
+
+            $user = User::getUser();
+            if (!$user || !$user->hasPermissions('accounts') ){
+                return response()->json(null, 403);
+            }
+            $data = $request->only(['sex', 'name', 'contact_email', 'password', 'surname', 'commercial_id','company','website','address_street','address_number','address_zip','address_city','address_additional','commercial_country','phone']);
+
+            $user = User::find($id);
+            $user->updateAccount($data);
+            return response()->json($user->toArray());
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
+    }
     public function deleteAdministratorAccount($id){
         try {
             $user = User::getUser();

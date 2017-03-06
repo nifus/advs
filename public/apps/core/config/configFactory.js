@@ -3,8 +3,7 @@
     'use strict';
 
     angular.module('core')
-        .factory('configFactory', configFactory);
-    configFactory.$inject = [ '$http','$q'];
+        .factory('configFactory', [ '$http','$q',configFactory]);
 
     function configFactory($http, $q) {
 

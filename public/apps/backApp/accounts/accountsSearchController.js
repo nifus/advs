@@ -7,12 +7,9 @@
 
     function accountsSearchController($scope, userFactory, $q, searchLogFactory, $filter) {
         $scope.filter = {
-            adv_type: 'all',
-            account: 'all',
-            statuses: ['all']
         };
         $scope.env = {
-            tab:'history',
+            tab:'main',
             user: null,
             users: [],
             per_page: 40,
@@ -78,7 +75,6 @@
             $scope.filter = {
                 adv_type: 'all',
                 account: 'all',
-                statuses: ['all']
             };
             //$scope.search($scope.filter)
             $scope.setPage(1);
@@ -95,13 +91,19 @@
             $scope.env.user.getEventsLog().then(function (response) {
                 $scope.env.user.events_log = response.data;
             })
-        }
-        $scope.search = function (data) {
+        };
+
+        $scope.newSearch = function () {
+            $scope.env.page = 1;
+            $scope.search();
+        };
+        $scope.search = function () {
             $scope.env.loading = true;
             var search_defer = $q.defer();
 
             if ($scope.env.search) {
-                $scope.env.search.update(data).then(function () {
+
+                $scope.env.search.update($scope.filter ).then(function () {
                     $scope.env.search.getAccountResults($scope.env.page, $scope.env.per_page).then(function (users) {
                         $scope.env.users = users;
                         $scope.env.total = $scope.env.search.number_of_results;
@@ -112,7 +114,7 @@
                 });
 
             } else {
-                searchLogFactory.storeAccounts(data).then(function (search) {
+                searchLogFactory.storeAccounts($scope.filter ).then(function (search) {
                     $scope.env.search = search;
                     localStorage.setItem('accounts_search', search.id);
                     $scope.env.search.getAccountResults($scope.env.page, $scope.env.per_page).then(function (users) {
@@ -122,27 +124,12 @@
                     })
                 });
             }
-
-
-            /*userFactory.search($scope.env.page,$scope.env.per_page, data).then(function (response) {
-             console.log(response)
-             $scope.env.total = response.total;
-             $scope.env.users = response.rows;
-
-             });*/
             return search_defer.promise;
         };
         $scope.setPerPage = function (count) {
             $scope.env.per_page = count;
             $scope.setPage(1);
         };
-
-
-
-
-        $scope.changeListStatuses = function (id) {
-            // console.log(id)
-        }
 
 
         $scope.setPage = function (page) {

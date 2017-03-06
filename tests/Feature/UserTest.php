@@ -141,6 +141,25 @@ class UserTest extends TestCase
 
         $response = $this->json('DELETE', '/api/user/3?token='.$token);
         $response->assertStatus(200);
+
+        $response = $this->json('POST', '/api/user/3?token='.$token,[
+            "sex" => "male",
+              "name" => "Bo",
+              "contact_email" => "admin@gmail.com",
+              "password" => null,
+              "surname" => "Homenick",
+              "commercial_id" => null,
+              "company" => "Maggio Ltd",
+              "website" => "http://www.zboncak.com/",
+              "address_street" => "Torp Heights",
+              "address_number" => "747",
+              "address_zip" => "09722-6473",
+              "address_city" => "Donatofurt",
+              "address_additional" => null,
+              "commercial_country" => "Antigua and Barbuda",
+              "phone" => "696.312.9232 x31631",
+        ]);
+        $response->assertStatus(200);
     }
 
     public function testStuff(){

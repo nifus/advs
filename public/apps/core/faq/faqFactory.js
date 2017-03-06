@@ -20,7 +20,7 @@
             var defer = $q.defer();
 
             data['type'] = 'instruction';
-            $http.post('/api/back/faqs', data).then(
+            $http.post('/api/faqs', data).then(
                 function (response) {
                     defer.resolve(new faqService(response.data));
                 }, function (response) {
@@ -35,7 +35,7 @@
             var defer = $q.defer();
 
             data['type'] = 'faq';
-            $http.post('/api/back/faqs', data).then(
+            $http.post('/api/faqs', data).then(
                 function (response) {
                     defer.resolve(new faqService(response.data));
                 }, function (response) {
@@ -47,7 +47,7 @@
         }
 
         function getAll() {
-            return $http.get('/api/back/faqs').then(
+            return $http.get('/api/faqs').then(
                 function (response) {
                     var result = [];
                     for (var i in response.data) {

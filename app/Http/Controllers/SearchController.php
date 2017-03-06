@@ -76,8 +76,11 @@ class SearchController extends Controller
 
     function getSearch($id){
         $log = SearchLog::find($id);
+        if (is_null($log)){
+            return response()->json(['success'=>false],404);
+        }
         //$place = Place::find($log->query->city_id);
-        return response()->json(['success'=>true,'search'=>$log->toArray(),'place'=>null], 200, [], JSON_NUMERIC_CHECK);
+        return response()->json(['success'=>true,'search'=>$log,'place'=>null], 200, [], JSON_NUMERIC_CHECK);
     }
 
 
@@ -125,6 +128,9 @@ class SearchController extends Controller
             $sql =Adv::orderBy('title','ASC');
             $count = $sql->count();
         }
+       // $config = $log->config;
+       // $config['page']=1;
+
         $log->update(['query'=>$filters,'number_of_results'=>$count]);
         return response()->json(['search'=>$log->toArray()]);
 

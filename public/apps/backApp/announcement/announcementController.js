@@ -25,8 +25,9 @@
                 }
             });
             $q.all([config_promise]).then(function () {
-                return deferred.promise;
-            })
+                deferred.resolve();
+            });
+            return deferred.promise;
         }
 
         $scope.$parent.init.push(initPage);

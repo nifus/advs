@@ -10,14 +10,14 @@
 
 
             Object.delete = function () {
-                return $http.delete('/api/back/faqs/' + Object.id).then(function (response) {
+                return $http.delete('/api/faqs/' + Object.id).then(function (response) {
                     return response.data;
                 })
             };
 
             Object.updateFaq = function (title, desc) {
                 var defer = $q.defer();
-                $http.post('/api/back/faqs/' + Object.id, {type: 'faq', title: title, desc: desc}).then(
+                $http.post('/api/faqs/' + Object.id, {type: 'faq', title: title, desc: desc}).then(
                     function (response) {
                         defer.resolve();
                     }, function (response) {
@@ -30,7 +30,7 @@
 
             Object.updateInstruction = function (title, desc) {
                 var defer = $q.defer();
-                 $http.post('/api/back/faqs/' + Object.id, {type: 'instruction', title: title, desc: desc}).then(
+                 $http.post('/api/faqs/' + Object.id, {type: 'instruction', title: title, desc: desc}).then(
                     function (response) {
                         defer.resolve();
                     }, function (response) {
