@@ -58,6 +58,14 @@
             url: '/prices',
             templateUrl: '../apps/backApp/prices/prices.html',
             controller: 'pricesController'
+        }).state('mail-send', {
+            url: '/mail-send',
+            templateUrl: '../apps/backApp/mail/send.html',
+            controller: 'mailSendController'
+        }).state('mail-templates', {
+            url: '/mail-templates',
+            templateUrl: '../apps/backApp/mail/templates.html',
+            controller: 'mailTemplatesController'
         })
 
     }]).run(function (gettextCatalog) {

@@ -81,8 +81,8 @@
                     <li class="dropdown" ng-if="user.hasPermission('mailing')">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Mailing <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref="announcement" translate>Send</a></li>
-                            <li><a ui-sref="help-desk" translate>Template</a></li>
+                            <li><a ui-sref="mail-send" translate>Send</a></li>
+                            <li><a ui-sref="mail-templates" translate>Template</a></li>
                         </ul>
                     </li>
                     <li class="dropdown" ng-if="user.hasPermission('statistics')">
@@ -135,6 +135,9 @@
 <script src="../apps/core/faq/faqService.js"></script>
 <script src="../apps/core/searchLog/searchLogFactory.js"></script>
 <script src="../apps/core/searchLog/searchLogService.js"></script>
+<script src="../apps/core/mailTemplate/mailTemplateFactory.js"></script>
+<script src="../apps/core/mailTemplate/mailTemplateService.js"></script>
+
 <script src="../apps/directives/advPreview/advPreview.js"></script>
 
 <script src="../apps/backApp/backApp.js"></script>
@@ -154,6 +157,8 @@
 <script src="../apps/backApp/administration/administrationController.js"></script>
 <script src="../apps/backApp/statistics/statisticsController.js"></script>
 <script src="../apps/backApp/prices/pricesController.js"></script>
+<script src="../apps/backApp/mail/mailSendController.js"></script>
+<script src="../apps/backApp/mail/mailTemplatesController.js"></script>
 
 <script src="../apps/directives/upload/upload.js"></script>
 

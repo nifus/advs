@@ -152,6 +152,10 @@ Route::group(['prefix'=>'api'], function () {
 
 
     Route::group(['prefix'=>'back'], function () {
+
+        Route::get('/mail/templates', 'MailTemplateController@getAll' );
+        Route::post('/mail/templates/{id}', 'MailTemplateController@update' );
+
         Route::post('/config/announcement/{type}', 'ConfigController@announcement' )->where('type','private|business');
         Route::post('/config/instruction', 'ConfigController@instruction' );
         Route::post('/config/faq', 'ConfigController@faq' );

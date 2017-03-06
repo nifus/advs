@@ -1,0 +1,63 @@
+<div id="help-desk">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" translate>Mailing - Template</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row" style="border-bottom: 2px solid #5B9BD5">
+                            <div class="col-md-6 text-left" translate>Mail type</div>
+                            <div class="col-md-6 text-right" translate>System</div>
+                        </div>
+
+                        <div class="list-group">
+                            <a ng-repeat="template in env.templates|filter:{type:'system'}" ng-class="{'active':env.template.id==template.id}" ng-click="displayTemplate(template)" class="list-group-item link">{{template.name}}</a>
+
+                        </div>
+
+                        <div class="row" style="border-bottom: 2px solid #5B9BD5">
+                            <div class="col-md-6 text-left" translate>Mail type</div>
+                            <div class="col-md-6 text-right" translate>Info</div>
+                        </div>
+
+                        <div class="list-group">
+                            <a ng-repeat="template in env.templates|filter:{type:'info'}"
+                               ng-click="displayTemplate(template)" class="link list-group-item " ng-class="{'active':env.template.id==template.id}">{{template.name}}</a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6" ng-if="env.template">
+                        <textarea class="form-control" ng-model="env.template.body"></textarea>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-6 text-left" translate>Last edited:</div>
+                                    <div class="col-md-6 text-right">{{env.template.user.name}} {{env.template.user.surname}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-left" translate>Edited on:</div>
+                                    <div class="col-md-6 text-right">{{env.template.updated_at}}</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 text-right">
+                                <div><div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="env.enable_save" ng-true-value="1" ng-false-value="0"> {{'Enable'|translate}}
+                                    </label>
+                                </div></div>
+                                <button class="btn btn-primary" translate ng-click="saveTemplate()" ng-disabled="!env.enable_save">Save</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

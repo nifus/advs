@@ -7,7 +7,9 @@
     pricesController.$inject = ['$scope', 'configFactory', '$q', '$state', '$filter'];
 
     function pricesController($scope, configFactory, $q, $state, $filter) {
-        $scope.env = {};
+        $scope.env = {
+
+        };
         $scope.price = {};
 
         function initPage(deferred) {
