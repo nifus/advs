@@ -293,8 +293,8 @@ class UserController extends Controller
     public function createAdministratorAccount(Request $request){
         try {
             $user = User::getUser();
-            if (!$user->isAdminAccount() || $user->hasPermissions(['administration']) ){
-                //return response()->json(null, 403);
+            if (!$user || !$user->hasPermissions('administration') ){
+                return response()->json(null, 403);
             }
             $data = $request->only(['sex', 'name', 'email', 'password', 'surname', 'initials','permissions']);
             $user = User::createAdministratorAccount($data);
@@ -310,7 +310,7 @@ class UserController extends Controller
     public function updateAdministratorAccount(Request $request, $id){
         try {
             $user = User::getUser();
-            if (!$user->isAdminAccount() || $user->hasPermissions(['administration']) ){
+            if (!$user || !$user->hasPermissions('administration') ){
                 return response()->json(null, 403);
             }
             $data = $request->only(['sex', 'name', 'email', 'password', 'surname', 'initials','permissions']);
@@ -324,7 +324,7 @@ class UserController extends Controller
     public function deleteAdministratorAccount($id){
         try {
             $user = User::getUser();
-            if (!$user->isAdminAccount() || $user->hasPermissions(['administration']) ){
+            if ( !$user || !$user->hasPermissions('administration')  ){
                 return response()->json(null, 403);
             }
 

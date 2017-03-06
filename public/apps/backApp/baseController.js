@@ -10,11 +10,6 @@
         $scope.display_reset_form = true;
 
 
-        $scope.env = {
-            loading: true,
-            user: null
-        };
-
 
         $scope.promises = [];
         $scope.initPromises = [];
@@ -50,16 +45,26 @@
             $state.go('sign_in')
         });
         $scope.promises.push(userPromise);
-        /*userFactory.refresh().then(function(){
 
-         });*/
 
         $q.all($scope.promises).then(function () {
-             console.log('mainController loaded');
             $scope.loaded = true;
             execute();
         });
 
+
+
+
+
+        function execute() {
+
+            for (var i in $scope.init) {
+                var deferred = $q.defer();
+                var promise = $scope.init[i](deferred);
+                $scope.init.splice(i, 1);
+                $scope.initPromises.push(promise);
+            }
+        }
 
         $scope.$watchCollection('init', function (value) {
             if ($scope.loaded == true) {
@@ -67,23 +72,12 @@
             }
         }, true);
 
-
-        function execute() {
-
-            for (var i in $scope.init) {
-                var deferred = $q.defer();
-                var promise = $scope.init[i](deferred, $scope.env);
-                $scope.init.splice(i, 1);
-                $scope.initPromises.push(promise);
-            }
-        }
-
         $scope.$watchCollection('initPromises', function (value) {
             if (value != undefined && value.length > 0) {
-                $scope.loading = true;
+                $scope.loaded = false;
 
-                $scope.defer = $q.all($scope.initPromises).then(function () {
-                    $scope.loading = false;
+                $q.all($scope.initPromises).then(function () {
+                    $scope.loaded = true;
                     $scope.initPromises = [];
                 });
             }
@@ -91,6 +85,10 @@
 
         $scope.setUser = function (user) {
             $scope.user = user;
+        };
+
+        $scope.setInit = function (func) {
+            $scope.init.push(func);
         }
 
 

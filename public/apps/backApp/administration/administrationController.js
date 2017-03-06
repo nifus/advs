@@ -22,17 +22,15 @@
             }
             var users_promise = userFactory.getAllAdministrationUsers().then(function (response) {
                 $scope.env.users = response;
-                console.log(response)
             });
-            var deffer = $q.defer();
+
             $q.all([users_promise]).then(function () {
-                deffer.resolve();
+                deferred.resolve();
             });
-            return deffer.promise;
+            return deferred.promise;
 
         }
-
-        $scope.$parent.init.push(initPage);
+        $scope.setInit(initPage);
 
 
         $scope.addUser = function () {

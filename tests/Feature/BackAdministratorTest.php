@@ -32,6 +32,14 @@ class BackAdministratorTest extends TestCase
         $response = $this->json('GET', '/api/user/get-all-administration?token='.$token);
         $response->assertStatus(200);
 
+        $response = $this->json('DELETE', '/api/user/1/administrator?token='.$token);
+        $response->assertStatus(200);
+
+        $response = $this->json('POST', '/api/user/1/administrator?token='.$token,['sex'=>'male','password'=>'testpasss']);
+        $response->assertStatus(200);
+
+        $response = $this->json('POST', '/api/user/administrator?token='.$token,['sex'=>'male','password'=>'testpasss']);
+        $response->assertStatus(200);
     }
 
     public function testAccess()
@@ -46,6 +54,12 @@ class BackAdministratorTest extends TestCase
         $token = $response->original['token'];
 
         $response = $this->json('GET', '/api/user/get-all-administration?token='.$token);
+        $response->assertStatus(403);
+
+        $response = $this->json('DELETE', '/api/user/3/administrator?token='.$token);
+        $response->assertStatus(403);
+
+        $response = $this->json('POST', '/api/user/1/administrator?token='.$token,['sex'=>'male','password'=>'testpasss']);
         $response->assertStatus(403);
 
     }
