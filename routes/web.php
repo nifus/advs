@@ -54,9 +54,6 @@ Route::group(['prefix'=>'api'], function () {
 
     Route::get('/adv/{id}/statistics', 'AdvController@getStatisticsById' );
     Route::get('/adv/statistics', 'AdvController@getStatistics' );
-    Route::get('/user/statistics', 'UserController@getStatistics' );
-    // TODO
-    Route::get('/user/statistics/subscriptions', 'UserController@getSubscriptionsStatistics' );
 
 
 
@@ -69,6 +66,13 @@ Route::group(['prefix'=>'api'], function () {
     });
 
     Route::group(['prefix'=>'user'], function () {
+        Route::get('/statistics', 'UserController@getStatistics' );
+        // TODO
+        Route::get('/statistics/subscriptions', 'UserController@getSubscriptionsStatistics' );
+
+        Route::get('/countries', 'UserController@getAllCountries');
+        Route::post('/search', 'UserController@search');
+
         Route::get('/get-all-administration', 'UserController@getAllAdministration' );
         Route::get('/get-all-new-business', 'UserController@getAllNewBusiness' );
         Route::get('/get-all-blocked', 'UserController@getAllBlocked' );
@@ -165,10 +169,7 @@ Route::group(['prefix'=>'api'], function () {
     Route::post('/faqs/{id}', 'FaqController@update' );
     Route::delete('/faqs/{id}', 'FaqController@delete' );
 
-    Route::group(['prefix'=>'users'], function () {
-        Route::get('/countries', 'UserController@getAllCountries');
-        Route::post('/search', 'UserController@search');
-    });
+
 });
 
 

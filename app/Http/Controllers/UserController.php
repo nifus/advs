@@ -418,10 +418,11 @@ class UserController extends Controller
         return response()->json(User::getAllAdministration());
     }
 
-    public function getStatistics(){
-        $current_user = User::getUser();
-        if ( !$current_user->isAdminAccount() ){
-            return response()->json([],403);
+    public function getStatistics(Request $request){
+        $token = $request->get('token');
+        $current_user = User::getUser($token);
+        if ( is_null($current_user) || !$current_user->hasPermissions('statistics') ){
+            return response()->json(['success'=>false],403);
         }
         $users = User::getOnlyGroups();
 

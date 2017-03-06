@@ -2,9 +2,8 @@
     'use strict';
     angular
         .module('backApp')
-        .controller('mailTemplatesController', mailTemplatesController);
+        .controller('mailTemplatesController', ['$scope', 'mailTemplateFactory', '$q', '$state', '$filter', mailTemplatesController]);
 
-    mailTemplatesController.$inject = ['$scope', 'mailTemplateFactory', '$q', '$state', '$filter'];
 
     function mailTemplatesController($scope, mailTemplateFactory, $q, $state, $filter) {
         $scope.env = {
@@ -25,8 +24,9 @@
                 $scope.env.templates = response
             });
             $q.all([config_promise]).then(function () {
-                return deferred.promise;
-            })
+                deferred.resolve();
+            });
+            return deferred.promise;
         }
 
         $scope.$parent.init.push(initPage);

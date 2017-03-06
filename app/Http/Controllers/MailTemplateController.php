@@ -22,7 +22,7 @@ class MailTemplateController extends Controller
     function update(Request $request, $id){
 
         $user = User::getUser();
-        if ( is_null($user) || !$user->isAdminAccount() ){
+        if ( is_null($user) || !$user->hasPermissions('mailing') ){
             return response()->json(['success'=>false],403);
         }
         try{
@@ -42,7 +42,7 @@ class MailTemplateController extends Controller
 
     function getAll(){
         $user = User::getUser();
-        if ( is_null($user) || !$user->isAdminAccount() ){
+        if ( is_null($user) || !$user->hasPermissions('mailing') ){
             return response()->json(['success'=>false],403);
         }
         $templates = MailTemplate::getAll();

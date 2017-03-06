@@ -190,10 +190,12 @@ class AdvController extends Controller
     }
 
 
-    public function getStatistics(){
-        $current_user = UserModel::getUser();
-        if ( !$current_user->isAdminAccount() ){
-            return response()->json([],403);
+    public function getStatistics(Request $request){
+        $token = $request->get('token');
+        $current_user = UserModel::getUser($token);
+
+        if ( is_null($current_user) || !$current_user->hasPermissions('statistics') ){
+            return response()->json(['success'=>false],403);
         }
         $advs = AdvModel::getWithStatus();
 

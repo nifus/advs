@@ -3,8 +3,7 @@
     'use strict';
 
     angular.module('core')
-        .factory('userFactory', userFactory);
-    userFactory.$inject = ['$http', '$rootScope', '$auth', '$q', '$cookies', 'userService'];
+        .factory('userFactory', ['$http', '$rootScope', '$auth', '$q', '$cookies', 'userService', userFactory]);
 
     function userFactory($http, $rootScope, $auth, $q, $cookies, userService) {
 
@@ -154,7 +153,7 @@
 
 
         function getCountries() {
-            return $http.get('/api/back/users/countries').then(function (response) {
+            return $http.get('/api/user/countries').then(function (response) {
                 return response.data;
             })
         }
@@ -168,7 +167,7 @@
         }
 
         function search(page, limit, filters) {
-            return $http.post('/api/back/users/search', {
+            return $http.post('/api/users/search', {
                 'page': page,
                 'limit': limit,
                 'filters': filters

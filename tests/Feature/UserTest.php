@@ -122,4 +122,16 @@ class UserTest extends TestCase
             $response
                 ->assertStatus(200);
         }*/
+
+
+    public function testStuff(){
+        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'a.bunzya@gmail.com', 'password' => 'testpass']);
+        $response
+            ->assertStatus(200)
+            ->assertJson(['user' => ['email' => 'a.bunzya@gmail.com']]);
+        $token = $response->original['token'];
+
+        $response = $this->json('GET', '/api/user/countries?token='.$token);
+        $response->assertStatus(200);
+    }
 }

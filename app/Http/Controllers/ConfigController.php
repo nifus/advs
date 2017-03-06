@@ -62,7 +62,7 @@ class ConfigController extends Controller
 
     function privatePrices(Request $request){
         $user = User::getUser();
-        if ( is_null($user) || !$user->isAdminAccount() ){
+        if ( is_null($user) || !$user->hasPermissions('prices') ){
             return response()->json(['success'=>false],403);
         }
 
@@ -84,7 +84,7 @@ class ConfigController extends Controller
 
     function businessPrices(Request $request){
         $user = User::getUser();
-        if ( is_null($user) || !$user->isAdminAccount() ){
+        if ( is_null($user) || !$user->hasPermissions('prices') ){
             return response()->json(['success'=>false],403);
         }
         $data = $request->all();

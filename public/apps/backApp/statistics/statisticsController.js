@@ -2,18 +2,17 @@
     'use strict';
     angular
         .module('backApp')
-        .controller('statisticsController', statisticsController);
+        .controller('statisticsController', ['$scope', 'userFactory', '$q', '$state','advFactory',statisticsController]);
 
-    statisticsController.$inject = ['$scope', 'userFactory', '$q', '$filter', '$state','advFactory'];
 
-    function statisticsController($scope, userFactory, $q, $filter, $state, advFactory) {
+    function statisticsController($scope, userFactory, $q, $state, advFactory) {
         $scope.env = {
             users: [],
             user: null,
             reload_accounts: false,
             reload_adverts: false,
             user_stat: null,
-            adv_stat: null,
+            adv_stat: null
         }
 
         function initPage(deferred) {

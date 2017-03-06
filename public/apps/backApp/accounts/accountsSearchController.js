@@ -2,9 +2,8 @@
     'use strict';
     angular
         .module('backApp')
-        .controller('accountsSearchController', accountsSearchController);
+        .controller('accountsSearchController',['$scope', 'userFactory', '$q', 'searchLogFactory', '$filter', accountsSearchController] );
 
-    accountsSearchController.$inject = ['$scope', 'userFactory', '$q', 'searchLogFactory', '$filter'];
 
     function accountsSearchController($scope, userFactory, $q, searchLogFactory, $filter) {
         $scope.filter = {
@@ -57,11 +56,15 @@
             }
 
             $q.all(promises).then(function () {
+                deferred.resolve();
                 $scope.search($scope.filter).then(function () {
+
                     $scope.env.loading = false;
+
                 });
-                return deferred.promise;
-            })
+            });
+            return deferred.promise;
+
         }
 
         $scope.$parent.init.push(initPage);
@@ -102,8 +105,8 @@
                     $scope.env.search.getAccountResults($scope.env.page, $scope.env.per_page).then(function (users) {
                         $scope.env.users = users;
                         $scope.env.total = $scope.env.search.number_of_results;
-                        $scope.setUser($scope.env.users[0]);
-                        $scope.displayHistoryTab()
+                       // $scope.setUser($scope.env.users[0]);
+                        //$scope.displayHistoryTab()
                         $scope.env.loading = false;
                     })
                 });
@@ -135,9 +138,7 @@
         };
 
 
-        $scope.$watch('filter', function (value) {
-            //  console.log(value)
-        }, true);
+
 
         $scope.changeListStatuses = function (id) {
             // console.log(id)

@@ -30,7 +30,7 @@
 
         function saveAnnouncement(type, data) {
             var defer = $q.defer();
-            $http.post('/api/back/config/announcement/'+type, data).then(function (response) {
+            $http.post('/api/config/announcement/'+type, data).then(function (response) {
                 defer.resolve(response.data)
             },function (response) {
                 var error = response.data.error ? response.data.error : response.statusText
@@ -41,7 +41,7 @@
 
         function saveInstruction(data) {
             var defer = $q.defer();
-            $http.post('/api/back/config/instruction', data).then(function (response) {
+            $http.post('/api/config/instruction', data).then(function (response) {
                 defer.resolve(response.data)
             },function (response) {
                 defer.reject({error:'error'})
@@ -51,7 +51,7 @@
 
         function saveFaq(data) {
             var defer = $q.defer();
-            $http.post('/api/back/config/faq', data).then(function (response) {
+            $http.post('/api/config/faq', data).then(function (response) {
                 defer.resolve(response.data)
             },function (response) {
                 defer.reject({error:'error'})
@@ -61,7 +61,7 @@
 
         function savePrivatePrices(data) {
             var defer = $q.defer();
-            $http.post('/api/back/config/private-prices', data).then(function (response) {
+            $http.post('/api/config/private-prices', data).then(function (response) {
                 defer.resolve(response.data)
             },function (response) {
                 defer.reject({error:'error'})
@@ -71,7 +71,7 @@
 
         function saveBusinessPrices(data) {
             var defer = $q.defer();
-            $http.post('/api/back/config/business-prices', data).then(function (response) {
+            $http.post('/api/config/business-prices', data).then(function (response) {
                 defer.resolve(response.data)
             },function (response) {
                 defer.reject({error:'error'})
