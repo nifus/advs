@@ -60,7 +60,7 @@
 
             $auth.login(credentials).then(function (response) {
                 // $rootScope.$broadcast('login');
-                deferred.resolve({success: true, token: response.data.token, user: response.data.user});
+                deferred.resolve({success: true, token: response.data.token, user: new userService(response.data.user)});
             }).catch(function (response) {
                 deferred.resolve({success: false, error: response.data.error});
             });

@@ -2,16 +2,16 @@
     'use strict';
     angular
         .module('backApp')
-        .controller('administrationController', administrationController);
+        .controller('administrationController',['$scope','userFactory', '$q', '$filter', '$state',administrationController] );
 
-    administrationController.$inject = ['$scope', 'userFactory', '$q', '$filter', '$state'];
+
 
     function administrationController($scope, userFactory, $q, $filter, $state) {
         $scope.env = {
             users: [],
             user: null,
             submit: false
-        }
+        };
 
         function initPage(deferred) {
             $scope.user = $scope.$parent.user;
@@ -21,11 +21,15 @@
                 return;
             }
             var users_promise = userFactory.getAllAdministrationUsers().then(function (response) {
-                $scope.env.users = response
+                $scope.env.users = response;
+                console.log(response)
             });
+            var deffer = $q.defer();
             $q.all([users_promise]).then(function () {
-                return deferred.promise;
-            })
+                deffer.resolve();
+            });
+            return deffer.promise;
+
         }
 
         $scope.$parent.init.push(initPage);

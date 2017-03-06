@@ -18,17 +18,32 @@ class UserSeeder extends Seeder
         User::create([
             'name'=>'Admin',
             'email'=>'admin@gmail.com',
-            'is_activated'=>'1',
+           // 'is_activated'=>'1',
             'group_id'=>'1',
             'surname'=>'Bunzya',
             'sex'=>'male',
             'password'=>'testpass',
-            'activate_key'=>1
+            'activate_key'=>1,
+            'status'=>'active',
+            'permissions'=>["portal","advert","accounts","administration","payment","prices","statistics","mailing"]
+        ]);
+        User::create([
+            'name'=>'Admin',
+            'email'=>'nifus@mail.ru',
+            //'is_activated'=>'1',
+            'status'=>'active',
+            'group_id'=>'1',
+            'surname'=>'No Any Access',
+            'sex'=>'male',
+            'password'=>'testpass',
+            'activate_key'=>1,
+            'permissions'=>null
         ]);
         User::create([
                 'name'=>'Alex',
                 'email'=>'a.bunzya@gmail.com',
-                'is_activated'=>'1',
+               // 'is_activated'=>'1',
+                'status'=>'active',
                 'group_id'=>'2',
                 'surname'=>'Bunzya',
                 'sex'=>'male',

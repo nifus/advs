@@ -1,8 +1,7 @@
 (function () {
     'use strict';
-    angular.module('backApp').controller('baseController', baseController);
+    angular.module('backApp').controller('baseController', ['$scope', '$q', 'userFactory', '$cookies','$state', baseController]);
 
-    baseController.$inject = ['$scope', '$q', 'userFactory', '$cookies','$state'];
 
     function baseController($scope, $q, userFactory, $cookies, $state) {
 
@@ -27,7 +26,7 @@
 
         $scope.logout = function () {
             userFactory.logout();
-           // window.location.href='/'
+            window.location.href='/'
         };
         $scope.displayForgotForm = function () {
             $scope.form_type = 'forgot'
@@ -46,8 +45,7 @@
         };
 
         var userPromise = userFactory.getAuthUser().then(function (user) {
-            $scope.user = user;
-            $scope.env.user = user;
+            $scope.setUser(user)
         },function () {
             $state.go('sign_in')
         });
@@ -64,7 +62,6 @@
 
 
         $scope.$watchCollection('init', function (value) {
-
             if ($scope.loaded == true) {
                 execute();
             }
@@ -82,8 +79,6 @@
         }
 
         $scope.$watchCollection('initPromises', function (value) {
-
-
             if (value != undefined && value.length > 0) {
                 $scope.loading = true;
 
@@ -92,8 +87,11 @@
                     $scope.initPromises = [];
                 });
             }
-
         });
+
+        $scope.setUser = function (user) {
+            $scope.user = user;
+        }
 
 
     }

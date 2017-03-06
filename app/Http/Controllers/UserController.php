@@ -412,7 +412,7 @@ class UserController extends Controller
     }
     public function getAllAdministration(){
         $user = User::getUser();
-        if (is_null($user) || false===$user->isAdminAccount()){
+        if (is_null($user) || false===$user->isAdminAccount() || !$user->hasPermissions('administration')){
             return response()->json(null, 403);
         }
         return response()->json(User::getAllAdministration());

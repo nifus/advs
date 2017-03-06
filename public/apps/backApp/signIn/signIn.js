@@ -42,8 +42,7 @@
                     }else{
                         $cookies.put('token', response.token,{'path':'/'});
                     }
-                    $scope.$parent.user = response.user;
-                    
+                    $scope.setUser(response.user);
                     $state.go('dashboard');
                 }
             })
