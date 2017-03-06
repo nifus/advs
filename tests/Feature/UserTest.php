@@ -124,6 +124,25 @@ class UserTest extends TestCase
         }*/
 
 
+    public function testAdminFunctions(){
+    ///{id}
+        //
+        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'admin@gmail.com', 'password' => 'testpass']);
+        $response
+            ->assertStatus(200)
+            ->assertJson(['user' => ['email' => 'admin@gmail.com']]);
+        $token = $response->original['token'];
+
+        $response = $this->json('POST', '/api/user/3/set-active-status?token='.$token);
+        $response->assertStatus(200);
+
+        $response = $this->json('POST', '/api/user/3/set-block-status?token='.$token);
+        $response->assertStatus(200);
+
+        $response = $this->json('DELETE', '/api/user/3?token='.$token);
+        $response->assertStatus(200);
+    }
+
     public function testStuff(){
         $response = $this->json('POST', '/api/user/authenticate', ['email' => 'a.bunzya@gmail.com', 'password' => 'testpass']);
         $response

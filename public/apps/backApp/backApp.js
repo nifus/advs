@@ -10,10 +10,6 @@
             url: '/',
             templateUrl: '../apps/backApp/signIn/signIn.html',
             controller: 'signIn'
-        }).state('dashboard', {
-            url: '/dashboard',
-            templateUrl: '../apps/backApp/dashboard/dashboard.html',
-            controller: 'dashboard'
         }).state('announcement', {
             url: '/announcement',
             templateUrl: '../apps/backApp/announcement/announcement.html',

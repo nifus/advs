@@ -19,7 +19,7 @@
             $scope.user = $scope.$parent.user;
 
             if ( !$scope.user.hasPermission('statistics')) {
-                $state.go('dashboard');
+                $state.go('adverts-search');
                 return;
             }
             var users_promise = userFactory.getStatistics().then(function (response) {

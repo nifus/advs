@@ -35,6 +35,12 @@ class SearchLogTest extends TestCase
             ->assertJson(['type' => "accounts"]);
         $id = $response->original['id'];
 
+        $response = $this->json('POST', '/api/search/'.$id.'/update?token=' . $token,
+            ["query" => ["adv_type" => "all", "account" => "all", "statuses" => ["all"]] ] );
+        $response
+            ->assertStatus(200);
+
+
         $response = $this->json('GET', '/api/search/'.$id.'?token=' . $token);
         $response
             ->assertStatus(200)

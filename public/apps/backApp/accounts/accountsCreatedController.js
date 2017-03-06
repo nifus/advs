@@ -2,16 +2,16 @@
     'use strict';
     angular
         .module('backApp')
-        .controller('accountsCreatedController', accountsCreatedController);
+        .controller('accountsCreatedController', ['$scope', 'userFactory', '$q', '$filter',accountsCreatedController]);
 
-    accountsCreatedController.$inject = ['$scope', 'userFactory', '$q', '$filter'];
+
 
     function accountsCreatedController($scope, userFactory, $q, $filter) {
         $scope.env = {
             users:[],
             selected:[],
             blocked_flag: 0
-        }
+        };
 
         function initPage(deferred) {
             $scope.user = $scope.$parent.user;
@@ -20,8 +20,9 @@
                $scope.env.users = response
             });
             $q.all([users_promise]).then(function () {
-                return deferred.promise;
-            })
+                deferred.resolve();
+            });
+            return deferred.promise;
         }
 
         $scope.$parent.init.push(initPage);

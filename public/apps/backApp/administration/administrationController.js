@@ -17,7 +17,7 @@
             $scope.user = $scope.$parent.user;
 
             if ( !$scope.user.hasPermission('administration')) {
-                $state.go('dashboard');
+                $state.go('sign_in');
                 return;
             }
             var users_promise = userFactory.getAllAdministrationUsers().then(function (response) {

@@ -388,7 +388,7 @@ class UserController extends Controller
 
     public function setActiveStatus($user_id){
         $user = User::getUser();
-        if (is_null($user) || false===$user->isAdminAccount()){
+        if (is_null($user) || !$user->hasPermissions('accounts')){
             return response()->json(null, 403);
         }
         $user = User::find($user_id);

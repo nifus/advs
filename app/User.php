@@ -534,7 +534,7 @@ class User extends Authenticatable
         if (isset($filter['group_id']) and sizeof($filter['group_id']) > 0) {
             $sql = $sql->whereIn('group_id', $filter['group_id']);
         }
-        if (isset($filter['status']) and sizeof($filter['group_id']) > 0) {
+        if (isset($filter['status']) and sizeof($filter['status']) > 0) {
             $sql = $sql->whereIn('status', $filter['status']);
         }
 
@@ -580,7 +580,7 @@ class User extends Authenticatable
         if (isset($filter['group_id']) and sizeof($filter['group_id']) > 0) {
             $sql = $sql->whereIn('group_id', $filter['group_id']);
         }
-        if (isset($filter['status']) and sizeof($filter['group_id']) > 0) {
+        if (isset($filter['status']) and sizeof($filter['status']) > 0) {
             $sql = $sql->whereIn('status', $filter['status']);
         }
 

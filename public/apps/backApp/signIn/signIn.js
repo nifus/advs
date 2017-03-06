@@ -17,7 +17,7 @@
             if ( $scope.user && !$scope.user.isAdminAccount() ){
                 $scope.user= null;
             }else if($scope.user && $scope.user.isAdminAccount()){
-                $state.go('dashboard');
+                $state.go('sign_in');
             }
 
             return deferred.promise;
@@ -43,7 +43,7 @@
                         $cookies.put('token', response.token,{'path':'/'});
                     }
                     $scope.setUser(response.user);
-                    $state.go('dashboard');
+                    $state.go('adverts-search');
                 }
             })
         }
