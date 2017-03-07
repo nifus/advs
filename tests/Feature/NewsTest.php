@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class AdvTest extends TestCase
+class NewsTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -22,17 +22,10 @@ class AdvTest extends TestCase
             ->assertJson(['user' => ['email' => 'admin@gmail.com']]);
         $token = $response->original['token'];
 
-        $response = $this->json('GET', '/api/adv/by-user/3?token='.$token);
+        $response = $this->json('GET', '/api/news/private?token='.$token);
         $response->assertStatus(200);
 
-        $response = $this->json('GET', '/api/adv/3/statistics?token='.$token);
-        $response->assertStatus(200);
-
-        $response = $this->json('GET', '/api/adv/by-current-user?token='.$token);
-        $response->assertStatus(200);
-
-
-        $response = $this->json('GET', '/api/adv/watch/by-current-user?token='.$token);
+        $response = $this->json('GET', '/api/news/business?token='.$token);
         $response->assertStatus(200);
 
     }

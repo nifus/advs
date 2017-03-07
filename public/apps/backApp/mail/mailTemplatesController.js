@@ -16,7 +16,7 @@
             $scope.user = $scope.$parent.user;
 
             if ( !$scope.user.hasPermission('mailing')) {
-                $state.go('mailing');
+                $state.go('sign_in');
                 return;
             }
 

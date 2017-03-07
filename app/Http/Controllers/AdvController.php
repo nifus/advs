@@ -148,7 +148,7 @@ class AdvController extends Controller
         return response()->json($advs);
     }
 
-    function getWatchByUser()
+    function getWatchByCurrentUser()
     {
         $user = UserModel::getUser();
         $favs = $user->Fav()->get();
@@ -251,7 +251,7 @@ class AdvController extends Controller
     {
         $current_user = UserModel::getUser();
         $user_stat = UserModel::find($user_id);
-        if ($current_user->id!=$user_stat && !$current_user->isAdminAccount() ){
+        if ($current_user->id!=$user_stat->id && !$current_user->isAdminAccount() ){
             return response()->json([],403);
         }
 

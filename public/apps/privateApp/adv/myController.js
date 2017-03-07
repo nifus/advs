@@ -1,8 +1,7 @@
 (function () {
     'use strict';
-    angular.module('privateApp').controller('myController', myController);
+    angular.module('privateApp').controller('myController', ['$scope', 'userFactory', '$q', '$filter','$state','$window', myController]);
 
-    myController.$inject = ['$scope', 'userFactory', '$q', '$filter','$state','$window'];
 
     function myController($scope, userFactory,  $q, $filter, $state, $window) {
         $scope.promises = null;
@@ -39,11 +38,7 @@
             $window.document.title = $filter('translate')('My Advertisements');
 
 
-
-
-
-
-            var advPromise = $scope.user.getAdvs().then(function (result) {
+            var advPromise = $scope.user.getAdvsByCurrentUser().then(function (result) {
                 result = $filter('orderBy')(result,'-created_at');
 
                 $scope.env.advs = {

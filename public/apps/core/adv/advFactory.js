@@ -3,8 +3,7 @@
     'use strict';
 
     angular.module('core')
-        .factory('advFactory', advFactory);
-    advFactory.$inject = ['advService', '$http', '$q', '$filter'];
+        .factory('advFactory', ['advService', '$http', '$q', '$filter', advFactory]);
 
     function advFactory(advService, $http, $q, $filter) {
 
@@ -43,7 +42,7 @@
             getByUser: getByUser,
             getByCurrentUser: getByCurrentUser,
             getById: getById,
-            getWatchByUser: getWatchByUser,
+            getWatchByCurrentUser: getWatchByCurrentUser,
             getDataSets: getDataSets,
             getResult: getResult,
             getStatistics: getStatistics,
@@ -123,8 +122,8 @@
                 return objs;
             })
         }
-        function getByCurrentUser(user_id) {
-            return $http.get('/api/adv/by-current-user/'+user_id).then(function (response) {
+        function getByCurrentUser() {
+            return $http.get('/api/adv/by-current-user').then(function (response) {
                 var objs = [];
                 for (var i in response.data) {
                     objs.push(new advService(response.data[i]))
@@ -133,8 +132,8 @@
             })
         }
 
-        function getWatchByUser() {
-            return $http.put('/api/user/watch-advs').then(function (response) {
+        function getWatchByCurrentUser() {
+            return $http.get('/api/adv/watch/by-current-user').then(function (response) {
                 var objs = [];
                 for (var i in response.data) {
                     objs.push(new advService(response.data[i]))

@@ -21,7 +21,10 @@
 
         function initPage(deferred) {
             $scope.user = $scope.$parent.user;
-
+            if ( !$scope.user.hasPermission('portal')) {
+                $state.go('sign_in');
+                return;
+            }
             var config_promise = faqFactory.getAll().then(function (response) {
                 angular.forEach(response, function (element) {
                     if (element.type==='faq'){

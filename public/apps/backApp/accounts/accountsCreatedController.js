@@ -15,7 +15,10 @@
 
         function initPage(deferred) {
             $scope.user = $scope.$parent.user;
-
+            if ( !$scope.user.hasPermission('accounts')) {
+                $state.go('sign_in');
+                return;
+            }
             var users_promise = userFactory.getAllNewBusinessUsers().then(function (response) {
                $scope.env.users = response
             });

@@ -40,8 +40,7 @@
 
             Object.getAdvStat = function () {
 
-
-                return $http.get('/api/user/adv-stat').then(function (response) {
+                return $http.get('/api/adv/'+Object.id+'/statistics').then(function (response) {
                     return response.data;
                 })
 
@@ -140,7 +139,10 @@
             Object.getAdvs = function () {
                 return advFactory.getByUser(Object.id)
             };
-            Object.getMyWatchAdvs = advFactory.getWatchByUser;
+            Object.getAdvsByCurrentUser = function () {
+                return advFactory.getByCurrentUser()
+            };
+            Object.getMyWatchAdvs = advFactory.getWatchByCurrentUser;
             Object.getEventsLog = function () {
                 return $http.get('/api/user/' + Object.id + '/events-log')
             };

@@ -19,7 +19,7 @@ class FaqController extends Controller
 
     function store(Request $request){
         $user = User::getUser();
-        if ( is_null($user) || !$user->isAdminAccount() ){
+        if ( is_null($user) || !$user->hasPermissions('portal') ){
             return response()->json(['success'=>false],403);
         }
         try{
@@ -35,7 +35,7 @@ class FaqController extends Controller
     function update(Request $request, $id){
 
         $user = User::getUser();
-        if ( is_null($user) || !$user->isAdminAccount() ){
+        if ( is_null($user) || !$user->hasPermissions('portal') ){
             return response()->json(['success'=>false],403);
         }
         try{
@@ -55,7 +55,7 @@ class FaqController extends Controller
     function delete( $id){
 
         $user = User::getUser();
-        if ( is_null($user) || !$user->isAdminAccount() ){
+        if ( is_null($user) || !$user->hasPermissions('portal') ){
             return response()->json(['success'=>false],403);
         }
         try{

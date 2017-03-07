@@ -14,6 +14,10 @@
 
         function initPage(deferred) {
             $scope.user = $scope.$parent.user;
+            if ( !$scope.user.hasPermission('accounts')) {
+                $state.go('sign_in');
+                return;
+            }
 
             var users_promise = userFactory.getAllBlockedUsers().then(function (response) {
                $scope.env.users = response

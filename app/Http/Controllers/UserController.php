@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('jwt.auth', ['except' => ['authenticate', 'forgotPassword', 'getAuth']]);
+        $this->middleware('jwt.auth', ['except' => ['authenticate', 'forgotPassword', 'getAuth','dashboard']]);
     }
 
 
@@ -62,7 +62,10 @@ class UserController extends Controller
             }
             if (!\Hash::check($credentials['password'], $user->password)) {
                 throw new JWTException(trans('main.error_user_not_found'));
+            }
 
+            if (!$credentials['is_admin'] && $user->isAdminAccount() ){
+                throw new JWTException(trans('main.error_user_is_admin'));
             }
 
             $token = JWTAuth::fromUser($user);
@@ -126,6 +129,7 @@ class UserController extends Controller
     public function changeEmail(Request $request)
     {
         $data = $request->only(['email', 're_email', 'code']);
+        dd($data);
         try {
             $user = User::getUser();
             if ($user->activate_key != $data['code']) {
@@ -171,6 +175,7 @@ class UserController extends Controller
     public function changeContactData(Request $request)
     {
         $data = $request->only(['sex', 'name', 'surname', 'address_zip', 'address_city', 'address_street', 'address_number', 'address_additional', 'phone']);
+
         try {
             $user = User::getUser();
             $user->changeContactData($data);
@@ -186,6 +191,7 @@ class UserController extends Controller
     public function changePassword(Request $request)
     {
         $data = $request->only(['current_password', 'password', 're_password']);
+
         try {
             $user = User::getUser();
             $user->changePassword($data['current_password'], $data['password'], $data['re_password']);

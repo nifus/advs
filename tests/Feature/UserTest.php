@@ -15,161 +15,167 @@ class UserTest extends TestCase
      * A basic test example.
      *
      * @return void
-     */
-    /*public function testStore()
-    {
 
+    public function testStore()
+     * {
+     *
+     *
+     * $response = $this->json('POST', '/api/user', []);
+     * $response
+     * ->assertStatus(200)
+     * ->assertJson([
+     * 'success' => false,
+     * ]);
+     *
+     * $response = $this->json('POST', '/api/user/', ['email' => 'asdasds']);
+     * $response
+     * ->assertStatus(200)
+     * ->assertJson([
+     * 'success' => false,
+     * ]);
+     *
+     * $response = $this->json('POST', '/api/user/', ['email' => 'nifus@mail.ru']);
+     * $response
+     * ->assertStatus(200)
+     * ->assertJson([
+     * 'success' => false,
+     * ]);
+     *
+     * $response = $this->json('POST', '/api/user/', ['email' => 'nifus@mail.ru', 'password' => '']);
+     * $response
+     * ->assertStatus(200)
+     * ->assertJson([
+     * 'success' => false,
+     * ]);
+     *
+     * $response = $this->json('POST', '/api/user/', ['email' => 'nifus@mail.ru', 'password' => 'testpass']);
+     * $response
+     * ->assertStatus(200)
+     * ->assertJson([
+     * 'success' => false,
+     * ]);
+     *
+     * $response = $this->json('POST', '/api/user/', ['email' => 'unic@mail.ru', 'password' => 'testpass']);
+     * $response
+     * ->assertStatus(200)
+     * ->assertJson(['email' => 'unic@mail.ru']);
+     * }*/
 
-        $response = $this->json('POST', '/api/user/', []);
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'success' => false,
-            ]);
-
-        $response = $this->json('POST', '/api/user/', ['email' => 'asdasds']);
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'success' => false,
-            ]);
-
-        $response = $this->json('POST', '/api/user/', ['email' => 'nifus@mail.ru']);
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'success' => false,
-            ]);
-
-        $response = $this->json('POST', '/api/user/', ['email' => 'nifus@mail.ru', 'password' => '']);
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'success' => false,
-            ]);
-
-        $response = $this->json('POST', '/api/user/', ['email' => 'nifus@mail.ru', 'password' => 'testpass']);
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'success' => false,
-            ]);
-
-        $response = $this->json('POST', '/api/user/', ['email' => 'unic@mail.ru', 'password' => 'testpass']);
-        $response
-            ->assertStatus(200)
-            ->assertJson(['email' => 'unic@mail.ru']);
-    }*/
-
-    public function testLogin()
-    {
-
-        /*$response = $this->json('POST', '/api/user/authenticate', ['email' => 'admin@gmail.com']);
-        $response->assertStatus(403);
-
-
-        $response = $this->json('POST', '/api/user/authenticate', []);
-        $response->assertStatus(403);
-
-
-
-        $response = $this->json('POST', '/api/user/authenticate',
-            [ 'email' => 'admin@gmail.com', 'password' => 'testpass','is_admin'=>1]
-        );
-        $response
-            ->assertStatus(200)
-            ->assertJson(['user' => ['email' => 'admin@gmail.com']]);*/
-    }
 
     public function testAuthenticate()
     {
 
 
-       /* $response = $this->json('POST', '/api/user/authenticate', ['email' => 'admin@gmail.com', 'password' => 'testpass']);
+        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'admin@gmail.com', 'password' => 'testpass', 'is_admin' => 1]);
         $response->assertStatus(200)
             ->assertJson(['user' => ['email' => 'admin@gmail.com']]);
         $token = $response->original['token'];
 
 
-        $response = $this->json('GET', '/api/user/get-auth',['token'=>$token]);
+        $response = $this->json('GET', '/api/user/get-auth', ['token' => $token]);
         $response
             ->assertStatus(200)
-            ->assertJson(['email' => 'admin@gmail.com']);*/
+            ->assertJson(['email' => 'admin@gmail.com']);
+
+
+        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'a.bunzya@gmail.com', 'password' => 'testpass']);
+        $response->assertStatus(200)
+            ->assertJson(['user' => ['email' => 'a.bunzya@gmail.com']]);
+        $token = $response->original['token'];
+
+
+        $response = $this->json('GET', '/api/user/get-auth?token=' . $token, ['token' => $token]);
+        $response
+            ->assertStatus(200)
+            ->assertJson(['email' => 'a.bunzya@gmail.com']);
     }
 
-    /*
-        public function testUserLogout()
-        {
-            $response = $this->json('POST', '/api/user/', ['email' => 'unic@mail.ru', 'password' => 'testpass']);
-            $response
-                ->assertStatus(200)
-                ->assertJson(['email' => 'unic@mail.ru']);
 
-            $response = $this->json('POST', '/api/user/authenticate', ['email' => 'unic@mail.ru', 'password' => 'testpass']);
-            $response
-                ->assertStatus(200)
-                ->assertJson(['user' => ['email' => 'unic@mail.ru']]);
-            $token = $response->original['token'];
+    /*public function testUserLogout()
+    {
+        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'a.bunzya@gmail.com', 'password' => 'testpass']);
+        $response->assertStatus(200)
+            ->assertJson(['user' => ['email' => 'a.bunzya@gmail.com']]);
+        $token = $response->original['token'];
 
 
-            $response = $this->json('GET', '/api/user/get-auth?token='.$token, []);
-            $response
-                ->assertStatus(200)
-                ->assertJson(['email' => 'unic@mail.ru']);
 
 
-            $response = $this->json('GET', '/api/user/logout?token='.$token, []);
-            $response
-                ->assertStatus(200);
-        }*/
+        $response = $this->json('GET', '/api/user/logout?token='.$token, []);
+        $response
+            ->assertStatus(200);
+    }*/
 
 
-    public function testAdminFunctions(){
-    ///{id}
+    public function testAdminFunctions()
+    {
+        ///{id}
         //
-        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'admin@gmail.com', 'password' => 'testpass']);
+        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'admin@gmail.com', 'password' => 'testpass','is_admin'=>1]);
         $response
             ->assertStatus(200)
             ->assertJson(['user' => ['email' => 'admin@gmail.com']]);
         $token = $response->original['token'];
 
-        $response = $this->json('POST', '/api/user/3/set-active-status?token='.$token);
+        $response = $this->json('POST', '/api/user/3/set-active-status?token=' . $token);
         $response->assertStatus(200);
 
-        $response = $this->json('POST', '/api/user/3/set-block-status?token='.$token);
+        $response = $this->json('POST', '/api/user/3/set-block-status?token=' . $token);
         $response->assertStatus(200);
 
-        $response = $this->json('DELETE', '/api/user/3?token='.$token);
+        $response = $this->json('DELETE', '/api/user/3?token=' . $token);
         $response->assertStatus(200);
 
-        $response = $this->json('POST', '/api/user/3?token='.$token,[
+        $response = $this->json('POST', '/api/user/3?token=' . $token, [
             "sex" => "male",
-              "name" => "Bo",
-              "contact_email" => "admin@gmail.com",
-              "password" => null,
-              "surname" => "Homenick",
-              "commercial_id" => null,
-              "company" => "Maggio Ltd",
-              "website" => "http://www.zboncak.com/",
-              "address_street" => "Torp Heights",
-              "address_number" => "747",
-              "address_zip" => "09722-6473",
-              "address_city" => "Donatofurt",
-              "address_additional" => null,
-              "commercial_country" => "Antigua and Barbuda",
-              "phone" => "696.312.9232 x31631",
+            "name" => "Bo",
+            "contact_email" => "admin@gmail.com",
+            "password" => null,
+            "surname" => "Homenick",
+            "commercial_id" => null,
+            "company" => "Maggio Ltd",
+            "website" => "http://www.zboncak.com/",
+            "address_street" => "Torp Heights",
+            "address_number" => "747",
+            "address_zip" => "09722-6473",
+            "address_city" => "Donatofurt",
+            "address_additional" => null,
+            "commercial_country" => "Antigua and Barbuda",
+            "phone" => "696.312.9232 x31631",
         ]);
         $response->assertStatus(200);
     }
 
-    public function testStuff(){
+    public function testStuff()
+    {
         $response = $this->json('POST', '/api/user/authenticate', ['email' => 'a.bunzya@gmail.com', 'password' => 'testpass']);
         $response
             ->assertStatus(200)
             ->assertJson(['user' => ['email' => 'a.bunzya@gmail.com']]);
         $token = $response->original['token'];
 
-        $response = $this->json('GET', '/api/user/countries?token='.$token);
+        $response = $this->json('GET', '/api/user/countries?token=' . $token);
         $response->assertStatus(200);
+    }
+
+    public function testSettings(){
+        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'a.bunzya@gmail.com', 'password' => 'testpass']);
+        $response
+            ->assertStatus(200)
+            ->assertJson(['user' => ['email' => 'a.bunzya@gmail.com']]);
+        $token = $response->original['token'];
+
+        $response = $this->json('PUT', '/api/user/change-password?token=' . $token,[
+            "current_password" => "testpass",
+              "password" => "testpass",
+              "re_password" => "testpass",
+        ]);
+        $response->assertStatus(200);
+
+        $response = $this->json('PUT', '/api/user/allow-notifications?token=' . $token,[
+            "allow_notifications" => 0
+        ]);
+        $response->assertStatus(200);
+
     }
 }

@@ -22,7 +22,10 @@
 
         function initPage(deferred) {
             $scope.user = $scope.$parent.user;
-
+            if ( !$scope.user.hasPermission('advert')) {
+                $state.go('sign_in');
+                return;
+            }
             var config_promise = faqFactory.getAll().then(function (response) {
                 angular.forEach(response, function (element) {
                     if (element.type==='faq'){
@@ -33,8 +36,10 @@
                 });
             });
             $q.all([config_promise]).then(function () {
-                return deferred.promise;
-            })
+                deferred.resolve();
+
+            });
+            return deferred.promise;
         }
 
         $scope.$parent.init.push(initPage);

@@ -29,6 +29,7 @@ return [
     'error_user_not_approved'=>'User Not Approved',
     'error_user_not_activated'=>'User Not Activated',
     'error_user_not_admin'=>'User have not admin access',
+    'error_user_is_admin'=>'User have  admin access',
 
 
         //  reset pass page

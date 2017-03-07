@@ -33,7 +33,10 @@
 
             var promises = [];
             $scope.user = $scope.$parent.user;
-
+            if ( !$scope.user.hasPermission('accounts')) {
+                $state.go('sign_in');
+                return;
+            }
 
             var countries_promise = userFactory.getCountries().then(function (response) {
                 $scope.env.countries = response

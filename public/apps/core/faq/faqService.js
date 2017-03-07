@@ -1,7 +1,6 @@
 (function (angular, window) {
     'use strict';
-    angular.module('core').service('faqService', faqService);
-    faqService.$inject = ['$http','$q'];
+    angular.module('core').service('faqService', ['$http','$q', faqService]);
 
     function faqService($http,$q) {
         return function (data) {

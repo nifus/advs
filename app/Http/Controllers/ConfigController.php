@@ -20,7 +20,7 @@ class ConfigController extends Controller
 
     function announcement($type, Request $request){
         $user = User::getUser();
-        if ( is_null($user) || !$user->isAdminAccount() ){
+        if ( is_null($user) || !$user->hasPermissions('portal') ){
             return response()->json(['success'=>false],403);
         }
         try{
@@ -48,6 +48,11 @@ class ConfigController extends Controller
     }
 
     function instruction(Request $request){
+        $user = User::getUser();
+        if ( is_null($user) || !$user->hasPermissions('portal') ){
+            return response()->json(['success'=>false],403);
+        }
+
         $data = $request->all();
         $config = self::getConfig();
         if ( isset($config->instructions) ){

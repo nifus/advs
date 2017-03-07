@@ -13,7 +13,7 @@
             $scope.user = $scope.$parent.user;
 
             if (!$scope.user.hasPermission('prices')) {
-                $state.go('prices');
+                $state.go('sign_in');
                 return;
             }
 

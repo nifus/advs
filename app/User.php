@@ -487,16 +487,19 @@ class User extends Authenticatable
 
     static function getUser($token = null)
     {
+        $user = false;
         try {
             $parse_token = JWTAuth::getToken();
-
-            if ($parse_token) {
-                $user = JWTAuth::setToken($parse_token)->authenticate();
-            } else if (!is_null($token)) {
+            if (!is_null($token)) {
                 $user = JWTAuth::setToken($token)->authenticate();
+            }elseif ($parse_token) {
+                $user = JWTAuth::setToken($parse_token)->authenticate();
             } else if (isset($_COOKIE['token'])) {
                 $user = JWTAuth::setToken($_COOKIE['token'])->authenticate();
             }
+
+
+
             if (false === $user) {
                 return null;
             }

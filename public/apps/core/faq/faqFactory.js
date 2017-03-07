@@ -3,8 +3,7 @@
     'use strict';
 
     angular.module('core')
-        .factory('faqFactory', faqFactory);
-    faqFactory.$inject = ['faqService', '$http', '$q'];
+        .factory('faqFactory', ['faqService', '$http', '$q',faqFactory]);
 
     function faqFactory(faqService, $http, $q) {
 

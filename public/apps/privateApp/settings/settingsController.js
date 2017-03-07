@@ -1,8 +1,7 @@
 (function () {
     'use strict';
-    angular.module('privateApp').controller('settingsController', settingsController);
+    angular.module('privateApp').controller('settingsController', ['$scope', '$state', '$filter', '$q','$window', settingsController]);
 
-    settingsController.$inject = ['$scope', '$state', '$filter', '$q','$window'];
 
     function settingsController($scope, $state, $filter, $q, $window) {
         $scope.promises = null;

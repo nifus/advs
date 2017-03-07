@@ -1,8 +1,7 @@
 (function () {
     'use strict';
-    angular.module('privateApp').controller('dashboardController', dashboardController);
+    angular.module('privateApp').controller('dashboardController', ['$scope', 'userFactory', 'newsFactory', '$q', '$window', '$filter',dashboardController]);
 
-    dashboardController.$inject = ['$scope', 'userFactory', 'newsFactory', '$q', '$window', '$filter'];
 
     function dashboardController($scope, userFactory, newsFactory, $q, $window, $filter) {
         $scope.promises = null;

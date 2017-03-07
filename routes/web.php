@@ -114,12 +114,12 @@ Route::group(['prefix'=>'api'], function () {
         Route::delete('{id}', 'AdvController@delete' )->where('id','[0-9]*');
         Route::put('{id}/status', 'AdvController@changeStatus' )->where('id','[0-9]*');
 
-        Route::put('/watch-advs', 'AdvController@getWatchByUser' );
+        Route::get('/watch/by-current-user', 'AdvController@getWatchByCurrentUser' );
         Route::delete('/watch-advs/{id}', 'AdvController@removeWatch' );
 
-        Route::get('/{id}', 'AdvController@getAdvById' );
-        Route::post('/{id}/fav', 'AdvController@favlist' );
-        Route::post('/{id}/message', 'AdvController@message' );
+        Route::get('/{id}', 'AdvController@getAdvById' )->where('id','[0-9]*');
+        Route::post('/{id}/fav', 'AdvController@favlist' )->where('id','[0-9]*');
+        Route::post('/{id}/message', 'AdvController@message' )->where('id','[0-9]*');
     });
 
 
