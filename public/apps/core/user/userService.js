@@ -1,8 +1,8 @@
 (function (angular, window) {
     'use strict';
-    angular.module('core').service('userService', ['$http', 'advFactory', 'tariffFactory', '$q', userService]);
+    angular.module('core').service('userService', ['$http', 'advFactory', '$q', userService]);
 
-    function userService($http, advFactory, tariffFactory, $q) {
+    function userService($http, advFactory, $q) {
         return function (data) {
             var Object = data;
             Object.waiting = false;

@@ -4,7 +4,6 @@ use App\User;
 use App\Category;
 use App\Adv;
 
-
 Route::get('/', ['as'=>'main','uses'=>'DashboardController@index']);
 
 
@@ -12,6 +11,7 @@ Route::group(['prefix'=>'register'], function () {
     Route::get('/private', ['as'=>'register.private','uses'=> 'UserController@privateAccountForm']);
     Route::get('/business', ['as'=>'register.business','uses'=> 'UserController@businessAccountForm']);
     Route::get('/activate/{user_id}/{key}', ['as'=>'register.activate','uses'=> 'UserController@activateAccount']);
+    Route::get('/confirm/{user_id}/{key}', ['as'=>'register.confirm','uses'=> 'UserController@confirmAccount']);
 });
 
 Route::group(['prefix'=>'user'], function () {
@@ -174,6 +174,7 @@ Route::group(['prefix'=>'api'], function () {
 
 
 
+view()->addNamespace('emails', storage_path('mails'));
 
 
 View::composer(['frontApp','privateApp'], function ($view) {

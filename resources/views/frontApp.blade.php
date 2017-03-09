@@ -54,8 +54,6 @@
     <script src="/apps/core/adv/advFactory.js"></script>
     <script src="/apps/core/adv/advService.js"></script>
 
-    <script src="/apps/core/tariff/tariffFactory.js"></script>
-    <script src="/apps/core/tariff/tariffService.js"></script>
 
     <script src="/apps/core/searchLog/searchLogFactory.js"></script>
     <script src="/apps/core/searchLog/searchLogService.js"></script>

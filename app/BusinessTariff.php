@@ -9,6 +9,7 @@ class BusinessTariff extends Model
     public $table='business_tariffs';
 
     protected $fillable = ['title' ,'number_of_slots','price','price_extra_slots'];
+    public $timestamps = false;
 
     public function updatePrice($price, $price_extra_slots){
         $this->update(['price'=>$price,'price_extra_slots'=>$price_extra_slots]);

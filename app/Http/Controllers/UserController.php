@@ -7,7 +7,6 @@ use App\Tariff;
 use Illuminate\Http\Request;
 use App\User;
 use App\Adv;
-use App\Jobs\ActivatePrivateAccount as ActivatePrivateAccountJob;
 use App\Jobs\ForgotPassword as ForgotPasswordJob;
 use App\Jobs\NewPassword as NewPasswordJob;
 use App\Jobs\ConfirmCode as ConfirmCodeJob;
@@ -18,7 +17,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('jwt.auth', ['except' => ['authenticate', 'forgotPassword', 'getAuth','dashboard','privateAccountForm','businessAccountForm','createPrivateAccount','forgotPassword','resetPassword','createBusinessAccount','activateAccount']]);
+        $this->middleware('jwt.auth', ['except' => ['authenticate', 'forgotPassword', 'getAuth','dashboard','privateAccountForm','businessAccountForm','createPrivateAccount','forgotPassword','resetPassword','createBusinessAccount','activateAccount','confirmAccount']]);
     }
 
 
@@ -86,9 +85,6 @@ class UserController extends Controller
         try {
             $data = $request->only(['email','password','sex','name','surname','re_email','re_password','agb','captcha','test']);
             $user = User::createPrivateAccount($data);
-            //$user = User::find(1);
-
-            dispatch(new ActivatePrivateAccountJob($user));
 
             return response()->json(['success' => true, 'user' => $user->afterRegisterArray()]);
         } catch (\Exception $e) {
@@ -292,7 +288,7 @@ class UserController extends Controller
             $data = $request->only(['address_additional', 'address_city', 'address_number', 'address_street', 'address_zip', 'agb', 'captcha', 'commercial_country', 'commercial_id', 'commercial_additional', 'company', 'contact_email', 'email', 'giro_account', 'name', 'password', 'payment_type', 'paypal_email', 'phone', 're_email', 're_password', 'sex', 'surname', 'tariff', 'website']);
             $user = User::createBusinessAccount($data);
 
-            dispatch(new ActivatePrivateAccountJob($user));
+
 
             return response()->json(['success' => true, 'user' => $user->toArray()]);
         } catch (\Exception $e) {
@@ -373,13 +369,27 @@ class UserController extends Controller
                 throw new \Exception('user_not_found');
             }
             $user->activateAccount($key);
-
-
         } catch (\Exception $e) {
             $error = trans('validation.' . $e->getMessage());
         }
 
         return view('controller.user.activateAccount', ['error' => $error]);
+    }
+
+    public function confirmAccount($user_id, $key)
+    {
+        $error = null;
+        try {
+            $user = User::find($user_id);
+            if (is_null($user)) {
+                throw new \Exception('user_not_found');
+            }
+            $user->confirmAccount($key);
+        } catch (\Exception $e) {
+            $error = trans('validation.' . $e->getMessage());
+        }
+
+        return view('controller.user.confirmAccount', ['error' => $error]);
     }
 
     public function getAuth(Request $request)

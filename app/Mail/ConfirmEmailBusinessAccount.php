@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ActivatePrivateAccount extends Mailable
+class ConfirmEmailBusinessAccount extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,16 +28,15 @@ class ActivatePrivateAccount extends Mailable
     public function build()
     {
         $user = $this->user;
-
-        $tmpl = MailTemplate::getById(3);
+        $link = route('register.confirm',['user_id'=>$user->id,'key'=>$user->activate_key]);
+        $tmpl = MailTemplate::getById(2);
 
         return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
             [
                 'varContactForename' => $user->name,
                 'varContactSurename' => $user->surname,
-                'varAccountEmail' => $user->email,
-            ]
-        );
+                'varAccountActivationLink' => $link
+            ]);
 
     }
 }

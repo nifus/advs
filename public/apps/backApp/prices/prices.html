@@ -116,14 +116,14 @@
 
                                 </table>
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-10" ng-if="users.private">
                                         <div class="row">
                                             <div class="col-md-6 text-left" translate>Last edited:</div>
-                                            <div class="col-md-6 text-right">{{price.business.user_name}}</div>
+                                            <div class="col-md-6 text-right">{{users.business.user.name}} {{users.business.user.surname}}</div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 text-left" translate>Edited on:</div>
-                                            <div class="col-md-6 text-right">{{price.business.updated_at}}</div>
+                                            <div class="col-md-6 text-right">{{users.business.user.updated_at}}</div>
                                         </div>
                                     </div>
 

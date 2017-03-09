@@ -24,7 +24,6 @@
             <div class="col-md-9" ng-show="step=='first'">
                 <div class="alert alert-info" role="alert">{!! trans('main.register_business_account_message',['link'=>route('register.private')]) !!}</div>
 
-                <div class="alert alert-danger" role="alert" ng-show="error" ng-bind="error"></div>
 
                 <form class="form-horizontal" name="register" >
                     <h4>{{ trans('main.register_company_data') }}</h4>
@@ -302,8 +301,7 @@
 
                         </div>
                     </div>
-
-                    <div class="alert alert-warning" role="alert">...</div>
+                    <div class="alert alert-danger" role="alert" ng-show="error" ng-bind="error"></div>
 
 
                     <div style="text-align: center">

@@ -51,7 +51,7 @@ class BackPricesTest extends TestCase
             ]
 
         ]);
-           
+
         $response->assertStatus(200);
 
         $response = $this->json('POST', '/api/tariff/business?token=' . $token, [

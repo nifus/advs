@@ -18,7 +18,7 @@ class AlterBusinessFields extends Migration
             $table->string('company')->nullable();
             $table->string('contact_email')->nullable();
             $table->string('giro_account')->nullable();
-            $table->enum('payment_type',['paypal','giropay','prepyment'])->default('paypal');
+            $table->enum('payment_type',['paypal','giropay','prepayment'])->default('paypal');
             $table->string('paypal_email')->nullable();
             $table->string('phone')->nullable();
             $table->smallInteger('tariff')->nullable();

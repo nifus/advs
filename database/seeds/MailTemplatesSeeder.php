@@ -16,88 +16,136 @@ class MailTemplateSeeder extends Seeder
         \DB::table('mail_templates')->truncate();
 
 
-        MailTemplate::create([
-            'name' => 'Account created and activation link',
+        MailTemplate::createTemplate([
+            'id'=>1,
+            'name' => 'Private account activation link',
             'type' => 'system',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'confirmEmailPrivateAccount',
+            'header'=>'Confirm you registration',
+            'body'=> 'Good Day [varContactForename] [varContactSurename]! <br><br>
+You activation link: <br>
+<a href="[varAccountActivationLink]" target="_blank">[varAccountActivationLink]</a>'
         ]);
 
 
-        MailTemplate::create([
+        MailTemplate::createTemplate([
+            'id'=>2,
+            'name' => 'Business account confirm link',
+            'type' => 'system',
+            'header'=>'Confirm you registration',
+            'path' => 'confirmEmailBusinessAccount',
+            'body'=> 'Good Day [varContactForename] [varContactSurename]! <br><br>
+You confirm link: <br>
+<a href="[varAccountActivationLink]" target="_blank">[varAccountActivationLink]</a>'
+        ]);
+
+        MailTemplate::createTemplate([
+            'id'=>3,
+            'name' => 'Private account activated',
+            'type' => 'system',
+            'path' => 'activatePrivateAccount',
+            'header'=>'You registration in portal',
+            'body'=> 'Good Day [varContactForename] [varContactSurename]! <br><br>
+You login: [varAccountEmail]'
+        ]);
+        MailTemplate::createTemplate([
+            'id'=>4,
+            'name' => 'Business account activated',
+            'type' => 'system',
+            'path' => 'activateBusinessAccount',
+            'header'=>'You registration in portal',
+            'body'=> 'Good Day [varContactForename] [varContactSurename]! <br><br>
+You login: [varAccountEmail]'
+        ]);
+
+        /*MailTemplate::createTemplate([
             'name' => 'Activation link expired and new activation link',
             'type' => 'system',
-            'path' => 'emails.activatePrivateAccount'
-        ]);
+            'path' => 'activatePrivateAccount'
+        ]);*/
 
-        MailTemplate::create([
+        MailTemplate::createTemplate([
             'name' => 'Account was activated',
             'type' => 'system',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'activatedBusinessAccount',
+            'body'=>'text'
         ]);
 
-        MailTemplate::create([
-            'name' => 'account was blocked',
+        MailTemplate::createTemplate([
+            'name' => 'Account was blocked',
             'type' => 'system',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'accountBlocked',
+            'body'=>'text'
         ]);
 
-        MailTemplate::create([
-            'name' => 'advert was blocked',
+        MailTemplate::createTemplate([
+            'name' => 'Advert was blocked',
             'type' => 'system',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'advertBlocked',
+            'body'=>'text'
         ]);
 
-        MailTemplate::create([
-            'name' => 'advert was approved',
+        MailTemplate::createTemplate([
+            'name' => 'Advert was approved',
             'type' => 'system',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'advertApproved',
+            'body'=>'text'
         ]);
 
 
-        MailTemplate::create([
-            'name' => 'company data was changed',
+        MailTemplate::createTemplate([
+            'name' => 'Company data was changed',
             'type' => 'info',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'companyDataWasChanged',
+            'body'=>'text'
         ]);
-        MailTemplate::create([
-            'name' => 'advert was activated',
+        MailTemplate::createTemplate([
+            'name' => 'Advert was activated',
             'type' => 'info',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'advertActivated',
+            'body'=>'text'
         ]);
-        MailTemplate::create([
-            'name' => 'advert was disabled',
+        MailTemplate::createTemplate([
+            'name' => 'Advert was disabled',
             'type' => 'info',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'advertDisabled',
+            'body'=>'text'
         ]);
-        MailTemplate::create([
+        MailTemplate::createTemplate([
             'name' => 'advert waiting for payment',
             'type' => 'info',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'advertWaitingPayment',
+            'body'=>'text'
         ]);
-        MailTemplate::create([
-            'name' => 'advert soon expired',
+        MailTemplate::createTemplate([
+            'name' => 'Advert soon expired',
             'type' => 'info',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'advertSoonExpired',
+            'body'=>'text'
         ]);
-        MailTemplate::create([
-            'name' => 'advert is expired',
+        MailTemplate::createTemplate([
+            'name' => 'Advert is expired',
             'type' => 'info',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'advertExpired',
+            'body'=>'text'
         ]);
-        MailTemplate::create([
-            'name' => 'advert was deleted',
+        MailTemplate::createTemplate([
+            'name' => 'Advert was deleted',
             'type' => 'info',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'advertDeleted',
+            'body'=>'text'
         ]);
-        MailTemplate::create([
-            'name' => 'email was changed',
+        MailTemplate::createTemplate([
+            'name' => 'Email was changed',
             'type' => 'info',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'emailChanged',
+            'body'=>'text'
         ]);
-        MailTemplate::create([
+        MailTemplate::createTemplate([
             'name' => 'password was changed',
             'type' => 'info',
-            'path' => 'emails.activatePrivateAccount'
+            'path' => 'passwordChanged',
+            'body'=>'text'
         ]);
 
     }

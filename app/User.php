@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use JWTAuth;
+use App\Jobs\ConfirmEmailPrivateAccount;
+use App\Jobs\ConfirmEmailBusinessAccount;
+use App\Jobs\ActivatePrivateAccount;
 
 class User extends Authenticatable
 {
@@ -108,7 +111,9 @@ class User extends Authenticatable
 
     public function activateAccount($key)
     {
-
+        if ($this->group_id != 2) {
+            throw new \Exception('wrong_group');
+        }
         if ($this->status != 'email_confirmation') {
             throw new \Exception('user_is_activated');
         }
@@ -116,7 +121,23 @@ class User extends Authenticatable
             throw new \Exception('user_activate_key_invalid');
         }
         $this->update(['status' => 'active']);
-       // EventsLog::accountEmailIsConfirmed($this);
+        EventsLog::accountEmailIsConfirmed($this);
+        dispatch(new ActivatePrivateAccount($this));
+    }
+
+    public function confirmAccount($key)
+    {
+        if ($this->group_id != 3) {
+            throw new \Exception('wrong_group');
+        }
+        if ($this->status != 'email_confirmation') {
+            throw new \Exception('user_is_activated');
+        }
+        if ($this->activate_key != $key) {
+            throw new \Exception('user_activate_key_invalid');
+        }
+        $this->update(['status' => 'wait_approve']);
+        EventsLog::accountEmailIsConfirmed($this);
     }
 
     public function resetPassword()
@@ -400,7 +421,7 @@ class User extends Authenticatable
         $user = self::create($data);
 
         EventsLog::createAccount($user);
-
+        dispatch(new ConfirmEmailPrivateAccount($user));
         return $user;
     }
 
@@ -438,7 +459,11 @@ class User extends Authenticatable
 
         $data['group_id'] = 3;
         $data['activate_key'] = md5(time() . rand(0, 10000));
-        return self::create($data);
+
+        $user = self::create($data);
+        EventsLog::createAccount($user);
+        dispatch(new ConfirmEmailBusinessAccount($user));
+        return $user;
 
     }
 

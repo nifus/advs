@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ActivatePrivateAccount extends Mailable
+class ActivateBusinessAccount extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,7 +29,7 @@ class ActivatePrivateAccount extends Mailable
     {
         $user = $this->user;
 
-        $tmpl = MailTemplate::getById(3);
+        $tmpl = MailTemplate::getById(4);
 
         return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
             [

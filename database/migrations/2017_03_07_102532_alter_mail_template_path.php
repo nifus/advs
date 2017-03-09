@@ -14,7 +14,7 @@ class AlterMailTemplatePath extends Migration
     public function up()
     {
         Schema::table('mail_templates', function (Blueprint $table) {
-            $table->dropColumn('body');
+            //$table->dropColumn('body');
             $table->string('path');
         });
     }

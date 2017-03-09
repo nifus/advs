@@ -33,8 +33,7 @@ class UserTest extends TestCase
         $response->assertStatus(200);
 
 
-        // $response = $this->json('get', '/register/business');
-        // $response->assertStatus(200);
+
     }
 
     public function testPublicPages()
@@ -42,8 +41,8 @@ class UserTest extends TestCase
 
         $response = $this->json('get', '/register/private');
         $response->assertStatus(200);
-       // $response = $this->json('get', '/register/business');
-       // $response->assertStatus(200);
+        $response = $this->json('get', '/register/business');
+        $response->assertStatus(200);
     }
 
         /**
