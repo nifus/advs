@@ -128,7 +128,9 @@
 
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10 text-right">
-                                    <button type="button" ng-click="changePassword(password_form)" class="btn btn-default" translate>
+                                    <button type="button"
+                                            ng-disabled="password_form.submit"
+                                            ng-click="changePassword(password_form)" class="btn btn-default" translate>
                                         Change password
                                     </button>
                                 </div>

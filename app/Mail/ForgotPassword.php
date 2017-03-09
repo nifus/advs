@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\User;
+use App\MailTemplate;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -27,7 +28,16 @@ class ForgotPassword extends Mailable
     public function build()
     {
         $user = $this->user;
+        $tmpl = MailTemplate::getById(8);
+
         $link = route('user.reset',['user_id'=>$user->id,'key'=>$user->activate_key]);
-        return $this->view('emails.forgotPassword',['name'=>$user->name,'link'=>$link]);
+
+        return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
+            [
+                'varContactForename' => $user->name,
+                'varContactSurename' => $user->surname,
+                'link' => $link,
+            ]
+        );
     }
 }

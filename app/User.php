@@ -241,7 +241,12 @@ class User extends Authenticatable
 
     public function setActivateStatus()
     {
+        if ($this->status=='active'){
+            return false;
+        }
+
         $this->update(['status' => 'active']);
+        return true;
     }
 
     public function changeContactData($data)
@@ -302,13 +307,10 @@ class User extends Authenticatable
 
     public function isWaitApprove()
     {
-        return $this->attributes['is_approved'] == 0 ? true : false;
+        return $this->attributes['status'] == 'wait_approve' ? true : false;
     }
 
-    public function isNotApproved()
-    {
-        return $this->attributes['is_approved'] == 2 ? true : false;
-    }
+
 
     public function isActivated()
     {
@@ -501,7 +503,10 @@ class User extends Authenticatable
 
     static function getAllNewBusiness()
     {
-        return self::where('group_id', 3)->whereIn('status', ['wait_approve', 'email_confirmation'])->where('is_deleted', '0')->get();
+        return self::where('group_id', 3)
+            ->whereIn('status', ['wait_approve', 'email_confirmation'])
+            ->where('is_deleted', '0')
+            ->orderBy('id','DESC')->get();
     }
 
     static function getAllBlocked()

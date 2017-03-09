@@ -174,7 +174,6 @@ Route::group(['prefix'=>'api'], function () {
 
 
 
-view()->addNamespace('emails', storage_path('mails'));
 
 
 View::composer(['frontApp','privateApp'], function ($view) {

@@ -45,6 +45,20 @@ class EventsLog extends Model
         }
     }
 
+
+    static function changeContactData(User $user, $old_fields){
+        self::create(['type'=>'system','action'=>'changeContactData','user_id'=>$user->id,'additional_fields'=>$old_fields]);
+    }
+
+    static function changePassword(User $user){
+        self::create(['type'=>'system','action'=>'changePassword','user_id'=>$user->id]);
+    }
+
+    static function changeEmail(User $user, $old_email){
+        self::create(['type'=>'system','action'=>'changeEmail','user_id'=>$user->id,'additional_fields'=>[$old_email]]);
+    }
+
+
     static function createAccount(User $user){
         self::create(['type'=>'system','action'=>'createAccount','user_id'=>$user->id,'additional_fields'=>$user->toArray()]);
     }

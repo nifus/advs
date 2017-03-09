@@ -10,7 +10,8 @@
         $scope.env = {
             users:[],
             selected:[],
-            blocked_flag: 0
+            blocked_flag: 0,
+            loading: true
         };
 
         function initPage(deferred) {
@@ -24,6 +25,7 @@
             });
             $q.all([users_promise]).then(function () {
                 deferred.resolve();
+                $scope.env.loading = false;
             });
             return deferred.promise;
         }

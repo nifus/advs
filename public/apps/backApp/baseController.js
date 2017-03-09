@@ -49,6 +49,7 @@
 
         $q.all($scope.promises).then(function () {
             $scope.loaded = true;
+            //console.log('loaded')
             execute();
         });
 
@@ -74,10 +75,9 @@
 
         $scope.$watchCollection('initPromises', function (value) {
             if (value != undefined && value.length > 0) {
-                $scope.loaded = false;
-
+                //$scope.loaded = false;
                 $q.all($scope.initPromises).then(function () {
-                    $scope.loaded = true;
+                  //  $scope.loaded = true;
                     $scope.initPromises = [];
                 });
             }

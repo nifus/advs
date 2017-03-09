@@ -122,6 +122,12 @@ class UserTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson(['email' => 'a.bunzya@gmail.com']);
+
+
+        $response = $this->json('POST', '/api/user/forgot-password?token=' . $token, ['email' => 'a.bunzya@gmail.com']);
+        $response
+            ->assertStatus(200);
+
     }
 
 

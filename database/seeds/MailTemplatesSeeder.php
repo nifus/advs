@@ -58,18 +58,63 @@ You login: [varAccountEmail]'
 You login: [varAccountEmail]'
         ]);
 
+        MailTemplate::createTemplate([
+            'id'=>5,
+            'header'=>'Email was changed',
+            'name' => 'Email was changed',
+            'type' => 'info',
+            'path' => 'emailChanged',
+            'body'=> 'Good Day [varContactForename] [varContactSurename]! <br><br>Email was changed'
+        ]);
+        MailTemplate::createTemplate([
+            'id'=>6,
+            'header'=>'Password was changed',
+            'name' => 'Password was changed',
+            'type' => 'info',
+            'path' => 'passwordChanged',
+            'body'=> 'Good Day [varContactForename] [varContactSurename]! <br><br>Password was changed<br>New password:[password]'
+        ]);
+        MailTemplate::createTemplate([
+            'id'=>7,
+            'header'=>'Confirm change email',
+            'name' => 'Confirm change email',
+            'type' => 'system',
+            'path' => 'confirmChangeEmail',
+            'body'=> 'Good Day [varContactForename] [varContactSurename]! <br><br>You confirm code:[code]<br>'
+        ]);
+
+        MailTemplate::createTemplate([
+            'id'=>8,
+            'header'=>'Forgot password',
+            'name' => 'Forgot password',
+            'type' => 'system',
+            'path' => 'forgotPassword',
+            'body'=> 'Good Day [varContactForename] [varContactSurename]! <br><br>You reset password link: <br><a href="[link]">[link]</a>'
+        ]);
+
+        MailTemplate::createTemplate([
+            'id'=>9,
+            'header'=>'New password',
+            'name' => 'New password',
+            'type' => 'system',
+            'path' => 'newPassword',
+            'body'=> 'Good Day [varContactForename] [varContactSurename]! <br><br>You credentials: <br><br>
+Login:[email]<br>New password:[password]'
+        ]);
+
+
         /*MailTemplate::createTemplate([
             'name' => 'Activation link expired and new activation link',
             'type' => 'system',
             'path' => 'activatePrivateAccount'
-        ]);*/
+        ]);
 
         MailTemplate::createTemplate([
             'name' => 'Account was activated',
             'type' => 'system',
             'path' => 'activatedBusinessAccount',
             'body'=>'text'
-        ]);
+        ]);*/
 
         MailTemplate::createTemplate([
             'name' => 'Account was blocked',
@@ -135,18 +180,7 @@ You login: [varAccountEmail]'
             'path' => 'advertDeleted',
             'body'=>'text'
         ]);
-        MailTemplate::createTemplate([
-            'name' => 'Email was changed',
-            'type' => 'info',
-            'path' => 'emailChanged',
-            'body'=>'text'
-        ]);
-        MailTemplate::createTemplate([
-            'name' => 'password was changed',
-            'type' => 'info',
-            'path' => 'passwordChanged',
-            'body'=>'text'
-        ]);
+
 
     }
 }

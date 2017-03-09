@@ -2,24 +2,22 @@
 
 namespace App\Mail;
 
-use App\User;
 use App\MailTemplate;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewPassword extends Mailable
+class EmailChanged extends Mailable
 {
     use Queueable, SerializesModels;
 
     private $user;
-    private $password;
 
-    public function __construct( User $user, $password)
+    public function __construct( User $user)
     {
         $this->user = $user;
-        $this->password = $password;
     }
 
     /**
@@ -30,15 +28,16 @@ class NewPassword extends Mailable
     public function build()
     {
         $user = $this->user;
-        $tmpl = MailTemplate::getById(9);
+
+        $tmpl = MailTemplate::getById(5);
 
         return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
             [
                 'varContactForename' => $user->name,
                 'varContactSurename' => $user->surname,
-                'password' => $this->password,
-                'email' => $user->email,
+                'varAccountEmail' => $user->email,
             ]
         );
+
     }
 }

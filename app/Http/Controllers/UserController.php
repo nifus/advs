@@ -7,9 +7,14 @@ use App\Tariff;
 use Illuminate\Http\Request;
 use App\User;
 use App\Adv;
+use App\EventsLog;
 use App\Jobs\ForgotPassword as ForgotPasswordJob;
 use App\Jobs\NewPassword as NewPasswordJob;
 use App\Jobs\ConfirmCode as ConfirmCodeJob;
+use App\Jobs\ActivateBusinessAccount;
+use App\Jobs\ActivatePrivateAccount;
+use App\Jobs\EmailChanged;
+use App\Jobs\PasswordChanged;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -55,9 +60,9 @@ class UserController extends Controller
             }
             if ($user->isBusinessAccount() && $user->isWaitApprove()) {
                 throw new JWTException(trans('main.error_user_wait_approve'));
-            } elseif ($user->isBusinessAccount() && $user->isNotApproved()) {
+            }/* elseif ($user->isBusinessAccount() && $user->isNotApproved()) {
                 throw new JWTException(trans('main.error_user_not_approved'));
-            }
+            }*/
             if ($credentials['is_admin'] && !$user->isAdminAccount()) {
                 throw new JWTException(trans('main.error_user_not_admin'));
             }
@@ -96,10 +101,12 @@ class UserController extends Controller
     {
         try {
             $email = $request->get('email');
-            $user = User::getUserByLogin($email);
-            dispatch(new ForgotPasswordJob($user));
-
-            return response()->json(['success' => true, 'message' => 'We sent reset link to you email']);
+            $user = User::getUserByEmail($email);
+            if (!is_null($user)){
+                dispatch(new ForgotPasswordJob($user));
+                return response()->json(['success' => true, 'message' => 'We sent reset link to you email']);
+            }
+            return response()->json(['success' => false, 'error' => 'User not found']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
@@ -135,7 +142,10 @@ class UserController extends Controller
             if ($user->activate_key != $data['code']) {
                 throw new \Exception('Invalid code');
             }
+            $old_email = $user->email;
             $user->changeEmail($data['email'], $data['re_email']);
+            dispatch(new EmailChanged($user));
+            EventsLog::changeEmail($user, $old_email);
             return response()->json(['success' => true]);
 
         } catch (\Exception $e) {
@@ -163,7 +173,13 @@ class UserController extends Controller
         $data = $request->only(['payment_type', 'paypal_email', 'giro_account']);
         try {
             $user = User::getUser();
+            $old_fields = [
+                'payment_type'=>$user->payment_type,
+                'paypal_email'=>$user->paypal_email,
+                'giro_account'=>$user->giro_account,
+            ];
             $user->changePayment($data);
+            EventsLog::changePayment($user, $old_fields);
             return response()->json(['success' => true]);
 
         } catch (\Exception $e) {
@@ -178,7 +194,10 @@ class UserController extends Controller
 
         try {
             $user = User::getUser();
+            $old_fields = $user->toArray();
             $user->changeContactData($data);
+            EventsLog::changeContactData($user, $old_fields);
+
             return response()->json(['success' => true]);
 
         } catch (\Exception $e) {
@@ -195,6 +214,9 @@ class UserController extends Controller
         try {
             $user = User::getUser();
             $user->changePassword($data['current_password'], $data['password'], $data['re_password']);
+            dispatch(new PasswordChanged($user,$data['password']));
+            EventsLog::changePassword($user);
+
             return response()->json(['success' => true]);
 
         } catch (\Exception $e) {
@@ -424,12 +446,23 @@ class UserController extends Controller
     }
 
     public function setActiveStatus($user_id){
-        $user = User::getUser();
-        if (is_null($user) || !$user->hasPermissions('accounts')){
+        $current_user = User::getUser();
+        if (is_null($current_user) || !$current_user->hasPermissions('accounts')){
             return response()->json(null, 403);
         }
         $user = User::find($user_id);
-        $user->setActivateStatus();
+
+        $result = $user->setActivateStatus();
+        if ( true===$result ){
+            EventsLog::accountIsActivated($user, $current_user);
+            if ($user->isPrivateAccount()){
+                dispatch(new ActivatePrivateAccount($user));
+            }elseif($user->isBusinessAccount()){
+                dispatch(new ActivateBusinessAccount($user));
+            }
+        }
+
+
         return response()->json(['success'=>true]);
     }
 

@@ -57,6 +57,12 @@
     <script src="/apps/core/tariff/tariffFactory.js"></script>
     <script src="/apps/core/tariff/tariffService.js"></script>
 
+
+    <script src="/apps/core/faq/faqFactory.js"></script>
+    <script src="/apps/core/faq/faqService.js"></script>
+
+
+
     <script src="/apps/privateApp/privateApp.js"></script>
     <script src="/apps/privateApp/login/loginController.js"></script>
     <script src="/apps/privateApp/dashboard/dashboardController.js"></script>

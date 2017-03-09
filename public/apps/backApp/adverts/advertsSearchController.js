@@ -63,7 +63,7 @@
         };
         $scope.search = function (data) {
             var advs_defer = $q.defer();
-            searchLogFactory.store(data).then(function (response) {
+            searchLogFactory.storeAccounts(data).then(function (response) {
                 advFactory.getResult(response.id,[]).then( function (response) {
                     $scope.env.advs = response.advs;
                     advs_defer.resolve(response.advs)
