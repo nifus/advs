@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\MailTemplate;
 use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -28,6 +29,8 @@ class ActivatePrivateAccount extends Mailable
     {
         $user = $this->user;
         $link = route('register.activate',['user_id'=>$user->id,'key'=>$user->activate_key]);
+        //$tmpl = MailTemplate::getById(1);
         return $this->view('emails.activatePrivateAccount',['name'=>$user->name,'link'=>$link]);
+
     }
 }

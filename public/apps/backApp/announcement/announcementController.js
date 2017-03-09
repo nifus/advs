@@ -7,6 +7,9 @@
     announcementController.$inject = ['$scope', 'configFactory', '$q', '$filter'];
 
     function announcementController($scope, configFactory, $q, $filter) {
+        $scope.env = {
+            loading: true
+        }
         $scope.model = {
             private: {
                 status: '1'
@@ -26,6 +29,7 @@
             });
             $q.all([config_promise]).then(function () {
                 deferred.resolve();
+                $scope.env.loading = false;
             });
             return deferred.promise;
         }

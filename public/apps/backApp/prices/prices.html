@@ -1,4 +1,4 @@
-<div id="help-desk">
+<div id="help-desk"  ng-if="!env.loading">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading" translate>Prices</div>
@@ -40,106 +40,36 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr ng-repeat="price in price.private">
                                         <td>
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>1 week</div>
+                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" >{{price.duration}}</div>
                                         </td>
                                         <td style="border-left: 2px solid #EF8E4C;text-align:center">
                                             <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.private.rent['1_week']">
+                                                <input type="number" class="form-control" ng-model="price.rent_price">
                                                 <span class="input-group-addon">€</span>
                                             </div>
                                         </td>
                                         <td style="border-left: 2px solid #EF8E4C;text-align:center;">
                                             <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control"  ng-model="price.private.sale['1_week']">
+                                                <input type="number" class="form-control"  ng-model="price.sale_price">
                                                 <span class="input-group-addon">€</span>
                                             </div>
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td>
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>2 weeks</div>
-                                        </td>
-                                        <td style="border-left: 2px solid #EF8E4C;text-align:center">
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.private.rent['2_weeks']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                        <td style="border-left: 2px solid #EF8E4C;text-align:center;">
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control"  ng-model="price.private.sale['2_weeks']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                    </tr>
 
-                                    <tr>
-                                        <td>
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>1 month</div>
-                                        </td>
-                                        <td style="border-left: 2px solid #EF8E4C;text-align:center">
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.private.rent['1_month']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                        <td style="border-left: 2px solid #EF8E4C;text-align:center;">
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control"  ng-model="price.private.sale['1_month']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>2 months</div>
-                                        </td>
-                                        <td style="border-left: 2px solid #EF8E4C;text-align:center">
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.private.rent['2_months']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                        <td style="border-left: 2px solid #EF8E4C;text-align:center;">
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control"  ng-model="price.private.sale['2_months']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>3 months</div>
-                                        </td>
-                                        <td style="border-left: 2px solid #EF8E4C;text-align:center">
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.private.rent['3_months']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                        <td style="border-left: 2px solid #EF8E4C;text-align:center;">
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control"  ng-model="price.private.sale['3_months']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </table>
 
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-10" ng-if="users.private">
                                         <div class="row">
                                             <div class="col-md-6 text-left" translate>Last edited:</div>
-                                            <div class="col-md-6 text-right">{{price.private.user_name}}</div>
+                                            <div class="col-md-6 text-right">{{users.private.user.name}} {{users.private.user.surname}}</div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 text-left" translate>Edited on:</div>
-                                            <div class="col-md-6 text-right">{{price.private.updated_at}}</div>
+                                            <div class="col-md-6 text-right">{{users.private.user.updated_at}}</div>
                                         </div>
                                     </div>
 
@@ -163,147 +93,27 @@
                                         <td style="border-left: 2px solid #EF8E4C;border-bottom: 2px solid #EF8E4C;text-align:center"><div style="background-color: #C5E0b4;text-align: center;margin:4px;padding:3px" translate>Price per month</div></td>
                                         <td style="border-bottom: 2px solid #EF8E4C;text-align:center"><div style="background-color: #C2CaD8;text-align: center;margin:4px;padding:3px" translate>Each extra slot</div></td>
                                     </tr>
-                                    <tr>
+                                    <tr ng-repeat="price in price.business">
                                         <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>Pack 1</div>
+                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" >{{price.title}}</div>
                                         </td>
                                         <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #DEECF8;text-align: center;margin:4px;padding:3px" >1</div>
+                                            <div style="background-color: #DEECF8;text-align: center;margin:4px;padding:3px" >{{price.number_of_slots}}</div>
                                         </td>
                                         <td>
                                             <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.price['1_pack']">
+                                                <input type="number" class="form-control" ng-model="price.price">
                                                 <span class="input-group-addon">€</span>
                                             </div>
                                         </td>
                                         <td>
                                             <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.slot['1_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>Pack 2</div>
-                                        </td>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #DEECF8;text-align: center;margin:4px;padding:3px" >2</div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.price['2_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.slot['2_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>Pack 5</div>
-                                        </td>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #DEECF8;text-align: center;margin:4px;padding:3px" >5</div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.price['5_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.slot['5_pack']">
+                                                <input type="number" class="form-control" ng-model="price.price_extra_slots">
                                                 <span class="input-group-addon">€</span>
                                             </div>
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>Pack 10</div>
-                                        </td>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #DEECF8;text-align: center;margin:4px;padding:3px" >10</div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.price['10_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.slot['10_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>Pack 20</div>
-                                        </td>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #DEECF8;text-align: center;margin:4px;padding:3px" >20</div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.price['20_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.slot['20_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>Pack 30</div>
-                                        </td>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #DEECF8;text-align: center;margin:4px;padding:3px" >30</div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.price['30_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.slot['30_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" translate>Pack 40</div>
-                                        </td>
-                                        <td style="border-right: 2px solid #EF8E4C;text-align:center">
-                                            <div style="background-color: #DEECF8;text-align: center;margin:4px;padding:3px" >40</div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.price['40_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div style="margin:4px;padding:3px;" class="input-group">
-                                                <input type="number" class="form-control" ng-model="price.business.slot['40_pack']">
-                                                <span class="input-group-addon">€</span>
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </table>
                                 <div class="row">
                                     <div class="col-md-10">
@@ -331,4 +141,9 @@
         </div>
     </div>
 
+</div>
+<div class="progress" ng-if="env.loading">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">45% Complete</span>
+    </div>
 </div>

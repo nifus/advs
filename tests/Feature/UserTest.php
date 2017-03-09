@@ -6,12 +6,47 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-
+use App\User;
 class UserTest extends TestCase
 {
     use DatabaseTransactions;
+    public function testRegister()
+    {
 
-    /**
+        $response = $this->json('post', '/api/user/private-account',[
+            "commercial_country" => "germany",
+            "email" => "nifus@nifus.ru",
+            "password" => "testpass",
+              "sex" => "male",
+              "name" => "nifus",
+              "surname" => "nifus",
+              "re_email" => "nifus@nifus.ru",
+              "re_password" => "testpass",
+              "agb" => true,
+                "test"=>1
+            ]);
+        $response->assertStatus(200) ->assertJson(['user' => ['email' => 'nifus@nifus.ru']]);
+        $id = $response->original['user']['id'];
+        $user = User::find($id);
+
+        $response = $this->json('get', '/register/activate/'.$user->id.'/'.$user->activate_key);
+        $response->assertStatus(200);
+
+
+        // $response = $this->json('get', '/register/business');
+        // $response->assertStatus(200);
+    }
+
+    public function testPublicPages()
+    {
+
+        $response = $this->json('get', '/register/private');
+        $response->assertStatus(200);
+       // $response = $this->json('get', '/register/business');
+       // $response->assertStatus(200);
+    }
+
+        /**
      * A basic test example.
      *
      * @return void

@@ -30,7 +30,6 @@
 
                 <h4>{{ trans('main.register_private_header') }}</h4>
 
-                <div class="alert alert-danger" role="alert" ng-show="error" ng-bind="error"></div>
 
                 <form class="form-horizontal" name="register">
 
@@ -108,7 +107,7 @@
                                     on-expire="cbExpiration()"
                                     ng-model="form.captcha"
                                     vc-recaptcha
-                                    key="'{{config('services.google_captcha.public')}}'"
+                                    key="'{{config('services.google.captcha.sitekey')}}'"
                             ></div>
 
                         </div>
@@ -127,6 +126,9 @@
                         </div>
                     </div>
 
+                    <div class="alert alert-danger" role="alert" ng-show="error" ng-bind="error"></div>
+
+                    
                     <div style="text-align: center">
                         <button
                                 ng-disabled="send==true"

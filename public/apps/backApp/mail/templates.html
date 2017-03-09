@@ -1,4 +1,4 @@
-<div id="help-desk">
+<div id="help-desk" ng-if="!env.loading">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading" translate>Mailing - Template</div>
@@ -29,7 +29,119 @@
                     </div>
 
                     <div class="col-md-6" ng-if="env.template">
-                        <textarea class="form-control" ng-model="env.template.body"></textarea>
+                        <div class="text-right" style="margin:10px">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" translate>
+                                Variables
+                            </button>
+                        </div>
+
+                        <div class="collapse" id="collapseExample">
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAccountID]</div>
+                                <div class="col-md-6 text-right" translate>The ID of the account</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAccountActivationLink]</div>
+                                <div class="col-md-6 text-right" translate>The generated activation link for the account</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAccountEmail]</div>
+                                <div class="col-md-6 text-right" translate>The login email address of the account</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAccountCompanyName]</div>
+                                <div class="col-md-6 text-right" translate>The company name of the account</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAccountCountry]</div>
+                                <div class="col-md-6 text-right" translate>The country of the account</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAccountSubscription]</div>
+                                <div class="col-md-6 text-right" translate>The current subscription of the account</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[$varAccountPayment]</div>
+                                <div class="col-md-6 text-right" translate>The current prefered payment method of the account</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varContactTitle]</div>
+                                <div class="col-md-6 text-right" translate>The title of the contact person</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varContactForename]</div>
+                                <div class="col-md-6 text-right" translate>The forename of the contact person</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varContactForename]</div>
+                                <div class="col-md-6 text-right" translate>The surename of the contact person</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varContactEmail]</div>
+                                <div class="col-md-6 text-right" translate>The email address of the contact person</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varContactPhone]</div>
+                                <div class="col-md-6 text-right" translate>The phone of the contact person</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAdvertID]</div>
+                                <div class="col-md-6 text-right" translate>The ID of the advert</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAdvertStatus]</div>
+                                <div class="col-md-6 text-right" translate>The current advert status</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAdvertDateCreation]</div>
+                                <div class="col-md-6 text-right" translate>The date when this advert was created</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAdvertDateDeletion]</div>
+                                <div class="col-md-6 text-right" translate>The date when this advert will be automatically deleted</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAdvertDateDeleted]</div>
+                                <div class="col-md-6 text-right" translate>The date when this advert was deleted</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAdvertDateEnds]</div>
+                                <div class="col-md-6 text-right" translate>The date when this advert will end</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAdvertDateBlocked]</div>
+                                <div class="col-md-6 text-right" translate>The date when this advert was blocked</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 text-left">[varAdvertDateActivated]</div>
+                                <div class="col-md-6 text-right" translate>The date when this advert was activated</div>
+                            </div>
+
+
+
+
+                        </div>
+
+                        <textarea class="form-control" ng-model="env.template.MailTemplate"></textarea>
                         <div class="row">
                             <div class="col-md-10">
                                 <div class="row">
@@ -60,4 +172,11 @@
         </div>
     </div>
 
+</div>
+
+
+<div class="progress" ng-if="env.loading">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">45% Complete</span>
+    </div>
 </div>

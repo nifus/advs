@@ -99,11 +99,7 @@
 
     <div class="container-fluid" ui-view></div>
 
-    <div class="progress" ng-if="!loaded">
-        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-            <span class="sr-only">45% Complete</span>
-        </div>
-    </div>
+
 </div>
 
 <script src="../components/angular/angular.js"></script>
@@ -129,7 +125,8 @@
 <script src="../apps/core/adv/advFactory.js"></script>
 <script src="../apps/core/adv/advService.js"></script>
 <script src="../apps/core/tariff/tariffFactory.js"></script>
-<script src="../apps/core/tariff/tariffService.js"></script>
+<script src="../apps/core/tariff/privateTariffService.js"></script>
+<script src="../apps/core/tariff/businessTariffService.js"></script>
 <script src="../apps/core/config/configFactory.js"></script>
 <script src="../apps/core/faq/faqFactory.js"></script>
 <script src="../apps/core/faq/faqService.js"></script>

@@ -26,7 +26,7 @@ class MailTemplateController extends Controller
             return response()->json(['success'=>false],403);
         }
         try{
-            $data = $request->only(['body','header','user_id']);
+            $data = $request->only(['body','header','user_id','MailTemplate']);
             $template = MailTemplate::find($id);
             if ( is_null($template)){
                 return response()->json(['success'=>false],404);

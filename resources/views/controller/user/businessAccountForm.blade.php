@@ -209,14 +209,14 @@
                                 </thead>
                                 <tbody>
                                 @foreach($tariffs as $tariff)
-                                <tr ng-click="form.tariff={{$tariff['id']}}" style="cursor: pointer">
-                                    <td><input type="radio" value="{{$tariff['id']}}" name="tariff" ng-model="form.tariff" required></td>
-                                    <td>{{$tariff['name']}}</td>
-                                    <td>{{$tariff['slots']}}</td>
-                                    <td>{{$tariff['price']}}</td>
-                                    <td>{{$tariff['additional']}}</td>
-                                </tr>
-                                    @endforeach
+                                    <tr ng-click="form.tariff={{$tariff['id']}}" style="cursor: pointer">
+                                        <td><input type="radio" value="{{$tariff['id']}}" name="tariff" ng-model="form.tariff" required></td>
+                                        <td>{{$tariff['title']}}</td>
+                                        <td>{{$tariff['number_of_slots']}}</td>
+                                        <td>{{$tariff['price']}}</td>
+                                        <td>{{$tariff['price_extra_slots']}}</td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
 
 
@@ -285,7 +285,7 @@
 
                                     ng-model="form.captcha"
                                     vc-recaptcha
-                                    key="'{{config('services.google_captcha.public')}}'"
+                                    key="'{{config('services.google.captcha.sitekey')}}'"
                             ></div>
 
                         </div>

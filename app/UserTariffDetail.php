@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TariffDetails extends Model
+class UserTariffDetails extends Model
 {
     public $table='tariffs_details';
 

@@ -43,6 +43,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Adv');
     }
 
+    public function afterRegisterArray(){
+        return [
+            'id'=>$this->id,
+            'email'=>$this->email,
+            'name'=>$this->name,
+            'surname'=>$this->surname,
+        ];
+    }
     public function toArray()
     {
         $data = parent::toArray();
@@ -98,16 +106,17 @@ class User extends Authenticatable
         return $date->format('d-m-y H:i');
     }
 
-    public function activate($key)
+    public function activateAccount($key)
     {
 
-        if ($this->status != 'wait_approve') {
+        if ($this->status != 'email_confirmation') {
             throw new \Exception('user_is_activated');
         }
         if ($this->activate_key != $key) {
             throw new \Exception('user_activate_key_invalid');
         }
         $this->update(['status' => 'active']);
+       // EventsLog::accountEmailIsConfirmed($this);
     }
 
     public function resetPassword()
@@ -368,8 +377,13 @@ class User extends Authenticatable
             're_password' => 'required|min:6|same:password',
             'email' => 'required|min:6',
             're_email' => 'required|min:6|same:email',
-            'captcha' => 'required|captcha'
         ];
+            //  do not check captcha in tests
+        if (!isset($data['test'])){
+            $validator['captcha'] = 'required|captcha';
+        }
+
+
         $validator = \Validator::make($data, $validator);
         if ($validator->fails()) {
             $messages = $validator->messages();
@@ -383,8 +397,11 @@ class User extends Authenticatable
 
         $data['group_id'] = 2;
         $data['activate_key'] = md5(time() . rand(0, 10000));
-        return self::create($data);
+        $user = self::create($data);
 
+        EventsLog::createAccount($user);
+
+        return $user;
     }
 
     static function createBusinessAccount($data)

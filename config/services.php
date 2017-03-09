@@ -35,4 +35,15 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google' => [
+
+            'client'=>env('GOOGLE_MAPS_CLIENT'),
+            'server'=>env('GOOGLE_MAPS_SERVER'),
+
+        'captcha'=>[
+            'secret'=>env('NOCAPTCHA_SECRET'),
+            'sitekey'=>env('NOCAPTCHA_SITEKEY'),
+        ]
+    ],
+
 ];

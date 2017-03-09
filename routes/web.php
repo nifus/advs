@@ -66,8 +66,8 @@ Route::group(['prefix'=>'api'], function () {
         Route::get('/get-auth', 'UserController@getAuth' );
 
         Route::post('/administrator', 'UserController@createAdministratorAccount' );
-        Route::post('/{id}/administrator', 'UserController@updateAdministratorAccount' );
-        Route::delete('/{id}/administrator', 'UserController@deleteAdministratorAccount' );
+        Route::post('/{id}/administrator', 'UserController@updateAdministratorAccount' )->where('id','[0-9]*');
+        Route::delete('/{id}/administrator', 'UserController@deleteAdministratorAccount' )->where('id','[0-9]*');
 
         Route::post('/authenticate', 'UserController@authenticate' );
         Route::post('/forgot-password', 'UserController@forgotPassword' );
@@ -80,11 +80,11 @@ Route::group(['prefix'=>'api'], function () {
         Route::put('/change-contact-data', 'UserController@changeContactData' );
         Route::delete('/', 'UserController@deleteAccount' );
 
-        Route::post('{id}/set-block-status', 'UserController@setBlockStatus' );
-        Route::post('{id}/set-active-status', 'UserController@setActiveStatus' );
-        Route::get('{id}/events-log', 'UserController@getEventsLog' );
-        Route::delete('{id}', 'UserController@deleteAccountById' );
-        Route::post('{id}', 'UserController@updateAccount' );
+        Route::post('{id}/set-block-status', 'UserController@setBlockStatus' )->where('id','[0-9]*');
+        Route::post('{id}/set-active-status', 'UserController@setActiveStatus' )->where('id','[0-9]*');
+        Route::get('{id}/events-log', 'UserController@getEventsLog' )->where('id','[0-9]*');
+        Route::delete('{id}', 'UserController@deleteAccountById' )->where('id','[0-9]*');
+        Route::post('{id}', 'UserController@updateAccount' )->where('id','[0-9]*');
 
         Route::group(['prefix'=>'tariff'], function () {
             Route::get('/', 'TariffController@getUserTariff');
@@ -93,13 +93,9 @@ Route::group(['prefix'=>'api'], function () {
 
         Route::post('/private-account', 'UserController@createPrivateAccount' );
         Route::post('/business-account', 'UserController@createBusinessAccount' );
-
-
-
-
-
-
     });
+
+
 
     Route::group(['prefix'=>'adv'], function () {
         Route::get('/{id}/statistics', 'AdvController@getStatisticsById' )->where('id','[0-9]*');
@@ -115,7 +111,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::put('{id}/status', 'AdvController@changeStatus' )->where('id','[0-9]*');
 
         Route::get('/watch/by-current-user', 'AdvController@getWatchByCurrentUser' );
-        Route::delete('/watch-advs/{id}', 'AdvController@removeWatch' );
+        Route::delete('/watch-advs/{id}', 'AdvController@removeWatch' )->where('id','[0-9]*');
 
         Route::get('/{id}', 'AdvController@getAdvById' )->where('id','[0-9]*');
         Route::post('/{id}/fav', 'AdvController@favlist' )->where('id','[0-9]*');
@@ -124,14 +120,19 @@ Route::group(['prefix'=>'api'], function () {
 
 
 
-
+    Route::group(['prefix'=>'tariff'], function () {
+        Route::get('/private', 'TariffController@getPrivate');
+        Route::get('/business', 'TariffController@getBusiness');
+        Route::post('/private', 'TariffController@updatePrivate');
+        Route::post('/business', 'TariffController@updateBusiness');
+    });
 
 
 
     Route::group(['prefix'=>'search'], function () {
         Route::get('/cities/{key}', 'SearchController@findCity');
         Route::post('/{type}', 'SearchController@createSearch')->where('type','advs|accounts');
-        Route::get('/{id}', 'SearchController@getSearch');
+        Route::get('/{id}', 'SearchController@getSearch')->where('id','[0-9]*');
         Route::post('/{id}/update', 'SearchController@searchUpdate')->where('id','[0-9]*');
         Route::post('/{id}', ['as'=>'adv.search','uses'=>'SearchController@search'])->where('id','[0-9]*');
     });
@@ -140,18 +141,15 @@ Route::group(['prefix'=>'api'], function () {
 
 
     Route::get('/mail/templates', 'MailTemplateController@getAll' );
-    Route::post('/mail/templates/{id}', 'MailTemplateController@update' );
+    Route::post('/mail/templates/{id}', 'MailTemplateController@update' )->where('id','[0-9]*');
 
     Route::post('/config/announcement/{type}', 'ConfigController@announcement' )->where('type','private|business');
     Route::post('/config/instruction', 'ConfigController@instruction' );
     Route::post('/config/faq', 'ConfigController@faq' );
-    Route::post('/config/private-prices', 'ConfigController@privatePrices' );
-    Route::post('/config/business-prices', 'ConfigController@businessPrices' );
-
     Route::post('/faqs', 'FaqController@store' );
     Route::get('/faqs', 'FaqController@getAll' );
-    Route::post('/faqs/{id}', 'FaqController@update' );
-    Route::delete('/faqs/{id}', 'FaqController@delete' );
+    Route::post('/faqs/{id}', 'FaqController@update' )->where('id','[0-9]*');
+    Route::delete('/faqs/{id}', 'FaqController@delete' )->where('id','[0-9]*');
 
 
     // Route::get('/address', 'AddressController@search');

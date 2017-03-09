@@ -44,7 +44,7 @@ class AdvSeeder extends Seeder
             }
 
             $place = $faker->randomElement($places);
-            for ($j = 0; $j< 10; $j++) {
+          //  for ($j = 0; $j< 10; $j++) {
                 $adv = Adv::create([
                     'user_id' => $user,
                     'status' => $faker->randomElement(['payment_waiting', 'active', 'disabled', 'expired', 'blocked']),
@@ -133,7 +133,7 @@ class AdvSeeder extends Seeder
                     //edp_cabling
 
                 ]);
-            }
+           // }
 
 
 

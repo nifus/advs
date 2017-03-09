@@ -10,7 +10,8 @@
         $scope.env = {
             users: [],
             user: null,
-            submit: false
+            submit: false,
+            loading: true
         };
 
         function initPage(deferred) {
@@ -26,6 +27,7 @@
 
             $q.all([users_promise]).then(function () {
                 deferred.resolve();
+                $scope.env.loading = false;
             });
             return deferred.promise;
 

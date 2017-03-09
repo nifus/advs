@@ -12,16 +12,39 @@ class MailTemplate extends Model
 
 
     protected $fillable = [
-        'name','created_at','updated_at','body','header','user_id','type'
+        'name','created_at','updated_at','path','header','user_id','type'
     ];
+
+    public function toArray()
+    {
+        $data = parent::toArray();
+        $data['MailTemplate'] = $this->getMailTemplate();
+        return $data;
+    }
 
     public function User(){
         return $this->hasOne('App\User','id','user_id');
     }
 
-    public function updateByUser($date, User $user){
-        $date['user_id']=$user->id;
-        $this->update($date);
+    public function updateByUser($data, User $user){
+        $data['user_id']=$user->id;
+        $this->update($data);
+        $this->updateMailTemplate($data['MailTemplate']);
+        return true;
+    }
+
+    public function getMailTemplate(){
+        $path = resource_path('views/'.str_replace('.','/',$this->path).'.blade.php');
+        $content = file_get_contents($path);
+        $content = str_replace('{{$','[',$content );
+        $content = str_replace('}}',']',$content );
+        return $content;
+    }
+    public function updateMailTemplate($template){
+        $path = resource_path('views/'.str_replace('.','/',$this->path).'.blade.php');
+        $template = str_replace('[','{{$',$template );
+        $template = str_replace(']','}}',$template );
+        file_put_contents($path, $template);
         return true;
     }
 

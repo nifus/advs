@@ -8,7 +8,8 @@
     function helpDeskController($scope, faqFactory, $q, $filter) {
         $scope.env  = {
             display_instruction_form: false,
-            display_faq_form: false
+            display_faq_form: false,
+            loading: true
         };
         $scope.instructions = [];
         $scope.faqs = [];
@@ -36,6 +37,7 @@
             });
             $q.all([config_promise]).then(function () {
                 deferred.resolve();
+                $scope.env.loading = false;
             });
             return deferred.promise;
         }

@@ -12,7 +12,8 @@
             reload_accounts: false,
             reload_adverts: false,
             user_stat: null,
-            adv_stat: null
+            adv_stat: null,
+            loading: true
         }
 
         function initPage(deferred) {
@@ -26,12 +27,14 @@
                 $scope.env.user_stat = response;
             });
             var adv_promise = advFactory.getStatistics().then(function (response) {
-                console.log(response)
+
                 $scope.env.adv_stat = response;
             });
             $q.all([users_promise, adv_promise]).then(function () {
-                return deferred.promise;
-            })
+                deferred.resolve();
+                $scope.env.loading  = false;
+            });
+            return deferred.promise;
         }
 
         $scope.$parent.init.push(initPage);

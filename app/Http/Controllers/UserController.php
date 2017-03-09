@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\BusinessTariff;
+use App\Tariff;
 use Illuminate\Http\Request;
 use App\User;
 use App\Adv;
@@ -16,7 +18,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('jwt.auth', ['except' => ['authenticate', 'forgotPassword', 'getAuth','dashboard']]);
+        $this->middleware('jwt.auth', ['except' => ['authenticate', 'forgotPassword', 'getAuth','dashboard','privateAccountForm','businessAccountForm','createPrivateAccount','forgotPassword','resetPassword','createBusinessAccount','activateAccount']]);
     }
 
 
@@ -32,8 +34,8 @@ class UserController extends Controller
 
     public function businessAccountForm()
     {
-        $tariffs = config('app.tariffs');
-        return view('controller.user.businessAccountForm', ['tariffs' => $tariffs]);
+        $tariffs = BusinessTariff::getTariffs();
+        return view('controller.user.businessAccountForm',['tariffs'=>$tariffs]);
     }
 
     public function authenticate(Request $request)
@@ -80,12 +82,15 @@ class UserController extends Controller
 
     public function createPrivateAccount(Request $request)
     {
+
         try {
-            $data = $request->all();
+            $data = $request->only(['email','password','sex','name','surname','re_email','re_password','agb','captcha','test']);
             $user = User::createPrivateAccount($data);
+            //$user = User::find(1);
+
             dispatch(new ActivatePrivateAccountJob($user));
 
-            return response()->json(['success' => true, 'user' => $user->toArray()]);
+            return response()->json(['success' => true, 'user' => $user->afterRegisterArray()]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
@@ -129,7 +134,6 @@ class UserController extends Controller
     public function changeEmail(Request $request)
     {
         $data = $request->only(['email', 're_email', 'code']);
-        dd($data);
         try {
             $user = User::getUser();
             if ($user->activate_key != $data['code']) {
@@ -368,7 +372,7 @@ class UserController extends Controller
             if (is_null($user)) {
                 throw new \Exception('user_not_found');
             }
-            $user->activate($key);
+            $user->activateAccount($key);
 
 
         } catch (\Exception $e) {

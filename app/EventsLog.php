@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 class EventsLog extends Model
@@ -18,6 +19,9 @@ class EventsLog extends Model
     }
     public function setAdditionalFieldsAttribute($fields){
         $this->attributes['additional_fields'] = json_encode($fields);
+    }
+    public function User(){
+        return $this->hasOne('App\User','id','user_id');
     }
 
     public function toArray()
@@ -54,7 +58,22 @@ class EventsLog extends Model
         ]]);
     }
 
+    static function changePrivateTariff(User $user, Collection $old){
+        self::create(['type'=>'system','action'=>'changePrivateTariff','user_id'=>$user->id,'additional_fields'=>$old->toArray()]);
+    }
+
+    static function changeBusinessTariff(User $user, Collection $old){
+        self::create(['type'=>'system','action'=>'changeBusinessTariff','user_id'=>$user->id,'additional_fields'=>$old->toArray()]);
+    }
+
     static function getEventLogByUser(User $user){
         return self::where('user_id', $user->id)->orderBy('id','DESC')->get();
+    }
+
+    static function getLastChangedPrivateTariff(User $user){
+        return self::with('User')->where('user_id', $user->id)->where('action','changePrivateTariff')->orderBy('id','DESC')->first();
+    }
+    static function getLastChangedBusinessTariff(User $user){
+        return self::with('User')->where('user_id', $user->id)->where('action','changePrivateTariff')->orderBy('id','DESC')->first();
     }
 }

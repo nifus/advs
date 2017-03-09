@@ -1,8 +1,7 @@
 (function () {
     'use strict';
-    angular.module('frontApp').controller('registerController', registerController);
+    angular.module('frontApp').controller('registerController', ['$scope','userFactory','vcRecaptchaService', registerController]);
 
-    registerController.$inject = ['$scope','userFactory','vcRecaptchaService'];
 
     function registerController($scope, userFactory, vcRecaptchaService) {
 
@@ -20,9 +19,8 @@
         $scope.error = undefined;
         $scope.step = 'first';
         $scope.widgetId = null;
-        $scope.autocomplete = {
+        $scope.autocomplete = {}
 
-        }
 
         $scope.$watch('autocomplete', function(value){
             if (value.details && value.details.address_components.length==7){

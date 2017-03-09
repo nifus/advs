@@ -9,7 +9,8 @@
         $scope.env = {
             templates:[],
             template: null,
-            enable_save: 0
+            enable_save: 0,
+            loading: true
         };
 
         function initPage(deferred) {
@@ -25,6 +26,7 @@
             });
             $q.all([config_promise]).then(function () {
                 deferred.resolve();
+                $scope.env.loading = false
             });
             return deferred.promise;
         }
