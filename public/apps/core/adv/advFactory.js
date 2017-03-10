@@ -46,6 +46,7 @@
             getDataSets: getDataSets,
             getResult: getResult,
             getStatistics: getStatistics,
+            restoreAdvert: restoreAdvert,
 
         };
 
@@ -84,7 +85,7 @@
 
         function store(data) {
             var deferred = $q.defer();
-            $http.post('/api/user/advs', data).then(function (response) {
+            $http.post('/api/adv', data).then(function (response) {
                 deferred.resolve(new advService(response.data));
             }, function (error) {
                 deferred.reject({success: false, error: error.data});
@@ -94,7 +95,7 @@
 
         function getUserAdvById(id) {
             var deferred = $q.defer();
-            $http.get('/api/user/advs/' + id).then(function (response) {
+            $http.get('/api/adv/by-user/' + id).then(function (response) {
                 deferred.resolve(new advService(response.data));
             }, function (error) {
                 console.log(error);
@@ -105,7 +106,17 @@
 
         function getById(id) {
             var deferred = $q.defer();
-            $http.get('/api/advs/' + id).then(function (response) {
+            $http.get('/api/adv/' + id).then(function (response) {
+                deferred.resolve(new advService(response.data));
+            }, function (error) {
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
+
+        function restoreAdvert(id) {
+            var deferred = $q.defer();
+            $http.get('/api/adv/' + id+'/restore').then(function (response) {
                 deferred.resolve(new advService(response.data));
             }, function (error) {
                 deferred.reject({success: false, error: error.data});

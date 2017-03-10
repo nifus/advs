@@ -14,6 +14,14 @@ use App\Address as Address;
 class TariffController extends Controller
 {
 
+    function getPrivatePrices(){
+        return response()->json(PrivateTariff::getTariffs(), 200, [], JSON_NUMERIC_CHECK);
+    }
+
+    function getBusinessPrices(){
+        return response()->json(BusinessTariff::getTariffs(), 200, [], JSON_NUMERIC_CHECK);
+    }
+
     function getPrivate(Request $request){
         try{
             $user = UserModel::getUser($request->get('token'));
@@ -26,8 +34,9 @@ class TariffController extends Controller
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
-
     }
+
+
     function getBusiness(Request $request){
         try{
             $user = UserModel::getUser($request->get('token'));

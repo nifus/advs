@@ -104,6 +104,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::post('/{id}', 'AdvController@update' )->where('id','[0-9]*');
 
         Route::get('/{id}', 'AdvController@getUserAdvById' )->where('id','[0-9]*');
+        Route::get('/{id}/restore', 'AdvController@getRestoreAdvertById' )->where('id','[0-9]*');
         Route::get('/by-user/{id}', 'AdvController@getByUser' )->where('id','[0-9]*');
         Route::get('/by-current-user', 'AdvController@getByCurrentUser' )->where('id','[0-9]*');
 
@@ -122,7 +123,10 @@ Route::group(['prefix'=>'api'], function () {
 
     Route::group(['prefix'=>'tariff'], function () {
         Route::get('/private', 'TariffController@getPrivate');
+        Route::get('/private-prices', 'TariffController@getPrivatePrices');
         Route::get('/business', 'TariffController@getBusiness');
+        Route::get('/business-prices', 'TariffController@getBusinessPrices');
+
         Route::post('/private', 'TariffController@updatePrivate');
         Route::post('/business', 'TariffController@updateBusiness');
     });

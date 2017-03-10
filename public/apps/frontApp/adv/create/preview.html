@@ -1,0 +1,69 @@
+<div class="row text-right"><button class="btn btn-primary">Back</button></div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4 translate>Your advert</h4>
+        <div>
+            <div class="row" id="listing" >
+                <table class="table table-bordered">
+
+                    <tr>
+                        <td rowspan="4" style="width: 200px"> <img ng-src="{{env.advert.MainPhoto}}" style="width:200px" alt=""> </td>
+                        <td translate colspan="3">{{env.advert.title}}</td>
+                    </tr>
+                    <tr>
+                        <td translate>Living space</td>
+                        <td translate>Rooms</td>
+                        <td translate>Cold rent</td>
+                    </tr>
+                    <tr>
+                        <td>{{env.advert.area}}</td>
+                        <td>{{env.advert.rooms}}</td>
+                        <td>{{env.advert.cold_rent}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: center">
+                            <button translate>Delete</button>
+                            <button translate>Preview</button>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <h4 translate>Select service</h4>
+        <div translate>Please select the wanted duration of your advert:</div>
+
+        <table style="width:100%">
+            <tr>
+
+                <td style="border-bottom: 2px solid #EF8E4C;" colspan="2">
+                    <div style="background-color: #FFE699;text-align: center;margin:4px;padding:3px">
+                        Duration
+                    </div>
+                </td>
+                <td style="border-left: 2px solid #EF8E4C;border-bottom: 2px solid #EF8E4C;">
+                    <div style="background-color: #c5E0b4;text-align: center;margin:4px;padding:3px;">
+                        Price
+                    </div>
+                </td>
+
+            </tr>
+            <tr ng-repeat="price in env.prices" style="cursor: pointer" ng-click="env.advert.duration = price.id">
+                <td><input type="radio" ng-model="env.advert.duration" value="{{price.id}}"></td>
+                <td>
+                    <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" >{{price.duration}}</div>
+                </td>
+                <td style="border-left: 2px solid #EF8E4C;text-align:center" ng-if="env.advert.type=='rent'">
+                    <div style="background-color: #c5E0b4;text-align: center;margin:4px;padding:3px" >{{price.rent_price|currency:"€"}}</div>
+                </td>
+                <td style="border-left: 2px solid #EF8E4C;text-align:center;" ng-if="env.advert.type=='sale'">
+                    <div style="background-color: #E2f0E9;text-align: center;margin:4px;padding:3px" >{{price.sale_price|currency:"€"}}</div>
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+    <div class="col-md-6"></div>
+</div>

@@ -122,6 +122,29 @@ class AdvController extends Controller
         }
     }
 
+    function getRestoreAdvertById($id)
+    {
+        try {
+            $adv = AdvModel::findOrDie($id);
+            $user = UserModel::getUser();
+            if (is_null($user)){
+                return response()->json([], 403);
+            }
+            if ($adv->user_id!=$user->id){
+                return response()->json([], 403);
+            }
+            if ($adv->status!='payment_waiting'){
+                return response()->json([], 403);
+            }
+
+            return response()->json($adv->getArray($user->id));
+
+
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
+
     function getByUser(Request $request, $user_id)
     {
         $token = $request->get('token');

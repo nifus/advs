@@ -73,6 +73,12 @@ class BackPricesTest extends TestCase
         ]);
         $response->assertStatus(200);
 
+        $response = $this->json('get', '/api/tariff/private-prices?token=' . $token);
+        $response->assertStatus(200);
+
+        $response = $this->json('get', '/api/tariff/business-prices?token=' . $token);
+        $response->assertStatus(200);
+
     }
 
 

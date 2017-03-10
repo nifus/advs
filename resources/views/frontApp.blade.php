@@ -58,6 +58,8 @@
     <script src="/apps/core/searchLog/searchLogFactory.js"></script>
     <script src="/apps/core/searchLog/searchLogService.js"></script>
 
+    <script src="/apps/core/tariff/tariffFactory.js"></script>
+
 
     <script src="/apps/frontApp/login/loginController.js"></script>
     <script src="/apps/frontApp/mainController.js"></script>

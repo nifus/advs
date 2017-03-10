@@ -18,7 +18,10 @@
             </div>
         @else
             <div ng-controller="createAdvController">
-                <form class="form-horizontal" name="adv_form">
+
+
+
+                <form ng-if="env.advert==null" class="form-horizontal" name="adv_form">
                     <div class="row">
                         <h4>{{ trans('main.create_adv_type') }}</h4>
 
@@ -208,6 +211,17 @@
                     </div>
                 </form>
 
+
+                <div class="alert alert-info" style="width:40%;margin-left: auto;margin-right:auto;text-align:center" role="alert" translate ng-if="env.restore_flag==true">
+                    You did not complete the previous announcement. We have restored it for you
+                    <div class="row">
+                        <div class="col-md-6 text-right"><button class="btn-default btn" translate ng-click="env.restore_flag = false">Continue this advert</button></div>
+                        <div class="col-md-6 text-left"><button class="btn-default btn" translate ng-click="env.advert = null;env.restore_flag=false">Start new advert</button></div>
+                    </div>
+                </div>
+
+
+                <div ng-if="env.advert!=null" ng-include="'/apps/frontApp/adv/create/preview.html'"></div>
             </div>
         @endif
     </div>

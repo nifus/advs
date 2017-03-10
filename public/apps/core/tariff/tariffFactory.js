@@ -8,12 +8,33 @@
     function tariffFactory( $http, $q) {
 
         return {
+            getPrivatePrices: getPrivatePrices,
+            getBusinessPrices: getBusinessPrices,
             getPrivateTariffs: getPrivateTariffs,
             getBusinessTariffs: getBusinessTariffs,
             updatePrivateTariffs: updatePrivateTariffs,
             updateBusinessTariffs: updateBusinessTariffs,
 
         };
+
+        function getPrivatePrices() {
+            var deferred = $q.defer();
+            $http.get('/api/tariff/private-prices').then(function (response) {
+                deferred.resolve(response.data);
+            }, function (error) {
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
+        function getBusinessPrices() {
+            var deferred = $q.defer();
+            $http.get('/api/tariff/business-prices').then(function (response) {
+                deferred.resolve(response.data);
+            }, function (error) {
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
 
         function getPrivateTariffs() {
             var deferred = $q.defer();

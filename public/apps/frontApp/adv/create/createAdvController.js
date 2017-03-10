@@ -2,9 +2,9 @@
     'use strict';
     angular.module('frontApp').controller('createAdvController', createAdvController);
 
-    createAdvController.$inject = ['$scope', 'advFactory', '$filter', '$interval'];
+    createAdvController.$inject = ['$scope', 'advFactory', '$filter', '$interval','$q','tariffFactory'];
 
-    function createAdvController($scope, advFactory, $filter, $interval) {
+    function createAdvController($scope, advFactory, $filter, $interval, $q, tariffFactory) {
 
 
         $scope.env = {
@@ -19,10 +19,13 @@
             display_addr_details: false,
             display_addr_error: false,
             tmp_address: null,
-            map: null
+            map: null,
+            advert: null,
+            restore_flag: false,
+            prices:[]
         };
 
-
+        var promises = [];
         $scope.model = {
             type: null,
             category: null,
@@ -58,16 +61,39 @@
             $scope.model.author.surname = $scope.env.user.surname;
             $scope.model.author.email = $scope.env.user.email;
             $scope.model.author.phone = $scope.env.user.phone;
+            var data_set_promise = advFactory.getDataSets().then(function (response) {
+                $scope.env.subcats = response.sub_categories;
+                $scope.env.equipments = response.equipments;
+
+            });
+            promises.push(data_set_promise);
+            var restore_advert_id = localStorage.getItem("advert_id");
+            if (restore_advert_id==null){
+                var adv_restore_promise = advFactory.restoreAdvert(104).then(function (response) {
+                    $scope.env.advert = response;
+                    $scope.env.restore_flag = true;
+                });
+                promises.push(adv_restore_promise);
+
+            }
+            var prices_promise = tariffFactory.getPrivatePrices().then(function (response) {
+                $scope.env.prices = response;
+
+
+            });
+            promises.push(prices_promise);
+
+            //getBusinessTariffs()
+            $q.all(promises).then(function () {
+                deferred.resolve();
+            });
             return deferred.promise;
         }
 
         // initPage();
         $scope.$parent.init.push(initPage);
 
-        advFactory.getDataSets().then(function (response) {
-            $scope.env.subcats = response.sub_categories;
-            $scope.env.equipments = response.equipments;
-        });
+
 
 
         $scope.setPrivateType = function (type, category) {
@@ -109,7 +135,9 @@
                 $scope.env.send = true;
                 advFactory.store(data).then(function (response) {
                         $scope.env.send = false;
-                        window.location.href = '/offer/' + response.id + '/preview'
+                        $scope.env.advert = response;
+                        localStorage.setItem("advert_id", $scope.env.advert.id);
+                       // window.location.href = '/offer/' + response.id + '/preview'
                     },
                     function (error) {
                         $scope.env.send = false;

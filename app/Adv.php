@@ -305,6 +305,8 @@ class Adv extends Model
             foreach ($value as $image) {
                 if ( is_array($image) ){
                     $name = time() . rand(1, 10000) . '.' . pathinfo($image['filename'], PATHINFO_EXTENSION);
+                    @mkdir(public_path('uploads/adv/full/' . $this->attributes['user_id']) );
+                    @mkdir(public_path('uploads/adv/preview/' . $this->attributes['user_id']) );
                     file_put_contents(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name), base64_decode($image['base64']));
 
                     \Image::make(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name))->resize(100, null, function ($constraint) {
