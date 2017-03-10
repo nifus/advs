@@ -2,7 +2,7 @@
     'use strict';
     angular.module('frontApp').controller('createAdvController', createAdvController);
 
-    createAdvController.$inject = ['$scope', 'advFactory', '$filter', '$interval','$q','tariffFactory'];
+    createAdvController.$inject = ['$scope', 'advFactory', '$filter', '$interval', '$q', 'tariffFactory'];
 
     function createAdvController($scope, advFactory, $filter, $interval, $q, tariffFactory) {
 
@@ -22,7 +22,10 @@
             map: null,
             advert: null,
             restore_flag: false,
-            prices:[]
+            tariffs: [],
+            loading: true,
+            tariff: null,
+            action: 'form'
         };
 
         var promises = [];
@@ -68,24 +71,24 @@
             });
             promises.push(data_set_promise);
             var restore_advert_id = localStorage.getItem("advert_id");
-            if (restore_advert_id==null){
+            if (restore_advert_id == null) {
                 var adv_restore_promise = advFactory.restoreAdvert(104).then(function (response) {
                     $scope.env.advert = response;
+                    $scope.env.action = 'preview';
                     $scope.env.restore_flag = true;
                 });
                 promises.push(adv_restore_promise);
 
             }
             var prices_promise = tariffFactory.getPrivatePrices().then(function (response) {
-                $scope.env.prices = response;
-
-
+                $scope.env.tariffs = response;
             });
             promises.push(prices_promise);
 
             //getBusinessTariffs()
             $q.all(promises).then(function () {
                 deferred.resolve();
+                $scope.env.loading = false;
             });
             return deferred.promise;
         }
@@ -94,7 +97,23 @@
         $scope.$parent.init.push(initPage);
 
 
+        $scope.setPrivateTariff = function (tariff) {
 
+            $scope.env.tariff = tariff;
+            $scope.env.tariff.price = ($scope.env.advert.type == 'rent') ? tariff.rent_price : tariff.sale_price;
+            $scope.env.tariff.begin_date = moment().format('D.MM.Y');
+            if (tariff.duration == '1 week') {
+                $scope.env.tariff.end_date = moment().add(7, 'days').format('D.MM.Y')
+            } else if (tariff.duration == '2 weeks') {
+                $scope.env.tariff.end_date = moment().add(14, 'days').format('D.MM.Y')
+            } else if (tariff.duration == '1 month') {
+                $scope.env.tariff.end_date = moment().add(1, 'months').format('D.MM.Y')
+            } else if (tariff.duration == '2 months') {
+                $scope.env.tariff.end_date = moment().add(2, 'months').format('D.MM.Y')
+            } else if (tariff.duration == '3 months') {
+                $scope.env.tariff.end_date = moment().add(3, 'months').format('D.MM.Y')
+            }
+        };
 
         $scope.setPrivateType = function (type, category) {
             $scope.model.type = type;
@@ -131,25 +150,55 @@
 
         $scope.save = function (data) {
             $scope.env.submit = true;
-            if (!$scope.adv_form.$invalid ) {
+            if (!$scope.adv_form.$invalid) {
                 $scope.env.send = true;
-                advFactory.store(data).then(function (response) {
-                        $scope.env.send = false;
-                        $scope.env.advert = response;
-                        localStorage.setItem("advert_id", $scope.env.advert.id);
-                       // window.location.href = '/offer/' + response.id + '/preview'
-                    },
-                    function (error) {
-                        $scope.env.send = false;
-                        console.log(error)
-                    })
+                if ( $scope.env.advert==null ){
+                    advFactory.store(data).then(
+                        function (response) {
+                            $scope.env.send = false;
+                            $scope.env.advert = response;
+                            localStorage.setItem("advert_id", $scope.env.advert.id);
+                            $scope.env.action = 'preview';
+                        },
+                        function (error) {
+                            $scope.env.send = false;
+                            console.log(error)
+                        }
+                    )
+                }else{
+                    $scope.env.advert.update(data).then(function (response) {
+                            $scope.env.send = false;
+                            $scope.env.advert = response;
+                            $scope.env.action = 'preview';
+                        }, function (error) {
+                            $scope.env.send = false;
+                            console.log(error)
+                        }
+                    )
+                }
+
             }
 
         };
 
+        $scope.deleteAdvert = function () {
+            alertify.confirm($filter('translate')("Are you sure  want to delete this advert?"), function (e) {
+                if (e) {
+                    $scope.env.advert.delete().then(function (response) {
+                        window.location.reload(true)
+                    })
+                }
+            });
+        };
+
+        $scope.backToForm = function () {
+            $scope.env.action = 'form';
+            $scope.model = $scope.env.advert;
+        };
+
         $scope.$watch('model', function (value) {
             console.log(value)
-        },true );
+        }, true);
 
 
         $scope.$watch('env.move_date', function (value) {
@@ -206,10 +255,10 @@
 
         $scope.initGoogleMap = function (lat, lng, reload) {
 
-            if ( lat==null || lng==null ){
+            if (lat == null || lng == null) {
                 return;
             }
-            if ( $scope.env.map==null || reload==true ){
+            if ($scope.env.map == null || reload == true) {
                 var interval = $interval(function () {
                     if (document.getElementById('map')) {
                         $scope.env.map = new google.maps.Map(document.getElementById('map'), {
@@ -222,7 +271,7 @@
                             draggable: true,
                             animation: google.maps.Animation.DROP
                         });
-                        $scope.env.marker.addListener('dragend', function() {
+                        $scope.env.marker.addListener('dragend', function () {
                             var c = this.getPosition();
 
                             var geocoder = new google.maps.Geocoder();
@@ -230,7 +279,7 @@
                                 'latLng': c
                             }, function (results, status) {
                                 if (status === google.maps.GeocoderStatus.OK) {
-                                    if (results[0]){
+                                    if (results[0]) {
                                         $scope.model.lat = results[0].geometry.location.lat();
                                         $scope.model.lng = results[0].geometry.location.lng();
                                     }
@@ -243,9 +292,9 @@
                     }
                 }, 1000)
 
-            }else{
+            } else {
 
-                $scope.env.marker.setPosition( new google.maps.LatLng(lat, lng) );
+                $scope.env.marker.setPosition(new google.maps.LatLng(lat, lng));
                 $scope.env.map.setCenter($scope.env.marker.getPosition());
             }
         }

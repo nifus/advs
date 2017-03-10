@@ -334,7 +334,11 @@ class Adv extends Model
             return ['/images/no-photo.jpg'];
         }
         $images = explode(',', $this->attributes['photos']);
-        return '/uploads/adv/full/' . $this->attributes['user_id'] . '/' . $images[0];
+        return [
+            'preview'=>'/uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $images[0],
+            'full'=>'/uploads/adv/full/' . $this->attributes['user_id'] . '/' . $images[0],
+
+        ];
     }
 
     public function getLastPhotosAttribute()
@@ -364,7 +368,10 @@ class Adv extends Model
         $photos = json_decode($this->attributes['photos']);
         $result = [];
         foreach ($photos as $photo) {
-            array_push($result, '/uploads/adv/full/' . $this->attributes['user_id'] . '/' . $photo);
+            array_push($result, [
+                'preview'=>'/uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $photo,
+                'full'=>'/uploads/adv/full/' . $this->attributes['user_id'] . '/' . $photo,
+            ]);
         }
         return $result;
     }
