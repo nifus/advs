@@ -1,22 +1,32 @@
-<div class="alert alert-info" style="width:40%;margin-left: auto;margin-right:auto;text-align:center" role="alert" translate ng-if="env.restore_flag==true">
+<div class="alert alert-info" style="width:40%;margin-left: auto;margin-right:auto;text-align:center" role="alert"
+     translate ng-if="env.restore_flag==true">
     You did not complete the previous announcement. We have restored it for you
     <div class="row">
-        <div class="col-md-6 text-right"><button class="btn-default btn" translate ng-click="env.restore_flag = false">Continue this advert</button></div>
-        <div class="col-md-6 text-left"><button class="btn-default btn" translate ng-click="env.advert = null;env.restore_flag=false">Start new advert</button></div>
+        <div class="col-md-6 text-right">
+            <button class="btn-default btn" translate ng-click="env.restore_flag = false">Continue this advert</button>
+        </div>
+        <div class="col-md-6 text-left">
+            <button class="btn-default btn" translate ng-click="env.advert = null;env.restore_flag=false">Start new
+                advert
+            </button>
+        </div>
     </div>
 </div>
 
-<div class="row text-right" style="margin:10px;"><button class="btn btn-primary" ng-click="backToForm()">Back</button></div>
+<div class="row text-right" style="margin:10px;">
+    <button class="btn btn-primary" ng-click="backToForm()">Back</button>
+</div>
 
 <div class="row">
     <div class="col-md-6">
         <h4 translate>Your advert</h4>
         <div>
-            <div class="row" id="listing" >
+            <div class="row" id="listing">
                 <table class="table table-bordered">
 
                     <tr>
-                        <td rowspan="4" style="width: 200px"> <img ng-src="{{env.advert.MainPhoto.preview}}" style="width:200px" alt=""> </td>
+                        <td rowspan="4" style="width: 200px" ng-if="env.advert.MainPhoto"><img
+                                ng-src="{{env.advert.MainPhoto.preview}}" style="width:200px" alt=""></td>
                         <td translate colspan="3">{{env.advert.title}}</td>
                     </tr>
                     <tr>
@@ -37,13 +47,15 @@
                     </tr>
 
                     <tr>
-                       <td colspan="2" style="text-align: left" translate>Created on:</td>
-                       <td colspan="2" style="text-align: right">{{env.advert.CreateDateWithTime}}</td>
+                        <td colspan="2" style="text-align: left" translate>Created on:</td>
+                        <td colspan="2" style="text-align: right">{{env.advert.CreateDateWithTime}}</td>
                     </tr>
 
                     <tr>
                         <td colspan="2" style="text-align: left" translate>Current status:</td>
-                        <td colspan="2" style="text-align: right;color:red" translate><strong>Offline</strong>- not findable in advert search</td>
+                        <td colspan="2" style="text-align: right;color:red" translate><strong>Offline</strong>- not
+                            findable in advert search
+                        </td>
                     </tr>
 
                     <tr>
@@ -74,13 +86,19 @@
             <tr ng-repeat="tariff in env.tariffs" style="cursor: pointer" ng-click="setPrivateTariff(tariff)">
                 <td><input type="radio" ng-model="env.tariff.id" value="{{tariff.id}}"></td>
                 <td>
-                    <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px" >{{tariff.duration}}</div>
+                    <div style="background-color: #FFF2CC;text-align: center;margin:4px;padding:3px">
+                        {{tariff.duration}}
+                    </div>
                 </td>
                 <td style="border-left: 2px solid #EF8E4C;text-align:center" ng-if="env.advert.type=='rent'">
-                    <div style="background-color: #c5E0b4;text-align: center;margin:4px;padding:3px" >{{tariff.rent_price|currency:"€"}}</div>
+                    <div style="background-color: #c5E0b4;text-align: center;margin:4px;padding:3px">
+                        {{tariff.rent_price|currency:"€"}}
+                    </div>
                 </td>
                 <td style="border-left: 2px solid #EF8E4C;text-align:center;" ng-if="env.advert.type=='sale'">
-                    <div style="background-color: #E2f0E9;text-align: center;margin:4px;padding:3px" >{{tariff.sale_price|currency:"€"}}</div>
+                    <div style="background-color: #E2f0E9;text-align: center;margin:4px;padding:3px">
+                        {{tariff.sale_price|currency:"€"}}
+                    </div>
                 </td>
             </tr>
 
@@ -109,67 +127,112 @@
                 <div>At the moment this payment methods are available – please select:</div>
 
                 <div class="row">
-                <div class="col-md-12" >
-                    <div class="radio" ng-class="{ 'has-error': ( payment.paypal_email.$invalid && payment_form.submit==true) }">
-                        <label>
-                            <input type="radio" value="paypal" ng-model="env.user.payment_type">
-                            {{'PayPal'|translate}}<br>
-                            {{'(you will be forwarded to PayPal by clicking on „Next“)'|translate}}
+                    <div class="col-md-12">
+                        <div class="radio"
+                             ng-class="{ 'has-error': ( payment.paypal_email.$invalid && payment_form.submit==true) }">
+                            <label>
+                                <input type="radio" value="paypal" ng-model="env.user.payment_type">
+                                {{'PayPal'|translate}}<br>
+                                {{'(you will be forwarded to PayPal by clicking on „Next“)'|translate}}
 
-                        </label>
+                            </label>
 
-                        <div class="form-inline">
-                            <label class="col-sm-3 " translate>PayPal email </label>
-                            <div class="col-sm-9">
-                                <input type="email" name="paypal_email" class="form-control" ng-model="env.user.paypal_email"
-                                       ng-disabled="env.user.payment_type!='paypal'"
-                                       ng-required="env.user.payment_type=='paypal'">
+                            <div class="form-inline">
+                                <label class="col-sm-3 " translate>PayPal email </label>
+                                <div class="col-sm-9">
+                                    <input type="email" name="paypal_email" class="form-control"
+                                           ng-model="env.user.paypal_email"
+                                           ng-disabled="env.user.payment_type!='paypal'"
+                                           ng-required="env.user.payment_type=='paypal'">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <br>
-                    <br>
-                    <div class="radio" ng-class="{ 'has-error': ( payment.giro_account.$invalid && payment_form.submit==true) }">
-                        <label>
-                            <input type="radio" value="giropay" ng-model="env.user.payment_type">
-                            {{'GiroPay'|translate}}
-                            <br>
-                            {{'(you will be forwarded to your Bank)'|translate}}
+                        <br>
+                        <br>
+                        <div class="radio"
+                             ng-class="{ 'has-error': ( payment.giro_account.$invalid && payment_form.submit==true) }">
+                            <label>
+                                <input type="radio" value="giropay" ng-model="env.user.payment_type">
+                                {{'GiroPay'|translate}}
+                                <br>
+                                {{'(you will be forwarded to your Bank)'|translate}}
 
-                        </label>
+                            </label>
 
-                        <div class="form-inline">
-                            <label class="col-sm-3" translate>BIC</label>
-                            <div class="col-sm-9">
-                                <input type="text" name="giro_account" class="form-control" ng-model="env.user.giro_account"
-                                       ng-disabled="env.user.payment_type!='giropay'"
-                                       ng-required="env.user.payment_type=='giropay'">
+                            <div class="form-inline">
+                                <label class="col-sm-3" translate>BIC</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="giro_account" class="form-control"
+                                           ng-model="env.user.giro_account"
+                                           ng-disabled="env.user.payment_type!='giropay'"
+                                           ng-required="env.user.payment_type=='giropay'">
 
+                                </div>
                             </div>
                         </div>
+
+                        <br>
+                        <br>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" value="prepayment" ng-model="env.user.payment_type">
+                                {{'Prepayment'|translate}}
+                            </label>
+                        </div>
+
+                        <div ng-if="env.user.payment_type=='prepayment'">
+                            <div translate>Please use this transaction code for your transaction:</div>
+                            <table>
+                                <tr>
+                                    <td style="text-align: left" translate>Price:</td>
+                                    <td style="text-align: right">{{env.tariff.price|currency:"€"}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;font-weight: bold" translate>Transaction code:</td>
+                                    <td style="text-align: left;font-weight: bold">{{env.guid}}</td>
+                                </tr>
+                            </table>
+                            <div style="color:red" translate>
+                                It is important that you mention this transaction code at your transaction! <br>
+                                Otherwise we can not ensure the correct transaction.
+                            </div>
+
+                            <div translate style="margin-top:20px">Please pay the following price to this bank account:</div>
+                            <table>
+                                <tr>
+                                    <td style="text-align: left" translate>Bank account:</td>
+                                    <td style="text-align: right">2608722016</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left" translate>BIC:</td>
+                                    <td style="text-align: right">591954772</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left" translate>IBAN:</td>
+                                    <td style="text-align: right">DE06 2546 2549 3500 0015 0161</td>
+                                </tr>
+                            </table>
+                            <div translate>Please pay within the next 10 days.</div>
+                        </div>
                     </div>
-
-                    <br>
-                    <br>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" value="prepayment" ng-model="env.user.payment_type">
-                            {{'Prepayment'|translate}}
-
-                        </label>
-                    </div>
-
-
-                </div>
                 </div>
 
                 <h4>Final</h4>
 
                 <div>
-                    <div class="col-md-6" translate>I noticed and accepted the <a href="">AGB‘s</a></div>
-                    <div class="col-md-3"><input type="checkbox"></div>
-                    <div class="col-md-3"><button translate>Next</button></div>
+                    <div class="col-md-6" translate>I noticed and accepted the <a target="_blank" href="/agb">AGB‘s</a> <input style="margin-left:20px" type="checkbox"></div>
+                    <div class="col-md-6 text-right">
+                        <button translate class="btn btn-primary" ng-if="env.user.payment_type=='prepayment'" ng-click="payPrepayment()">Next</button>
+
+                        <form ng-if="env.user.payment_type=='paypal'" id="paypalForm" action="/payments/emulation/paypal">
+                            <button translate class="btn btn-primary" type="button" ng-click="payPaypal()" >Next</button>
+                        </form>
+
+                        <form ng-if="env.user.payment_type=='giropay'" id="giroForm" action="/payments/emulation/giro">
+                            <button translate class="btn btn-primary" type="button" ng-click="payGiro()" >Next</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

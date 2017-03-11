@@ -299,11 +299,9 @@ class Adv extends Model
     {
 
         if ( is_array($value)) {
-
             $result = [];
-
             foreach ($value as $image) {
-                if ( is_array($image) ){
+                if ( is_array($image) && isset($image['filename']) ){
                     $name = time() . rand(1, 10000) . '.' . pathinfo($image['filename'], PATHINFO_EXTENSION);
                     @mkdir(public_path('uploads/adv/full/' . $this->attributes['user_id']) );
                     @mkdir(public_path('uploads/adv/preview/' . $this->attributes['user_id']) );
@@ -315,7 +313,7 @@ class Adv extends Model
                     array_push($result, ($name) );
 
                 }else{
-                    array_push($result, basename($image) );
+                    array_push($result, basename($image['full']) );
                 }
             }
             $result = sizeof($result)>0 ? json_encode($result) : null;

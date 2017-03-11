@@ -127,6 +127,9 @@ class AdvController extends Controller
         try {
             $adv = AdvModel::findOrDie($id);
             $user = UserModel::getUser();
+            if ( $adv->is_deleted=='1' ){
+                return response()->json([], 404);
+            }
             if (is_null($user)){
                 return response()->json([], 403);
             }

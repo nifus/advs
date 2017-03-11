@@ -71,7 +71,7 @@ class UserSeeder extends Seeder
                 'password'=>'testpass',
                 'company'=>$faker->company,
                 'contact_email'=>$faker->email,
-                'payment_type'=>$faker->randomElement(['paypal', 'giropay', 'prepyment']),
+                'payment_type'=>$faker->randomElement(['paypal', 'giropay', 'prepayment']),
                 'phone'=>$faker->phoneNumber,
                 'tariff'=>$faker->randomDigit(1,7),
                 'website'=>$faker->url,

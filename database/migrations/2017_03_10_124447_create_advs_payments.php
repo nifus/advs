@@ -18,6 +18,11 @@ class CreateAdvsPayments extends Migration
             $table->integer('adv_id');
             $table->integer('private_tariff_id')->nullable();
             $table->enum('payment_type',['paypal','giro','prepayment'])->default('paypal');
+            $table->enum('status',['wait','error','success'])->default('wait');
+            $table->text('payment_log')->nullable();
+            $table->string('guid')->nullable();
+            $table->string('paypal_email')->nullable();
+            $table->string('giro')->nullable();
             $table->decimal('price',8,2)->default(0);
             $table->timestamps();
         });

@@ -80,12 +80,11 @@
             Object.delete = function () {
                 var deferred = $q.defer();
                 Object.waiting = true;
-                $http.delete('/api/user/advs/' + Object.id).then(function (response) {
+                $http.delete('/api/adv/' + Object.id).then(function (response) {
                     Object.waiting = false;
                     deferred.resolve(response);
                 }, function (error) {
                     deferred.reject(error.data);
-                    console.log(error);
                 });
                 return deferred.promise;
             };
@@ -93,9 +92,12 @@
             Object.update = function (data) {
                 var deferred = $q.defer();
                 Object.waiting = true;
-                $http.post('/api/user/advs/' + Object.id, data).then(function (response) {
+                $http.post('/api/adv/' + Object.id, data).then(function (response) {
                     Object.waiting = false;
-                    deferred.resolve(response);
+                    for(var i in response.data){
+                        Object[i] = response.data[i]
+                    }
+                    deferred.resolve();
                 }, function (error) {
                     deferred.reject(error.data);
                 });

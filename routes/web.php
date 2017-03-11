@@ -119,7 +119,10 @@ Route::group(['prefix'=>'api'], function () {
         Route::post('/{id}/message', 'AdvController@message' )->where('id','[0-9]*');
     });
 
+    Route::group(['prefix'=>'payment'], function () {
+        Route::post('/{type}', 'PaymentController@store' )->where('type','giro|paypal|pre-payment');
 
+    });
 
     Route::group(['prefix'=>'tariff'], function () {
         Route::get('/private', 'TariffController@getPrivate');

@@ -2,9 +2,9 @@
     'use strict';
     angular.module('frontApp').controller('createAdvController', createAdvController);
 
-    createAdvController.$inject = ['$scope', 'advFactory', '$filter', '$interval', '$q', 'tariffFactory'];
+    createAdvController.$inject = ['$scope', 'advFactory', '$filter', '$interval', '$q', 'tariffFactory' ,'AdvPaymentFactory'];
 
-    function createAdvController($scope, advFactory, $filter, $interval, $q, tariffFactory) {
+    function createAdvController($scope, advFactory, $filter, $interval, $q, tariffFactory, AdvPaymentFactory) {
 
 
         $scope.env = {
@@ -25,7 +25,8 @@
             tariffs: [],
             loading: true,
             tariff: null,
-            action: 'form'
+            action: 'form',
+            guid: guid()
         };
 
         var promises = [];
@@ -71,14 +72,15 @@
             });
             promises.push(data_set_promise);
             var restore_advert_id = localStorage.getItem("advert_id");
-            if (restore_advert_id == null) {
-                var adv_restore_promise = advFactory.restoreAdvert(104).then(function (response) {
+            if (restore_advert_id != null) {
+                var adv_restore_promise = advFactory.restoreAdvert(restore_advert_id).then(function (response) {
                     $scope.env.advert = response;
                     $scope.env.action = 'preview';
                     $scope.env.restore_flag = true;
+                },function () {
+
                 });
                 promises.push(adv_restore_promise);
-
             }
             var prices_promise = tariffFactory.getPrivatePrices().then(function (response) {
                 $scope.env.tariffs = response;
@@ -97,6 +99,23 @@
         $scope.$parent.init.push(initPage);
 
 
+        $scope.payPrepayment = function () {
+            AdvPaymentFactory.createPrePayment($scope.env.advert.id, $scope.env.guid, $scope.env.tariff.id, $scope.env.tariff.price).then(function (response) {
+
+            })
+        };
+
+        $scope.payPaypal = function () {
+            AdvPaymentFactory.createPaypalPayment($scope.env.advert, $scope.env.user.paypal_email).then(function (response) {
+                $('#paypalForm').submit();
+            })
+        };
+
+        $scope.payGiro = function () {
+            AdvPaymentFactory.createGiroPayment($scope.env.advert, $scope.env.user.giro_account).then(function (response) {
+                $('#paypalForm').submit();
+            })
+        };
         $scope.setPrivateTariff = function (tariff) {
 
             $scope.env.tariff = tariff;
@@ -148,9 +167,9 @@
             }
         };
 
-        $scope.save = function (data) {
+        $scope.save = function (data, form) {
             $scope.env.submit = true;
-            if (!$scope.adv_form.$invalid) {
+            if (!form.$invalid) {
                 $scope.env.send = true;
                 if ( $scope.env.advert==null ){
                     advFactory.store(data).then(
@@ -166,9 +185,9 @@
                         }
                     )
                 }else{
-                    $scope.env.advert.update(data).then(function (response) {
+                    $scope.env.advert.update(data).then(function () {
                             $scope.env.send = false;
-                            $scope.env.advert = response;
+                            //$scope.env.advert = response;
                             $scope.env.action = 'preview';
                         }, function (error) {
                             $scope.env.send = false;
@@ -185,7 +204,9 @@
             alertify.confirm($filter('translate')("Are you sure  want to delete this advert?"), function (e) {
                 if (e) {
                     $scope.env.advert.delete().then(function (response) {
-                        window.location.reload(true)
+                        localStorage.setItem("advert_id", null);
+                        window.location.reload(true);
+
                     })
                 }
             });
@@ -258,19 +279,23 @@
             if (lat == null || lng == null) {
                 return;
             }
+            lat= parseFloat(lat);
+            lng= parseFloat(lng);
             if ($scope.env.map == null || reload == true) {
+
                 var interval = $interval(function () {
                     if (document.getElementById('map')) {
                         $scope.env.map = new google.maps.Map(document.getElementById('map'), {
-                            center: {lat: lat, lng: lng},
+                            center: {lat: (lat), lng: (lng)},
                             zoom: 18
                         });
                         $scope.env.marker = new google.maps.Marker({
-                            position: {lat: lat, lng: lng},
+                            position: {lat: (lat), lng: (lng)},
                             map: $scope.env.map,
                             draggable: true,
                             animation: google.maps.Animation.DROP
                         });
+
                         $scope.env.marker.addListener('dragend', function () {
                             var c = this.getPosition();
 
@@ -297,6 +322,13 @@
                 $scope.env.marker.setPosition(new google.maps.LatLng(lat, lng));
                 $scope.env.map.setCenter($scope.env.marker.getPosition());
             }
+        }
+
+        function guid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+                return v.toString(16);
+            });
         }
 
     }

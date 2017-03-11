@@ -201,7 +201,7 @@
                                          ng-show="adv_form.$invalid && env.submit==true">{{trans('main.create_adv_not_fill_fields')}}
                                     </div>
 
-                                    <button class="btn btn-primary" type="button" ng-click="save(model)"
+                                    <button class="btn btn-primary" type="button" ng-click="save(model, adv_form)"
                                             ng-disabled="env.send==true">
                                         {{ trans('main.create_adv_send') }}
                                     </button>

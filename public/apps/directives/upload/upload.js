@@ -22,7 +22,7 @@
             if (!scope.hideResult) {
                 var html = '<div class="row" style="margin:10px"><div style="margin:5px" class="col-md-2" ng-repeat="item in ngModel" style="text-align: right">' +
                     '<img ng-src="data:{{item.filetype}};base64,{{item.base64}}" style="width: 100%;" ng-show="item.base64!=undefined">' +
-                    '<img ng-src="{{item.base64==undefined ? item : \'\'}}" style="width: 100%;" ng-show="item.base64==undefined">' +
+                    '<img ng-src="{{item.base64==undefined ? item.preview : \'\'}}" style="width: 100%;" ng-show="item.base64==undefined">' +
                     '<button type="button" style="position: absolute;left:15px;top:0px" ng-click="deleteItem($index)" class="btn btn-danger">' +
                     '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div></div>';
             } else {

@@ -61,7 +61,7 @@ class CreateSubscription extends Migration
      */
     public function down()
     {
-        Schema::drop('subscriptions');
-        Schema::drop('subscriptions_details');
+        Schema::drop('tariffs');
+        Schema::drop('tariffs_details');
     }
 }
