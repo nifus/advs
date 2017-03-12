@@ -16,7 +16,7 @@ class CreateAdvsPayments extends Migration
         Schema::create('advs_payments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('adv_id');
-            $table->integer('private_tariff_id')->nullable();
+            $table->integer('tariff_id')->nullable();
             $table->enum('payment_type',['paypal','giro','prepayment'])->default('paypal');
             $table->enum('status',['wait','error','success'])->default('wait');
             $table->text('payment_log')->nullable();

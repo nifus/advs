@@ -18,6 +18,7 @@
 
         var userPromise = userFactory.getAuthUser().then(function (user) {
             $scope.user = user;
+            console.log(user)
             if (!user) {
                 window.location.href = '/'
                 return false;

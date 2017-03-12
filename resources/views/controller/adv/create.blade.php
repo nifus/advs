@@ -209,7 +209,9 @@
                             </div>
                         </div>
                     </form>
+                    <div ng-if="env.action=='payment'" ng-include="'/apps/frontApp/adv/create/payment.html'"></div>
                     <div ng-if="env.action=='preview'" ng-include="'/apps/frontApp/adv/create/preview.html'"></div>
+
                 </div>
                 <div class="progress" ng-if="env.loading == true">
                     <div class="progress-bar progress-bar-striped active" role="progressbar"  style="width: 100%">

@@ -1,10 +1,9 @@
 (function () {
     'use strict';
-    angular.module('frontApp').controller('createAdvController', createAdvController);
+    angular.module('frontApp').controller('createAdvController', ['$scope', 'advFactory', '$filter', '$interval', '$q', 'tariffFactory' ,'advPaymentFactory', createAdvController]);
 
-    createAdvController.$inject = ['$scope', 'advFactory', '$filter', '$interval', '$q', 'tariffFactory' ,'AdvPaymentFactory'];
 
-    function createAdvController($scope, advFactory, $filter, $interval, $q, tariffFactory, AdvPaymentFactory) {
+    function createAdvController($scope, advFactory, $filter, $interval, $q, tariffFactory, advPaymentFactory) {
 
 
         $scope.env = {
@@ -75,7 +74,7 @@
             if (restore_advert_id != null) {
                 var adv_restore_promise = advFactory.restoreAdvert(restore_advert_id).then(function (response) {
                     $scope.env.advert = response;
-                    $scope.env.action = 'preview';
+                    $scope.env.action = 'payment';
                     $scope.env.restore_flag = true;
                 },function () {
 
@@ -99,23 +98,30 @@
         $scope.$parent.init.push(initPage);
 
 
-        $scope.payPrepayment = function () {
-            AdvPaymentFactory.createPrePayment($scope.env.advert.id, $scope.env.guid, $scope.env.tariff.id, $scope.env.tariff.price).then(function (response) {
+        $scope.pay = function (form) {
+            $scope.env.submit = true;
+            if (form.$invalid){
+                return false;
+            }
+            if ( $scope.env.user.payment_type=='prepayment'){
+                advPaymentFactory.createPrePayment($scope.env.advert.id, $scope.env.guid, $scope.env.tariff.id, $scope.env.tariff.price).then(function (response) {
 
-            })
+                })
+            }else if( $scope.env.user.payment_type=='paypal'){
+                advPaymentFactory.createPaypalPayment($scope.env.advert.id, $scope.env.user.paypal_email, $scope.env.tariff.id, $scope.env.tariff.price).then(function (payment) {
+                    $('#paypalForm').attr('action', '/payment/emulation/paypal/'+payment.id);
+                    $('#paypalForm').submit();
+                })
+            }else if( $scope.env.user.payment_type=='giropay'){
+                advPaymentFactory.createGiroPayment($scope.env.advert.id, $scope.env.user.giro_account, $scope.env.tariff.id, $scope.env.tariff.price).then(function (payment) {
+                    $('#giroForm').attr('action', '/payment/emulation/giro/'+payment.id);
+                    $('#giroForm').submit();
+                })
+            }
+            return false;
         };
 
-        $scope.payPaypal = function () {
-            AdvPaymentFactory.createPaypalPayment($scope.env.advert, $scope.env.user.paypal_email).then(function (response) {
-                $('#paypalForm').submit();
-            })
-        };
 
-        $scope.payGiro = function () {
-            AdvPaymentFactory.createGiroPayment($scope.env.advert, $scope.env.user.giro_account).then(function (response) {
-                $('#paypalForm').submit();
-            })
-        };
         $scope.setPrivateTariff = function (tariff) {
 
             $scope.env.tariff = tariff;
@@ -167,6 +173,17 @@
             }
         };
 
+        $scope.previewAdv = function () {
+            $scope.env.action = 'preview';
+
+        };
+
+        $scope.newAdvert = function () {
+            $scope.env.advert = null;
+            $scope.env.restore_flag=false;
+            localStorage.setItem("advert_id", null);
+            $scope.env.action = 'form'
+        };
         $scope.save = function (data, form) {
             $scope.env.submit = true;
             if (!form.$invalid) {
@@ -175,12 +192,16 @@
                     advFactory.store(data).then(
                         function (response) {
                             $scope.env.send = false;
+                            $scope.env.submit = false;
+
                             $scope.env.advert = response;
                             localStorage.setItem("advert_id", $scope.env.advert.id);
-                            $scope.env.action = 'preview';
+                            $scope.env.action = 'payment';
                         },
                         function (error) {
                             $scope.env.send = false;
+                            $scope.env.submit = false;
+
                             console.log(error)
                         }
                     )
@@ -188,10 +209,14 @@
                     $scope.env.advert.update(data).then(function () {
                             $scope.env.send = false;
                             //$scope.env.advert = response;
-                            $scope.env.action = 'preview';
+                            $scope.env.action = 'payment';
+                            $scope.env.submit = false;
+
                         }, function (error) {
                             $scope.env.send = false;
-                            console.log(error)
+                        $scope.env.submit = false;
+
+                        console.log(error)
                         }
                     )
                 }

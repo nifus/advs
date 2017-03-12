@@ -22,7 +22,9 @@ class Adv extends Model
         'address', 'author', 'category', 'move_date', 'is_deleted', 'energy', 'equipments', 'props', 'subcategory', 'finance', 'floor', 'floors', 'living_area','plot_area','area',
         'rooms', 'hide_contacts',
         'city_id','region_id','country_id',
-        'edp_cabling','air_conditioner','number_beds','storey_height','users_fav','length_shop_window','development','building_permission'
+        'edp_cabling','air_conditioner','number_beds','storey_height','users_fav','length_shop_window','development','building_permission',
+
+        'disable_date'
     ];
 
     static private $categories = [
@@ -218,6 +220,27 @@ class Adv extends Model
     public function changeStatus($status)
     {
         $this->update(['status' => $status]);
+    }
+
+    public function getLastPayment(){
+        return AdvPayment::getLastPayment($this->id);
+    }
+
+    public function activate(AdvPayment $payment){
+        //$now = new \DateTime();
+        $disable_date = new \DateTime();
+        if ($this->Owner->isPrivateAccount()){
+            $tariff = $payment->PrivateTariff;
+
+            $disable_date->modify('+'.$tariff->duration);
+        }else{
+            $tariff = $payment->BusinessTariff;
+            //TODO add for business tariff
+        }
+
+
+        $this->update(['status'=>'active','disable_date'=>$disable_date->format('Y-m-d H:i:s')]);
+        return true;
     }
 
     public function getCreateDateWithTimeAttribute(){

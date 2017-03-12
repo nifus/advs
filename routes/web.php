@@ -19,6 +19,11 @@ Route::group(['prefix'=>'user'], function () {
     Route::get('/', ['as'=>'user.dashboard','uses'=> 'UserController@dashboard']);
 });
 
+Route::group(['prefix'=>'payment'], function () {
+    Route::get('/emulation/{type}/{id}', 'PaymentController@emulation')->where('type','giro|paypal|pre-payment')->where('id','[0-9]*');
+    Route::post('/emulation/{type}/{id}', 'PaymentController@emulationSave')->where('type','giro|paypal|pre-payment')->where('id','[0-9]*');
+});
+
 
 Route::get('/rent', ['as'=>'adv.rent','uses'=> 'SearchController@rent'] );
 Route::get('/buy', ['as'=>'adv.sale','uses'=> 'SearchController@buy'] );

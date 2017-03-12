@@ -413,3 +413,7 @@ div.panel-body div.row {
     margin-left:0px;
     margin-right:0px;
 }
+
+.has-error-tariff{
+    color:#a94442
+}

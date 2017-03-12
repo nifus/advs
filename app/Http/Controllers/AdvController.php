@@ -17,28 +17,31 @@ class AdvController extends Controller
 
     function store( Request $request){
         try{
-            $user = UserModel::getUser();
+            $token = $request->get('token');
+            $user = UserModel::getUser($token);
             if ( is_null($user) ){
-                abort(403);
+                return response()->json([], 403);
             }
 
             $data = $request->all();
             $adv = AdvModel::createNewAdv($data, $user->id);
             return response()->json($adv->toArray());
         } catch (\Exception $e) {
+
             return response()->json($e->getMessage(), 500);
         }
     }
 
     function update( $id,  Request $request){
         try{
-            $user = UserModel::getUser();
+            $token = $request->get('token');
+            $user = UserModel::getUser($token);
             if ( is_null($user) ){
-                abort(403);
+                return response()->json([], 403);
             }
             $adv = AdvModel::findOrDie($id);
             if ( !$adv->itsAuthor($user->id) ){
-                abort(403);
+                return response()->json([], 403);
             }
             $data = $request->all();
             $adv->updateAdv($data);
@@ -140,7 +143,12 @@ class AdvController extends Controller
                 return response()->json([], 403);
             }
 
-            return response()->json($adv->getArray($user->id));
+            $payment = $adv->getLastPayment();
+            $response = $adv->getArray($user->id);
+            $response['LastPayment'] = $payment;
+
+
+            return response()->json($response);
 
 
         } catch (\Exception $e) {

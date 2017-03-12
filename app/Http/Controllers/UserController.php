@@ -28,6 +28,10 @@ class UserController extends Controller
 
     public function dashboard()
     {
+        $user = User::getUser();
+        if (is_null($user)){
+            abort(403);
+        }
         return view('controller.user.dashboard');
     }
 

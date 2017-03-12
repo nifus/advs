@@ -2,33 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\EventsLog;
-use App\PrivateTariff;
-use App\BusinessTariff;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\User as UserModel;
-use App\Address as Address;
+use App\User;
+use App\AdvPayment;
 
 class PaymentController extends Controller
 {
+    function emulation($type, $id){
+        return view('paymentEmulation',['type'=>$type,'id'=>$id]);
+    }
 
+    function emulationSave($type, $id, Request $request){
+        $result = $request->get('result');
+        $payment = AdvPayment::find($id);
+
+        if ($result=='success'){
+            $payment->success();
+            return response()->redirectTo('/');
+        }else{
+            $payment->fail();
+            return response()->redirectTo('/offer');
+        }
+
+
+    }
 
 
     function store( $type, Request $request){
         try{
-            $user = UserModel::getUser();
+            $user = User::getUser();
             if ( is_null($user) ){
-                abort(403);
+                return response()->json([],403);
             }
-            $tariff_id = $request->get('tariff_id');
-            if ( is_null($tariff_id) ){
-                abort(403);
-            }
-            $tariff = $user->addTariff($tariff_id);
+            $data = $request->only(['adv_id','guid','price','tariff_id','email','account']);
 
-            return response()->json(['success'=>true]);
+            $payment = AdvPayment::createNewPayment($type,$data);
+
+            return response()->json($payment);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
