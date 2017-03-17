@@ -7,9 +7,7 @@
     function searchResultController($scope, searchLogFactory, $q, $interval, $filter, advFactory, $cookies, $http) {
 
         $scope.adv = null;
-        $scope.message = {
-
-        };
+        $scope.message = {};
         $scope.env = {
             adv_id: null,
             result_id: null,
@@ -114,7 +112,7 @@
         };
 
         function updateSearch() {
-            $scope.env.search.update(
+            $scope.env.search.updateConfig(
                 {
                     per_page: $scope.env.per_page,
                     sortby: $scope.env.sortby,
@@ -278,7 +276,7 @@
             if ( $scope.env.rows==null){
                 var advPromise = advFactory.getResult($scope.env.result_id, {}).then(function (response) {
                     $scope.env.rows = response.advs;
-                    $scope.env.city = response.city;
+                   // $scope.env.city = response.city;
                 });
                 $scope.promises.push(advPromise);
             }

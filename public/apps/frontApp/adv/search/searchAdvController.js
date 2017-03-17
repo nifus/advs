@@ -2,9 +2,9 @@
     'use strict';
     angular.module('frontApp').controller('searchAdvController', searchAdvController);
 
-    searchAdvController.$inject = ['$scope', 'advFactory','$http','$q','$filter'];
+    searchAdvController.$inject = ['$scope', 'advFactory','$http','$q','$filter','searchLogFactory'];
 
-    function searchAdvController($scope, advFactory, $http, $q, $filter) {
+    function searchAdvController($scope, advFactory, $http, $q, $filter, searchLogFactory) {
         $scope.env = {
             loading: true,
             submit: false,
@@ -66,12 +66,12 @@
 
         $scope.searchAdvs = function(data){
             $scope.env.submit = true;
-            $http.post('/api/search', {query:data}).then(function(response){
-                $scope.env.submit = false;
-                if ( response.data.success==true){
-                    window.location.href = '/search/'+response.data.id;
-                }
-            })
+            searchLogFactory.storeAdvs(data).then(function (response) {
+                window.location.href = '/search/'+response.id;
+            },function () {
+                //exception
+            });
+
         }
 
 

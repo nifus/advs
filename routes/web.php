@@ -145,10 +145,20 @@ Route::group(['prefix'=>'api'], function () {
         Route::get('/cities/{key}', 'SearchController@findCity');
         Route::post('/{type}', 'SearchController@createSearch')->where('type','advs|accounts');
         Route::get('/{id}', 'SearchController@getSearch')->where('id','[0-9]*');
-        Route::post('/{id}/update', 'SearchController@searchUpdate')->where('id','[0-9]*');
+        Route::post('/{id}/config-update', 'SearchController@searchConfigUpdate')->where('id','[0-9]*');
+        Route::post('/{id}/query-update', 'SearchController@searchQueryUpdate')->where('id','[0-9]*');
         Route::post('/{id}', ['as'=>'adv.search','uses'=>'SearchController@search'])->where('id','[0-9]*');
     });
 
+    Route::group(['prefix'=>'faqs'], function () {
+        Route::post('/', 'FaqController@store' );
+        Route::get('/', 'FaqController@getAll' );
+        Route::get('/announcements/private', 'FaqController@getPrivateAnnouncements' );
+        Route::get('/announcements/business', 'FaqController@getBusinessAnnouncements' );
+
+        Route::post('/{id}', 'FaqController@update' )->where('id','[0-9]*');
+        Route::delete('/{id}', 'FaqController@delete' )->where('id','[0-9]*');
+    });
 
 
 
@@ -158,10 +168,10 @@ Route::group(['prefix'=>'api'], function () {
     Route::post('/config/announcement/{type}', 'ConfigController@announcement' )->where('type','private|business');
     Route::post('/config/instruction', 'ConfigController@instruction' );
     Route::post('/config/faq', 'ConfigController@faq' );
-    Route::post('/faqs', 'FaqController@store' );
-    Route::get('/faqs', 'FaqController@getAll' );
-    Route::post('/faqs/{id}', 'FaqController@update' )->where('id','[0-9]*');
-    Route::delete('/faqs/{id}', 'FaqController@delete' )->where('id','[0-9]*');
+
+
+
+
 
 
     // Route::get('/address', 'AddressController@search');

@@ -29,21 +29,10 @@ class BackPortalTest extends TestCase
             ->assertJson(['user' => ['email' => 'admin@gmail.com']]);
         $token = $response->original['token'];
 
-        $response = $this->json('POST', '/api/config/announcement/private?token=' . $token,[
-            "author"=>"admin@gmail.com",
-            "status"=> "1",
-            "text"=>"test test",
-            "updated_at"=>"2017-02-14 19:57:46"
-        ]);
+        $response = $this->json('GET', '/api/faqs/announcements/business?token=' . $token);
         $response->assertStatus(200);
 
-
-        $response = $this->json('POST', '/api/config/announcement/business?token=' . $token,[
-            "author"=>"admin@gmail.com",
-            "status"=> "1",
-            "text"=>"test test",
-            "updated_at"=>"2017-02-14 19:57:46"
-        ]);
+        $response = $this->json('GET', '/api/faqs/announcements/private?token=' . $token);
         $response->assertStatus(200);
 
         $response = $this->json('GET', '/api/faqs?token=' . $token);

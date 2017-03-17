@@ -50,7 +50,8 @@ class SearchController extends Controller
 
     function searchResult($id){
         $log = SearchLog::find($id);
-        $search_back = $log->query->type=='rent' ? route('adv.rent') : route('adv.sale');
+
+        $search_back = $log->query['type']=='rent' ? route('adv.rent') : route('adv.sale');
         $search_back.='?id='.$id;
 
         return view('controller.search.result',[
@@ -117,21 +118,31 @@ class SearchController extends Controller
         return response()->json(['search'=>$log->toArray(),'rows'=>$result]);
     }
 
-    function searchUpdate($id, Request $request ){
-       // $fields = $request->only(['per_page','sortby','display_map','lat','lng','zoom','page']);
-        $filters = $request->all();
+    function searchConfigUpdate($id, Request $request ){
+        // $fields = $request->only(['per_page','sortby','display_map','lat','lng','zoom','page']);
+        $config = $request->get('config');
 
         $log = SearchLog::find($id);
+        $log->update(['config'=>$config]);
+        return response()->json(['search'=>$log->toArray()]);
+
+    }
+
+    function searchQueryUpdate($id, Request $request ){
+       // $fields = $request->only(['per_page','sortby','display_map','lat','lng','zoom','page']);
+        $query = $request->only('query');
+        $log = SearchLog::find($id);
+
         if ($log->type=='accounts'){
-            $count = User::getTotal($filters);
+            $count = User::getTotal($query);
         }else{
             $sql =Adv::orderBy('title','ASC');
             $count = $sql->count();
         }
        // $config = $log->config;
        // $config['page']=1;
-
-        $log->update(['query'=>$filters,'number_of_results'=>$count]);
+        //$data['number_of_results'] = $count;
+        $log->update(['query'=>$query,'number_of_results'=>$count]);
         return response()->json(['search'=>$log->toArray()]);
 
     }

@@ -23,7 +23,7 @@ class FaqController extends Controller
             return response()->json(['success'=>false],403);
         }
         try{
-            $data = $request->only(['title','type','desc']);
+            $data = $request->only(['title','type','desc','announcement_type']);
             $faq = Faq::createElement($data);
         }catch ( \Exception $e ){
             return response()->json(['success'=>false, 'error'=>$e->getMessage()],500);
@@ -39,7 +39,7 @@ class FaqController extends Controller
             return response()->json(['success'=>false],403);
         }
         try{
-            $data = $request->only(['title','type','desc']);
+            $data = $request->only(['title','type','desc','announcement_type']);
             $faq = Faq::find($id);
             if ( is_null($faq)){
                 return response()->json(['success'=>false],404);
@@ -73,6 +73,16 @@ class FaqController extends Controller
 
     function getAll(){
         $faqs = Faq::getAll();
+        return response()->json($faqs);
+    }
+
+    function getPrivateAnnouncements(){
+        $faqs = Faq::getPrivateAnnouncements();
+        return response()->json($faqs);
+    }
+
+    function getBusinessAnnouncements(){
+        $faqs = Faq::getBusinessAnnouncements();
         return response()->json($faqs);
     }
 

@@ -1,9 +1,9 @@
 (function () {
     'use strict';
-    angular.module('privateApp').controller('dashboardController', ['$scope', 'userFactory', 'newsFactory', '$q', '$window', '$filter',dashboardController]);
+    angular.module('privateApp').controller('dashboardController', ['$scope', 'userFactory', 'faqFactory', '$q', '$window', '$filter',dashboardController]);
 
 
-    function dashboardController($scope, userFactory, newsFactory, $q, $window, $filter) {
+    function dashboardController($scope, userFactory, faqFactory, $q, $window, $filter) {
         $scope.promises = null;
         $scope.env = {
             loading: true,
@@ -31,22 +31,22 @@
         function initPage(deferred) {
             $window.document.title = $filter('translate')('Dashboard');
 
-            var newsPromise = null;
+            var announcementsPromise = null;
             if ($scope.user.isPrivateAccount()) {
-                newsPromise = newsFactory.getLastPrivateNews();
+                announcementsPromise = faqFactory.getPrivateAnnouncements();
             } else {
-                newsPromise = newsFactory.getLastBusinessNews();
+                announcementsPromise = faqFactory.getBusinessAnnouncements();
             }
 
-            newsPromise.then(function (news) {
-                $scope.env.news = news;
+            announcementsPromise.then(function (news) {
+                $scope.env.announcements = news;
             });
 
             var statPromise = $scope.user.getAdvStat().then(function (result) {
                 $scope.env.stat = result;
             });
 
-            $q.all([statPromise, newsPromise]).then(function () {
+            $q.all([statPromise, announcementsPromise]).then(function () {
                 $scope.env.loading = false;
             });
             return deferred.promise;

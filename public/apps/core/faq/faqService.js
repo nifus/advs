@@ -40,6 +40,25 @@
                 return defer.promise;
             };
 
+            Object.updateAnnouncement = function (title, desc, announcement_type) {
+                var defer = $q.defer();
+                $http.post('/api/faqs/' + Object.id, {
+                    type: 'announcement',
+                    title: title,
+                    desc: desc,
+                    announcement_type: announcement_type,
+
+                }).then(
+                    function (response) {
+                        defer.resolve();
+                    }, function (response) {
+                        var error = response.data.error ? response.data.error : response.statusText;
+                        defer.reject({error: error})
+                    }
+                );
+                return defer.promise;
+            };
+
             return Object;
         };
 

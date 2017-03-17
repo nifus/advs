@@ -1,5 +1,83 @@
 <div ng-if="!env.loading" id="help-desk">
-    <div class="col-md-6">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading" translate>Announcements</div>
+            <div class="panel-body">
+                <div>
+                    <button type="button" class="btn btn-default" ng-click="addAnnouncement()" translate>Add
+                        announcement
+                    </button>
+                </div>
+                <div style="margin-top:20px" ng-if="env.display_announcement_form">
+                    <hr>
+                    <form name="instruction_form">
+                        <div class="form-group">
+                            <input type="text" required ng-model="model_announcement.title" class="form-control"
+                                   placeholder="{{'Title'|translate}}">
+                        </div>
+
+                        <div class="form-group">
+                            <textarea ng-model="model_announcement.desc" maxlength="5000" placeholder="{{'Text'|translate}}"
+                                      class="form-control" required></textarea>
+                            <div class="counter">
+                                <text-counter text="model_instruction.desc" reverse="true" max-length="5000"></text-counter>
+                                {{' characters left'|translate}}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio"   ng-model="model_announcement.announcement_type" value="private">
+                                    {{'Announcement for all private accounts'|translate}}
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio"  ng-model="model_announcement.announcement_type" value="business">
+                                    {{'Announcement for all business accounts'|translate}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+
+                            <button type="button" class="btn btn-primary" ng-disabled="announcement_form.$invalid"
+                                    ng-click="saveAnnouncement(model_announcement)" translate>
+                                <span class=" glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-danger" ng-click="cancelAnnouncement()" translate>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                Cancel
+                            </button>
+
+                        </div>
+                    </form>
+                    <hr>
+                </div>
+
+                <div>
+                    <div ng-repeat="announcement in announcements" class="checkbox">
+
+                        <label>
+                            <input type="checkbox" checklist-model="selected.announcements" checklist-value="announcement"> <a ng-click="editAnnouncement(announcement)">[{{announcement.announcement_type}}] {{announcement.title}}</a>
+
+                        </label>
+                    </div>
+                </div>
+
+
+                <div ng-if="selected.announcements.length>0">
+                    <button type="button" class="btn btn-danger" ng-click="deleteSelectedAnnouncements()" translate>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        Delete selected
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading" translate>Instructions</div>
             <div class="panel-body">
@@ -62,7 +140,7 @@
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading" translate>FAQ‘s</div>
             <div class="panel-body">

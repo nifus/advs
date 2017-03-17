@@ -50,11 +50,8 @@
 
 
                     <li class="dropdown" ng-if="user.hasPermission('portal')">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Portal <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="announcement" translate>Announcement</a></li>
-                            <li><a ui-sref="help-desk" translate>HelpDesk</a></li>
-                        </ul>
+                        <a ui-sref="help-desk" translate>HelpDesk </a>
+
                     </li>
                     <li class="dropdown" ng-if="user.hasPermission('advert')">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Advert <span class="caret"></span></a>

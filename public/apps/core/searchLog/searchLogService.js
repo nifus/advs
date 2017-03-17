@@ -8,10 +8,25 @@
             var Object = data;
             Object.waiting = false;
 
-            Object.update = function (data) {
+            Object.updateQuery = function (data) {
                 var deferred = $q.defer();
                 Object.waiting = true;
-                $http.post('/api/search/' + Object.id + '/update', data).then(function (response) {
+                $http.post('/api/search/' + Object.id + '/query-update', data).then(function (response) {
+                    Object.waiting = false;
+                    for (var i in response.data.search) {
+                        Object[i] = response.data.search[i]
+                    }
+                    deferred.resolve();
+                }, function (error) {
+                    deferred.reject(error.data);
+                });
+                return deferred.promise;
+            };
+
+            Object.updateConfig = function (data) {
+                var deferred = $q.defer();
+                Object.waiting = true;
+                $http.post('/api/search/' + Object.id + '/config-update', {config:data}).then(function (response) {
                     Object.waiting = false;
                     for (var i in response.data.search) {
                         Object[i] = response.data.search[i]

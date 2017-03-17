@@ -9,15 +9,19 @@
         $scope.env  = {
             display_instruction_form: false,
             display_faq_form: false,
+            display_announcement_form: false,
             loading: true
         };
         $scope.instructions = [];
         $scope.faqs = [];
+        $scope.announcements = [];
         $scope.model_instruction = {};
         $scope.model_faq = {};
+        $scope.model_announcement = {};
         $scope.selected = {
             instructions:[],
-            faqs:[]
+            faqs:[],
+            announcement:[]
         };
 
         function initPage(deferred) {
@@ -30,8 +34,10 @@
                 angular.forEach(response, function (element) {
                     if (element.type==='faq'){
                         $scope.faqs.push(element)
-                    }else{
+                    }else if(element.type==='instruction'){
                         $scope.instructions.push(element)
+                    }else if(element.type==='announcement'){
+                        $scope.announcements.push(element)
                     }
                 });
             });
@@ -45,11 +51,55 @@
         $scope.$parent.init.push(initPage);
 
 
-        $scope.saveAnnouncement = function (type) {
-            configFactory.saveAnnouncement(type, $scope.model[type]).then(function (response) {
-                alertify.success($filter('translate')('Instruction updated'));
-            })
+        $scope.addAnnouncement = function () {
+            $scope.env.display_announcement_form = true;
         };
+        $scope.editAnnouncement = function (announcement) {
+            $scope.model_announcement = announcement;
+            $scope.env.display_announcement_form = true;
+        };
+        $scope.cancelAnnouncement = function () {
+            $scope.env.display_announcement_form = false;
+            $scope.model_announcement = {}
+        };
+        $scope.saveAnnouncement = function (model) {
+            if (model.id ){
+                model.updateAnnouncement(model.title, model.desc, model.announcement_type).then(function () {
+                    alertify.success($filter('translate')('Announcement updated'));
+                    $scope.env.display_announcement_form = false;
+                    $scope.model_announcement = {};
+                },function (response) {
+                    alertify.error(response.error);
+                });
+            }else{
+                faqFactory.storeAnnouncement(model).then(function (response) {
+                    $scope.announcements.push(response);
+                    alertify.success($filter('translate')('Announcement saved'));
+                    $scope.env.display_announcement_form = false;
+                    $scope.model_announcement = {};
+                },function (response) {
+                    alertify.error(response.error);
+                });
+            }
+
+
+        };
+
+        $scope.deleteSelectedAnnouncement = function () {
+            for( var i in $scope.selected.announcements){
+                $scope.selected.announcements[i].delete();
+                for( var j in $scope.announcements ){
+                    if ($scope.announcements[j].id==$scope.selected.announcements[i].id ){
+                        $scope.announcements.splice(j,1);
+                    }
+                }
+            }
+            $scope.selected.announcements = [];
+            alertify.success($filter('translate')('Announcements deleted'));
+
+        };
+
+
 
 
         $scope.addInstruction = function () {

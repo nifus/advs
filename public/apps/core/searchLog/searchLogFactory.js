@@ -11,7 +11,7 @@
         return {
             getById: getById,
             storeAccounts: storeAccounts,
-            storeUsers: storeUsers,
+            storeAdvs: storeAdvs,
         };
 
         function getById(id) {
@@ -33,9 +33,9 @@
             });
             return deferred.promise;
         }
-        function storeUsers(query) {
+        function storeAdvs(query) {
             var deferred = $q.defer();
-            $http.post('/api/search/users',{query:query}).then(function (response) {
+            $http.post('/api/search/advs',{query:query}).then(function (response) {
                 deferred.resolve( new searchLogService(response.data) );
             }, function (error) {
                 deferred.reject({success: false, error: error.data});

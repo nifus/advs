@@ -47,9 +47,6 @@
     <script src="/apps/core/user/userFactory.js"></script>
     <script src="/apps/core/user/userService.js"></script>
 
-    <script src="/apps/core/news/newsFactory.js"></script>
-    <script src="/apps/core/news/newsService.js"></script>
-
 
     <script src="/apps/core/adv/advFactory.js"></script>
     <script src="/apps/core/adv/advService.js"></script>

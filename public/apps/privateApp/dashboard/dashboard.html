@@ -127,13 +127,13 @@
                             </div>
                             <div class="panel-body" id="news">
 
-                                <div class="post" ng-repeat="post in env.news">
+                                <div class="post" ng-repeat="post in env.announcements">
                                     <p class="date">{{post.ReadableDate}}</p>
                                     <p class="header" ng-show="post.title">{{post.title}}</p>
                                     <p class="desc">{{post.desc}}</p>
                                 </div>
 
-                                <div ng-show="env.news.length==0" translate>Sorry, not yet</div>
+                                <div ng-show="env.announcements.length==0" translate>Sorry, not yet</div>
                             </div>
                         </div>
 

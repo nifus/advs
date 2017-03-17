@@ -17,7 +17,8 @@ class CreateFaq extends Migration
            $table->increments('id');
            $table->string('title');
            $table->longText('desc');
-           $table->enum('type',['faq','instruction'])->default('faq');
+           $table->enum('type',['faq','instruction','announcement'])->default('faq');
+           $table->enum('announcement_type',['private','business'])->default(null)->nullable();
            $table->smallInteger('sort')->default(0);
            $table->timestamps();
        });

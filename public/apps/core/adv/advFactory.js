@@ -61,9 +61,10 @@
         function getResult(id, data) {
             var deferred = $q.defer();
             $http.post('/api/search/' + id, data).then(function (response) {
+
                 var advs = [];
-                for (var i in response.data.advs) {
-                    advs.push(new advService(response.data.advs[i]))
+                for (var i in response.data.rows) {
+                    advs.push(new advService(response.data.rows[i]))
                 }
                 deferred.resolve({advs: advs, search: response.data.search, city: response.data.city});
             }, function (error) {
