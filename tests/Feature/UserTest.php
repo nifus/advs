@@ -7,32 +7,67 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\User;
+
 class UserTest extends TestCase
 {
     use DatabaseTransactions;
+
     public function testRegister()
     {
 
-        $response = $this->json('post', '/api/user/private-account',[
+        $response = $this->json('post', '/api/user/private-account', [
             "commercial_country" => "germany",
             "email" => "nifus@nifus.ru",
             "password" => "testpass",
-              "sex" => "male",
-              "name" => "nifus",
-              "surname" => "nifus",
-              "re_email" => "nifus@nifus.ru",
-              "re_password" => "testpass",
-              "agb" => true,
-                "test"=>1
-            ]);
-        $response->assertStatus(200) ->assertJson(['user' => ['email' => 'nifus@nifus.ru']]);
+            "sex" => "male",
+            "name" => "nifus",
+            "surname" => "nifus",
+            "re_email" => "nifus@nifus.ru",
+            "re_password" => "testpass",
+            "agb" => true,
+            "test" => 1
+        ]);
+        $response->assertStatus(200)->assertJson(['user' => ['email' => 'nifus@nifus.ru']]);
         $id = $response->original['user']['id'];
         $user = User::find($id);
 
-        $response = $this->json('get', '/register/activate/'.$user->id.'/'.$user->activate_key);
+        $response = $this->json('get', '/register/activate/' . $user->id . '/' . $user->activate_key);
         $response->assertStatus(200);
 
 
+        $response = $this->json('post', '/api/user/business-account', [
+            "test" => 1,
+            "address_additional" => "lenina street",
+            "address_city" => "Можга",
+            "address_number" => "37",
+            "address_street" => "ул. Чапаева",
+            "address_zip" => "427794",
+            "agb" => true,
+            "commercial_country" => "germany",
+            "commercial_id" => "2131231",
+            "commercial_additional" => null,
+            "company" => "Print",
+            "contact_email" => null,
+            "email" => "aa@gmail.com",
+            "giro_account" => null,
+            "name" => "Alexander",
+            "password" => "testpass",
+            "payment_type" => "prepayment",
+            "paypal_email" => null,
+            "phone" => null,
+            "re_email" => "aa@gmail.com",
+            "re_password" => "testpass",
+            "sex" => "male",
+            "surname" => "pushkin",
+            "tariff" => null,
+            "website" => null,
+        ]);
+        $response->assertStatus(200)->assertJson(['user' => ['email' => 'aa@gmail.com']]);
+        $id = $response->original['user']['id'];
+        $user = User::find($id);
+
+        $response = $this->json('get', '/register/confirm/' . $user->id . '/' . $user->activate_key);
+        $response->assertStatus(200);
 
     }
 
@@ -45,7 +80,7 @@ class UserTest extends TestCase
         $response->assertStatus(200);
     }
 
-        /**
+    /**
      * A basic test example.
      *
      * @return void
@@ -151,7 +186,7 @@ class UserTest extends TestCase
     {
         ///{id}
         //
-        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'admin@gmail.com', 'password' => 'testpass','is_admin'=>1]);
+        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'admin@gmail.com', 'password' => 'testpass', 'is_admin' => 1]);
         $response
             ->assertStatus(200)
             ->assertJson(['user' => ['email' => 'admin@gmail.com']]);
@@ -198,21 +233,22 @@ class UserTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testSettings(){
+    public function testSettings()
+    {
         $response = $this->json('POST', '/api/user/authenticate', ['email' => 'a.bunzya@gmail.com', 'password' => 'testpass']);
         $response
             ->assertStatus(200)
             ->assertJson(['user' => ['email' => 'a.bunzya@gmail.com']]);
         $token = $response->original['token'];
 
-        $response = $this->json('PUT', '/api/user/change-password?token=' . $token,[
+        $response = $this->json('PUT', '/api/user/change-password?token=' . $token, [
             "current_password" => "testpass",
-              "password" => "testpass",
-              "re_password" => "testpass",
+            "password" => "testpass",
+            "re_password" => "testpass",
         ]);
         $response->assertStatus(200);
 
-        $response = $this->json('PUT', '/api/user/allow-notifications?token=' . $token,[
+        $response = $this->json('PUT', '/api/user/allow-notifications?token=' . $token, [
             "allow_notifications" => 0
         ]);
         $response->assertStatus(200);

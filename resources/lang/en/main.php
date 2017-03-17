@@ -45,6 +45,12 @@ return [
     'activation_complete_message'=>'Activate account is complete ',
     'activation_complete_message_details'=>'Now you can enjoy all the features of our website',
 
+        // confirm account
+    'account_confirmation' => 'Account confirmation',
+    'confirmation_invalid_message'=>'Invalid account confirmation',
+    'confirmation_complete_message'=>'Confirm account is complete ',
+    'confirmation_complete_message_details'=>'Now you can wait while we will approval your account',
+
 
         //  register page
     'register_header'=> 'Register Private Account',

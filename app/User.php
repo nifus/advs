@@ -438,7 +438,6 @@ class User extends Authenticatable
             're_password' => 'required|min:6|same:password',
             'email' => 'required|min:6',
             're_email' => 'required|min:6|same:email',
-            'captcha' => 'required|captcha',
             'company' => 'required|min:2',
             'commercial_country' => 'required',
             'commercial_id' => 'required',
@@ -446,8 +445,11 @@ class User extends Authenticatable
             'address_number' => 'required',
             'address_street' => 'required',
             'address_zip' => 'required',
-
         ];
+        //  do not check captcha in tests
+        if (!isset($data['test'])){
+            $validator['captcha'] = 'required|captcha';
+        }
         $validator = \Validator::make($data, $validator);
         if ($validator->fails()) {
             $messages = $validator->messages();

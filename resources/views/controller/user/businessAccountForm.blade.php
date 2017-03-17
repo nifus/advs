@@ -191,7 +191,7 @@
                     </div>
 
 
-                    <h4>{{ trans('main.register_company_subsc') }}</h4>
+                    <!--<h4>{{ trans('main.register_company_subsc') }}</h4>
 
                     <div class="form-group" ng-class="{ 'has-error': register.tariff.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_company_select_subsc') }}</label>
@@ -221,7 +221,7 @@
 
                             </table>
                         </div>
-                    </div>
+                    </div>-->
 
 
                     <h4>{{ trans('main.register_company_payment') }}</h4>

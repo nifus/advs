@@ -311,7 +311,7 @@ class UserController extends Controller
     public function createBusinessAccount(Request $request)
     {
         try {
-            $data = $request->only(['address_additional', 'address_city', 'address_number', 'address_street', 'address_zip', 'agb', 'captcha', 'commercial_country', 'commercial_id', 'commercial_additional', 'company', 'contact_email', 'email', 'giro_account', 'name', 'password', 'payment_type', 'paypal_email', 'phone', 're_email', 're_password', 'sex', 'surname', 'tariff', 'website']);
+            $data = $request->only(['address_additional', 'address_city', 'address_number', 'address_street', 'address_zip', 'agb', 'captcha', 'commercial_country', 'commercial_id', 'commercial_additional', 'company', 'contact_email', 'email', 'giro_account', 'name', 'password', 'payment_type', 'paypal_email', 'phone', 're_email', 're_password', 'sex', 'surname', 'tariff', 'website','test']);
             $user = User::createBusinessAccount($data);
 
 
