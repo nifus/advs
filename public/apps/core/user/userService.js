@@ -7,6 +7,7 @@
             var Object = data;
             Object.waiting = false;
 
+
             Object.blocked_message = 'Dear customer,' + "\n\r" +
                 'The verification of your commercial register ID failed - this is violates our policy.' + "\n" +
                 'Because of that we had to block your account.' + "\n\r" +
@@ -83,6 +84,7 @@
                 var defer = $q.defer();
                 $http.post('/api/user/' + Object.id + '/set-active-status').then(function () {
                     Object.status = 'active';
+                    defer.resolve();
                 });
                 return defer.promise;
             };

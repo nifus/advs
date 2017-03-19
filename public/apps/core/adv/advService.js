@@ -47,7 +47,7 @@
                     expireDate.setDate(expireDate.getDate() + 199);
                     $cookies.putObject('fav-advs',advs,{expires:expireDate});
                 }else{
-                    $http.post('/api/advs/'+Object.id+'/fav',{'action':'add'} );
+                    $http.post('/api/adv/'+Object.id+'/fav',{'action':'add'} );
                 }
                 Object.IsFav = true;
 
@@ -64,7 +64,7 @@
                         $cookies.putObject('fav-advs',advs,{expires:expireDate});
                     }
                 }else{
-                    $http.post('/api/advs/'+Object.id+'/fav',{'action':'delete'} );
+                    $http.post('/api/adv/'+Object.id+'/fav',{'action':'delete'} );
                 }
                 Object.IsFav = false;
             }

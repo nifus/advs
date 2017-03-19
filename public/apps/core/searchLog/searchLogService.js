@@ -11,7 +11,7 @@
             Object.updateQuery = function (data) {
                 var deferred = $q.defer();
                 Object.waiting = true;
-                $http.post('/api/search/' + Object.id + '/query-update', data).then(function (response) {
+                $http.post('/api/search/' + Object.id + '/query-update', {query:data}).then(function (response) {
                     Object.waiting = false;
                     for (var i in response.data.search) {
                         Object[i] = response.data.search[i]
@@ -52,7 +52,26 @@
                     deferred.reject(error.data);
                 });
                 return deferred.promise;
-            }
+            };
+            Object.getAdvertResult = function(data) {
+                var deferred = $q.defer();
+                $http.post('/api/search/' + Object.id, data).then(function (response) {
+
+                    var adverts = [];
+                    for (var i in response.data.rows) {
+                        var adv = new advService(response.data.rows[i]);
+                        if (adv.owner){
+                            adv.owner = new userService(adv.owner);
+                        }
+                        adverts.push(adv)
+                    }
+
+                    deferred.resolve({advs: adverts, search: response.data.search, city: response.data.city});
+                }, function (error) {
+                    deferred.reject({success: false, error: error.data});
+                });
+                return deferred.promise;
+            };
 
 
             return (Object);

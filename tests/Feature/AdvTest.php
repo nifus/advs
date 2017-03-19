@@ -12,6 +12,10 @@ class AdvTest extends TestCase
     use DatabaseTransactions;
 
 
+
+
+
+
     public function testAdminFunctions()
     {
         ///{id}
@@ -174,6 +178,12 @@ class AdvTest extends TestCase
             ->assertJson(['title' => '123123']);
 
         $response = $this->json('get', '/api/adv/'.$adv_id.'/restore?token=' . $token);
+        $response->assertStatus(200);
+
+        $response = $this->json('post', '/api/adv/'.$adv_id.'/fav?token=' . $token,['action'=>'add']);
+        $response->assertStatus(200);
+
+        $response = $this->json('post', '/api/adv/'.$adv_id.'/fav?token=' . $token,['action'=>'delete']);
         $response->assertStatus(200);
     }
 

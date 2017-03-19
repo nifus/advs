@@ -51,6 +51,8 @@
                     $scope.env.per_page = search.config.per_page;
                     $scope.env.page = search.config.page;
                     $scope.env.total = search.number_of_results;
+                },function () {
+                    
                 });
                 promises.push(search_log_promise);
             }
@@ -58,9 +60,7 @@
             $q.all(promises).then(function () {
                 deferred.resolve();
                 $scope.search($scope.filter).then(function () {
-
                     $scope.env.loading = false;
-
                 });
             });
             return deferred.promise;
@@ -105,8 +105,7 @@
             var search_defer = $q.defer();
 
             if ($scope.env.search) {
-
-                $scope.env.search.update($scope.filter ).then(function () {
+                $scope.env.search.updateQuery($scope.filter ).then(function () {
                     $scope.env.search.getAccountResults($scope.env.page, $scope.env.per_page).then(function (users) {
                         $scope.env.users = users;
                         $scope.env.total = $scope.env.search.number_of_results;

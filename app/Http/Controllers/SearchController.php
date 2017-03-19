@@ -50,6 +50,9 @@ class SearchController extends Controller
 
     function searchResult($id){
         $log = SearchLog::find($id);
+        if ( is_null($log) || $log->type!='advs' ){
+            abort(404);
+        }
 
         $search_back = $log->query['type']=='rent' ? route('adv.rent') : route('adv.sale');
         $search_back.='?id='.$id;
@@ -100,11 +103,11 @@ class SearchController extends Controller
 
         //SELECT id, ( 3959 * acos( cos( radians(37) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( lat ) ) ) ) AS distance FROM markers HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;
         if ($log->type=='advs'){
-            if ($user->isAdminAccount()){
-                $sql =Adv::with('Owner')->orderBy('title','ASC');
-            }else{
-                $sql =Adv::orderBy('title','ASC');
-            }
+            //if ($user->isAdminAccount()){
+                $sql =Adv::with('Owner')->orderBy('created_at','DESC');
+            //}else{
+           //     $sql =Adv::with('Owner')->orderBy('title','ASC');
+          //  }
             $advs = $sql->get();
             $result = [];
             foreach($advs as $adv){
@@ -130,7 +133,7 @@ class SearchController extends Controller
 
     function searchQueryUpdate($id, Request $request ){
        // $fields = $request->only(['per_page','sortby','display_map','lat','lng','zoom','page']);
-        $query = $request->only('query');
+        $query = $request->get('query');
         $log = SearchLog::find($id);
 
         if ($log->type=='accounts'){

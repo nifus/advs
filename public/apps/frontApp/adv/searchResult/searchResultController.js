@@ -107,7 +107,10 @@
             var pages = Math.round($scope.env.rows.length / $scope.env.per_page);
             $scope.env.pages = pages > 1 ? pages : null;
 
-            $scope.env.current = $scope.env.rows.slice(($scope.env.page - 1) * $scope.env.per_page, (($scope.env.page - 1) * $scope.env.per_page) + $scope.env.per_page);
+            var rows = $scope.env.rows.slice(($scope.env.page - 1) * $scope.env.per_page, (($scope.env.page - 1) * $scope.env.per_page) + $scope.env.per_page);
+                //
+            $scope.env.current =  rows.chunk_inefficient(2);
+
             window.scrollTo(0, 0);
         };
 
@@ -176,14 +179,21 @@
         $scope.backToSearchForm = function () {
             window.location.href='/'+$scope.env.search.query.type+'?id='+$scope.env.search.id;
         };
+
         $scope.newSearch = function () {
             $scope.env.submit = true;
-            $http.post('/api/search', {query:$scope.env.search.query}).then(function(response){
-                $scope.env.submit = false;
-                if ( response.data.success==true){
+            $scope.env.loading = true;
+            $scope.env.search.updateQuery($scope.env.search.query).then(function (response) {
+                $scope.env.search.getAdvertResult({}).then(function (response) {
+                    $scope.env.submit = false;
+                    $scope.env.loading = false;
+                    $scope.env.rows = response.advs;
+                    console.log(response.advs)
+                });
+                /*if ( response.data.success==true){
                     window.location.href = '/search/'+response.data.id;
-                }
-            })
+                }*/
+            });
         }
 
         function initGoogleMapsListing() {
@@ -261,27 +271,29 @@
             $scope.env.loading = true;
             $scope.promises = [];
             if ( $scope.env.search==null ) {
-                var searchPromise = searchLogFactory.getById($scope.env.result_id).then(function (response) {
+                var defer = $q.defer();
+                searchLogFactory.getById($scope.env.result_id).then(function (response) {
                     $scope.env.search = response;
                     if (response.config && response.config.zoom){
                         $scope.env.zoom = response.config.zoom;
                         $scope.env.lng = response.config.lng;
                         $scope.env.lat = response.config.lat;
                     }
-
+                    if ( $scope.env.rows==null){
+                       $scope.env.search.getAdvertResult({}).then(function (response) {
+                            $scope.env.rows = response.advs;
+                           console.log(response.advs)
+                           defer.resolve();
+                        });
+                       // $scope.promises.push(advPromise);
+                    }
                 });
-                $scope.promises.push(searchPromise);
+                $scope.promises.push(defer.promise);
             }
 
-            if ( $scope.env.rows==null){
-                var advPromise = advFactory.getResult($scope.env.result_id, {}).then(function (response) {
-                    $scope.env.rows = response.advs;
-                   // $scope.env.city = response.city;
-                });
-                $scope.promises.push(advPromise);
-            }
 
             $q.all($scope.promises).then(function () {
+
                 $scope.env.loading = false;
                 if ($scope.env.search.config && $scope.env.search.config.display_map) {
                     $scope.displayMap($scope.env.search.config.display_map, false);

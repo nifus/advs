@@ -44,7 +44,7 @@
             getById: getById,
             getWatchByCurrentUser: getWatchByCurrentUser,
             getDataSets: getDataSets,
-            getResult: getResult,
+           // getResult: getResult,
             getStatistics: getStatistics,
             restoreAdvert: restoreAdvert,
 
@@ -58,20 +58,7 @@
             return defer.promise;
         }
 
-        function getResult(id, data) {
-            var deferred = $q.defer();
-            $http.post('/api/search/' + id, data).then(function (response) {
 
-                var advs = [];
-                for (var i in response.data.rows) {
-                    advs.push(new advService(response.data.rows[i]))
-                }
-                deferred.resolve({advs: advs, search: response.data.search, city: response.data.city});
-            }, function (error) {
-                deferred.reject({success: false, error: error.data});
-            });
-            return deferred.promise;
-        }
 
 
         function getDataSets() {

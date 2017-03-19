@@ -417,3 +417,33 @@ div.panel-body div.row {
 .has-error-tariff{
     color:#a94442
 }
+
+
+table.preview td.header div.title{
+    float: left;width:80%;overflow: hidden;font-weight: bold;margin: 0px
+}
+
+table.preview td.header div.fav{
+    float: right;width: 50px;margin: 0px
+}
+
+table.preview td.image{
+    width: 200px
+}
+table.preview td.image img{
+    width:200px
+}
+
+table.preview td.element{
+    width:50%
+}
+
+table.preview td.value{
+    text-align: right
+}
+table.preview td.private_account{
+    text-align: center;background-color: #FFF2CC;font-weight: bold
+}
+table.preview td.business_account{
+    text-align: center;background-color: #FBE5D6;font-weight: bold
+}
