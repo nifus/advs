@@ -181,8 +181,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group"
-                                 n>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label" translate>Address</label>
                                 <div class="col-sm-10">
 
@@ -195,19 +194,19 @@
 
                             <div class="form-group"
                                  ng-show="contact_form.address_zip"
-                                 ng-class="{ 'has-error': (contact.zip.$invalid || contact.city.$invalid || contact.no.$invalid || contact.street.$invalid) && contact_form.submit==true }">
+                                 >
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10 form-inline">
 
                                     <input type="text" class="form-control" ng-model="contact_form.address_zip" name="zip"
 
-                                           placeholder="{{'Zip'|translate}}" required style="width:80px">
+                                           placeholder="{{'Zip'|translate}}"  style="width:80px">
                                     <input type="text" class="form-control" ng-model="contact_form.address_city" name="city"
-                                           placeholder="{{'City'|translate}}" required style="width:120px" >
+                                           placeholder="{{'City'|translate}}"  style="width:120px" >
                                     <input type="text" class="form-control" ng-model="contact_form.address_street" name="street"
-                                           placeholder="{{'Street'|translate}}" required style="width:120px" >
+                                           placeholder="{{'Street'|translate}}"  style="width:120px" >
                                     <input type="text" class="form-control" ng-model="contact_form.address_number" name="no"
-                                           placeholder="{{'Haus No.'|translate}}" required style="width:80px">
+                                           placeholder="{{'Haus No.'|translate}}"  style="width:80px">
 
 
                                 </div>

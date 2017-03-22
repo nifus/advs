@@ -177,7 +177,12 @@
             }
         };
         $scope.backToSearchForm = function () {
-            window.location.href='/'+$scope.env.search.query.type+'?id='+$scope.env.search.id;
+            if ($scope.env.search.query.type=='sale'){
+                window.location.href='/buy?id='+$scope.env.search.id;
+            }else{
+                window.location.href='/'+$scope.env.search.query.type+'?id='+$scope.env.search.id;
+            }
+
         };
 
         $scope.newSearch = function () {

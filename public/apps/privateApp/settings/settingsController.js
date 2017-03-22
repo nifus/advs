@@ -86,7 +86,9 @@
         $scope.changeContactData = function(data){
             data.submit = true;
             data.error = undefined;
+
             if (!$scope.contact.$invalid) {
+
                 $scope.user.changeContactData(data).success(function () {
 
                     //$scope.user.email = data.email;

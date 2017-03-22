@@ -1,6 +1,6 @@
 <div class="row" ng-init="initGoogleMap(model.lat, model.lng, true)">
     <h4 translate>Location</h4>
-    <div class="col-md-6">
+    <div class="col-md-5">
 
         <div class="form-group" ng-class="{ 'has-error': adv_form.address.$invalid && env.submit==true }">
             <label class="col-sm-2 control-label" translate>Address</label>
@@ -30,7 +30,7 @@
             <label class="col-sm-2 control-label" translate>Zip, City</label>
             <div class="col-sm-10 form-inline">
                 <input type="text" ng-model="model.address.zip" class="form-control" placeholder="{{'Zip'|translate}}"
-                       name="zip" required >
+                       name="zip" required>
                 <input type="text" ng-model="model.address.city" style="width:70%" class="form-control" name="city"
                        required
                        placeholder="{{'City'|translate}}">
@@ -49,153 +49,179 @@
         </div>
 
 
-
-
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div id="map" style="height: 400px;width: 100%;"></div>
     </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the corresponding template
+        </div>
+    </div>
 </div>
-
-
 
 
 <div class="row">
     <h4 translate>Basic Information</h4>
 
+    <div class="col-md-10">
+        <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid  && env.submit==true }">
+            <label class="col-sm-2 control-label" translate>Plot area</label>
+            <div class="col-sm-10 input-group">
+                <input type="number" required min="1" name="area" class="form-control"
+                       ng-model="model.area">
+                <span class="input-group-addon">m<sup>2</sup></span>
 
-    <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid  && env.submit==true }">
-        <label class="col-sm-2 control-label" translate>Plot area</label>
-        <div class="col-sm-10 input-group">
-            <input type="number" required min="1" name="area" class="form-control"
-                   ng-model="model.area">
-            <span class="input-group-addon">m<sup>2</sup></span>
+            </div>
+        </div>
 
+
+        <div class="form-group form-inline">
+            <label class="col-sm-2 control-label" translate>Development</label>
+            <div class="col-sm-10 input-group">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.development" value="Developed"> {{'Developed'|translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.development" value="Developed in part"> {{'Developed in
+                    part'|translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.development" value="Undeveloped"> {{'Undeveloped'|translate}}
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" translate>Buildable after</label>
+            <div class="col-sm-10 input-group">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.props.buildable_after" value="Outdoor area"> {{'Outdoor
+                    area'|translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.props.buildable_after" value="Land-use plan"> {{'Land-use
+                    plan'|translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.props.buildable_after" value="As neighboring buildings"> {{'As
+                    neighboring buildings'|translate}}
+                </label>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" translate>Building permission required</label>
+            <div class="col-sm-10 input-group">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.building_permission" value="Yes"> {{'Yes'|translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.building_permission" value="No"> {{'No'|translate}}
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" translate>Recommended usage</label>
+            <div class="col-sm-10 input-group">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.props.recommended_usage" value="Buildings">
+                    {{'Buildings'|translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.props.recommended_usage" value="Parking">
+                    {{'Parking'|translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.props.recommended_usage" value="Garden / Farming"> {{'Garden /
+                    Farming'|translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.props.recommended_usage" value="Any"> {{'Any'|translate}}
+                </label>
+            </div>
         </div>
     </div>
-
-
-    <div class="form-group form-inline">
-        <label class="col-sm-2 control-label" translate>Development</label>
-        <div class="col-sm-10 input-group">
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.development" value="Developed" > {{'Developed'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.development" value="Developed in part"> {{'Developed in part'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.development" value="Undeveloped"> {{'Undeveloped'|translate}}
-            </label>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the corresponding template
         </div>
     </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Buildable after</label>
-        <div class="col-sm-10 input-group">
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.props.buildable_after" value="Outdoor area"> {{'Outdoor area'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.props.buildable_after" value="Land-use plan"> {{'Land-use plan'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.props.buildable_after" value="As neighboring buildings"> {{'As neighboring buildings'|translate}}
-            </label>
-
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Building permission required</label>
-        <div class="col-sm-10 input-group">
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.building_permission" value="Yes"> {{'Yes'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.building_permission" value="No"> {{'No'|translate}}
-            </label>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Recommended usage</label>
-        <div class="col-sm-10 input-group">
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.props.recommended_usage" value="Buildings"> {{'Buildings'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.props.recommended_usage" value="Parking"> {{'Parking'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.props.recommended_usage" value="Garden / Farming"> {{'Garden / Farming'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.props.recommended_usage" value="Any"> {{'Any'|translate}}
-            </label>
-        </div>
-    </div>
-
 
 
 </div>
 
 <div class="row">
     <h4 translate>Finance</h4>
+    <div class="col-md-10">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" translate>Commercial type</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.finance.commercial_type" value="Rent"> {{'Rent'|translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.finance.commercial_type" value="Lease"> {{'Lease'|translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="model.finance.commercial_type" value="Emphyteusis">
+                    {{'Emphyteusis'|translate}}
+                </label>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Commercial type</label>
-        <div class="col-sm-10">
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.finance.commercial_type" value="Rent"> {{'Rent'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.finance.commercial_type" value="Lease"> {{'Lease'|translate}}
-            </label>
-            <label class="radio-inline">
-                <input type="radio" ng-model="model.finance.commercial_type" value="Emphyteusis"> {{'Emphyteusis'|translate}}
-            </label>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" translate>Price per year(in &euro;)</label>
+            <div class="col-sm-10">
+                <input type="number" min="0" class="form-control" placeholder="&euro;"
+                       ng-model="model.finance.price_per_year">
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate>Price per year(in &euro;)</label>
-        <div class="col-sm-10">
-            <input type="number" min="0" class="form-control" placeholder="&euro;" ng-model="model.finance.price_per_year">
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the corresponding template
         </div>
     </div>
-
 
 </div>
 
 
 <div class="row">
     <h4 translate>Advertisement pictures</h4>
+    <div class="col-md-10">
+        <div class="form-group">
+            <div class="col-md-12">
+                <upload ng-model="model.photos" number-of-files="12" style="text-align: center;">
+                    <div style="text-align: center" ng-show="model.photos.length<12">
+                        <div style="width: 100px;margin-left:auto;margin-right:auto">
+                            <img src="/images/upload.png" alt="" style=" width:100px" class="link">
+                            <span translate>Click to upload</span>
+                        </div>
 
-    <div class="form-group">
-        <div class="col-md-12">
-            <upload ng-model="model.photos" number-of-files="12" style="text-align: center;">
-                <div style="text-align: center" ng-show="model.photos.length<12">
-                    <div style="width: 100px;margin-left:auto;margin-right:auto">
-                        <img src="/images/upload.png" alt="" style=" width:100px" class="link">
-                        <span translate>Click to upload</span>
                     </div>
-
-                </div>
-            </upload>
+                </upload>
+            </div>
         </div>
-
-
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the corresponding template
+        </div>
     </div>
 </div>
 
 
 <div class="row form-horizontal">
     <h4 translate>Advertisement description</h4>
+    <div class="col-md-10">
     <div class="form-group" ng-class="{ 'has-error': adv_form.title.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Title of your advertisement</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" ng-model="model.title" name="title" required max="80" maxlength="80">
+            <input type="text" class="form-control" ng-model="model.title" name="title" required max="80"
+                   maxlength="80">
         </div>
     </div>
 
@@ -205,11 +231,18 @@
             <textarea class="form-control desc" ng-model="model.desc" name="desc" required></textarea>
         </div>
     </div>
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the corresponding template
+        </div>
+    </div>
 </div>
 
 
 <div class="row form-horizontal">
     <h4 translate>Contact details</h4>
+    <div class="col-md-10">
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Title</label>
         <div class="col-sm-10">
@@ -265,5 +298,10 @@
 
         </div>
     </div>
-
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the corresponding template
+        </div>
+    </div>
 </div>

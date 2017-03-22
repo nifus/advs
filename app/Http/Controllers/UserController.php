@@ -174,9 +174,11 @@ class UserController extends Controller
 
     public function changePayment(Request $request)
     {
+        $token = $request->get('token');
+
         $data = $request->only(['payment_type', 'paypal_email', 'giro_account']);
         try {
-            $user = User::getUser();
+            $user = User::getUser($token);
             $old_fields = [
                 'payment_type'=>$user->payment_type,
                 'paypal_email'=>$user->paypal_email,
@@ -194,12 +196,15 @@ class UserController extends Controller
 
     public function changeContactData(Request $request)
     {
+        $token = $request->get('token');
+
         $data = $request->only(['sex', 'name', 'surname', 'address_zip', 'address_city', 'address_street', 'address_number', 'address_additional', 'phone']);
 
         try {
-            $user = User::getUser();
+            $user = User::getUser($token);
             $old_fields = $user->toArray();
             $user->changeContactData($data);
+
             EventsLog::changeContactData($user, $old_fields);
 
             return response()->json(['success' => true]);
@@ -213,10 +218,11 @@ class UserController extends Controller
 
     public function changePassword(Request $request)
     {
+        $token = $request->get('token');
         $data = $request->only(['current_password', 'password', 're_password']);
 
         try {
-            $user = User::getUser();
+            $user = User::getUser($token);
             $user->changePassword($data['current_password'], $data['password'], $data['re_password']);
             dispatch(new PasswordChanged($user,$data['password']));
             EventsLog::changePassword($user);

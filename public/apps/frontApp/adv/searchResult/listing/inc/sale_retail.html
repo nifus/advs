@@ -19,16 +19,13 @@
             </tr>
 
             <tr>
-                <td rowspan="5" class="image" ng-if="row.MainPhoto.preview">
+                <td rowspan="4" class="image" ng-if="row.MainPhoto.preview">
                     <a ng-href="/search/{{env.result_id}}#/view{{row.id}}"> <img ng-src="{{row.MainPhoto.preview}}"></a>
                 </td>
-                <td class="element" translate>Living area</td>
-                <td class="value">{{row.living_area}} m<sup>2</sup></td>
+                <td class="element" translate>Total area</td>
+                <td class="value">{{row.area}} m<sup>2</sup></td>
             </tr>
-            <tr>
-                <td translate class="element">Rooms</td>
-                <td class="value">{{row.rooms}}</td>
-            </tr>
+
             <tr>
                 <td translate class="element">City</td>
                 <td class="value">{{row.address.city}}</td>
@@ -39,8 +36,8 @@
                 </td>
             </tr>
             <tr>
-                <td class="element" translate>Cold rent</td>
-                <td class="value">{{row.cold_rent|currency:'€'}}</td>
+                <td class="element" translate>Sales price</td>
+                <td class="value">{{row.price|currency:'€'}}</td>
             </tr>
         </table>
     </div>

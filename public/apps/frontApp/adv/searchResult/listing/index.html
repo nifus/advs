@@ -8,14 +8,14 @@
     <div>
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li><a ng-href="/{{env.search.query.type}}?id={{env.search.id}}">Search form</a></li>
+            <li><a class="link" ng-click="backToSearchForm()">Search form</a></li>
             <li class="active">{{env.search.number_of_results}} results</li>
         </ol>
     </div>
 
     <div class="row">
         <div class="col-md-2">
-            {{env.search.number_of_results}} advs found
+            {{env.search.number_of_results}} adverts found
             <hr>
 
             <div
@@ -123,15 +123,58 @@
 
             <div class="row" id="listing" ng-if="env.display_map===false">
                 <div
-                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/flat.html'"
-                        ng-if="env.search.query.category==1"></div>
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_flat.html'"
+                        ng-if="env.search.query.type=='rent' && env.search.query.category==1"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_house.html'"
+                        ng-if="env.search.query.type=='rent' && env.search.query.category==2"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_garage.html'"
+                        ng-if="env.search.query.type=='rent' && env.search.query.category==3"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_office.html'"
+                        ng-if="env.search.query.type=='rent' && env.search.query.category==4"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_hotel.html'"
+                        ng-if="env.search.query.type=='rent' && env.search.query.category==6"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_hall.html'"
+                        ng-if="env.search.query.type=='rent' && env.search.query.category==7"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_retail.html'"
+                        ng-if="env.search.query.type=='rent' && env.search.query.category==8"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_commercial.html'"
+                        ng-if="env.search.query.type=='rent' && env.search.query.category==9"></div>
+
 
                 <div
-                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/house.html'"
-                        ng-if="env.search.query.category==2"></div>
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_flat.html'"
+                        ng-if="env.search.query.type=='sale' && env.search.query.category==1"></div>
                 <div
-                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/garage.html'"
-                        ng-if="env.search.query.category==3"></div>
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_house.html'"
+                        ng-if="env.search.query.type=='sale' && env.search.query.category==2"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_garage.html'"
+                        ng-if="env.search.query.type=='sale' && env.search.query.category==3"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_office.html'"
+                        ng-if="env.search.query.type=='sale' && env.search.query.category==4"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_building.html'"
+                        ng-if="env.search.query.type=='sale' && env.search.query.category==5"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_hotel.html'"
+                        ng-if="env.search.query.type=='sale' && env.search.query.category==6"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_hall.html'"
+                        ng-if="env.search.query.type=='sale' && env.search.query.category==7"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_retail.html'"
+                        ng-if="env.search.query.type=='sale' && env.search.query.category==8"></div>
+                <div
+                        ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_commercial.html'"
+                        ng-if="env.search.query.type=='sale' && env.search.query.category==9"></div>
             </div>
 
 

@@ -165,6 +165,43 @@ class UserTest extends TestCase
 
     }
 
+    public function testPrivateSide()
+    {
+
+
+        $response = $this->json('POST', '/api/user/authenticate', ['email' => 'a.bunzya@gmail.com', 'password' => 'testpass']);
+        $response->assertStatus(200)
+            ->assertJson(['user' => ['email' => 'a.bunzya@gmail.com']]);
+        $token = $response->original['token'];
+
+
+
+
+
+        $response = $this->json('PUT', '/api/user/change-payment?token='.$token, ["payment_type" => "paypal",
+  "paypal_email" => "nifus@mail.ru",
+  "giro_account" => null,'token'=>$token]);
+        $response->assertStatus(200)
+            ->assertJson(['success'=>true]);
+
+
+        $response = $this->json('PUT', '/api/user/change-contact-data?token='.$token, ["sex" => "male",
+  "name" => "Alex",
+  "surname" => "Bunzya",
+  "address_zip" => null,
+  "address_city" => null,
+  "address_street" => null,
+  "address_number" => null,
+  "address_additional" => null,
+  "phone" => null]);
+        $response->assertStatus(200)
+            ->assertJson(['success'=>true]);
+
+
+
+
+    }
+
 
     /*public function testUserLogout()
     {

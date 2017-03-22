@@ -79,6 +79,9 @@ class EventsLog extends Model
     static function changeBusinessTariff(User $user, Collection $old){
         self::create(['type'=>'system','action'=>'changeBusinessTariff','user_id'=>$user->id,'additional_fields'=>$old->toArray()]);
     }
+    static function changePayment(User $user, array $old){
+        self::create(['type'=>'system','action'=>'changePayment','user_id'=>$user->id,'additional_fields'=>$old]);
+    }
 
     static function getEventLogByUser(User $user){
         return self::where('user_id', $user->id)->orderBy('id','DESC')->get();

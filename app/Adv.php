@@ -663,4 +663,34 @@ class Adv extends Model
         }
     }
 
+    static function getByPage($page, $limit, $filter)
+    {
+
+        // dd($filter);
+
+        $sql = self::with('Owner')->orderBy('id', 'DESC');
+        if (isset($filter['id'])) {
+            $sql = $sql->where('id', $filter['id']);
+        }
+        if (isset($filter['category'])) {
+            $sql = $sql->where('category', $filter['category']);
+        }
+        if (isset($filter['type'])) {
+            $sql = $sql->where('type', $filter['type']);
+        }
+        if (isset($filter['status'])) {
+            $sql = $sql->where('status', $filter['status']);
+        }
+        $sql = $sql->where('is_deleted', '0');
+
+
+        if ( !is_null($page) && !is_null($limit) ){
+            $offset = ($page - 1) * $limit;
+            $sql = $sql->offset($offset)->limit($limit);
+        }
+        // dd($sql->getQuery()->toSql());
+        return
+            $sql->get();
+    }
+
 }

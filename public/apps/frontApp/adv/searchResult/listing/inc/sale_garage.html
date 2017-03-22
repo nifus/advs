@@ -1,0 +1,42 @@
+<div class="row" style="margin-bottom: 20px" ng-repeat="group in env.current">
+    <div class="col-md-6 adv" ng-repeat="row in group">
+        <table class="table table-bordered preview">
+            <tr class="info">
+                <td colspan="3" class="header">
+                    <div class="title">
+                        <a ng-href="/search/{{env.result_id}}#/view{{row.id}}"  ng-bind-html="row.title|to_trusted"></a>
+                    </div>
+
+                    <div class="fav">
+                        <button
+                                ng-click="addToFav(row, !row.IsFav)"
+                                ng-class="{'btn-default':row.IsFav===false,'btn-danger':row.IsFav===true}"
+                                type="button" class="btn"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span></button>
+
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td rowspan="4" class="image" ng-if="row.MainPhoto.preview">
+                    <a ng-href="/search/{{env.result_id}}#/view{{row.id}}"> <img ng-src="{{row.MainPhoto.preview}}" ></a>
+
+                </td>
+                <td translate class="element">Area ca.</td>
+                <td class="value">{{row.area}} m<sup>2</sup></td>
+            </tr>
+            <tr>
+                <td translate class="element">City</td>
+                <td class="value">{{row.address.city}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="private_account" ng-if="row.owner.isPrivateAccount()" translate>Private</td>
+                <td colspan="2" class="business_account"  ng-if="!row.owner.isPrivateAccount()">{{row.author.company}}</td>
+            </tr>
+            <tr>
+                <td class="element" translate>Sales price</td>
+                <td class="value">{{row.price|currency:'€'}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
