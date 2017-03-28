@@ -44,12 +44,19 @@ class MailTemplate extends Model
     public function getMailTemplate(){
         $path = resource_path('views/emails/'. str_replace('.','/',$this->path).'.blade.php');
         $content = file_get_contents($path);
+        $content = str_replace('{!!$','[[',$content );
+        $content = str_replace('!!}',']]',$content );
+
         $content = str_replace('{{$','[',$content );
         $content = str_replace('}}',']',$content );
+
+
         return $content;
     }
     public function updateMailTemplate($template){
         $path = resource_path('views/emails/'.str_replace('.','/',$this->path).'.blade.php');
+        $template = str_replace('[[','{!!$',$template );
+        $template = str_replace(']]','!!}',$template );
         $template = str_replace('[','{{$',$template );
         $template = str_replace(']','}}',$template );
         file_put_contents($path, $template);

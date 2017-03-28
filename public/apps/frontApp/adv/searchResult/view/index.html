@@ -7,33 +7,31 @@
 <div ng-show="env.loading===false">
 
     <ol class="breadcrumb">
-        <li><a href="/">Home</a></li>
-        <li><a ng-href="/{{env.search.query.type}}?id={{env.search.id}}">Search form</a></li>
-        <li><a ng-click="goBack()" class="link">{{env.search.number_of_results}} results</a></li>
+        <li><a href="/" translate>Home</a></li>
+        <li><a ng-href="/{{env.search.query.type}}?id={{env.search.id}}" translate>Search form</a></li>
+        <li><a ng-click="goBack()" class="link" translate>{{env.search.number_of_results}} results</a></li>
         <li class="active">{{adv.title}}</li>
     </ol>
 
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="col-md-5 navbar-left navbar-form">
-                ID: {{adv.id}}
-            </div>
+            <div class="col-md-5 navbar-left navbar-form" translate>ID: {{adv.id}}</div>
             <div class="col-md-5 navbar-right navbar-form ">
                 <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-warning" ng-click="goBack()">
+                    <button type="button" class="btn btn-warning" ng-click="goBack()" translate>
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         Go to Search Results
                     </button>
 
                     <button class="btn btn-primary" style="float:right;width:180px"
                             ng-if="!adv.isFav(user)"
-                            ng-click="favlist(true)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                            ng-click="favlist(true)" translate><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                         To watchlist
                     </button>
 
                     <button class="btn btn-danger" style="float:right;width:180px"
                             ng-if="adv.isFav(user)"
-                            ng-click="favlist(false)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                            ng-click="favlist(false)" translate><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                         Remove from watchlist
                     </button>
                 </div>

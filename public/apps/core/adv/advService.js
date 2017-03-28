@@ -148,7 +148,7 @@
 
             Object.sendMessage = function (data) {
                 var deferred = $q.defer();
-                $http.post('/api/advs/' + Object.id + '/message', data).then(function (response) {
+                $http.post('/api/adv/' + Object.id + '/message', data).then(function (response) {
                     deferred.resolve(response.data);
                 }, function (error) {
                     deferred.reject(error.data);

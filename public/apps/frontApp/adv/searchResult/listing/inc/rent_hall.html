@@ -4,7 +4,7 @@
             <tr class="info">
                 <td colspan="3" class="header">
                     <div class="title">
-                        <a ng-href="/search/{{env.result_id}}#/view{{row.id}}" ng-bind-html="row.title|to_trusted"></a>
+                        <a ng-href="/search/{{env.result_id}}#/view{{row.id}}">{{row.title}}</a>
                     </div>
 
                     <div class="fav">
@@ -19,8 +19,15 @@
             </tr>
 
             <tr>
-                <td rowspan="5" class="image" ng-if="row.MainPhoto.preview">
-                    <a ng-href="/search/{{env.result_id}}#/view{{row.id}}"> <img ng-src="{{row.MainPhoto.preview}}"></a>
+                <td rowspan="5" style="width: 200px;padding:0" ng-if="row.MainPhoto.preview">
+                    <a ng-href="/search/{{env.result_id}}#/view{{row.id}}"><div class="preview">
+                        <div class="preview-item">
+                            <div class="center">
+                                <img ng-src="{{row.MainPhoto.preview}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    </a>
                 </td>
                 <td class="element" translate>Total area</td>
                 <td class="value">{{row.area}} m<sup>2</sup></td>

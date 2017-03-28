@@ -232,27 +232,57 @@ table.adv tr.payment_waiting :last-child{
 }
 #photo-block div.main {
     padding: 0px;
+    background-color:#eeeeee;
+    height:500px;
+    text-align: center;
+    display: table-cell;
+
 }
+#photo-block div.main div.wrapper {
+    padding: 0px;
+    background-color:#eeeeee;
+    height:500px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#photo-block div.main  div.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #photo-block div.main img{
-    width:100%;
+    max-height:500px;
+    max-width: 100%;
+    display:block;
+    height: auto;
     cursor:pointer;
+    visibility: hidden;
+
 }
 #photo-block div.preview{
     padding:0px
 }
 
 #photo-block div.preview img{
-    width:100px;
-    margin-right:5px;
-    margin-bottom:5px;
-    margin-top:5px;
-    border: 1px solid darkgrey;
+    margin-top:0;max-height: 90px;max-width: 90px;margin-left: auto;
+    margin-right: auto;
+}
+
+#photo-block div.preview div.preview-item{
+    width: 100px;height:100px;background-color: #eeeeee;border: 2px solid white;vertical-align:middle;display: table-cell;
     cursor: pointer;
 }
-#photo-block div.preview img.active{
 
-    border: 3px solid red;
+#photo-block div.preview div.active{
+    border: 2px solid red;
 }
+
+#photo-block div.preview div.preview-item div.center{
+    margin:0;text-align: center;
+}
+
 #photo-block div.navigate{
     position: absolute;
     width: 5%;
@@ -446,4 +476,28 @@ table.preview td.private_account{
 }
 table.preview td.business_account{
     text-align: center;background-color: #FBE5D6;font-weight: bold
+}
+
+
+
+table.table div.preview{
+    padding:0;
+    margin:0;
+    width: 200px;height:200px;
+}
+
+table.table div.preview img{
+    margin-top:0;max-height: 180px;max-width: 180px;margin-left: auto;
+    margin-right: auto;
+}
+
+table.table div.preview div.preview-item{
+    width: 200px;height:200px;vertical-align:middle;display: table-cell;
+    cursor: pointer;
+}
+
+
+
+table.table div.preview div.preview-item div.center{
+    margin:0;text-align: center;
 }

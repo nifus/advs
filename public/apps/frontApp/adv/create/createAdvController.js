@@ -14,7 +14,9 @@
             energy_source: advFactory.energy_source,
             heating: advFactory.heating,
             energy_class: advFactory.energy_class,
-            address: {},
+            address: {
+                display_house: true
+            },
             display_addr_details: false,
             display_addr_error: false,
             tmp_address: null,
@@ -34,7 +36,9 @@
             category: null,
             subcategory: 'Any',
             photos: [],
-            address: {},
+            address: {
+                display_house: true
+            },
             energy: {
                 class: 'Any',
                 source: ''
@@ -291,7 +295,9 @@
                 $scope.model.lng = value.details.geometry.location.lng();
                 $scope.initGoogleMap($scope.model.lat, $scope.model.lng);
             } else {
-                $scope.model.address = {};
+                $scope.model.address = {
+                    display_house: true
+                };
                 $scope.model.lat = null;
                 $scope.model.lng = null;
                 $scope.env.display_addr_error = true;

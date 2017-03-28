@@ -26,6 +26,23 @@ class MessageLog extends Model
         $this->attributes['data']=$value;
     }
 
+    public function getMessageWithBrAttribute(){
+        return nl2br($this->data->message);
+    }
+
+    public function getFullNameAttribute(){
+        $result = '';
+        if ($this->data->sex=='sex'){
+            $result.='Mister';
+        }else{
+            $result.='Miss';
+        }
+        if ( isset($this->data->name)){
+            $result.=' '.$this->data->name;
+        }
+        return $result;
+    }
+
 
     static function createMessage($adv_id, $data, $ip){
         return self::create(['data'=>$data,'adv_id'=>$adv_id,'ip'=>$ip,'is_sent'=>'0']);

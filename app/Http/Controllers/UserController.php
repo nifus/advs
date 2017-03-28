@@ -352,6 +352,7 @@ class UserController extends Controller
                 return response()->json(null, 403);
             }
             $data = $request->only(['sex', 'name', 'email', 'password', 'surname', 'initials','permissions']);
+
             $user = User::find($id);
             $user->updateAdministratorAccount($data);
             return response()->json($user->toArray());

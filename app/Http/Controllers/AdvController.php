@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Adv as AdvModel;
+use App\EventsLog;
 use App\User as UserModel;
 use App\Category as CategoryModel;
 
@@ -326,6 +327,7 @@ class AdvController extends Controller
             $data = $request->only(['message','email','phone','name','sex']);
             $id = $request->ip();
             $adv->sendMessage($data,$id);
+            //EventsLog::createAccount($adv);
 
             return response()->json(['success'=>true]);
         }catch( \Exception $e ){

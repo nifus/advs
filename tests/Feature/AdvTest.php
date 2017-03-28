@@ -185,6 +185,18 @@ class AdvTest extends TestCase
 
         $response = $this->json('post', '/api/adv/'.$adv_id.'/fav?token=' . $token,['action'=>'delete']);
         $response->assertStatus(200);
+
+
+        $response = $this->json('post', '/api/adv/'.$adv_id.'/message?token=' . $token,
+            [
+                "message" => "sadas",
+                  "email" => "a.bunzya@gmail.com",
+                  "phone" => "+79218466469",
+                  "name" => "Alexander",
+                  "sex" => "male",
+            ]
+        );
+        $response->assertStatus(200);
     }
 
 

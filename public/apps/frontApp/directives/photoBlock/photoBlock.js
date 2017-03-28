@@ -61,7 +61,11 @@
                 $(p_images[number]).addClass('active');
 
                 var src = $(p_images[number]).attr('src').replace('/preview/', '/full/');
-                m_images.attr('src', src)
+                m_images.attr('src', src);
+                console.log(2)
+                m_images.on('load', function () {
+                    console.log(1)
+                })
                 if (number == 0) {
                     back_navigate.addClass('hide');
                 } else {

@@ -28,47 +28,41 @@
             <h4 translate>Your advert</h4>
 
 
-                    <table style="width:100%;border:2px solid black" class="table">
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentFlat.html'"
+                 ng-if="env.advert.category==1 && env.advert.type=='rent'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentHouse.html'"
+                 ng-if="env.advert.category==2 && env.advert.type=='rent'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentGarage.html'"
+                 ng-if="env.advert.category==3 && env.advert.type=='rent'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentOffice.html'"
+                 ng-if="env.advert.category==4 && env.advert.type=='rent'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentHotel.html'"
+                 ng-if="env.advert.category==6 && env.advert.type=='rent'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentHall.html'"
+                 ng-if="env.advert.category==7 && env.advert.type=='rent'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentRetail.html'"
+                 ng-if="env.advert.category==8 && env.advert.type=='rent'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentCommercialLand.html'"
+                 ng-if="env.advert.category==9 && env.advert.type=='rent'"></div>
 
-                        <tr>
-                            <td rowspan="4" style="width: 200px;" ng-if="env.advert.MainPhoto"><img
-                                    ng-src="{{env.advert.MainPhoto.preview}}" style="width:200px" alt=""></td>
-                            <td translate colspan="3" style="background-color: #DEECF8"><strong>{{env.advert.title}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td translate style="text-align: right;width: 30%">Living space</td>
-                            <td translate style="text-align: right;width: 30%">Rooms</td>
-                            <td translate style="text-align: right;width: 30%">Cold rent</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: right;font-weight: bold">{{env.advert.living_area}}</td>
-                            <td style="text-align: right;font-weight: bold">{{env.advert.rooms}}</td>
-                            <td style="text-align: right;font-weight: bold">{{env.advert.cold_rent}}</td>
-                        </tr>
-                        <tr style="border-top:solid 3px #00b3ee">
-                            <td colspan="3" style="text-align: center">
-                                <button translate class="btn-danger btn" ng-click="deleteAdvert()">Delete</button>
-                                <button translate class="btn-primary btn" ng-click="previewAdv()">Preview</button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="2" style="text-align: left" translate>Created on:</td>
-                            <td colspan="{{env.advert.MainPhoto ? 2 : 1}}"  style="text-align: right">{{env.advert.CreateDateWithTime}}</td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="2" style="text-align: left" translate>Current status:</td>
-                            <td colspan="{{env.advert.MainPhoto ? 2 : 1}}" style="text-align: right;color:red" translate><strong>Offline</strong>- not
-                                findable in advert search
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="2" style="text-align: left" translate>General information:</td>
-                            <td colspan="{{env.advert.MainPhoto ? 2 : 1}}" style="text-align: right;color:#EE863F" translate>No payment receipt</td>
-                        </tr>
-                    </table>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleFlat.html'"
+                 ng-if="env.advert.category==1 && env.advert.type=='sale'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleHouse.html'"
+                 ng-if="env.advert.category==2 && env.advert.type=='sale'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleGarage.html'"
+                 ng-if="env.advert.category==3 && env.advert.type=='sale'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleOffice.html'"
+                 ng-if="env.advert.category==4 && env.advert.type=='sale'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleBuilding.html'"
+                 ng-if="env.advert.category==5 && env.advert.type=='sale'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleHotel.html'"
+                 ng-if="env.advert.category==6 && env.advert.type=='sale'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleHall.html'"
+                 ng-if="env.advert.category==7 && env.advert.type=='sale'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleRetail.html'"
+                 ng-if="env.advert.category==8 && env.advert.type=='sale'"></div>
+            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleCommercialLand.html'"
+                 ng-if="env.advert.category==9 && env.advert.type=='sale'"></div>
 
 
             <div ng-class="{ 'has-error-tariff': ( paymentForm.tariff.$invalid && env.submit==true) }">

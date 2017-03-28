@@ -1,6 +1,6 @@
 <div class="row" ng-init="initGoogleMap(model.lat, model.lng, true)">
     <h4 translate>Location</h4>
-    <div class="col-md-6">
+    <div class="col-md-5">
 
         <div class="form-group" ng-class="{ 'has-error': adv_form.address.$invalid && env.submit==true }">
             <label class="col-sm-2 control-label" translate>Address</label>
@@ -42,7 +42,7 @@
             <div class="col-sm-10 ">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" ng-model="model.address.display_house">
+                        <input type="checkbox" ng-model="model.address.display_house" ng-true-value="false" ng-false-value="true">
                     </label>
                 </div>
             </div>
@@ -82,14 +82,21 @@
 
 
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div id="map" style="height: 400px;width: 100%;"></div>
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the
+            corresponding template
+        </div>
     </div>
 </div>
 
 
 <div class="row">
     <h4 translate>Gastronomy/Hotel type</h4>
+    <div class="col-md-10">
     <div class="form-group">
         <label class="col-sm-2 control-label"></label>
         <div class="col-sm-10">
@@ -101,12 +108,19 @@
             </div>
         </div>
     </div>
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the
+            corresponding template
+        </div>
+    </div>
 </div>
 
 
 <div class="row">
     <h4 translate>Basic Information</h4>
-
+    <div class="col-md-10" >
     <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid  && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Total area</label>
         <div class="col-sm-10  input-group">
@@ -182,14 +196,20 @@
 
         </div>
     </div>
-
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the
+            corresponding template
+        </div>
+    </div>
 </div>
 
 <div class="row">
     <h4 translate>Finance</h4>
 
 
-
+    <div class="col-md-10">
     <div class="form-group" ng-class="{ 'has-error': adv_form.price.$invalid  && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Sales price(in &euro;)</label>
         <div class="col-sm-10">
@@ -197,13 +217,19 @@
                    name="price" min="1">
         </div>
     </div>
-
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the
+            corresponding template
+        </div>
+    </div>
 
 </div>
 
 <div class="row">
     <h4 translate>Energy</h4>
-
+    <div class="col-md-10">
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Last modernization of the building (in year)</label>
         <div class="col-sm-10">
@@ -312,12 +338,19 @@
             </select>
         </div>
     </div>
-
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the
+            corresponding template
+        </div>
+    </div>
 
 </div>
 
 <div class="row">
     <h4 translate>Equipment</h4>
+    <div class="col-md-10">
     <div class="form-group">
         <label class="col-sm-2 control-label"></label>
         <div class="col-sm-10">
@@ -329,11 +362,18 @@
             </div>
         </div>
     </div>
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the
+            corresponding template
+        </div>
+    </div>
 </div>
 
 <div class="row">
     <h4 translate>Advertisement pictures</h4>
-
+    <div class="col-md-10">
     <div class="form-group">
         <div class="col-md-12">
             <upload ng-model="model.photos" number-of-files="12" style="text-align: center;">
@@ -346,14 +386,20 @@
                 </div>
             </upload>
         </div>
-
-
+    </div>
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the
+            corresponding template
+        </div>
     </div>
 </div>
 
 
 <div class="row form-horizontal">
     <h4 translate>Advertisement description</h4>
+    <div class="col-md-10">
     <div class="form-group" ng-class="{ 'has-error': adv_form.title.$invalid && env.submit==true }">
         <label class="col-sm-2 control-label" translate>Title of your advertisement</label>
         <div class="col-sm-10">
@@ -368,11 +414,19 @@
             <textarea class="form-control desc" ng-model="model.desc" name="desc" required></textarea>
         </div>
     </div>
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the
+            corresponding template
+        </div>
+    </div>
 </div>
 
 
 <div class="row form-horizontal">
     <h4 translate>Contact details</h4>
+    <div class="col-md-10">
     <div class="form-group">
         <label class="col-sm-2 control-label" translate>Title</label>
         <div class="col-sm-10">
@@ -428,5 +482,11 @@
 
         </div>
     </div>
-
+    </div>
+    <div class="col-md-2">
+        <div class="alert alert-warning" role="alert" translate>
+            Based on your selection you will receive the
+            corresponding template
+        </div>
+    </div>
 </div>

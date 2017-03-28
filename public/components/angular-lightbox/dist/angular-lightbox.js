@@ -16,7 +16,6 @@
                 var images = $('img.lightbox');
                 $interval.cancel( init_loop );
                 init(images);
-                console.log(images.length)
             },2000);
 
             function init(images) {

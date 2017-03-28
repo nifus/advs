@@ -360,6 +360,11 @@ class User extends Authenticatable
         if ($count > 1) {
             throw new \Exception(trans('validation.exist_email'));
         }
+        if ( empty($data['password']) ){
+            unset($data['password']);
+        }
+      
+
 
        // $data['group_id'] = 1;
         //$data['activate_key'] = md5(time() . rand(0, 10000));
@@ -413,7 +418,7 @@ class User extends Authenticatable
             throw new \Exception($messages->first());
         }
 
-        $count = self::where('email', $data['email'])->count();
+        $count = self::where('email', $data['email'])->where('is_deleted',0)->count();
         if ($count > 0) {
             throw new \Exception(trans('validation.exist_email'));
         }
@@ -456,7 +461,7 @@ class User extends Authenticatable
             throw new \Exception($messages->first());
         }
 
-        $count = self::where('email', $data['email'])->count();
+        $count = self::where('email', $data['email'])->where('is_deleted',0)->count();
         if ($count > 0) {
             throw new \Exception(trans('validation.exist_email'));
         }
@@ -486,7 +491,7 @@ class User extends Authenticatable
             throw new \Exception($messages->first());
         }
 
-        $count = self::where('email', $data['email'])->count();
+        $count = self::where('email', $data['email'])->where('is_deleted',0)->count();
         if ($count > 0) {
             throw new \Exception(trans('validation.exist_email'));
         }
@@ -500,25 +505,25 @@ class User extends Authenticatable
 
     static function getAllUsers()
     {
-        return self::where('is_deleted', '0')->get();
+        return self::where('is_deleted', 0)->get();
     }
 
     static function getAllNewBusiness()
     {
         return self::where('group_id', 3)
             ->whereIn('status', ['wait_approve', 'email_confirmation'])
-            ->where('is_deleted', '0')
+            ->where('is_deleted', 0)
             ->orderBy('id','DESC')->get();
     }
 
     static function getAllBlocked()
     {
-        return self::where('status', 'blocked')->where('is_deleted', '0')->get();
+        return self::where('status', 'blocked')->where('is_deleted', 0)->get();
     }
 
     static function getAllAdministration()
     {
-        return self::where('group_id', 1)->where('is_deleted', '0')->get();
+        return self::where('group_id', 1)->where('is_deleted', 0)->get();
     }
 
     static function getUserByEmail($email)
@@ -613,7 +618,7 @@ class User extends Authenticatable
         }
 
         // dd($sql->getQuery()->toSql());
-        $sql = $sql->where('is_deleted', '0')->where('group_id', '>', 1);
+        $sql = $sql->where('is_deleted', 0)->where('group_id', '>', 1);
         return
             $sql->count();
     }
@@ -661,7 +666,7 @@ class User extends Authenticatable
         }
 
 
-        $sql = $sql->where('is_deleted', '0')->offset($offset)
+        $sql = $sql->where('is_deleted', 0)->offset($offset)
             ->limit($limit);
        // dd($sql->getQuery()->toSql());
         return
@@ -670,6 +675,6 @@ class User extends Authenticatable
 
     static function getOnlyGroups()
     {
-        return self::where('is_deleted', '0')->get(['group_id']);
+        return self::where('is_deleted', 0)->get(['group_id']);
     }
 }

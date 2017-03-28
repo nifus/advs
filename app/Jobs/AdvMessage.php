@@ -31,10 +31,10 @@ class AdvMessage implements ShouldQueue
     public function handle()
     {
         $log = $this->log;
-        $result = \Mail::to($this->adv->Owner->email)
-            ->send(new AdvMessageMail($this->adv, $this->log),function ($message) use($log) {
-                $message->replyTo($log->data->email, $log->data->name);
-            });
+        $owner = $this->adv->Owner;
+
+        \Mail::to($owner)
+            ->send(new AdvMessageMail($this->adv, $this->log));
         $this->log->update(['is_sent'=>'1']);
     }
 }

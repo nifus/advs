@@ -102,6 +102,29 @@ You login: [varAccountEmail]'
 Login:[email]<br>New password:[password]'
         ]);
 
+        MailTemplate::createTemplate([
+            'id'=>10,
+            'header'=>'New message',
+            'name' => 'New message',
+            'type' => 'system',
+            'path' => 'newMessage',
+            'body'=> 'Good Day [varContactForename] [varContactSurename]! <br><br>
+You have new message by advert <a target="_blank" href="[varAdvertUrl]">[varAdvertTitle]</a> . <br>
+
+<strong>Name</strong>: [varMessageFullName] <br>
+<strong>Email</strong>: [varMessageEmail] <br>
+@if (!is_null($varMessagePhone))
+<strong>Phone</strong>: [varMessagePhone] <br>
+@endif
+<hr>
+<strong>Client message</strong> <br>
+[[varMessage]]
+<hr>
+<br><br>
+
+You can use replay to answer for this message.
+'
+        ]);
 
         /*MailTemplate::createTemplate([
             'name' => 'Activation link expired and new activation link',

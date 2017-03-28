@@ -13,7 +13,8 @@
             scope: {
                 adv: '=',
                 user: '=',
-                hideContactForm: '@'
+                hideContactForm: '@',
+                preview: '@',
             }
         };
 
@@ -28,7 +29,7 @@
 
 
             var interval = $interval(function(){
-                console.log(1)
+
                 if ( initDom() ){
                     $interval.cancel(interval);
                     p_images.removeClass('active');
@@ -44,13 +45,22 @@
                     });
 
                     angular.forEach(p_images, function (image, $index) {
+
                         $(image).data('number', $index)
+
                     });
 
+                    element.find('div.preview').on('click', 'div.preview-item',function (el) {
 
-                    p_images.on('click', function (el) {
-                        open($(el.target).data('number'))
+                        if (!$(el.currentTarget).data('number')){
+                            // return;
+                        }
+                        open($(el.currentTarget).data('number'));
+
                     })
+
+
+
                 }
 
 
@@ -60,20 +70,51 @@
             function initDom() {
                 var el = $('#photo-block');
                 m_images = el.find('div.main img');
-                p_images = el.find('div.preview img');
+                p_images = el.find('div.preview div.preview-item');
+
                 navigate = el.find('div.navigate');
                 back_navigate = el.find('div.back');
                 next_navigate = el.find('div.next');
+                m_images.on('load', function (e) {
+                    el.find('div.main div.center').css('max-width', m_images.width()+'px')
+                });
+
+                el.find('div.main div.center').css('max-width', m_images.width()+'px');
+                m_images.css('visibility','visible');
+                //angular.forEach(p_images, function (image) {
+
+                //})
                 return p_images.length>0 ;
             }
 
             function open(number) {
+              //  console.log(number)
                 $scope.current = number;
                 p_images.removeClass('active');
+
                 $(p_images[number]).addClass('active');
 
-                var src = $(p_images[number]).attr('src').replace('/preview/', '/full/');
-                m_images.attr('src', src)
+               // console.log($(p_images[number]))
+               // console.log($(p_images[number]).find('img'))
+                var src = $(p_images[number]).find('img').attr('src').replace('/preview/', '/full/');
+                var img = new Image();
+                img.src = src;
+
+                $(img).on('load', function (e) {
+                    $('#photo-block').find('div.main div.center').css('max-width', '100%')
+
+
+                    $('#photo-block').find('div.wrapper img').remove();
+                    $('#photo-block').find('div.wrapper').append($(img));
+                    $('#photo-block').find('div.main div.center').css('max-width', $(img).width())
+                    $(img).css('visibility','visible');
+                    console.log( $(img).width)
+                    console.log(this)
+
+                });
+
+               // m_images.attr('src', src);
+
                 if (number == 0) {
                     back_navigate.addClass('hide');
                 } else {
@@ -94,8 +135,11 @@
 
             $scope.env = {
                 display_view_map: false,
-                submit: false
+                submit: false,
+                send: false,
             };
+
+
             var data = $cookies.getObject('contact');
             $scope.message = data;
 
@@ -108,6 +152,11 @@
                     initGoogleMapsView();
                 }
             };
+
+            if (  !$scope.adv.MainPhoto ){
+                $scope.displayMap(true)
+            }
+
             function initGoogleMapsView() {
 
                 var interval = $interval(function () {
@@ -133,6 +182,7 @@
                 if (form.$invalid) {
                     return false;
                 }
+                $scope.env.send = true;
                 $scope.adv.sendMessage(data).then(function (response) {
                     var expireDate = new Date();
                     expireDate.setDate(expireDate.getDate() + 199);
@@ -143,6 +193,8 @@
                         phone: data.phone
                     }, {expires: expireDate});
                     $scope.env.submit = false;
+                    $scope.env.send = false;
+
                     if (response.success) {
                         alertify.success('Message send to owner adv');
                         $scope.message = {};

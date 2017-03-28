@@ -202,7 +202,7 @@ class Adv extends Model
             $array['IsFav'] = $this->isFav4user($user_id);
         }
         // $array['DeleteDate'] = $this->DeleteDate;
-        //  $array['DeleteDate'] = $this->DeleteDate;
+        $array['DescWithBr'] = $this->DescWithBr;
         $array['StatusStr'] = $this->StatusStr;
         return $array;
     }
@@ -241,6 +241,11 @@ class Adv extends Model
 
         $this->update(['status'=>'active','disable_date'=>$disable_date->format('Y-m-d H:i:s')]);
         return true;
+    }
+
+    public function getDescWithBrAttribute(){
+        return nl2br(htmlspecialchars($this->attributes['desc']));
+
     }
 
     public function getCreateDateWithTimeAttribute(){
@@ -330,9 +335,17 @@ class Adv extends Model
                     @mkdir(public_path('uploads/adv/preview/' . $this->attributes['user_id']) );
                     file_put_contents(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name), base64_decode($image['base64']));
 
-                    \Image::make(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name))->resize(100, null, function ($constraint) {
+                    $image = \Image::make(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name));
+                    $width = $image->width();
+                    $height = $image->height();
+                    $image->resize($width<1500? $width : 1500, $height<1500 ? $height : 1500, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name));
+
+                    $image->resize($width<200? $width : 200, $height<200 ? $height : 200, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save(public_path('uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $name));
+
                     array_push($result, ($name) );
 
                 }else{
@@ -346,6 +359,7 @@ class Adv extends Model
             $result = null;
         }
 
+        //dd($result);
         $this->attributes['photos'] = $result;
     }
 
@@ -461,9 +475,9 @@ class Adv extends Model
         if ( false===MessageLog::check($this->id, $ip) ){
             throw new \Exception('Many messages');
         }
+
         $log = MessageLog::createMessage($this->id, $data, $ip);
         dispatch( new AdvMessageJob($this, $log) );
-
         return $log;
     }
 
