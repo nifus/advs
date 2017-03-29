@@ -1,5 +1,5 @@
 <div id="help-desk">
-    <div class="col-md-12" ng-if="!env.adv">
+    <div class="col-md-12" ng-if="!env.adv && !env.account">
         <div class="panel panel-default">
             <div class="panel-heading" translate>Search adverts</div>
             <div class="panel-body">
@@ -60,19 +60,19 @@
                                 <div class="col-sm-9">
                                     <div class="radio">
                                         <label >
-                                            <input type="radio" ng-model="filter.adv_type" value="all">
+                                            <input type="radio" ng-model="filter.type" value="all">
                                             {{'All'|translate}}
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" ng-model="filter.adv_type" value="rent">
+                                            <input type="radio" ng-model="filter.type" value="rent">
                                              {{'RENT'|translate}}
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" ng-model="filter.adv_type" value="sale">
+                                            <input type="radio" ng-model="filter.type" value="sale">
                                             {{'SALE'|translate}}
                                         </label>
                                     </div>
@@ -86,7 +86,7 @@
                                     <div class="checkbox" ng-repeat="status in env.statuses">
                                         <label>
                                             <input
-                                                    ng-disabled="status.id!='all' && filter.statuses.indexOf('all')!==-1"
+
                                                     type="checkbox" checklist-model="filter.statuses" checklist-value="status.id" >
                                             {{status.title}}
                                         </label>
@@ -137,9 +137,15 @@
                         </div>
                     </div>
                 </div>
-
-                <table class="table">
-                    <tr>
+                <hr>
+                <div class="progress" ng-if="env.loading==true">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45"
+                         aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+                <table class="table" ng-if="env.loading==false">
+                <tr>
                         <th></th>
                         <th translate>Advert ID</th>
                         <th translate>Advert type</th>
@@ -153,12 +159,34 @@
                         <td><input type="checkbox" checklist-model="selected" checklist-value="adv.id"></td>
                         <td><a ng-click="setAdv(adv)" class="link">{{adv.id}}</a></td>
                         <td>{{adv.type}}</td>
-                        <td><a href="">{{adv.user_id}}</a></td>
+                        <td><a ng-click="setAccount(adv.owner)" class="link">{{adv.user_id}}</a></td>
                         <td>{{adv.owner.group_id==2 ? 'Private' : (adv.owner.group_id==3 ? 'Business' : '')}}</td>
                         <td>{{adv.StatusStr}}</td>
                         <td>{{adv.CreateDateWithTime}}</td>
+                        <td>{{adv.DisableDateWithTime}}</td>
                     </tr>
                 </table>
+                <hr>
+                <div class="row">
+                    <div class="col-md-3 text-left">
+
+                    </div>
+
+                    <div class="col-md-6" style="text-align: center">
+                        <nav aria-label="Page navigation" ng-if="env.pages>1">
+                            <ul class="pagination">
+                                <li ng-repeat="n in range(1,env.pages)"
+                                    ng-class="{'active':env.page==n}">
+                                    <a class="link" ng-click="setPage(n)">{{n}}</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="col-md-3  text-right form-inline">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -169,7 +197,7 @@
                     Search adverts
                 </div>
                 <div class="col-md-6 text-right" >
-                    <button class="btn btn-primary" ng-click="closeAdv()" translate>Close</button>
+                    <button class="btn btn-primary btn-xs" ng-click="closeAdv()" translate>Close</button>
                 </div>
 
             </div>
@@ -179,7 +207,7 @@
                         <table style="width:100%">
                             <tr>
                                 <td style="width: 50%;padding:3px;font-weight: bold;" translate>Advert ID</td>
-                                <td style="width: 50%"></td>
+                                <td style="width: 50%;text-align: right">{{env.adv.id}}</td>
                             </tr>
                             <tr>
                                 <td style="text-align: left;font-weight: bold;padding:3px;" translate>Advert type</td>
@@ -187,7 +215,7 @@
                             </tr>
                             <tr>
                                 <td style="text-align: left;font-weight: bold;padding:3px;" translate>Status</td>
-                                <td style="text-align: right;padding:3px;">{{env.adv.StatusStr}}</td>
+                                <td style="text-align: right;padding:3px;"><span class="status {{env.adv.status}}">{{env.adv.StatusStr}}</span></td>
                             </tr>
                             <tr>
                                 <td style="text-align: left;font-weight: bold;padding:3px;" translate>Account email</td>
@@ -257,5 +285,27 @@
         </div>
 
         <adv-preview ng-if="env.adv" adv="env.adv" user="$parent.user"></adv-preview>
+
     </div>
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height:40px">
+                <div class="col-md-6  text-left" translate>
+                    Account details
+                </div>
+                <div class="col-md-6 text-right">
+                    <button class="btn btn-primary btn-xs" ng-click="closeAccount()" translate>Close</button>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <account-preview ng-if="env.account" user="env.account"></account-preview>
+
+            </div>
+        </div>
+
+
+    </div>
+
 </div>

@@ -9,7 +9,6 @@
         $scope.filter = {
         };
         $scope.env = {
-            tab:'main',
             user: null,
             users: [],
             per_page: 40,
@@ -82,12 +81,7 @@
             //$scope.search($scope.filter)
             $scope.setPage(1);
         };
-        $scope.displayHistoryTab = function () {
-            $scope.env.tab='history';
-            $scope.env.user.getEventsLog().then(function (response) {
-                $scope.env.user.events_log = response.data;
-            })
-        };
+
 
         $scope.updateEventsLog = function () {
             $scope.env.user.events_log = undefined;
@@ -242,23 +236,7 @@
             });
         };
 
-        $scope.blockSelectedAdvs = function (advs) {
-            alertify.confirm($filter('translate')("Do you want to block selected adverts?"), function (e) {
-                if (e) {
-                    var promises = [];
-                    var promise;
-                    for (var i in advs) {
-                        promise = advs[i].block();
-                        promises.push(promise);
-                    }
 
-                    $q.all(promises).then(function () {
-                        alertify.success($filter('translate')('All selected adverts is blocked'));
-                        $scope.env.selected_advs = [];
-                    })
-                }
-            });
-        };
 
         $scope.setUser = function (user) {
             $scope.env.user = user;

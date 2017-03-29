@@ -103,16 +103,13 @@ class SearchController extends Controller
 
         //SELECT id, ( 3959 * acos( cos( radians(37) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( lat ) ) ) ) AS distance FROM markers HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;
         if ($log->type=='advs'){
-            //if ($user->isAdminAccount()){
-               // $sql =Adv::with('Owner')->orderBy('created_at','DESC');
-            //}else{
-           //     $sql =Adv::with('Owner')->orderBy('title','ASC');
-          //  }
             $advs = Adv::getByPage($log->config['page'],$log->config['per_page'],$log->query);
+
             $result = [];
             foreach($advs as $adv){
                 array_push($result, $adv->getArray($user_id) );
             }
+
         }else{
             $result = User::getByPage($log->config['page'],$log->config['per_page'],$log->query);
         }

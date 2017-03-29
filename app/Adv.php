@@ -191,6 +191,7 @@ class Adv extends Model
         $array = parent::toArray();
         $array['StatusStr'] = $this->StatusStr;
         $array['CreateDateWithTime'] = $this->CreateDateWithTime;
+        $array['DisableDateWithTime'] = $this->DisableDateWithTime;
         return $array;
     }
     function getArray($user_id=null)
@@ -250,6 +251,11 @@ class Adv extends Model
 
     public function getCreateDateWithTimeAttribute(){
         $date = new \DateTime($this->created_at);
+        return $date->format('d-m-y H:i');
+    }
+
+    public function getDisableDateWithTimeAttribute(){
+        $date = new \DateTime($this->disable_date);
         return $date->format('d-m-y H:i');
     }
 
@@ -682,19 +688,38 @@ class Adv extends Model
 
         // dd($filter);
 
-        $sql = self::with('Owner')->orderBy('id', 'DESC');
+
+
+
+        $sql = self::with('Owner')->whereHas('Owner', function ($query) use($filter){
+
+            if (isset($filter['account']) && $filter['account']=='private') {
+                $query->where('group_id', 2);
+            }elseif (isset($filter['account']) && $filter['account']=='business') {
+                $query->where('group_id', 3);
+            }
+            if (isset($filter['email'])) {
+                $query->where('email', $filter['email']);
+            }
+
+
+        } )->orderBy('id', 'DESC');
         if (isset($filter['id'])) {
             $sql = $sql->where('id', $filter['id']);
+        }
+        if (isset($filter['user_id'])) {
+            $sql = $sql->where('user_id', $filter['user_id']);
         }
         if (isset($filter['category'])) {
             $sql = $sql->where('category', $filter['category']);
         }
-        if (isset($filter['type'])) {
+        if (isset($filter['type']) && $filter['type']!='all') {
             $sql = $sql->where('type', $filter['type']);
         }
-        if (isset($filter['status'])) {
-            $sql = $sql->where('status', $filter['status']);
+        if (isset($filter['statuses']) && !in_array('all',$filter['statuses'])) {
+            $sql = $sql->whereIn('status', $filter['statuses']);
         }
+
         $sql = $sql->where('is_deleted', '0');
 
 
@@ -702,9 +727,8 @@ class Adv extends Model
             $offset = ($page - 1) * $limit;
             $sql = $sql->offset($offset)->limit($limit);
         }
-        // dd($sql->getQuery()->toSql());
-        return
-            $sql->get();
+
+        return $sql->get();
     }
 
 }

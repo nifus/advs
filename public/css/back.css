@@ -29,3 +29,36 @@ td.initials-type{
     text-transform: uppercase;
     color: #70ad47;
 }
+
+
+span.status.active{
+    padding:5px;
+    background-color: #A9d18E;
+}
+
+span.status.approve_waiting{
+    padding:5px;
+    background-color: #A9d18E;
+}
+
+
+span.status.blocked{
+    padding:5px;
+    background-color: red;
+}
+
+span.status.expired{
+    padding:5px;
+    background-color: #ff7b76;
+}
+
+span.status.disabled{
+    padding:5px;
+    background-color: grey;
+}
+
+span.status.payment_waiting{
+    padding:5px;
+    background-color: #141780;
+}
+

@@ -43,7 +43,7 @@
                 Object.waiting = true;
                 $http.post('/api/search/' + Object.id , {page:page,per_page:per_page}).then(function (response) {
                     Object.waiting = false;
-                    var accounts = []
+                    var accounts = [];
                     for (var i in response.data.rows) {
                         accounts.push( new userService(response.data.rows[i]) ) ;
                     }
@@ -53,9 +53,9 @@
                 });
                 return deferred.promise;
             };
-            Object.getAdvertResult = function(data) {
+            Object.getAdvertResult = function(page,per_page) {
                 var deferred = $q.defer();
-                $http.post('/api/search/' + Object.id, data).then(function (response) {
+                $http.post('/api/search/' + Object.id, {page:page,per_page:per_page}).then(function (response) {
 
                     var adverts = [];
                     for (var i in response.data.rows) {

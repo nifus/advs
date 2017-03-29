@@ -22,6 +22,10 @@
             url: '/adverts/search',
             templateUrl: '../apps/backApp/adverts/search.html',
             controller: 'advertsSearchController'
+        }).state('adverts-search-id', {
+            url: '/adverts/search/:id',
+            templateUrl: '../apps/backApp/adverts/search.html',
+            controller: 'advertsSearchController'
         }).state('adverts-blocked', {
             url: '/adverts/blocked',
             templateUrl: '../apps/backApp/adverts/blocked.html',

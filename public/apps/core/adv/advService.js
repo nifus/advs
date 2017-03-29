@@ -13,6 +13,7 @@
             Object.waiting = false;
             Object.CreateDate = moment(data.created_at).format('DD.MM.Y');
             Object.CreateDateWithTime = moment(data.created_at).format('DD.MM.Y H:m');
+            Object.DisableDateWithTime = data.disable_date ? moment(data.disable_date).format('DD.MM.Y H:m') : '-';
             Object.EndDate = moment(data.created_at).format('DD.MM.Y');
             Object.DeleteDate = moment(data.created_at).format('DD.MM.Y');
             Object.MainPhoto = getMainPhoto(data.photos);
@@ -160,7 +161,10 @@
             return (Object);
         };
         function getMainPhoto(photos) {
-            return photos[0];
+            if (photos){
+                return photos[0];
+            }
+            return null;
         }
 
     }
