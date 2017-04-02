@@ -40,11 +40,9 @@
             };
 
             Object.getAdvStat = function () {
-
                 return $http.get('/api/adv/'+Object.id+'/statistics').then(function (response) {
                     return response.data;
                 })
-
             };
 
             Object.getTariff = function () {

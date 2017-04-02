@@ -79,9 +79,9 @@
             if (value == 'date_create') {
                 $scope.env.rows = $filter('orderBy')($scope.env.rows, '-created_at');
             } else if (value == 'price_up') {
-                $scope.env.rows = $filter('orderBy')($scope.env.rows, '-cold_rent', true);
+                $scope.env.rows = $filter('orderBy')($scope.env.rows, '-price', true);
             } else if (value == 'price_down') {
-                $scope.env.rows = $filter('orderBy')($scope.env.rows, '-cold_rent');
+                $scope.env.rows = $filter('orderBy')($scope.env.rows, '-price');
             }
             updatePagination();
 

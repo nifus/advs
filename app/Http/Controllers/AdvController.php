@@ -15,6 +15,25 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AdvController extends Controller
 {
+    function uploadImages(Request $request ){
+        //files
+        $token = $request->get('token');
+        $user = UserModel::getUser($token);
+        if ( is_null($user) ){
+            return response()->json([], 403);
+        }
+
+        $response = [];
+        $files = $request->file('files');
+        foreach( $files as $file ){
+            $result = $user->uploadAdvertImage($file);
+            if ( is_array($result) ){
+                array_push($response, $result );
+
+            }
+        }
+        return response()->json(['images'=>$response]);
+    }
 
     function store( Request $request){
         try{

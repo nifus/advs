@@ -17,7 +17,7 @@ class Adv extends Model
         'title', 'desc', 'created_at', 'type', 'updated_at', 'user_id', 'status', 'photos', 'visited', 'favorite',
         'lng','lat',
 
-        'cold_rent', 'monthly_rent','rental_price','price_type', 'price','emphyteusis_per_year',
+         'price_type', 'price','emphyteusis_per_year',
 
         'address', 'author', 'category', 'move_date', 'is_deleted', 'energy', 'equipments', 'props', 'subcategory', 'finance', 'floor', 'floors', 'living_area','plot_area','area',
         'rooms', 'hide_contacts',
@@ -192,6 +192,8 @@ class Adv extends Model
         $array['StatusStr'] = $this->StatusStr;
         $array['CreateDateWithTime'] = $this->CreateDateWithTime;
         $array['DisableDateWithTime'] = $this->DisableDateWithTime;
+        $array['DescWithBr'] = $this->DescWithBr;
+
         return $array;
     }
     function getArray($user_id=null)
@@ -327,62 +329,26 @@ class Adv extends Model
     }
 
 
-
+    public function getPhotosAttribute()
+    {
+         return json_decode($this->attributes['photos']);
+    }
 
     public function setPhotosAttribute($value)
     {
-
-        if ( is_array($value)) {
-            $result = [];
-            foreach ($value as $image) {
-                if ( is_array($image) && isset($image['filename']) ){
-                    $name = time() . rand(1, 10000) . '.' . pathinfo($image['filename'], PATHINFO_EXTENSION);
-                    @mkdir(public_path('uploads/adv/full/' . $this->attributes['user_id']) );
-                    @mkdir(public_path('uploads/adv/preview/' . $this->attributes['user_id']) );
-                    file_put_contents(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name), base64_decode($image['base64']));
-
-                    $image = \Image::make(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name));
-                    $width = $image->width();
-                    $height = $image->height();
-                    $image->resize($width<1500? $width : 1500, $height<1500 ? $height : 1500, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save(public_path('uploads/adv/full/' . $this->attributes['user_id'] . '/' . $name));
-
-                    $image->resize($width<200? $width : 200, $height<200 ? $height : 200, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save(public_path('uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $name));
-
-                    array_push($result, ($name) );
-
-                }else{
-                    array_push($result, basename($image['full']) );
-                }
-            }
-            $result = sizeof($result)>0 ? json_encode($result) : null;
-        } elseif (is_string($value)) {
-            $result = $value;
-        } else {
-            $result = null;
-        }
-
-        //dd($result);
-        $this->attributes['photos'] = $result;
+        $this->attributes['photos'] = json_encode($value);
     }
 
     public function getMainPhotoAttribute()
     {
         if (is_null($this->attributes['photos'])) {
-            return ['/images/no-photo.jpg'];
+            return ['preview'=>'/images/no-photo.jpg'];
         }
-        $images = explode(',', $this->attributes['photos']);
-        return [
-            'preview'=>'/uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $images[0],
-            'full'=>'/uploads/adv/full/' . $this->attributes['user_id'] . '/' . $images[0],
-
-        ];
+        $images = $this->photos;
+        return $images[0];
     }
 
-    public function getLastPhotosAttribute()
+    /*public function getLastPhotosAttribute()
     {
         if (is_null($this->attributes['photos'])) {
             return null;
@@ -397,25 +363,9 @@ class Adv extends Model
             array_push($result, '/uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $photo);
         }
         return $result;
-    }
+    }*/
 
-    public function getPhotosAttribute()
-    {
-        if (is_null($this->attributes['photos'])) {
-            return [];
-            //return ['/images/no-photo.jpg'];
-        }
 
-        $photos = json_decode($this->attributes['photos']);
-        $result = [];
-        foreach ($photos as $photo) {
-            array_push($result, [
-                'preview'=>'/uploads/adv/preview/' . $this->attributes['user_id'] . '/' . $photo,
-                'full'=>'/uploads/adv/full/' . $this->attributes['user_id'] . '/' . $photo,
-            ]);
-        }
-        return $result;
-    }
 
     public function getStatusStrAttribute()
     {
@@ -565,17 +515,17 @@ class Adv extends Model
                 'living_area',
                 'floor',
                 'rooms',
-                'cold_rent'
+                'price'
             ],
             2 => [
                 'plot_area',
                 'floors',
                 'rooms',
-                'cold_rent'
+                'price'
             ],
             3 => [
                 'area',
-                'monthly_rent'
+                'price'
             ],
             4 => [
                 'area',
@@ -584,7 +534,7 @@ class Adv extends Model
                 'rooms',
                 'floor',
                 'price_type',
-                'rental_price'
+                'price'
             ],
             6 => [
                 'area',
@@ -592,13 +542,13 @@ class Adv extends Model
                 'floors',
                 'number_beds',
                 'price_type',
-                'rental_price'
+                'price'
             ],
             7 => [
                 'area',
                 'storey_height',
                 'price_type',
-                'rental_price'
+                'price'
             ]
         ];
         $validator = \Validator::make($data, $rules_by_category);
@@ -730,5 +680,7 @@ class Adv extends Model
 
         return $sql->get();
     }
+
+
 
 }

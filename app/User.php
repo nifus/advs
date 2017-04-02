@@ -394,6 +394,35 @@ class User extends Authenticatable
         return true;
     }
 
+    public function uploadAdvertImage($file){
+        if ( !preg_match('#image#i', $file->getMimeType() ) ){
+            return null;
+        }
+
+        $ext = $file->getClientOriginalExtension();
+        $new_name = time().rand(0,10000).'.'.$ext;
+        $full = public_path('uploads/adv/full/'.$this->id.'/'.$new_name);
+        $preview = public_path('uploads/adv/preview/'.$this->id.'/'.$new_name);
+        $file->move( public_path('uploads/adv/full/'.$this->id),$new_name  );
+        @mkdir( public_path('uploads/adv/preview/'.$this->id) );
+
+        $image = \Image::make($full);
+        $width = $image->width();
+        $height = $image->height();
+        $image->resize($width<1500? $width : 1500, $height<1500 ? $height : 1500, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($full);
+
+        $image->resize($width<200? $width : 200, $height<200 ? $height : 200, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($preview);
+
+        return [
+            'full'=>'/uploads/adv/full/'.$this->id.'/'.$new_name,
+            'preview'=>'/uploads/adv/preview/'.$this->id.'/'.$new_name,
+        ];
+    }
+
     static function createPrivateAccount($data)
     {
         $validator = [
@@ -677,4 +706,6 @@ class User extends Authenticatable
     {
         return self::where('is_deleted', 0)->get(['group_id']);
     }
+
+
 }

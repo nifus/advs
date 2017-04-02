@@ -538,9 +538,9 @@
                     <tr class="info">
                         <th colspan="2" translate>Finance</th>
                     </tr>
-                    <tr class="info" ng-if="adv.cold_rent">
+                    <tr class="info" ng-if="adv.price">
                         <td translate>Cold rent:</td>
-                        <td>{{adv.cold_rent|currency:'€'}}</td>
+                        <td>{{adv.price|currency:'€'}}</td>
                     </tr>
                     <tr class="info" ng-if="adv.finance.ancillary_cost">
                         <td translate>Ancillary cost:</td>
@@ -563,9 +563,9 @@
                     <tr class="info">
                         <th colspan="2" translate>Finance</th>
                     </tr>
-                    <tr class="info" ng-if="adv.monthly_rent">
+                    <tr class="info" ng-if="adv.price">
                         <td translate>Monthly rent:</td>
-                        <td>{{adv.monthly_rent|currency:'€'}}</td>
+                        <td>{{adv.price|currency:'€'}}</td>
                     </tr>
                     <tr class="info" ng-if="adv.finance.ancillary_cost">
                         <td translate>Ancillary cost:</td>
@@ -590,9 +590,9 @@
                         <td>{{adv.price_type}}</td>
                     </tr>
 
-                    <tr class="info" ng-if="adv.rental_price">
+                    <tr class="info" ng-if="adv.price">
                         <td translate>Rental price:</td>
-                        <td>{{adv.rental_price|currency:'€'}}</td>
+                        <td>{{adv.price|currency:'€'}}</td>
                     </tr>
 
                     <tr class="info" ng-if="adv.finance.ancillary_cost">
@@ -621,9 +621,9 @@
                         <td>{{adv.finance.commercial_type}}</td>
                     </tr>
 
-                    <tr class="info" ng-if="adv.finance.price_per_year">
+                    <tr class="info" ng-if="adv.price">
                         <td translate>Price per year:</td>
-                        <td>{{adv.finance.price_per_year|currency:'€'}}</td>
+                        <td>{{adv.price|currency:'€'}}</td>
                     </tr>
 
 

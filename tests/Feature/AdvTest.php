@@ -107,7 +107,7 @@ class AdvTest extends TestCase
             "floor" => 1,
             "floors" => 1,
             "rooms" => 1,
-            "cold_rent" => 122,
+            "price" => 122,
             "title" => "123123",
         ]);
 
@@ -169,7 +169,7 @@ class AdvTest extends TestCase
             "floor" => 1,
             "floors" => 1,
             "rooms" => 1,
-            "cold_rent" => 122,
+            "price" => 122,
             "title" => "123123",
             "user_id"=>$user_id
         ]);

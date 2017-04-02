@@ -51,8 +51,6 @@
     <script src="/apps/core/adv/advFactory.js"></script>
     <script src="/apps/core/adv/advService.js"></script>
 
-    <script src="/apps/core/tariff/tariffFactory.js"></script>
-    <script src="/apps/core/tariff/tariffService.js"></script>
 
 
     <script src="/apps/core/faq/faqFactory.js"></script>
@@ -73,7 +71,6 @@
     <script src="/apps/privateApp/deleteAccount/deleteAccountController.js"></script>
     <script src="/apps/privateApp/directives/leftMenu/leftMenu.js"></script>
     <script src="/apps/privateApp/help/helpController.js"></script>
-    <script src="/apps/privateApp/adv/previewController.js"></script>
     <script src="/apps/directives/advPreview/advPreview.js"></script>
     <script src="/apps/privateApp/adv/editController.js"></script>
     <script src="/apps/privateApp/adv/reactController.js"></script>

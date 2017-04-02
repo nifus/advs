@@ -2,9 +2,9 @@
     'use strict';
     angular.module('privateApp').controller('mainController', mainController);
 
-    mainController.$inject = ['$scope', '$q', 'userFactory', '$state'];
+    mainController.$inject = ['$scope', '$q', 'userFactory'];
 
-    function mainController($scope, $q, userFactory, $state) {
+    function mainController($scope, $q, userFactory) {
 
 
         $scope.loading = true;
@@ -18,7 +18,6 @@
 
         var userPromise = userFactory.getAuthUser().then(function (user) {
             $scope.user = user;
-            console.log(user)
             if (!user) {
                 window.location.href = '/'
                 return false;

@@ -88,14 +88,12 @@
             }
 
             function open(number) {
-              //  console.log(number)
                 $scope.current = number;
                 p_images.removeClass('active');
 
                 $(p_images[number]).addClass('active');
 
-               // console.log($(p_images[number]))
-               // console.log($(p_images[number]).find('img'))
+
                 var src = $(p_images[number]).find('img').attr('src').replace('/preview/', '/full/');
                 var img = new Image();
                 img.src = src;
@@ -108,8 +106,6 @@
                     $('#photo-block').find('div.wrapper').append($(img));
                     $('#photo-block').find('div.main div.center').css('max-width', $(img).width())
                     $(img).css('visibility','visible');
-                    console.log( $(img).width)
-                    console.log(this)
 
                 });
 
@@ -205,10 +201,7 @@
             };
 
             $scope.openLightboxModal = function (photo) {
-                console.log(photo);
-                console.log($scope.adv.photos);
 
-                //Lightbox.openModal($scope.adv.photos, index);
             };
 
         }

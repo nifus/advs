@@ -1,12 +1,14 @@
 (function () {
     'use strict';
-    angular.module('frontApp').controller('createAdvController', ['$scope', 'advFactory', '$filter', '$interval', '$q', 'tariffFactory' ,'advPaymentFactory', createAdvController]);
+    angular.module('frontApp').controller('createAdvController', ['$scope', 'advFactory', '$filter', '$interval', '$q', 'tariffFactory' ,'advPaymentFactory','Upload', createAdvController]);
 
 
-    function createAdvController($scope, advFactory, $filter, $interval, $q, tariffFactory, advPaymentFactory) {
+    function createAdvController($scope, advFactory, $filter, $interval, $q, tariffFactory, advPaymentFactory, Upload) {
 
 
         $scope.env = {
+            progress: 0,
+            upload_files: false,
             submit: false,
             move_date: null,
             is_business_rent: 0,
@@ -127,7 +129,6 @@
 
 
         $scope.setPrivateTariff = function (tariff) {
-
             $scope.env.tariff = tariff;
             $scope.env.tariff.price = ($scope.env.advert.type == 'rent') ? tariff.rent_price : tariff.sale_price;
             $scope.env.tariff.begin_date = moment().format('D.MM.Y');
@@ -246,9 +247,7 @@
             $scope.model = $scope.env.advert;
         };
 
-        $scope.$watch('model', function (value) {
-            console.log(value)
-        }, true);
+
 
 
         $scope.$watch('env.move_date', function (value) {
@@ -329,11 +328,11 @@
 
                         $scope.env.marker.addListener('dragend', function () {
                             var c = this.getPosition();
-
                             var geocoder = new google.maps.Geocoder();
                             geocoder.geocode({
                                 'latLng': c
                             }, function (results, status) {
+
                                 if (status === google.maps.GeocoderStatus.OK) {
                                     if (results[0]) {
                                         $scope.model.lat = results[0].geometry.location.lat();
@@ -343,7 +342,6 @@
                                 }
                             });
                         });
-                        // $scope.env.map.setCenter( {lat: $scope.adv.lat*1, lng: $scope.adv.lng*1} )
                         $interval.cancel(interval);
                     }
                 }, 1000)
@@ -353,6 +351,45 @@
                 $scope.env.marker.setPosition(new google.maps.LatLng(lat, lng));
                 $scope.env.map.setCenter($scope.env.marker.getPosition());
             }
+        };
+
+
+        $scope.uploadFiles = function (files) {
+            var left = 12-$scope.model.photos.length;
+            if ( left==0 ){
+                return;
+            }else{
+                files = files.splice(0,left);
+            }
+
+
+            if (files && files.length) {
+                $scope.env.upload_files = true;
+                Upload.upload({
+                    url: '/api/adv/upload-images',
+                    data: {
+                        files: files
+                    }
+                }).then(function (response) {
+                   // $timeout(function () {
+                   for( var i in response.data.images){
+                       $scope.model.photos.push( response.data.images[i] );
+                   }
+                    $scope.env.upload_files = false;
+                    //});
+                }, function (response) {
+                    if (response.status > 0) {
+                        $scope.errorMsg = response.status + ': ' + response.data;
+                    }
+                    $scope.env.upload_files = false;
+                }, function (evt) {
+                    $scope.env.progress =
+                        Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
+            }
+        };
+        $scope.removePhoto = function ($index) {
+            $scope.model.photos.splice($index,1)
         }
 
         function guid() {

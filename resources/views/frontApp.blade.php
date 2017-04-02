@@ -33,8 +33,11 @@
 
     <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
     <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
-    <script type="text/javascript" src="/components/angular-base64-upload/dist/angular-base64-upload.min.js"></script>
     <script src='/components/angular-gm/angular-gm.min.js'></script>
+    <script src='/components/ng-file-upload/ng-file-upload-shim.min.js'></script>
+    <script src='/components/ng-file-upload/ng-file-upload.min.js'></script>
+
+
     <script src='/components/angular-gettext/dist/angular-gettext.min.js'></script>
     <script src="/components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
     <script src="/components/angular-disable-all/dist/angular-disable-all.js"></script>

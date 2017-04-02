@@ -34,10 +34,6 @@
             url: '/delete-account',
             templateUrl: 'apps/privateApp/deleteAccount/deleteAccount.html',
             controller: 'deleteAccountController'
-        }).state('adv', {
-            url: '/adv/:id',
-            templateUrl: 'apps/privateApp/adv/preview.html',
-            controller: 'previewController'
         }).state('adv-edit', {
             url: '/adv/:id/edit',
             templateUrl: 'apps/privateApp/adv/edit.html',

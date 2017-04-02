@@ -69,9 +69,9 @@ class AdvSeeder extends Seeder
                     'rooms' => $faker->randomDigitNotNull,
                     'number_beds' => $faker->randomDigitNotNull,
 
-                    'cold_rent' => round($faker->randomFloat(10000000), 2),
-                    'monthly_rent' => round($faker->randomFloat(10000000), 2),
-                    'rental_price' => round($faker->randomFloat(10000000), 2),
+                    'price' => round($faker->randomFloat(10000000), 2),
+                    //'monthly_rent' => round($faker->randomFloat(10000000), 2),
+                    //'rental_price' => round($faker->randomFloat(10000000), 2),
                     'storey_height' => round($faker->randomFloat(10000000), 2),
                     'price_type' => 'Price per month',
                     'lng' => $place['lng'],

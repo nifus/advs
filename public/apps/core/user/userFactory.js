@@ -79,9 +79,9 @@
          */
         function getAuthUser() {
             var defer = $q.defer();
-            $http.get('/api/user/get-auth').success(function (response) {
-                defer.resolve(new userService(response));
-            }).error(function (response) {
+            $http.get('/api/user/get-auth').then(function (response) {
+                defer.resolve(new userService(response.data));
+            },function (response) {
                 defer.reject(response)
             });
             return defer.promise;

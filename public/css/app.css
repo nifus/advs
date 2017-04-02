@@ -259,8 +259,8 @@ table.adv tr.payment_waiting :last-child{
     height: auto;
     cursor:pointer;
     visibility: hidden;
-
 }
+
 #photo-block div.preview{
     padding:0px
 }

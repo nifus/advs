@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('frontApp', ['core', 'vcRecaptcha', 'ngCookies', 'satellizer', 'ngAutocomplete', 'checklist-model', 'ui.bootstrap.datetimepicker', 'naif.base64', 'AngularGM', 'gettext','angucomplete-alt','disableAll','textCounter'], function ($interpolateProvider) {
+    angular.module('frontApp', ['core', 'vcRecaptcha', 'ngCookies', 'satellizer', 'ngAutocomplete', 'checklist-model', 'ui.bootstrap.datetimepicker', 'ngFileUpload', 'AngularGM', 'gettext','angucomplete-alt','disableAll','textCounter'], function ($interpolateProvider) {
         // $interpolateProvider.startSymbol('%');
         //$interpolateProvider.endSymbol('%');
     }).config(function ($authProvider) {

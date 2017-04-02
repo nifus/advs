@@ -15,13 +15,16 @@
         </div>
 
 
+
         <div class="form-group"
              ng-class="{ 'has-error': (adv_form.street.$invalid || adv_form.house_number.$invalid) && env.submit==true }">
             <label class="col-sm-2 control-label" translate>Street, House number</label>
             <div class="col-sm-10 form-inline">
                 <input type="text" ng-model="model.address.street" style="width:70%" class="form-control"
+                       ng-disabled="!model.address.city"
                        placeholder="{{'Street'|translate}}" name="street" required>
                 <input type="text" ng-model="model.address.house_number" class="form-control"
+                       ng-disabled="!model.address.city"
                        placeholder="{{'House number'|translate}}" name="house_number" required>
             </div>
         </div>
@@ -30,8 +33,10 @@
             <label class="col-sm-2 control-label" translate>Zip, City</label>
             <div class="col-sm-10 form-inline">
                 <input type="text" ng-model="model.address.zip" class="form-control" placeholder="{{'Zip'|translate}}"
-                       name="zip" required>
+                       ng-disabled="!model.address.city"
+                       name="zip" required >
                 <input type="text" ng-model="model.address.city" style="width:70%" class="form-control" name="city"
+                       ng-disabled="!model.address.city"
                        required
                        placeholder="{{'City'|translate}}">
             </div>
@@ -274,11 +279,11 @@
             </div>
         </div>
 
-        <div class="form-group" ng-class="{ 'has-error': adv_form.rental_price.$invalid  && env.submit==true }">
+        <div class="form-group" ng-class="{ 'has-error': adv_form.price.$invalid  && env.submit==true }">
             <label class="col-sm-2 control-label" translate>Rental price(in &euro;)</label>
             <div class="col-sm-10">
-                <input type="number" min="1" class="form-control" placeholder="&euro;" ng-model="model.rental_price"
-                       required name="rental_price">
+                <input type="number" min="1" class="form-control" placeholder="&euro;" ng-model="model.price"
+                       required name="price">
             </div>
         </div>
 
@@ -468,22 +473,39 @@
     </div>
 </div>
 
+
 <div class="row">
     <h4 translate>Advertisement pictures</h4>
     <div class="col-md-10">
         <div class="form-group">
             <div class="col-md-12">
-                <upload ng-model="model.photos" number-of-files="12" style="text-align: center;">
-                    <div style="text-align: center" ng-show="model.photos.length<12">
-                        <div style="width: 100px;margin-left:auto;margin-right:auto">
-                            <img src="/images/upload.png" alt="" style=" width:100px" class="link">
-                            <span translate>Click to upload</span>
+                <div id="photo-block" style="overflow: auto;">
+                    <div  class="preview"  style="width:200px;height:200px;position: relative;float:left"  ng-repeat="photo in model.photos" >
+                        <button ng-click="removePhoto($index)" type="button" class="btn btn-danger" style="position: absolute;left: 155px;top: 5px;">
+                            <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                        <div class="preview-item" style="width:200px;height:200px;" >
+
+                            <div class="center">
+                                <img style="max-height: 190px;max-width:190px" ng-src="{{photo.preview}}">
+                            </div>
                         </div>
-
                     </div>
-                </upload>
-            </div>
 
+                    <br style="clear: both;">
+                    <div class="progress" ng-if="env.progress >= 0 && env.upload_files==true">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"  style="width:100%">
+                            <span class="sr-only">45% Complete</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center" id="upload_trigger" ng-if="model.photos.length<12" >
+                        <button ngf-select="uploadFiles($files)" multiple  ngf-max-files="12" ngf-max-size="6MB"   accept="image/*" translate>Upload photos</button>
+                    </div>
+                    <div class="alert alert-warning" role="alert" ng-if="model.photos.length==12" translate>You can upload only 12 photos</div>
+
+                </div>
+
+            </div>
         </div>
     </div>
     <div class="col-md-2">
