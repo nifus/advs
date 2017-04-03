@@ -1,0 +1,219 @@
+<div>
+    <form ng-if="action=='form'" class="form-horizontal" name="adv_form">
+
+        <div style="border-bottom:3px solid #00b3ee;height:30px;margin-bottom: 30px" class="row" ng-if="model.status!='payment_waiting' && model.status">
+            <label class="col-sm-2" style="font-size: 18px;padding-left:0px;font-weight: bold" translate>Advert
+                type</label>
+
+            <div class="col-sm-10">
+                {{model.type}} - {{env.category_name}}
+            </div>
+        </div>
+
+        <div class="row" ng-if="model.status=='payment_waiting' || !model.status">
+            <h4>Advert type</h4>
+
+            <div class="col-md-2">Please select your advertisement type</div>
+            <div class="col-md-4">
+
+                <div class="header"
+                     style="background-color: orange;padding:20px;margin:0px;text-align: center">
+                    <strong>Rent</strong></div>
+
+                <div class="type"
+                     style="background-color: lightyellow;padding:10px;margin:0px;height:120px">
+
+                    <div class="radio" ng-repeat="category in categories" ng-if="category.ic_business==false && category.is_sale_only==false">
+                        <label>
+                            <input type="radio" value="flat"
+
+                                   ng-checked="model.type=='rent' && model.category==category.id"
+                                   ng-click="setPrivateType('rent',category.id)">
+                            {{category.title}}
+                        </label>
+                    </div>
+
+                </div>
+                <div style="background-color: darkseagreen;padding:10px;margin:0px;">
+                    <div class="radio" ng-class="{'disabled':env.is_business_sale}">
+                        <label>
+                            <input type="radio" ng-model="env.is_business_rent"
+                                   ng-disabled="env.is_business_sale"
+                                   ng-click="isBusiness('rent')">
+                            Business realty
+                        </label>
+                    </div>
+                </div>
+
+                <div style="background-color: lightyellow;padding:10px;margin:0px;">
+
+                    <div class="radio" ng-class="{'disabled' : env.is_business_rent==0}" ng-repeat="category in categories" ng-if="category.ic_business==true">
+                        <label>
+                            <input type="radio"
+                                   ng-disabled="env.is_business_rent==0"
+                                   ng-checked="model.type=='rent' && model.category==category.id"
+                                   ng-click="setBusinessType('rent',category.id)">
+                            {{category.title}}
+                        </label>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="background-color: lightcoral;margin:0px;padding:20px;text-align: center">
+                    <strong>Sale</strong></div>
+
+
+                <div class="type" style="background-color: oldlace;margin:0px;padding:10px;height:120px">
+
+                    <div class="radio" ng-repeat="category in categories" ng-if="category.ic_business==false">
+                        <label>
+                            <input type="radio" value="flat"
+                                   ng-checked="model.type=='sale' && model.category==category.id"
+                                   ng-click="setPrivateType('sale',category.id)">
+                            {{category.title}}
+                        </label>
+                    </div>
+
+
+                </div>
+                <div style="background-color: darkseagreen;margin:0px;padding:10px">
+
+                    <div class="radio" ng-class="{'disabled':env.is_business_rent}">
+                        <label>
+                            <input type="radio" ng-model="env.is_business_sale"
+                                   ng-disabled="env.is_business_rent"
+                                   ng-click="isBusiness('sale')">
+                            Business realty
+                        </label>
+                    </div>
+                </div>
+
+                <div style="background-color: oldlace;margin:0px;padding:10px">
+
+
+                    <div class="radio" ng-class="{'disabled' : env.is_business_sale==0}"  ng-repeat="category in categories" ng-if="category.ic_business==true">
+                        <label>
+                            <input type="radio" value="flat"
+                                   ng-disabled="env.is_business_sale==0"
+                                   ng-checked="model.type=='sale' && model.category==category.id"
+                                   ng-click="setBusinessType('sale',category.id)">
+                            {{category.title}}
+                        </label>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="col-md-2">
+                <div class="alert alert-warning" role="alert">
+                    Based on your selection you will receive the
+                    corresponding template
+                </div>
+            </div>
+        </div>
+
+
+        <div ng-include="'apps/core/adv/tpl/create/rentFlatForm.html'"
+             ng-if="model.category==1 && model.type=='rent'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/rentHouseForm.html'"
+             ng-if="model.category==2 && model.type=='rent'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/rentGarageForm.html'"
+             ng-if="model.category==3 && model.type=='rent'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/rentOfficeForm.html'"
+             ng-if="model.category==4 && model.type=='rent'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/rentHotelForm.html'"
+             ng-if="model.category==6 && model.type=='rent'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/rentHallForm.html'"
+             ng-if="model.category==7 && model.type=='rent'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/rentRetailForm.html'"
+             ng-if="model.category==8 && model.type=='rent'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/rentCommercialLandForm.html'"
+             ng-if="model.category==9 && model.type=='rent'"></div>
+
+        <div ng-include="'apps/core/adv/tpl/create/saleFlatForm.html'"
+             ng-if="model.category==1 && model.type=='sale'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/saleHouseForm.html'"
+             ng-if="model.category==2 && model.type=='sale'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/saleGarageForm.html'"
+             ng-if="model.category==3 && model.type=='sale'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/saleOfficeForm.html'"
+             ng-if="model.category==4 && model.type=='sale'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/saleBuildingForm.html'"
+             ng-if="model.category==5 && model.type=='sale'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/saleHotelForm.html'"
+             ng-if="model.category==6 && model.type=='sale'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/saleHallForm.html'"
+             ng-if="model.category==7 && model.type=='sale'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/saleRetailForm.html'"
+             ng-if="model.category==8 && model.type=='sale'"></div>
+        <div ng-include="'apps/core/adv/tpl/create/saleCommercialLandForm.html'"
+             ng-if="model.category==9 && model.type=='sale'"></div>
+
+
+        <div class="row form-horizontal" ng-show="model.category">
+            <h4>Finish</h4>
+
+            <div class="form-group" ng-class="{ 'has-error': adv_form.agb.$invalid && env.submit==true }">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+
+        <textarea class="form-control" style="height: 200px"
+                  disabled>Stand: September 2015
+                1. Allgemeines / Vertragsabschluss
+                1.1 Diese Allgemeinen Geschäftsbedingungen (nachfolgend „AGB“) der/des ALTERNATE GmbH (nachfolgend „Verkäufer“) gelten für alle Verträge, die ein Verbraucher oder Unternehmer (nachfolgend „Kunde“)
+                mit dem Verkäufer hinsichtlich der vom Verkäufer in dem vorliegenden Online-Shop dargestellten Waren und/oder Leistungen abschließt. Hiermit wird der Einbeziehung von eigenen Bedingungen des Kunden
+                widersprochen, es sei denn, es ist etwas anderes vereinbart worden.
+                1.2 Für den Erwerb von Gutscheinen gelten diese AGB entsprechend, sofern insoweit nicht ausdrücklich etwas Abweichendes geregelt ist.
+                1.3 Verbraucher im Sinne dieser AGB ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit
+                zugerechnet werden können. Unternehmer im Sinne dieser AGB ist jede natürliche oder juristische Person oder eine rechtsfä- hige Personengesellschaft, die bei Abschluss eines Rechtsgeschäfts in Ausübung
+                ihrer selbstständigen beruflichen oder gewerblichen Tätigkeit handelt
+                2. Preise und Zahlungsbedingungen
+                2.1 Für die Lieferung gelten die Listenpreise zum Zeitpunkt der Bestellung. Sofern sich aus dem Angebot des Verkäufers nichts anderes ergibt, handelt es sich bei den angegebenen Preisen um Endpreise, die die
+                gesetzliche Umsatzsteuer oder Versicherungssteuer enthalten und verstehen sich zzgl. Versandkosten, gegebenenfalls Nachnahmegebühren, Transaktionskosten, Installations- und Schulungskosten etc. Je nach
+                Versandart errechnen sich die Versandkosten in Abhängigkeit von Größe, Gewicht und Anzahl der Pakete.
+                2.2 Soweit Lieferungen in Länder außerhalb der Europäischen Union in diesem Online- Shop möglich sind, können im Einzelfall weitere Kosten anfallen, die der Verkäufer nicht zu vertreten hat und die vom
+                Kunden zu tragen sind. Hierzu zählen beispielsweise Kosten für die Geldübermittlung durch Kreditinstitute (z.B. Überweisungsgebühren, Wechselkursgebühren) oder einfuhrrechtliche Abgaben bzw. Steuern (z.B.
+                Zölle).
+                2.3 Dem Kunden stehen verschiedene Zahlungsmöglichkeiten zur Verfügung, auf die er in diesem Online- Shop hingewiesen wird.
+                3. Lieferung, Versand, Gefahrübergang
+                3.1 Die Lieferung von Waren erfolgt auf dem Versandweg an die vom Kunden angegebene Lieferanschrift, sofern nichts anderes vereinbart ist. Bei der Abwicklung der Transaktion ist die in der Bestellabwicklung
+                des Verkäufers angegebene Lieferanschrift maßgeblich. Ausgenommen hiervon ist die ausgewählte Zahlungsart PayPal. Hier ist die vom Kunden zum Zeitpunkt der Bezahlung bei PayPal hinterlegte Lieferanschrift
+                maßgeblich.
+                3.2 Sendet das Transportunternehmen die versandte Ware an den Verkäufer zurück, da eine Zustellung beim Kunden nicht möglich war, trägt der Kunde die Kosten für den erfolglosen Versand. Dies gilt nicht,
+                wenn der Kunde den Umstand, der zur Unmöglichkeit der Zustellung geführt hat, nicht zu vertreten hat oder wenn er vorübergehend an der Annahme der angebotenen Leistung verhindert war, es sei denn, dass
+                der Verkäufer dem Kunden die Leistung eine angemessene Zeit vorher angekündigt hatte.
+                3.3 Grundsätzlich geht die Gefahr des zufälligen Untergangs und der zufälligen Verschlechterung der verkauften Ware mit der Übergabe an den Kunden oder eine empfangsberechtigte Person über. Handelt der
+                Kunde als Unternehmer, geht die Gefahr des zufälligen Untergangs und der zufälligen Verschlechterung beim Versendungskauf mit der Auslieferung der Ware an eine geeignete Transportperson am Geschäftssitz
+                    des Verkäufers über</textarea> <br>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="agb" ng-model="model.agb"
+                               required> AGB accept?
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="alert alert-danger" role="alert" ng-show="env.error">This is error</div>
+
+            <div class="form-group">
+
+                <div class="col-sm-10">
+                    <div class="alert alert-warning" role="alert"
+                         ng-show="adv_form.$invalid && env.submit==true">You did not fill in all
+                        fields
+                    </div>
+
+                    <button class="btn btn-primary" type="button" ng-click="save(model, adv_form)"
+                            ng-disabled="env.send==true">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div ng-if="action=='payment'" ng-include="'/apps/frontApp/adv/create/payment.html'"></div>
+    <div ng-if="action=='preview'" ng-include="'/apps/frontApp/adv/create/preview.html'"></div>
+</div>

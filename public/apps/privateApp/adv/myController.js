@@ -102,6 +102,7 @@
                 }
             });
         };
+
         $scope.enableAdv = function (adv) {
             alertify.confirm("<h4>Enable this advert</h4><p>Are you sure you want to anable your advert?</p> <br> <p>Please keep in mind, that the duration will keep running</p>", function (e) {
                 if (e) {

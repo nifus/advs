@@ -16,7 +16,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class AdvController extends Controller
 {
     function uploadImages(Request $request ){
-        //files
         $token = $request->get('token');
         $user = UserModel::getUser($token);
         if ( is_null($user) ){
@@ -181,7 +180,7 @@ class AdvController extends Controller
         $token = $request->get('token');
         $current_user = UserModel::getUser($token);
 
-        if ( is_null($current_user) || !$current_user->hasPermissions('accounts') ){
+        if ( is_null($current_user)  ){
             return response()->json(['success'=>false],403);
         }
 

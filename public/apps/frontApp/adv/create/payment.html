@@ -1,5 +1,5 @@
 <div class="alert alert-danger" style="width:40%;margin-left: auto;margin-right:auto;text-align:center" role="alert"
-     translate ng-if="env.restore_flag==true && env.advert.LastPayment.status=='error'">
+     translate ng-if="env.restore_flag==true && model.LastPayment.status=='error'">
     Payment has an error
 </div>
 
@@ -29,40 +29,40 @@
 
 
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentFlat.html'"
-                 ng-if="env.advert.category==1 && env.advert.type=='rent'"></div>
+                 ng-if="model.category==1 && model.type=='rent'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentHouse.html'"
-                 ng-if="env.advert.category==2 && env.advert.type=='rent'"></div>
+                 ng-if="model.category==2 && model.type=='rent'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentGarage.html'"
-                 ng-if="env.advert.category==3 && env.advert.type=='rent'"></div>
+                 ng-if="model.category==3 && model.type=='rent'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentOffice.html'"
-                 ng-if="env.advert.category==4 && env.advert.type=='rent'"></div>
+                 ng-if="model.category==4 && model.type=='rent'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentHotel.html'"
-                 ng-if="env.advert.category==6 && env.advert.type=='rent'"></div>
+                 ng-if="model.category==6 && model.type=='rent'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentHall.html'"
-                 ng-if="env.advert.category==7 && env.advert.type=='rent'"></div>
+                 ng-if="model.category==7 && model.type=='rent'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentRetail.html'"
-                 ng-if="env.advert.category==8 && env.advert.type=='rent'"></div>
+                 ng-if="model.category==8 && model.type=='rent'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentCommercialLand.html'"
-                 ng-if="env.advert.category==9 && env.advert.type=='rent'"></div>
+                 ng-if="model.category==9 && model.type=='rent'"></div>
 
             <div ng-include="'apps/core/adv/tpl/paymentPreview/saleFlat.html'"
-                 ng-if="env.advert.category==1 && env.advert.type=='sale'"></div>
+                 ng-if="model.category==1 && model.type=='sale'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/saleHouse.html'"
-                 ng-if="env.advert.category==2 && env.advert.type=='sale'"></div>
+                 ng-if="model.category==2 && model.type=='sale'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/saleGarage.html'"
-                 ng-if="env.advert.category==3 && env.advert.type=='sale'"></div>
+                 ng-if="model.category==3 && model.type=='sale'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/saleOffice.html'"
-                 ng-if="env.advert.category==4 && env.advert.type=='sale'"></div>
+                 ng-if="model.category==4 && model.type=='sale'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/saleBuilding.html'"
-                 ng-if="env.advert.category==5 && env.advert.type=='sale'"></div>
+                 ng-if="model.category==5 && model.type=='sale'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/saleHotel.html'"
-                 ng-if="env.advert.category==6 && env.advert.type=='sale'"></div>
+                 ng-if="model.category==6 && model.type=='sale'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/saleHall.html'"
-                 ng-if="env.advert.category==7 && env.advert.type=='sale'"></div>
+                 ng-if="model.category==7 && model.type=='sale'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/saleRetail.html'"
-                 ng-if="env.advert.category==8 && env.advert.type=='sale'"></div>
+                 ng-if="model.category==8 && model.type=='sale'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/saleCommercialLand.html'"
-                 ng-if="env.advert.category==9 && env.advert.type=='sale'"></div>
+                 ng-if="model.category==9 && model.type=='sale'"></div>
 
 
             <div ng-class="{ 'has-error-tariff': ( paymentForm.tariff.$invalid && env.submit==true) }">
@@ -99,12 +99,12 @@
                                 {{tariff.duration}}
                             </div>
                         </td>
-                        <td style="border-left: 2px solid #EF8E4C;text-align:center" ng-if="env.advert.type=='rent'">
+                        <td style="border-left: 2px solid #EF8E4C;text-align:center" ng-if="model.type=='rent'">
                             <div style="background-color: #c5E0b4;text-align: center;margin:4px;padding:3px">
                                 {{tariff.rent_price|currency:"€"}}
                             </div>
                         </td>
-                        <td style="border-left: 2px solid #EF8E4C;text-align:center;" ng-if="env.advert.type=='sale'">
+                        <td style="border-left: 2px solid #EF8E4C;text-align:center;" ng-if="model.type=='sale'">
                             <div style="background-color: #E2f0E9;text-align: center;margin:4px;padding:3px">
                                 {{tariff.sale_price|currency:"€"}}
                             </div>
@@ -141,7 +141,7 @@
                             <div class="radio"
                                  ng-class="{ 'has-error': ( paymentForm.paypal_email.$invalid && env.submit==true) }">
                                 <label>
-                                    <input type="radio" value="paypal" ng-model="env.user.payment_type">
+                                    <input type="radio" value="paypal" ng-model="user.payment_type">
                                     {{'PayPal'|translate}}<br>
                                     {{'(you will be forwarded to PayPal by clicking on „Next“)'|translate}}
 
@@ -151,9 +151,9 @@
                                     <label class="col-sm-3 " translate>PayPal email </label>
                                     <div class="col-sm-9">
                                         <input type="email" name="paypal_email" class="form-control"
-                                               ng-model="env.user.paypal_email"
-                                               ng-disabled="env.user.payment_type!='paypal'"
-                                               ng-required="env.user.payment_type=='paypal'">
+                                               ng-model="user.paypal_email"
+                                               ng-disabled="user.payment_type!='paypal'"
+                                               ng-required="user.payment_type=='paypal'">
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                             <div class="radio"
                                  ng-class="{ 'has-error': ( paymentForm.giro_account.$invalid && env.submit==true) }">
                                 <label>
-                                    <input type="radio" value="giropay" ng-model="env.user.payment_type">
+                                    <input type="radio" value="giropay" ng-model="user.payment_type">
                                     {{'GiroPay'|translate}}
                                     <br>
                                     {{'(you will be forwarded to your Bank)'|translate}}
@@ -174,9 +174,9 @@
                                     <label class="col-sm-3" translate>BIC</label>
                                     <div class="col-sm-9">
                                         <input type="text" name="giro_account" class="form-control"
-                                               ng-model="env.user.giro_account"
-                                               ng-disabled="env.user.payment_type!='giropay'"
-                                               ng-required="env.user.payment_type=='giropay'">
+                                               ng-model="user.giro_account"
+                                               ng-disabled="user.payment_type!='giropay'"
+                                               ng-required="user.payment_type=='giropay'">
 
                                     </div>
                                 </div>
@@ -186,12 +186,12 @@
                             <br>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" value="prepayment" ng-model="env.user.payment_type">
+                                    <input type="radio" value="prepayment" ng-model="user.payment_type">
                                     {{'Prepayment'|translate}}
                                 </label>
                             </div>
 
-                            <div ng-if="env.user.payment_type=='prepayment'">
+                            <div ng-if="user.payment_type=='prepayment'">
                                 <div translate>Please use this transaction code for your transaction:</div>
                                 <table>
                                     <tr>
@@ -239,7 +239,7 @@
                             <div class="checkbox "
                                  ng-class="{ 'has-error': ( paymentForm.agb_accepted.$invalid && env.submit==true) }">
                                 <label translate>
-                                    <input type="checkbox" required ng-model="env.user.agb_accepted"
+                                    <input type="checkbox" required ng-model="user.agb_accepted"
                                            name="agb_accepted"> I noticed and accepted the <a target="_blank"
                                                                                               href="/agb">AGB‘s</a>
                                 </label>
@@ -259,10 +259,10 @@
             </div>
         </div>
     </form>
-    <form ng-if="env.user.payment_type=='paypal'" id="paypalForm">
+    <form ng-if="user.payment_type=='paypal'" id="paypalForm">
     </form>
 
-    <form ng-if="env.user.payment_type=='giropay'" id="giroForm">
+    <form ng-if="user.payment_type=='giropay'" id="giroForm">
 
     </form>
 </div>

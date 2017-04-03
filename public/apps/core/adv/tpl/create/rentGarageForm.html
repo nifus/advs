@@ -13,12 +13,11 @@
         </div>
 
 
-
         <div class="form-group"
              ng-class="{ 'has-error': (adv_form.street.$invalid || adv_form.house_number.$invalid) && env.submit==true }">
             <label class="col-sm-2 control-label" translate>Street, House number</label>
             <div class="col-sm-10 form-inline">
-                <input type="text" ng-model="model.address.street" style="width:70%" class="form-control"
+                <input type="text" ng-model="model.address.street" style="width:69%" class="form-control"
                        ng-disabled="!model.address.city"
                        placeholder="{{'Street'|translate}}" name="street" required>
                 <input type="text" ng-model="model.address.house_number" class="form-control"
@@ -33,7 +32,7 @@
                 <input type="text" ng-model="model.address.zip" class="form-control" placeholder="{{'Zip'|translate}}"
                        ng-disabled="!model.address.city"
                        name="zip" required >
-                <input type="text" ng-model="model.address.city" style="width:70%" class="form-control" name="city"
+                <input type="text" ng-model="model.address.city" style="width:69%" class="form-control" name="city"
                        ng-disabled="!model.address.city"
                        required
                        placeholder="{{'City'|translate}}">

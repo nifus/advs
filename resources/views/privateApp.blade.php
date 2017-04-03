@@ -35,7 +35,8 @@
     <script src='/components/angular-gettext/dist/angular-gettext.min.js'></script>
     <script src='/components/lightbox2/dist/js/lightbox.min.js'></script>
     <script src="/components/checklist-model/checklist-model.js"></script>
-    <script type="text/javascript" src="/components/angular-base64-upload/dist/angular-base64-upload.min.js"></script>
+    <script src='/components/ng-file-upload/ng-file-upload-shim.min.js'></script>
+    <script src='/components/ng-file-upload/ng-file-upload.min.js'></script>
 
 
     <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
@@ -55,7 +56,8 @@
 
     <script src="/apps/core/faq/faqFactory.js"></script>
     <script src="/apps/core/faq/faqService.js"></script>
-
+    <script src="/apps/core/tariff/tariffFactory.js"></script>
+    <script src="/apps/core/advPayment/advPaymentFactory.js"></script>
 
 
     <script src="/apps/privateApp/privateApp.js"></script>
@@ -72,6 +74,7 @@
     <script src="/apps/privateApp/directives/leftMenu/leftMenu.js"></script>
     <script src="/apps/privateApp/help/helpController.js"></script>
     <script src="/apps/directives/advPreview/advPreview.js"></script>
+    <script src="/apps/directives/advForm/advForm.js"></script>
     <script src="/apps/privateApp/adv/editController.js"></script>
     <script src="/apps/privateApp/adv/reactController.js"></script>
 

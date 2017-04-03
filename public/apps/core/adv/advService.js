@@ -35,8 +35,8 @@
                 } else if (Object.status == 'expired') {
                     return $filter('translate')('This advert is expired. If you don‘t reactivate it, it will be automatically deleted.');
                 }
-
             }();
+
 
 
             Object.isFav = function (user) {
