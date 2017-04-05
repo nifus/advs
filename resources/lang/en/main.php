@@ -259,5 +259,32 @@ return [
     'subcategory_Garden / Farming'=>'Garden / Farming',
 
 
+    'energy_class_Any'=>'Any',
+    'energy_class_A+'=>'A+',
+    'energy_class_A'=>'A',
+    'energy_class_B'=>'B',
+    'energy_class_C'=>'C',
+    'energy_class_D'=>'D',
+    'energy_class_E'=>'E',
+    'energy_class_F'=>'F',
+    'energy_class_G'=>'G',
+    'energy_class_H'=>'H',
+
+
+    'heating_Self-contained central heating'=>'Self-contained central heating',
+    'heating_Centralheating'=>'Centralheating',
+    'heating_Teleheating'=>'Teleheating',
+    'heating_Other'=>'Other',
+
+    'energy_source_Geothermal energy'=>'Geothermal energy',
+    'energy_source_Solar'=>'Solar',
+    'energy_source_Wood'=>'Wood',
+    'energy_source_Gas'=>'Gas',
+    'energy_source_Oil'=>'Oil',
+    'energy_source_Teleheating'=>'Teleheating',
+    'energy_source_Electricity'=>'Electricity',
+    'energy_source_Coal'=>'Coal',
+    'energy_source_Other'=>'Other',
+
 
 ];

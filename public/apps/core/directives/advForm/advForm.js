@@ -8,20 +8,19 @@
             replace: true,
             restrict: 'E',
             controller: advFormController,
-            templateUrl: '/apps/directives/advForm/advForm.html',
+            templateUrl: '/apps/core/directives/advForm/advForm.html',
             scope: {
                 model: '=',
-                action: '=',
-                user: '='
+                onSave: '=',
             }
         };
 
 
         function advFormController($scope) {
 
-            $scope.categories = advFactory.categories;
-
             $scope.env = {
+                categories: [],
+
                 progress: 0,
                 upload_files: false,
                 submit: false,
@@ -31,35 +30,34 @@
                 energy_source: advFactory.energy_source,
                 heating: advFactory.heating,
                 energy_class: advFactory.energy_class,
-                address: !$scope.model.address ? {display_house: true} : $scope.model.address,
+                address: !$scope.model.address ? {display_house: true} : angular.copy($scope.model.address),
                 display_addr_details: false,
                 display_addr_error: false,
                 tmp_address: null,
                 map: null,
                 advert: null,
                 restore_flag: false,
-                tariffs: [],
                 loading: true,
-                tariff: null,
-                guid: advFactory.guid()
+                guid: advFactory.guid(),
+                limited: false
             };
-            $scope.env.category_name = advFactory.getCategoryName($scope.model.category);
             var promises = [];
 
             var data_set_promise = advFactory.getDataSets().then(function (response) {
+                $scope.env.categories = response.categories;
                 $scope.env.subcats = response.sub_categories;
                 $scope.env.equipments = response.equipments;
-
             });
             promises.push(data_set_promise);
-            var prices_promise = tariffFactory.getPrivatePrices().then(function (response) {
-                $scope.env.tariffs = response;
-            });
-            promises.push(prices_promise);
+
+
 
 
             $q.all(promises).then(function () {
                 $scope.env.loading = false;
+                $scope.env.category_name = getCategoryName($scope.model.category);
+                $scope.env.limited = $scope.model.status!='payment_waiting' && $scope.model.status;
+
             });
 
             $scope.setPrivateType = function (type, category) {
@@ -67,17 +65,6 @@
                 $scope.model.category = category;
                 $scope.env.is_business_rent = 0;
                 $scope.env.is_business_sale = 0;
-
-                var interval = $interval(function () {
-                    if ($('#address_field').length == 1) {
-                        $interval.cancel(interval);
-                        $('#address_field').on('blur', function () {
-                            $scope.env.address.value = $scope.env.tmp_address;
-                            $scope.$apply();
-                        })
-                    }
-                }, 4000)
-
             };
 
             $scope.setBusinessType = function (type, category) {
@@ -100,32 +87,26 @@
             });
 
 
+
             $scope.$watch('env.address', function (value) {
-                var sum = 0;
+
+
                 if (value.value != undefined && value.details && value.details.address_components) {
                     for (var i in value.details.address_components) {
                         var el = angular.copy(value.details.address_components[i]);
                         if (el.types.indexOf('street_number') != -1) {
-                            sum++;
                             $scope.model.address.house_number = (el.long_name);
-
                         }
                         if (el.types.indexOf('route') != -1) {
-                            sum++;
                             $scope.model.address.street = (el.long_name);
-
                         }
                         if (el.types.indexOf('locality') != -1) {
-                            sum++;
                             $scope.model.address.city = (el.long_name);
                         }
                         if (el.types.indexOf('country') != -1) {
-                            sum++;
                             $scope.model.address.country = (el.short_name);
-
                         }
                         if (el.types.indexOf('postal_code') != -1) {
-                            sum++;
                             $scope.model.address.zip = (el.long_name);
                         }
                         if (el.types.indexOf('administrative_area_level_1') != -1) {
@@ -150,6 +131,15 @@
             }, true);
 
             $scope.initGoogleMap = function (lat, lng, reload) {
+                var interval = $interval(function () {
+                    if ($('#address_field').length == 1) {
+                        $interval.cancel(interval);
+                        $('#address_field').on('blur', function () {
+                            $scope.env.address.value = $scope.env.tmp_address;
+                            $scope.$apply();
+                        })
+                    }
+                }, 4000);
 
                 if (lat == null || lng == null) {
                     return;
@@ -275,60 +265,17 @@
                     $scope.env.tariff.end_date = moment().add(3, 'months').format('D.MM.Y')
                 }
             };
-            $scope.previewAdv = function () {
-                $scope.action = 'preview';
-            };
-            $scope.newAdvert = function () {
-                $scope.model = null;
-                $scope.env.restore_flag = false;
-                localStorage.setItem("advert_id", null);
-                $scope.action = 'form'
-            };
+
             $scope.save = function (data, form) {
                 $scope.env.submit = true;
                 if (!form.$invalid) {
                     $scope.env.send = true;
-                    if ($scope.model == null) {
-                        advFactory.store(data).then(
-                            function (response) {
-                                $scope.env.send = false;
-                                $scope.env.submit = false;
-
-                                $scope.model = response;
-                                localStorage.setItem("advert_id", $scope.model.id);
-                                $scope.action = 'payment';
-                            },
-                            function (error) {
-                                $scope.env.send = false;
-                                $scope.env.submit = false;
-                            }
-                        )
-                    } else {
-                        $scope.model.update(data).then(function () {
-                                $scope.env.send = false;
-                                //$scope.model = response;
-                                if ($scope.model.status == 'payment_waiting') {
-                                    $scope.action = 'payment';
-                                }else{
-                                    alertify.success( $filter('translate')("Advert changed") );
-                                    $timeout(function () {
-                                        $state.go("my-adv")
-                                    },1000);
-                                }
-                                $scope.env.submit = false;
-
-                            }, function (error) {
-                                $scope.env.send = false;
-                                $scope.env.submit = false;
-
-                                console.log(error)
-                            }
-                        )
-                    }
-
+                    $scope.onSave(data);
                 }
-
             };
+
+
+
             $scope.deleteAdvert = function () {
                 alertify.confirm($filter('translate')("Are you sure  want to delete this advert?"), function (e) {
                     if (e) {
@@ -340,10 +287,14 @@
                     }
                 });
             };
-            $scope.backToForm = function () {
-                $scope.action = 'form';
-                $scope.model = $scope.model;
-            };
+
+            function getCategoryName(id) {
+                for (var i in $scope.env.categories) {
+                    if ($scope.env.categories[i].id == id) {
+                        return $scope.env.categories[i].title
+                    }
+                }
+            }
 
         }
 

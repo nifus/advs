@@ -1,24 +1,24 @@
 <table style="width:100%;border:2px solid black" class="table">
 
     <tr>
-        <td rowspan="4" ng-if="env.advert.MainPhoto">
+        <td rowspan="4" ng-if="model.MainPhoto">
             <div class="preview">
                 <div class="preview-item">
                     <div class="center">
-                        <img ng-src="{{env.advert.MainPhoto.preview}}" alt="">
+                        <img ng-src="{{model.MainPhoto.preview}}" alt="">
                     </div>
                 </div>
             </div>
         </td>
-        <td translate colspan="3" style="background-color: #DEECF8"><strong>{{env.advert.title}}</strong></td>
+        <td translate colspan="3" style="background-color: #DEECF8"><strong>{{model.title}}</strong></td>
     </tr>
     <tr>
         <td translate colspan="2" style="text-align: right;width: 30%">Area ca.</td>
         <td translate style="text-align: right;width: 30%">Sales price</td>
     </tr>
     <tr>
-        <td style="text-align: right;font-weight: bold" colspan="2">{{env.advert.area}}</td>
-        <td style="text-align: right;font-weight: bold">{{env.advert.price}}</td>
+        <td style="text-align: right;font-weight: bold" colspan="2">{{model.area}}</td>
+        <td style="text-align: right;font-weight: bold">{{model.price}}</td>
     </tr>
     <tr style="border-top:solid 3px #00b3ee">
         <td colspan="3" style="text-align: center">
@@ -29,18 +29,18 @@
 
     <tr>
         <td colspan="2" style="text-align: left" translate>Created on:</td>
-        <td colspan="{{env.advert.MainPhoto ? 2 : 1}}"  style="text-align: right">{{env.advert.CreateDateWithTime}}</td>
+        <td colspan="{{model.MainPhoto ? 2 : 1}}"  style="text-align: right">{{model.CreateDateWithTime}}</td>
     </tr>
 
     <tr>
         <td colspan="2" style="text-align: left" translate>Current status:</td>
-        <td colspan="{{env.advert.MainPhoto ? 2 : 1}}" style="text-align: right;color:red" translate><strong>Offline</strong>- not
+        <td colspan="{{model.MainPhoto ? 2 : 1}}" style="text-align: right;color:red" translate><strong>Offline</strong>- not
             findable in advert search
         </td>
     </tr>
 
     <tr>
         <td colspan="2" style="text-align: left" translate>General information:</td>
-        <td colspan="{{env.advert.MainPhoto ? 2 : 1}}" style="text-align: right;color:#EE863F" translate>No payment receipt</td>
+        <td colspan="{{model.MainPhoto ? 2 : 1}}" style="text-align: right;color:#EE863F" translate>No payment receipt</td>
     </tr>
 </table>

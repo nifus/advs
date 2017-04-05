@@ -1,33 +1,7 @@
-<div class="alert alert-danger" style="width:40%;margin-left: auto;margin-right:auto;text-align:center" role="alert"
-     translate ng-if="env.restore_flag==true && model.LastPayment.status=='error'">
-    Payment has an error
-</div>
-
-<div class="alert alert-info" style="width:40%;margin-left: auto;margin-right:auto;text-align:center" role="alert"
-     translate ng-if="env.restore_flag==true">
-    You did not complete the previous announcement. We have restored it for you
-    <div class="row">
-        <div class="col-md-6 text-right">
-            <button class="btn-default btn" translate ng-click="env.restore_flag = false">Continue this advert</button>
-        </div>
-        <div class="col-md-6 text-left">
-            <button class="btn-default btn" translate ng-click="newAdvert()">Start new
-                advert
-            </button>
-        </div>
-    </div>
-</div>
-
-<div class="row text-right" style="margin:10px;">
-    <button class="btn btn-primary" ng-click="backToForm()">Back</button>
-</div>
-
 <div class="row">
     <form name="paymentForm">
         <div class="col-md-6">
             <h4 translate>Your advert</h4>
-
-
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentFlat.html'"
                  ng-if="model.category==1 && model.type=='rent'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentHouse.html'"
@@ -44,7 +18,6 @@
                  ng-if="model.category==8 && model.type=='rent'"></div>
             <div ng-include="'apps/core/adv/tpl/paymentPreview/rentCommercialLand.html'"
                  ng-if="model.category==9 && model.type=='rent'"></div>
-
 
             <div ng-include="'apps/core/adv/tpl/paymentPreview/saleFlat.html'"
                  ng-if="model.category==1 && model.type=='sale'"></div>
@@ -89,7 +62,7 @@
                         <td style="width: 20px">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" required  name="tariff" ng-model="env.tariff.id"
+                                    <input type="radio" required name="tariff" ng-model="env.tariff.id"
                                            ng-value="{{tariff.id}}">
 
                                 </label>

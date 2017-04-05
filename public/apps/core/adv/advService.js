@@ -7,6 +7,35 @@
         if (advs != undefined) {
             advs = JSON.parse(advs);
         }
+
+        function statusDesc(status) {
+            if (status == 'blocked') {
+                return $filter('translate')('This advert is BLOCKED. Please react on this advert otherwise it will be automatically deleted.');
+            } else if (status == 'active') {
+                return $filter('translate')('This advert is active. It can be found and watched by everyone.');
+            } else if (status == 'payment_waiting') {
+                return $filter('translate')('This advert is active. It can be found and watched by everyone.');
+            } else if (status == 'disabled') {
+                return $filter('translate')('You have disabled this advert. It can NOT be found and watched by everyone.');
+            } else if (status == 'expired') {
+                return $filter('translate')('This advert is expired. If you don‘t reactivate it, it will be automatically deleted.');
+            }
+        }
+
+        function statusStr(status) {
+            if (status == 'payment_waiting') {
+                return $filter('translate')('Waiting for payment');
+            } else if (status == 'active') {
+                return $filter('translate')('Active');
+            } else if (status == 'disabled') {
+                return $filter('translate')('Disabled');
+            } else if (status == 'expired') {
+                return $filter('translate')('Expired');
+            } else if (status == 'blocked') {
+                return $filter('translate')('BLOCKED');
+            }
+        }
+        
         return function (data) {
             var Object = data;
             Object.waiting = false;
@@ -23,19 +52,8 @@
 
             Object.MainPhoto = getMainPhoto(data.photos);
             Object.IsFav = angular.isArray(advs) && advs.indexOf(data.id) !== -1 ? true : data.IsFav;
-            Object.StatusMessage = function () {
-                if (Object.status == 'blocked') {
-                    return $filter('translate')('This advert is BLOCKED. Please react on this advert otherwise it will be automatically deleted.');
-                } else if (Object.status == 'active') {
-                    return $filter('translate')('This advert is active. It can be found and watched by everyone.');
-                } else if (Object.status == 'payment_waiting') {
-                    return $filter('translate')('This advert is active. It can be found and watched by everyone.');
-                } else if (Object.status == 'disabled') {
-                    return $filter('translate')('You have disabled this advert. It can NOT be found and watched by everyone.');
-                } else if (Object.status == 'expired') {
-                    return $filter('translate')('This advert is expired. If you don‘t reactivate it, it will be automatically deleted.');
-                }
-            }();
+            Object.StatusMessage = statusDesc(Object.status);
+            Object.StatusStr = statusStr(Object.status);
 
 
 
@@ -127,9 +145,11 @@
             Object.disable = function () {
                 var deferred = $q.defer();
                 Object.waiting = true;
-                $http.put('/api/user/advs/' + Object.id + '/status', {status: 'disabled'}).then(function (response) {
+                $http.post('/api/adv/' + Object.id + '/status', {status: 'disabled'}).then(function (response) {
                     Object.waiting = false;
                     Object.status = 'disabled';
+                    Object.StatusMessage = statusDesc(Object.status);
+                    Object.StatusStr = statusStr(Object.status);
                     deferred.resolve(response);
                 }, function (error) {
                     deferred.reject(error.data);
@@ -141,9 +161,11 @@
             Object.block = function () {
                 var deferred = $q.defer();
                 Object.waiting = true;
-                $http.put('/api/user/advs/' + Object.id + '/status', {status: 'block'}).then(function (response) {
+                $http.post('/api/adv/' + Object.id + '/status', {status: 'block'}).then(function (response) {
                     Object.waiting = false;
                     Object.status = 'block';
+                    Object.StatusMessage = statusDesc(Object.status);
+                    Object.StatusStr = statusStr(Object.status);
                     deferred.resolve(response);
                 }, function (error) {
                     deferred.reject(error.data);
@@ -155,9 +177,11 @@
             Object.activate = function () {
                 var deferred = $q.defer();
                 Object.waiting = true;
-                $http.put('/api/user/advs/' + Object.id + '/status', {status: 'active'}).then(function (response) {
+                $http.post('/api/adv/' + Object.id + '/status', {status: 'active'}).then(function (response) {
                     Object.waiting = false;
                     Object.status = 'active';
+                    Object.StatusMessage = statusDesc(Object.status);
+                    Object.StatusStr = statusStr(Object.status);
                     deferred.resolve(response);
                 }, function (error) {
                     deferred.reject(error.data);

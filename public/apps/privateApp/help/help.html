@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li class="active">Help</li>
+    <li><a href="/" translate>Home</a></li>
+    <li class="active" translate>Help</li>
 </ol>
 
 <div class="progress" ng-show="env.loading==true">
@@ -20,10 +20,10 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Instruction</h3>
+                        <h3 class="panel-title" translate>Instruction</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default" ng-repeat="item in env.items|filter:{type:'instruction'}">
                                 <div class="panel-heading" role="tab" >
                                     <h5 class="panel-title">
@@ -43,9 +43,9 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Contact</h3>
+                        <h3 class="panel-title" translate>Contact</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" translate>
                         <p>If you have questions or problems you can contact us via email under:</p>
                         <p>Email: <a href="emailto:adsadsad@dfsdf.ru">adsadsad@dfsdf.ru</a></p>
                         <p>(Reachable from monday – friday from 10 o‘clock – 15 o‘clock)</p>
@@ -56,7 +56,7 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">FAQ‘s</h3>
+                        <h3 class="panel-title" translate>FAQ‘s</h3>
                     </div>
                     <div class="panel-body">
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">

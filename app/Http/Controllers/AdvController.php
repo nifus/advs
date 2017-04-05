@@ -244,13 +244,13 @@ class AdvController extends Controller
             $status = $request->get('status');
             $user = UserModel::getUser();
             if (is_null($user)) {
-                abort(403, 'Access Error');
-                //return response()->json(null,403);
+                //abort(403, 'Access Error');
+                return response()->json(null,403);
             }
             $adv = AdvModel::findOrDie($adv_id);
             if (!$adv->isOwner($user->id)) {
-                abort(403, 'Access Error');
-                // return response()->json(null,403);
+                //abort(403, 'Access Error');
+                return response()->json(null,403);
             }
 
             $adv->changeStatus($status);

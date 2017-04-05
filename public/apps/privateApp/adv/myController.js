@@ -65,7 +65,7 @@
 
 
         $scope.deleteAdv = function (adv) {
-            alertify.confirm("<h4>Delete this advert</h4><p>Are you sure you want to delete your advert?</p> <br> <p>Your advert will be deleted instantly. <br>Please note that this operation can NOT be revoked.</p>", function (e) {
+            alertify.confirm( $filter('translate')("<h4>Delete this advert</h4><p>Are you sure you want to delete your advert?</p> <br> <p>Your advert will be deleted instantly. <br>Please note that this operation can NOT be revoked.</p>"), function (e) {
                 if (e) {
                     adv.delete().then(function () {
                         $scope.env.advs.rent = $scope.env.advs.rent.filter(function (cur_adv) {
@@ -80,7 +80,7 @@
                             }
                             return false;
                         });
-                        alertify.success('Your advert deleted');
+                        alertify.success( $filter('translate')('Your advert deleted') );
 
                     }, function (error) {
                         alertify.error(error);
@@ -90,12 +90,10 @@
         };
 
         $scope.disableAdv = function (adv) {
-            alertify.confirm("<h4>Disable this advert</h4><p>Are you sure you want to disable your advert?</p> <br> <p>Please keep in mind, that the duration will keep running</p>", function (e) {
+            alertify.confirm( $filter('translate')("<h4>Disable this advert</h4><p>Are you sure you want to disable your advert?</p> <br> <p>Please keep in mind, that the duration will keep running</p>"), function (e) {
                 if (e) {
                     adv.disable().then(function () {
-
-                        alertify.success('Your advert disabled');
-
+                        alertify.success( $filter('translate')('Your advert disabled'));
                     }, function (error) {
                         alertify.error(error);
                     })
@@ -103,11 +101,11 @@
             });
         };
 
-        $scope.enableAdv = function (adv) {
-            alertify.confirm("<h4>Enable this advert</h4><p>Are you sure you want to anable your advert?</p> <br> <p>Please keep in mind, that the duration will keep running</p>", function (e) {
+        $scope.activateAdv = function (adv) {
+            alertify.confirm($filter('translate')("<h4>Activate this advert</h4><p>Are you sure you want to activate your advert?</p> <br> <p>Please keep in mind, that the duration will keep running</p>"), function (e) {
                 if (e) {
-                    adv.enable().then(function () {
-                        alertify.success('Your advert enabled');
+                    adv.activate().then(function () {
+                        alertify.success( $filter('translate')('Your advert activated') );
                     }, function (error) {
                         alertify.error(error);
                     })

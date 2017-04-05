@@ -1,32 +1,24 @@
 <div>
-    <form ng-if="action=='form'" class="form-horizontal" name="adv_form">
+    <form class="form-horizontal" name="adv_form">
 
-        <div style="border-bottom:3px solid #00b3ee;height:30px;margin-bottom: 30px" class="row" ng-if="model.status!='payment_waiting' && model.status">
-            <label class="col-sm-2" style="font-size: 18px;padding-left:0px;font-weight: bold" translate>Advert
-                type</label>
+        <div class="row">
+            <h4 translate>Advert type</h4>
 
-            <div class="col-sm-10">
-                {{model.type}} - {{env.category_name}}
-            </div>
-        </div>
-
-        <div class="row" ng-if="model.status=='payment_waiting' || !model.status">
-            <h4>Advert type</h4>
-
-            <div class="col-md-2">Please select your advertisement type</div>
+            <div class="col-md-2" translate>Please select your advertisement type</div>
             <div class="col-md-4">
 
                 <div class="header"
                      style="background-color: orange;padding:20px;margin:0px;text-align: center">
-                    <strong>Rent</strong></div>
+                    <strong translate>Rent</strong></div>
 
                 <div class="type"
                      style="background-color: lightyellow;padding:10px;margin:0px;height:120px">
 
-                    <div class="radio" ng-repeat="category in categories" ng-if="category.ic_business==false && category.is_sale_only==false">
+                    <div class="radio" ng-class="{'disabled':env.limited}" ng-repeat="category in env.categories"
+                         ng-if="category.ic_business==false && category.is_sale_only==false">
                         <label>
                             <input type="radio" value="flat"
-
+                                   ng-disabled="env.limited"
                                    ng-checked="model.type=='rent' && model.category==category.id"
                                    ng-click="setPrivateType('rent',category.id)">
                             {{category.title}}
@@ -35,22 +27,23 @@
 
                 </div>
                 <div style="background-color: darkseagreen;padding:10px;margin:0px;">
-                    <div class="radio" ng-class="{'disabled':env.is_business_sale}">
+                    <div class="radio" ng-class="{'disabled':env.is_business_sale || env.limited}">
                         <label>
                             <input type="radio" ng-model="env.is_business_rent"
-                                   ng-disabled="env.is_business_sale"
+                                   ng-disabled="env.is_business_sale || env.limited"
                                    ng-click="isBusiness('rent')">
-                            Business realty
+                            {{'Business realty'|translate}}
                         </label>
                     </div>
                 </div>
 
                 <div style="background-color: lightyellow;padding:10px;margin:0px;">
 
-                    <div class="radio" ng-class="{'disabled' : env.is_business_rent==0}" ng-repeat="category in categories" ng-if="category.ic_business==true">
+                    <div class="radio" ng-class="{'disabled' : env.is_business_rent==0 || env.limited}"
+                         ng-repeat="category in env.categories" ng-if="category.ic_business==true">
                         <label>
                             <input type="radio"
-                                   ng-disabled="env.is_business_rent==0"
+                                   ng-disabled="env.is_business_rent==0 || env.limited"
                                    ng-checked="model.type=='rent' && model.category==category.id"
                                    ng-click="setBusinessType('rent',category.id)">
                             {{category.title}}
@@ -62,14 +55,16 @@
             </div>
             <div class="col-md-4">
                 <div style="background-color: lightcoral;margin:0px;padding:20px;text-align: center">
-                    <strong>Sale</strong></div>
+                    <strong translate>Sale</strong></div>
 
 
                 <div class="type" style="background-color: oldlace;margin:0px;padding:10px;height:120px">
 
-                    <div class="radio" ng-repeat="category in categories" ng-if="category.ic_business==false">
+                    <div class="radio" ng-class="{'disabled':env.limited}" ng-repeat="category in env.categories"
+                         ng-if="category.ic_business==false">
                         <label>
                             <input type="radio" value="flat"
+                                   ng-disabled="env.limited"
                                    ng-checked="model.type=='sale' && model.category==category.id"
                                    ng-click="setPrivateType('sale',category.id)">
                             {{category.title}}
@@ -80,12 +75,12 @@
                 </div>
                 <div style="background-color: darkseagreen;margin:0px;padding:10px">
 
-                    <div class="radio" ng-class="{'disabled':env.is_business_rent}">
-                        <label>
+                    <div class="radio" ng-class="{'disabled':env.is_business_rent || env.limited}">
+                        <label >
                             <input type="radio" ng-model="env.is_business_sale"
-                                   ng-disabled="env.is_business_rent"
+                                   ng-disabled="env.is_business_rent || env.limited"
                                    ng-click="isBusiness('sale')">
-                            Business realty
+                            {{'Business realty'|translate}}
                         </label>
                     </div>
                 </div>
@@ -93,10 +88,11 @@
                 <div style="background-color: oldlace;margin:0px;padding:10px">
 
 
-                    <div class="radio" ng-class="{'disabled' : env.is_business_sale==0}"  ng-repeat="category in categories" ng-if="category.ic_business==true">
+                    <div class="radio" ng-class="{'disabled' : env.is_business_sale==0 || env.limited}"
+                         ng-repeat="category in env.categories" ng-if="category.ic_business==true">
                         <label>
                             <input type="radio" value="flat"
-                                   ng-disabled="env.is_business_sale==0"
+                                   ng-disabled="env.is_business_sale==0 || env.limited"
                                    ng-checked="model.type=='sale' && model.category==category.id"
                                    ng-click="setBusinessType('sale',category.id)">
                             {{category.title}}
@@ -108,7 +104,7 @@
 
             </div>
             <div class="col-md-2">
-                <div class="alert alert-warning" role="alert">
+                <div class="alert alert-warning" role="alert" translate>
                     Based on your selection you will receive the
                     corresponding template
                 </div>
@@ -154,7 +150,7 @@
 
 
         <div class="row form-horizontal" ng-show="model.category">
-            <h4>Finish</h4>
+            <h4 translate>Finish</h4>
 
             <div class="form-group" ng-class="{ 'has-error': adv_form.agb.$invalid && env.submit==true }">
                 <label class="col-sm-2 control-label"></label>
@@ -190,30 +186,28 @@
                     des Verkäufers über</textarea> <br>
                     <label class="checkbox-inline">
                         <input type="checkbox" name="agb" ng-model="model.agb"
-                               required> AGB accept?
+                               required> {{'AGB accept?'|translate}}
                     </label>
 
                 </div>
             </div>
 
-            <div class="alert alert-danger" role="alert" ng-show="env.error">This is error</div>
 
             <div class="form-group">
 
                 <div class="col-sm-10">
                     <div class="alert alert-warning" role="alert"
-                         ng-show="adv_form.$invalid && env.submit==true">You did not fill in all
+                         ng-show="adv_form.$invalid && env.submit==true" translate>You did not fill in all
                         fields
                     </div>
 
                     <button class="btn btn-primary" type="button" ng-click="save(model, adv_form)"
-                            ng-disabled="env.send==true">
+                            ng-disabled="env.send==true" translate>
                         Send
                     </button>
                 </div>
             </div>
         </div>
     </form>
-    <div ng-if="action=='payment'" ng-include="'/apps/frontApp/adv/create/payment.html'"></div>
-    <div ng-if="action=='preview'" ng-include="'/apps/frontApp/adv/create/preview.html'"></div>
+
 </div>

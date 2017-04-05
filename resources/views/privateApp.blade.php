@@ -42,8 +42,6 @@
     <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
     <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
     <script src="/apps/core/core.js"></script>
-    <script src="/apps/core/cacheService.js"></script>
-    <script src="/apps/directives/upload/upload.js"></script>
 
     <script src="/apps/core/user/userFactory.js"></script>
     <script src="/apps/core/user/userService.js"></script>
@@ -58,7 +56,8 @@
     <script src="/apps/core/faq/faqService.js"></script>
     <script src="/apps/core/tariff/tariffFactory.js"></script>
     <script src="/apps/core/advPayment/advPaymentFactory.js"></script>
-
+    <script src="/apps/core/directives/advPreview/advPreview.js"></script>
+    <script src="/apps/core/directives/advForm/advForm.js"></script>
 
     <script src="/apps/privateApp/privateApp.js"></script>
     <script src="/apps/privateApp/login/loginController.js"></script>
@@ -73,8 +72,7 @@
     <script src="/apps/privateApp/deleteAccount/deleteAccountController.js"></script>
     <script src="/apps/privateApp/directives/leftMenu/leftMenu.js"></script>
     <script src="/apps/privateApp/help/helpController.js"></script>
-    <script src="/apps/directives/advPreview/advPreview.js"></script>
-    <script src="/apps/directives/advForm/advForm.js"></script>
+
     <script src="/apps/privateApp/adv/editController.js"></script>
     <script src="/apps/privateApp/adv/reactController.js"></script>
 

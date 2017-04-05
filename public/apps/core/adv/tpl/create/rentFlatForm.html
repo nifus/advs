@@ -7,10 +7,12 @@
             <div class="col-sm-10">
                 <input type="text" ng-autocomplete ng-model="env.address.value" details="env.address.details"
                        name="address"
+                       ng-disabled="env.limited"
                        class="form-control" id="address_field" ng-required="model.id==undefined">
 
             </div>
         </div>
+
 
 
         <div class="form-group"
@@ -18,10 +20,10 @@
             <label class="col-sm-2 control-label" translate>Street, House number</label>
             <div class="col-sm-10 form-inline">
                 <input type="text" ng-model="model.address.street" style="width:70%" class="form-control"
-                       ng-disabled="!model.address.city"
+                       ng-disabled="!model.address.city || env.limited"
                        placeholder="{{'Street'|translate}}" name="street" required>
                 <input type="text" ng-model="model.address.house_number" class="form-control"
-                       ng-disabled="!model.address.city"
+                       ng-disabled="!model.address.city || env.limited"
                        placeholder="{{'House number'|translate}}" name="house_number" required>
             </div>
         </div>
@@ -30,10 +32,10 @@
             <label class="col-sm-2 control-label" translate>Zip, City</label>
             <div class="col-sm-10 form-inline">
                 <input type="text" ng-model="model.address.zip" class="form-control" placeholder="{{'Zip'|translate}}"
-                       ng-disabled="!model.address.city"
+                       ng-disabled="!model.address.city || env.limited"
                        name="zip" required >
                 <input type="text" ng-model="model.address.city" style="width:70%" class="form-control" name="city"
-                       ng-disabled="!model.address.city"
+                       ng-disabled="!model.address.city || env.limited"
                        required
                        placeholder="{{'City'|translate}}">
             </div>
@@ -459,7 +461,7 @@
                         </div>
                     </div>
                     <div style="text-align: center" id="upload_trigger" ng-if="model.photos.length<12" >
-                        <button ngf-select="uploadFiles($files)" multiple  ngf-max-files="12" ngf-max-size="6MB"   accept="image/*" translate>Upload photos</button>
+                        <button type="button" ngf-select="uploadFiles($files)" multiple  ngf-max-files="12" ngf-max-size="6MB"   accept="image/*" translate>Upload photos</button>
                     </div>
                     <div class="alert alert-warning" role="alert" ng-if="model.photos.length==12" translate>You can upload only 12 photos</div>
 

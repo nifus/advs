@@ -9,7 +9,7 @@
             restrict: 'E',
             link: advPreviewLink,
             controller: advPreviewController,
-            templateUrl: '/apps/directives/advPreview/advPreview.html',
+            templateUrl: '/apps/core/directives/advPreview/advPreview.html',
             scope: {
                 adv: '=',
                 user: '=',

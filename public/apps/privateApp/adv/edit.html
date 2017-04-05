@@ -64,9 +64,20 @@
     </div>
 
     <div ng-if="env.react==undefined || (env.react==1 && env.display_form==true)">
-        <form name="adv_form" class="form-horizontal">
-            <adv-form model="model" user="$parent.user" action="env.action"></adv-form>
-        </form>
+
+
+        <adv-form ng-if="env.action=='form'" model="model"  on-save="save"></adv-form>
+
+        <div ng-if="env.action=='preview'">
+            <div class="panel panel-default">
+                <div class="panel-body text-right">
+                    <button class="btn btn-default" type="button" ng-click="backToPayment()" translate>Back</button>
+
+                </div>
+            </div>
+            <adv-preview  adv="model"  user="$parent.user" hide-contact-form="true"></adv-preview>
+        </div>
+        <div  ng-if="env.action=='payment'" ng-include="'/apps/frontApp/adv/create/payment.html'"></div>
 
     </div>
 </div>

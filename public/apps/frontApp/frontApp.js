@@ -1,17 +1,10 @@
 (function (angular) {
     'use strict';
-    angular.module('frontApp', ['core', 'vcRecaptcha', 'ngCookies', 'satellizer', 'ngAutocomplete', 'checklist-model', 'ui.bootstrap.datetimepicker', 'ngFileUpload', 'AngularGM', 'gettext','angucomplete-alt','disableAll','textCounter'], function ($interpolateProvider) {
-        // $interpolateProvider.startSymbol('%');
-        //$interpolateProvider.endSymbol('%');
+    angular.module('frontApp', ['core', 'ui.router', 'vcRecaptcha', 'ngCookies', 'satellizer', 'ngAutocomplete', 'checklist-model', 'ui.bootstrap.datetimepicker', 'ngFileUpload', 'AngularGM', 'gettext', 'angucomplete-alt', 'disableAll', 'textCounter'], function ($interpolateProvider) {
+
     }).config(function ($authProvider) {
-        // $authProvider.httpInterceptor = false;
         $authProvider.loginUrl = '/api/user/authenticate';
-
-
-        // $translateProvider.preferredLanguage(lang);
-
     }).run(function (gettextCatalog) {
-
         var lang = localStorage.getItem('lang');
         lang = lang == undefined ? 'en' : lang;
         gettextCatalog.setCurrentLanguage(lang);
@@ -44,11 +37,11 @@
     angular.module("frontApp").directive("compareTo", compareTo);
 
     Object.defineProperty(Array.prototype, 'chunk_inefficient', {
-        value: function(chunkSize) {
-            var array=this;
+        value: function (chunkSize) {
+            var array = this;
             return [].concat.apply([],
-                array.map(function(elem,i) {
-                    return i%chunkSize ? [] : [array.slice(i,i+chunkSize)];
+                array.map(function (elem, i) {
+                    return i % chunkSize ? [] : [array.slice(i, i + chunkSize)];
                 })
             );
         }

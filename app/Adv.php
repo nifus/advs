@@ -11,18 +11,18 @@ use App\Jobs\AdvMessage as AdvMessageJob;
 class Adv extends Model
 {
     protected $hidden = [
-         'users_fav',
+        'users_fav',
     ];
     protected $fillable = [
         'title', 'desc', 'created_at', 'type', 'updated_at', 'user_id', 'status', 'photos', 'visited', 'favorite',
-        'lng','lat',
+        'lng', 'lat',
 
-         'price_type', 'price','emphyteusis_per_year',
+        'price_type', 'price', 'emphyteusis_per_year',
 
-        'address', 'author', 'category', 'move_date', 'is_deleted', 'energy', 'equipments', 'props', 'subcategory', 'finance', 'floor', 'floors', 'living_area','plot_area','area',
+        'address', 'author', 'category', 'move_date', 'is_deleted', 'energy', 'equipments', 'props', 'subcategory', 'finance', 'floor', 'floors', 'living_area', 'plot_area', 'area',
         'rooms', 'hide_contacts',
-        'city_id','region_id','country_id',
-        'edp_cabling','air_conditioner','number_beds','storey_height','users_fav','length_shop_window','development','building_permission',
+        'city_id', 'region_id', 'country_id',
+        'edp_cabling', 'air_conditioner', 'number_beds', 'storey_height', 'users_fav', 'length_shop_window', 'development', 'building_permission',
 
         'disable_date'
     ];
@@ -40,7 +40,6 @@ class Adv extends Model
         ['id' => 8, 'title' => 'Retail trade', 'is_sale_only' => false, 'ic_business' => true],
         ['id' => 9, 'title' => 'Commercial land', 'is_sale_only' => false, 'ic_business' => true],
     ];
-
     static private $equipments = [
         1 => [
             "Balcony/Terrace",
@@ -177,15 +176,49 @@ class Adv extends Model
             ['title' => 'Any', 'id' => 'Any'],
         ]
     ];
+    static private $energy_source = [
+        ['id' => 'Geothermal energy', 'value' => 'Geothermal energy'],
+        ['id' => 'Solar', 'value' => 'Solar'],
+        ['id' => 'Wood', 'value' => 'Wood'],
+        ['id' => 'Gas', 'value' => 'Gas'],
+        ['id' => 'Oil', 'value' => 'Oil'],
+        ['id' => 'Teleheating', 'value' => 'Teleheating'],
+        ['id' => 'Electricity', 'value' => 'Electricity'],
+        ['id' => 'Coal', 'value' => 'Coal'],
+        ['id' => 'Other', 'value' => 'Other']
+    ];
+
+    static private $heating = [
+        ['id' => 'Self-contained central heating', 'value' => 'Self-contained central heating'],
+        ['id' => 'Centralheating', 'value' => 'Centralheating'],
+        ['id' => 'Teleheating', 'value' => 'Teleheating'],
+        ['id' => 'Other', 'value' => 'Other'],
+    ];
+
+    static private $energy_class = [
+        ['id' => 'Any', 'value' => 'Any'],
+        ['id' => 'A+', 'value' => 'A+'],
+        ['id' => 'A', 'value' => 'A'],
+        ['id' => 'B', 'value' => 'B'],
+        ['id' => 'C', 'value' => 'C'],
+        ['id' => 'D', 'value' => 'D'],
+        ['id' => 'E', 'value' => 'E'],
+        ['id' => 'F', 'value' => 'F'],
+        ['id' => 'G', 'value' => 'G'],
+        ['id' => 'H', 'value' => 'H'],
+    ];
+
 
     public function Owner()
     {
         return $this->hasOne('App\User', 'id', 'user_id');
     }
+
     public function UsersFav()
     {
-        return $this->belongsToMany('App\User', 'advs_fav', 'adv_id','user_id');
+        return $this->belongsToMany('App\User', 'advs_fav', 'adv_id', 'user_id');
     }
+
     function toArray()
     {
         $array = parent::toArray();
@@ -196,12 +229,13 @@ class Adv extends Model
 
         return $array;
     }
-    function getArray($user_id=null)
+
+    function getArray($user_id = null)
     {
         $array = parent::toArray();
-        if ( is_null($user_id)){
+        if (is_null($user_id)) {
             $array['IsFav'] = false;
-        }else{
+        } else {
             $array['IsFav'] = $this->isFav4user($user_id);
         }
         // $array['DeleteDate'] = $this->DeleteDate;
@@ -210,53 +244,60 @@ class Adv extends Model
         return $array;
     }
 
-    public function isFav4user($user_id){
+    public function isFav4user($user_id)
+    {
         $ids = json_decode($this->users_fav);
-        if ( !is_array($ids) ){
+        if (!is_array($ids)) {
             return false;
         }
-        if ( in_array($user_id,$ids) ){
+        if (in_array($user_id, $ids)) {
             return true;
         }
         return false;
     }
+
     public function changeStatus($status)
     {
         $this->update(['status' => $status]);
     }
 
-    public function getLastPayment(){
+    public function getLastPayment()
+    {
         return AdvPayment::getLastPayment($this->id);
     }
 
-    public function activate(AdvPayment $payment){
+    public function activate(AdvPayment $payment)
+    {
         //$now = new \DateTime();
         $disable_date = new \DateTime();
-        if ($this->Owner->isPrivateAccount()){
+        if ($this->Owner->isPrivateAccount()) {
             $tariff = $payment->PrivateTariff;
 
-            $disable_date->modify('+'.$tariff->duration);
-        }else{
+            $disable_date->modify('+' . $tariff->duration);
+        } else {
             $tariff = $payment->BusinessTariff;
             //TODO add for business tariff
         }
 
 
-        $this->update(['status'=>'active','disable_date'=>$disable_date->format('Y-m-d H:i:s')]);
+        $this->update(['status' => 'active', 'disable_date' => $disable_date->format('Y-m-d H:i:s')]);
         return true;
     }
 
-    public function getDescWithBrAttribute(){
+    public function getDescWithBrAttribute()
+    {
         return nl2br(htmlspecialchars($this->attributes['desc']));
 
     }
 
-    public function getCreateDateWithTimeAttribute(){
+    public function getCreateDateWithTimeAttribute()
+    {
         $date = new \DateTime($this->created_at);
         return $date->format('d-m-y H:i');
     }
 
-    public function getDisableDateWithTimeAttribute(){
+    public function getDisableDateWithTimeAttribute()
+    {
         $date = new \DateTime($this->disable_date);
         return $date->format('d-m-y H:i');
     }
@@ -267,10 +308,12 @@ class Adv extends Model
         $date = new \DateTime($value);
         $this->attributes['move_date'] = $date->format('Y-m-d');
     }
+
     public function setAddressAttribute($value)
     {
         $this->attributes['address'] = json_encode($value);
     }
+
     public function getAddressAttribute()
     {
         return json_decode($this->attributes['address']);
@@ -280,6 +323,7 @@ class Adv extends Model
     {
         $this->attributes['author'] = json_encode($value);
     }
+
     public function getAuthorAttribute()
     {
         return json_decode($this->attributes['author']);
@@ -331,7 +375,7 @@ class Adv extends Model
 
     public function getPhotosAttribute()
     {
-         return json_decode($this->attributes['photos']);
+        return json_decode($this->attributes['photos']);
     }
 
     public function setPhotosAttribute($value)
@@ -342,7 +386,7 @@ class Adv extends Model
     public function getMainPhotoAttribute()
     {
         if (is_null($this->attributes['photos'])) {
-            return ['preview'=>'/images/no-photo.jpg'];
+            return ['preview' => '/images/no-photo.jpg'];
         }
         $images = $this->photos;
         return $images[0];
@@ -364,7 +408,6 @@ class Adv extends Model
         }
         return $result;
     }*/
-
 
 
     public function getStatusStrAttribute()
@@ -411,12 +454,14 @@ class Adv extends Model
         return true;
     }
 
-    public function updateFavs(){
+    public function updateFavs()
+    {
         $ids = $this->UsersFav()->pluck('user_id')->toArray();
-        $this->update(['users_fav'=>json_encode($ids)]);
+        $this->update(['users_fav' => json_encode($ids)]);
     }
 
-    public function sendMessage($data, $ip){
+    public function sendMessage($data, $ip)
+    {
         $validator = [
             'sex' => 'required',
             'name' => 'required|min:2',
@@ -428,26 +473,28 @@ class Adv extends Model
             $messages = $validator->messages();
             throw new \Exception($messages->first());
         }
-        if ( false===MessageLog::check($this->id, $ip) ){
+        if (false === MessageLog::check($this->id, $ip)) {
             throw new \Exception('Many messages');
         }
 
         $log = MessageLog::createMessage($this->id, $data, $ip);
-        dispatch( new AdvMessageJob($this, $log) );
+        dispatch(new AdvMessageJob($this, $log));
         return $log;
     }
 
-    public function itsAuthor($user_id){
-        if ( $this->attributes['user_id']==$user_id ){
+    public function itsAuthor($user_id)
+    {
+        if ($this->attributes['user_id'] == $user_id) {
             return true;
         }
         return false;
     }
 
-    public function updateAdv($data){
+    public function updateAdv($data)
+    {
         self::advValidation($data);
-        if ( $this->attributes['status']=='blocked' ){
-            $data['status']='approve_waiting';
+        if ($this->attributes['status'] == 'blocked') {
+            $data['status'] = 'approve_waiting';
         }
         $this->update($data);
     }
@@ -481,7 +528,8 @@ class Adv extends Model
         return $adv;
     }
 
-    static function advValidation($data){
+    static function advValidation($data)
+    {
         $general_rules = [
             'type' => 'required',
             'title' => 'required',
@@ -574,17 +622,16 @@ class Adv extends Model
         $zip = isset($data['address']['zip']) ? $data['address']['zip'] : null;
         $city_place = Place::findCity($country, $region, $city);
 
-        if ( is_null($city_place) ){
+        if (is_null($city_place)) {
             $city_place = Place::createCity($country, $region, $city, $zip);
         }
         $data['city_id'] = $city_place->id;
         $photos = $data['photos'];
         unset($data['photos']);
         $adv = self::create($data);
-        $adv->update(['photos'=>$photos]);
+        $adv->update(['photos' => $photos]);
         return $adv;
     }
-
 
 
     static function getCategories()
@@ -597,7 +644,7 @@ class Adv extends Model
 
     static function getSubCategories($category = null)
     {
-        if ( is_null($category) ){
+        if (is_null($category)) {
             foreach (self::$sub_categories as $i => $category) {
                 foreach ($category as $j => $equipment) {
                     self::$sub_categories[$i][$j]['title'] = trans('main.subcategory_' . self::$sub_categories[$i][$j]['title']);
@@ -605,7 +652,7 @@ class Adv extends Model
             }
             return self::$sub_categories;
 
-        }else{
+        } else {
             foreach (self::$sub_categories[$category] as $j => $sub) {
                 self::$sub_categories[$category][$j]['title'] = trans('main.subcategory_' . self::$sub_categories[$category][$j]['title']);
             }
@@ -617,7 +664,7 @@ class Adv extends Model
 
     static function getEquipments($category = null)
     {
-        if ( is_null($category) ) {
+        if (is_null($category)) {
             foreach (self::$equipments as $category => $equipments) {
                 foreach ($equipments as $i => $equipment) {
                     self::$equipments[$category][$i] = trans('main.equipment_' . self::$equipments[$category][$i]);
@@ -625,12 +672,34 @@ class Adv extends Model
             }
             return self::$equipments;
 
-        }else{
+        } else {
             foreach (self::$equipments[$category] as $i => $equipment) {
                 self::$equipments[$category][$i] = trans('main.equipment_' . self::$equipments[$category][$i]);
             }
             return self::$equipments[$category];
         }
+    }
+
+    static function getEnergySource()
+    {
+        foreach (self::$energy_source as $i => $source) {
+            self::$energy_source[$i]['value'] = trans('main.energy_source_' . self::$energy_source[$i]['value']);
+        }
+        return self::$energy_source;
+    }
+    static function getHeatingSource()
+    {
+        foreach (self::$heating as $i => $source) {
+            self::$heating[$i]['value'] = trans('main.heating_' . self::$heating[$i]['value']);
+        }
+        return self::$heating;
+    }
+    static function getEnergyClassSource()
+    {
+        foreach (self::$energy_class as $i => $source) {
+            self::$energy_class[$i]['value'] = trans('main.energy_class_' . self::$energy_class[$i]['value']);
+        }
+        return self::$energy_class;
     }
 
     static function getByPage($page, $limit, $filter)
@@ -639,13 +708,11 @@ class Adv extends Model
         // dd($filter);
 
 
+        $sql = self::with('Owner')->whereHas('Owner', function ($query) use ($filter) {
 
-
-        $sql = self::with('Owner')->whereHas('Owner', function ($query) use($filter){
-
-            if (isset($filter['account']) && $filter['account']=='private') {
+            if (isset($filter['account']) && $filter['account'] == 'private') {
                 $query->where('group_id', 2);
-            }elseif (isset($filter['account']) && $filter['account']=='business') {
+            } elseif (isset($filter['account']) && $filter['account'] == 'business') {
                 $query->where('group_id', 3);
             }
             if (isset($filter['email'])) {
@@ -653,7 +720,7 @@ class Adv extends Model
             }
 
 
-        } )->orderBy('id', 'DESC');
+        })->orderBy('id', 'DESC');
         if (isset($filter['id'])) {
             $sql = $sql->where('id', $filter['id']);
         }
@@ -663,24 +730,23 @@ class Adv extends Model
         if (isset($filter['category'])) {
             $sql = $sql->where('category', $filter['category']);
         }
-        if (isset($filter['type']) && $filter['type']!='all') {
+        if (isset($filter['type']) && $filter['type'] != 'all') {
             $sql = $sql->where('type', $filter['type']);
         }
-        if (isset($filter['statuses']) && !in_array('all',$filter['statuses'])) {
+        if (isset($filter['statuses']) && !in_array('all', $filter['statuses'])) {
             $sql = $sql->whereIn('status', $filter['statuses']);
         }
 
         $sql = $sql->where('is_deleted', '0');
 
 
-        if ( !is_null($page) && !is_null($limit) ){
+        if (!is_null($page) && !is_null($limit)) {
             $offset = ($page - 1) * $limit;
             $sql = $sql->offset($offset)->limit($limit);
         }
 
         return $sql->get();
     }
-
 
 
 }

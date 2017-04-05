@@ -114,7 +114,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::get('/by-current-user', 'AdvController@getByCurrentUser' )->where('id','[0-9]*');
 
         Route::delete('{id}', 'AdvController@delete' )->where('id','[0-9]*');
-        Route::put('{id}/status', 'AdvController@changeStatus' )->where('id','[0-9]*');
+        Route::post('{id}/status', 'AdvController@changeStatus' )->where('id','[0-9]*');
 
         Route::get('/watch/by-current-user', 'AdvController@getWatchByCurrentUser' );
         Route::delete('/watch-advs/{id}', 'AdvController@removeWatch' )->where('id','[0-9]*');
@@ -184,12 +184,14 @@ Route::group(['prefix'=>'api'], function () {
 
     Route::get('/adv-data-sets', function(){
         $sets = [
+            'categories'=>Adv::getCategories(),
             'sub_categories'=>Adv::getSubCategories(),
             'equipments'=>Adv::getEquipments(),
-            'categories'=>Category::getCategories(),
             'agb' =>  \Config::get('app.agb'),
             'disabled_msg'=>\Config::get('app.disabled_msg'),
-            'google_key'=> ''
+            'energy_class'=>Adv::getEnergyClassSource(),
+            'heating'=>Adv::getHeatingSource(),
+            'energy_source'=>Adv::getEnergySource(),
         ];
         return response()->json($sets);
     } );
