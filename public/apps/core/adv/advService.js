@@ -200,6 +200,16 @@
                 return deferred.promise;
             };
 
+            Object.createReport = function (data) {
+                var deferred = $q.defer();
+                $http.post('/api/adv/' + Object.id + '/report', data).then(function (response) {
+                    deferred.resolve(response.data);
+                }, function (error) {
+                    deferred.reject(error.data);
+                });
+                return deferred.promise;
+            };
+
 
             return (Object);
         };

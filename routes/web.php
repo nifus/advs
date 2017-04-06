@@ -124,6 +124,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::post('/{id}/message', 'AdvController@message' )->where('id','[0-9]*');
 
         Route::post('/upload-images', 'AdvController@uploadImages' );
+        Route::post('/{id}/report', 'AdvController@createReport' )->where('id','[0-9]*');
     });
 
     Route::group(['prefix'=>'payment'], function () {

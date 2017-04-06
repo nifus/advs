@@ -54,6 +54,7 @@ class AdvPayment extends Model
         }elseif($type=='paypal'){
             return self::createPaypalPayment($data);
         }elseif($type=='pre-payment'){
+
             return self::createPrePayment($data);
         }
         return false;
@@ -73,7 +74,7 @@ class AdvPayment extends Model
         }
         return self::create([
             'payment_type'=>'giro',
-            'account'=>$data['account'],
+            'giro'=>$data['account'],
             'tariff_id'=>$data['tariff_id'],
             'price'=>$data['price'],
             'adv_id'=>$data['adv_id'],
@@ -115,7 +116,7 @@ class AdvPayment extends Model
             throw new \Exception($messages->first());
         }
         return self::create([
-            'payment_type'=>'paypal',
+            'payment_type'=>'prepayment',
             'guid'=>$data['guid'],
             'tariff_id'=>$data['tariff_id'],
             'price'=>$data['price'],

@@ -499,6 +499,10 @@ class Adv extends Model
         $this->update($data);
     }
 
+    public function createReport(User $user=null, $fields){
+        return AdvReport::createReport($this, $user, $fields);
+    }
+
     static function getWithStatus()
     {
         return self::where('is_deleted', '0')->get(['status', 'type']);

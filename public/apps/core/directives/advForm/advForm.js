@@ -57,6 +57,10 @@
                 $scope.env.loading = false;
                 $scope.env.category_name = getCategoryName($scope.model.category);
                 $scope.env.limited = $scope.model.status!='payment_waiting' && $scope.model.status;
+                if ($scope.model.id){
+                    $scope.env.guid = advFactory.guid($scope.model.id);
+                }
+
             });
 
             $scope.setPrivateType = function (type, category) {

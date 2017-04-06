@@ -200,6 +200,15 @@ class AdvTest extends TestCase
             ]
         );
         $response->assertStatus(200);
+
+
+        $response = $this->json('post', '/api/adv/'.$adv_id.'/report?token=' . $token,
+            [
+                "message" => "test",
+                "reason" => "test"
+            ]
+        );
+        $response->assertStatus(200);
     }
 
 

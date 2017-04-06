@@ -4,28 +4,32 @@
         <div class="row" ng-if="adv.MainPhoto">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
+                    <div class="col-md-5 navbar-left navbar-form">
+                        <button class="btn btn-danger" ng-click="displayReport()" translate>
+                            Report
+                        </button>
+                    </div>
+
                     <div class="col-md-5 navbar-right navbar-form">
                         <button class="btn btn-success" style="float:right"
-                                ng-if="env.display_view_map==false "
+                                ng-if="env.display=='photos' "
                                 ng-click="displayMap(true)" translate><span class="glyphicon glyphicon-map-marker"
                                                                   aria-hidden="true"></span>
                             Display map
                         </button>
 
                         <button class="btn btn-success" style="float:right"
-                                ng-if="env.display_view_map==true"
+                                ng-if="env.display=='map' "
                                 ng-click="displayPhotos()" translate><span class="glyphicon glyphicon-picture"
                                                                  aria-hidden="true"></span>
                             Display photos
                         </button>
                     </div>
-
                 </div>
             </nav>
-
         </div>
 
-        <div class="row" id="photo-block"  ng-if="env.display_view_map==false && adv.MainPhoto" >
+        <div class="row" id="photo-block"  ng-if="env.display=='photos'" >
             <div class="col-sm-12 col-md-12 main" >
                 <div class="center">
                 <div class="wrapper">
@@ -48,9 +52,40 @@
             </div>
         </div>
 
-        <div class="row" ng-show="env.display_view_map==true">
+        <div class="row" ng-show="env.display=='map'">
             <div id="view_map" style="height: 500px;width:100%"></div>
         </div>
+
+        <div class="row" ng-show="env.display=='report'">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" translate>Report</h3>
+                </div>
+                <div class="panel-body">
+                    <form name="report_form">
+                        <div class="form-group" ng-class="{ 'has-error': report_form.reason.$invalid  && report.submit==true }">
+                            <label translate>Reason</label>
+                            <select name="reason" required class="form-control" ng-model="report.reason">
+                                <option value="Reason 1">Reason 1</option>
+                                <option value="Reason 2">Reason 2</option>
+                                <option value="Reason 3">Reason 3</option>
+                            </select>
+                        </div>
+                        <div class="form-group"  >
+                            <label translate>Message</label>
+                            <textarea name="message"  class="form-control" ng-model="report.message"></textarea>
+                        </div>
+
+
+                        <button type="button" class="btn btn-default" ng-click="createReport(report_form)">Send</button>
+                        <button type="button" class="btn btn-default" ng-click="openDefaultBlock()">Cancel</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
 
         <div class="row">
             <div class="col-md-5">
@@ -550,11 +585,11 @@
                         <td translate>Heating cost:</td>
                         <td>{{adv.finance.heating_cost|currency:'€'}}</td>
                     </tr>
-                    <tr class="info">
+                    <tr class="info" ng-if="adv.finance.total_cost">
                         <td translate>Total cost:</td>
                         <td>{{adv.finance.total_cost|currency:'€'}}</td>
                     </tr>
-                    <tr class="info">
+                    <tr class="info" ng-if="adv.finance.caution_money">
                         <td translate>Caution money:</td>
                         <td>{{adv.finance.caution_money|currency:'€'}}</td>
                     </tr>

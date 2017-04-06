@@ -62,6 +62,9 @@
                     $scope.model = response;
                     $scope.env.action = 'payment';
                     $scope.env.restore_flag = true;
+
+                    $scope.env.guid = advFactory.guid($scope.model.id);
+
                 }, function () {
 
                 });
@@ -88,7 +91,7 @@
             }
             if ($scope.user.payment_type == 'prepayment') {
                 advPaymentFactory.createPrePayment($scope.model.id, $scope.env.guid, $scope.env.tariff.id, $scope.env.tariff.price).then(function (response) {
-
+                    window.location.href='/'
                 })
             } else if ($scope.user.payment_type == 'paypal') {
                 advPaymentFactory.createPaypalPayment($scope.model.id, $scope.user.paypal_email, $scope.env.tariff.id, $scope.env.tariff.price).then(function (payment) {
@@ -101,6 +104,7 @@
                     $('#giroForm').submit();
                 })
             }
+
             return false;
         };
         $scope.setPrivateTariff = function (tariff) {
@@ -139,6 +143,7 @@
                         $scope.model = response;
                         localStorage.setItem("advert_id", $scope.model.id);
                         $scope.env.action = 'payment';
+                        $scope.env.guid = advFactory.guid($scope.model.id);
                     },
                     function (error) {
                         // $scope.env.send = false;

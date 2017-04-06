@@ -62,7 +62,6 @@
 
     <script src="/apps/core/directives/advPreview/advPreview.js"></script>
     <script src="/apps/core/directives/advForm/advForm.js"></script>
-    <script src="/apps/core/directives/advPayment/advPayment.js"></script>
 
     <script src="/apps/frontApp/frontApp.js"></script>
     <script src="/apps/frontApp/directives/citySelect/citySelect.js"></script>

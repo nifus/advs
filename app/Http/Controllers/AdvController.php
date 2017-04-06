@@ -15,30 +15,54 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AdvController extends Controller
 {
-    function uploadImages(Request $request ){
+
+
+    function createReport($id, Request $request)
+    {
+
+        try {
+            $token = $request->get('token');
+            $user = UserModel::getUser($token);
+            if (is_null($user)) {
+                return response()->json([], 403);
+            }
+            $data = $request->only(['reason', 'message']);
+            $adv = AdvModel::findOrDie($id);
+            $adv->createReport($user, $data);
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+
+    }
+
+    function uploadImages(Request $request)
+    {
         $token = $request->get('token');
         $user = UserModel::getUser($token);
-        if ( is_null($user) ){
+        if (is_null($user)) {
             return response()->json([], 403);
         }
 
         $response = [];
         $files = $request->file('files');
-        foreach( $files as $file ){
+        foreach ($files as $file) {
             $result = $user->uploadAdvertImage($file);
-            if ( is_array($result) ){
-                array_push($response, $result );
+            if (is_array($result)) {
+                array_push($response, $result);
 
             }
         }
-        return response()->json(['images'=>$response]);
+        return response()->json(['images' => $response]);
     }
 
-    function store( Request $request){
-        try{
+    function store(Request $request)
+    {
+        try {
             $token = $request->get('token');
             $user = UserModel::getUser($token);
-            if ( is_null($user) ){
+            if (is_null($user)) {
                 return response()->json([], 403);
             }
 
@@ -51,15 +75,16 @@ class AdvController extends Controller
         }
     }
 
-    function update( $id,  Request $request){
-        try{
+    function update($id, Request $request)
+    {
+        try {
             $token = $request->get('token');
             $user = UserModel::getUser($token);
-            if ( is_null($user) ){
+            if (is_null($user)) {
                 return response()->json([], 403);
             }
             $adv = AdvModel::findOrDie($id);
-            if ( !$adv->itsAuthor($user->id) ){
+            if (!$adv->itsAuthor($user->id)) {
                 return response()->json([], 403);
             }
             $data = $request->all();
@@ -71,12 +96,12 @@ class AdvController extends Controller
     }
 
 
-
-    function create(){
+    function create()
+    {
         $user = UserModel::getUser();
         return view('controller.adv.create', [
             'user' => $user,
-            'categories'=>CategoryModel::getCategories()
+            'categories' => CategoryModel::getCategories()
         ]);
     }
 
@@ -110,18 +135,19 @@ class AdvController extends Controller
         }
     }
 
-    function favlist($id,Request $request){
+    function favlist($id, Request $request)
+    {
         try {
             $action = $request->get('action');
             $adv = AdvModel::findOrDie($id);
             $user = UserModel::getUser();
-            if (is_null($user)){
+            if (is_null($user)) {
                 throw new \Exception('No user');
             }
-            $action=='add' ? $user->addFavAdv($adv->id) : $user->removeFavAdv($adv->id);
+            $action == 'add' ? $user->addFavAdv($adv->id) : $user->removeFavAdv($adv->id);
 
             $adv->updateFavs();
-            return response()->json(['success'=>true]);
+            return response()->json(['success' => true]);
 
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
@@ -133,9 +159,9 @@ class AdvController extends Controller
         try {
             $adv = AdvModel::findOrDie($id);
             $user = UserModel::getUser();
-            if (is_null($user)){
+            if (is_null($user)) {
                 return response()->json($adv->getArray());
-            }else{
+            } else {
                 return response()->json($adv->getArray($user->id));
             }
 
@@ -149,16 +175,16 @@ class AdvController extends Controller
         try {
             $adv = AdvModel::findOrDie($id);
             $user = UserModel::getUser();
-            if ( $adv->is_deleted=='1' ){
+            if ($adv->is_deleted == '1') {
                 return response()->json([], 404);
             }
-            if (is_null($user)){
+            if (is_null($user)) {
                 return response()->json([], 403);
             }
-            if ($adv->user_id!=$user->id){
+            if ($adv->user_id != $user->id) {
                 return response()->json([], 403);
             }
-            if ($adv->status!='payment_waiting'){
+            if ($adv->status != 'payment_waiting') {
                 return response()->json([], 403);
             }
 
@@ -180,8 +206,8 @@ class AdvController extends Controller
         $token = $request->get('token');
         $current_user = UserModel::getUser($token);
 
-        if ( is_null($current_user)  ){
-            return response()->json(['success'=>false],403);
+        if (is_null($current_user)) {
+            return response()->json(['success' => false], 403);
         }
 
         $user = UserModel::find($user_id);
@@ -194,8 +220,8 @@ class AdvController extends Controller
     function getByCurrentUser()
     {
         $user = UserModel::getUser();
-        if (is_null($user)){
-            return response()->json(['success'=>false],403);
+        if (is_null($user)) {
+            return response()->json(['success' => false], 403);
         }
         $advs = AdvModel::getByUser($user->id);
         return response()->json($advs);
@@ -245,12 +271,12 @@ class AdvController extends Controller
             $user = UserModel::getUser();
             if (is_null($user)) {
                 //abort(403, 'Access Error');
-                return response()->json(null,403);
+                return response()->json(null, 403);
             }
             $adv = AdvModel::findOrDie($adv_id);
             if (!$adv->isOwner($user->id)) {
                 //abort(403, 'Access Error');
-                return response()->json(null,403);
+                return response()->json(null, 403);
             }
 
             $adv->changeStatus($status);
@@ -262,12 +288,13 @@ class AdvController extends Controller
     }
 
 
-    public function getStatistics(Request $request){
+    public function getStatistics(Request $request)
+    {
         $token = $request->get('token');
         $current_user = UserModel::getUser($token);
 
-        if ( is_null($current_user) || !$current_user->hasPermissions('statistics') ){
-            return response()->json(['success'=>false],403);
+        if (is_null($current_user) || !$current_user->hasPermissions('statistics')) {
+            return response()->json(['success' => false], 403);
         }
         $advs = AdvModel::getWithStatus();
 
@@ -279,7 +306,7 @@ class AdvController extends Controller
                 'disabled' => 0,
                 'expired' => 0,
                 'blocked' => 0,
-                'approve_waiting'=>0
+                'approve_waiting' => 0
 
             ],
             'sale' => [
@@ -289,7 +316,7 @@ class AdvController extends Controller
                 'disabled' => 0,
                 'expired' => 0,
                 'blocked' => 0,
-                'approve_waiting'=>0
+                'approve_waiting' => 0
             ]
         ];
 
@@ -304,8 +331,8 @@ class AdvController extends Controller
     {
         $current_user = UserModel::getUser();
         $user_stat = UserModel::find($user_id);
-        if ($current_user->id!=$user_stat->id && !$current_user->isAdminAccount() ){
-            return response()->json([],403);
+        if ($current_user->id != $user_stat->id && !$current_user->isAdminAccount()) {
+            return response()->json([], 403);
         }
 
         $advs = AdvModel::getByUserWithStatus($user_stat->id);
@@ -318,7 +345,7 @@ class AdvController extends Controller
                 'disabled' => 0,
                 'expired' => 0,
                 'blocked' => 0,
-                'approve_waiting'=>0
+                'approve_waiting' => 0
 
             ],
             'sale' => [
@@ -328,7 +355,7 @@ class AdvController extends Controller
                 'disabled' => 0,
                 'expired' => 0,
                 'blocked' => 0,
-                'approve_waiting'=>0
+                'approve_waiting' => 0
             ]
         ];
 
@@ -339,17 +366,18 @@ class AdvController extends Controller
         return response()->json($result);
     }
 
-    public function message($adv_id, Request $request){
-        try{
+    public function message($adv_id, Request $request)
+    {
+        try {
             $adv = AdvModel::findOrDie($adv_id);
-            $data = $request->only(['message','email','phone','name','sex']);
+            $data = $request->only(['message', 'email', 'phone', 'name', 'sex']);
             $id = $request->ip();
-            $adv->sendMessage($data,$id);
+            $adv->sendMessage($data, $id);
             //EventsLog::createAccount($adv);
 
-            return response()->json(['success'=>true]);
-        }catch( \Exception $e ){
-            return response()->json(['success'=>false,'error'=>$e->getMessage()]);
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
 
 
