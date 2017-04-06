@@ -39,6 +39,9 @@ class AdvTest extends TestCase
         $response = $this->json('GET', '/api/adv/watch/by-current-user?token=' . $token);
         $response->assertStatus(200);
 
+        $response = $this->json('DELETE', '/api/adv/watch/87?token=' . $token);
+        $response->assertStatus(200);
+
         $response = $this->json('GET', '/offer?token=' . $token);
         $response->assertStatus(200);
 

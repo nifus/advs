@@ -200,9 +200,7 @@ table.adv tr.payment_waiting :last-child{
     text-align: center;max-height: 52px;overflow: hidden
 }
 
-#watch img{
-    width:200px;
-}
+
 
 #watch table{
     width: 100%
@@ -224,7 +222,11 @@ table.adv tr.payment_waiting :last-child{
 }
 
 #watch div.thumbnail{
-    height:370px
+    height:410px
+}
+#watch div.thumbnail h3{
+    height: 27px;
+    overflow: hidden;
 }
 
 #watch div.adv{
@@ -497,7 +499,32 @@ table.table div.preview div.preview-item{
 }
 
 
-
 table.table div.preview div.preview-item div.center{
+    margin:0;text-align: center;
+}
+
+
+
+
+
+
+div.thumbnail div.preview{
+    padding:0;
+    margin:0;
+    width: 200px;height:200px;
+}
+
+div.thumbnail  div.preview img{
+    margin-top:0;max-height: 180px;max-width: 180px;margin-left: auto;
+    margin-right: auto;
+}
+
+div.thumbnail  div.preview div.preview-item{
+    width: 200px;height:200px;vertical-align:middle;display: table-cell;
+    cursor: pointer;
+}
+
+
+div.thumbnail  div.preview div.preview-item div.center{
     margin:0;text-align: center;
 }

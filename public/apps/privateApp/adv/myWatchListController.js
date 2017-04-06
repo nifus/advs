@@ -7,12 +7,12 @@
     function myWatchListController($scope, $filter, $q, $window) {
         $scope.promises = null;
         $scope.env = {
+            adv: null,
             advs: {
-                rent:[1],
+                rent:[],
                 sale:[]
             },
             loading: true,
-            news: [],
             filters:{
                 type: 'all'
             },
@@ -27,8 +27,8 @@
 
             var advPromise = $scope.user.getMyWatchAdvs().then(function (result) {
                 result = $filter('orderBy')(result,'-created_at');
-                $scope.env.advs.rent = $filter('filter')(result,{type:'rent'})
-                $scope.env.advs.rent = $filter('filter')(result,{type:'sale'})
+                $scope.env.advs.rent = $filter('filter')(result,{type:'rent'});
+                $scope.env.advs.sale = $filter('filter')(result,{type:'sale'})
             });
 
             $q.all([ advPromise]).then(function () {
@@ -46,13 +46,19 @@
                     if ( adv.id!=item.id){
                         return true;
                     }
-                })
+                });
                 $scope.env.advs.sale = $scope.env.advs.sale.filter( function(adv){
                     if ( adv.id!=item.id){
                         return true;
                     }
                 })
             })
+        };
+        $scope.displayAdv = function (adv) {
+            $scope.env.adv = adv;
+        };
+        $scope.hideAdv = function () {
+            $scope.env.adv = null;
         };
 
         $scope.$watch('env.order', function(value){

@@ -38,7 +38,7 @@
                 advert: null,
                 restore_flag: false,
                 loading: true,
-                guid: advFactory.guid(),
+
                 limited: false
             };
             var promises = [];
@@ -57,7 +57,6 @@
                 $scope.env.loading = false;
                 $scope.env.category_name = getCategoryName($scope.model.category);
                 $scope.env.limited = $scope.model.status!='payment_waiting' && $scope.model.status;
-
             });
 
             $scope.setPrivateType = function (type, category) {

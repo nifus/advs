@@ -9,7 +9,7 @@
             restrict: 'E',
             link: accountPreviewLink,
             controller: accountPreviewController,
-            templateUrl: '/apps/directives/accountPreview/accountPreview.html',
+            templateUrl: '/apps/core/directives/accountPreview/accountPreview.html',
             scope: {
                 user: '=',
             }

@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
     <li><a href="/" translate>Home</a></li>
-    <li class="active" translate>My advertisements</li>
+    <li class="active" translate>My watchlist</li>
 </ol>
 
 <div class="progress" ng-show="env.loading==true">
@@ -10,151 +10,127 @@
 </div>
 
 <div class="row" ng-show="env.loading==false">
-    <div class="col-md-3">
-        <left-menu></left-menu>
-    </div>
+    <div ng-if="env.adv==null">
+        <div class="col-md-3">
+            <left-menu></left-menu>
+        </div>
 
-    <div class="col-md-9">
-        <div class="panel panel-primary">
-            <div class="panel-heading" style="height:50px">
-                <select ng-model="env.order" style="float:right;width:300px" class="form-control">
-                    <option value="price_up" translate>Price upward</option>
-                    <option value="price_down" translate>Price downward</option>
-                    <option value="created_up" translate>Created upward</option>
-                    <option value="created_down" translate>Created downward</option>
-                </select>
+        <div class="col-md-9" >
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="height:50px">
+                    <select ng-model="env.order" style="float:right;width:300px" class="form-control">
+                        <option value="price_up" translate>Price upward</option>
+                        <option value="price_down" translate>Price downward</option>
+                        <option value="created_up" translate>Created upward</option>
+                        <option value="created_down" translate>Created downward</option>
+                    </select>
 
-                <h3 class="panel-title"  style="float:left" translate>My Watchlist</h3>
-            </div>
-            <div class="panel-body" id="watch">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="col-md-2" translate>Show</div>
-                        <div class="col-md-2">
-                            <label class="radio-inline">
-                                <input type="radio"   ng-model="env.filters.type" value="all"> {{'All'|translate}}
-                            </label>
-                        </div>
-
-                        <div class="col-md-2">
-                            <label class="radio-inline">
-                                <input ng-disabled="env.advs.rent.length==0" type="radio"   ng-model="env.filters.type" value="rent"> {{'Renting'|translate}}
-                            </label>
-                        </div>
-
-                        <div class="col-md-2">
-                            <label class="radio-inline">
-                                <input ng-disabled="env.advs.sale.length==0" type="radio"  ng-model="env.filters.type" value="sale"> {{'Selling'|translate}}
-                            </label>
-                        </div>
-
-                    </div>
-
-
-
+                    <h3 class="panel-title"  style="float:left" translate>My Watchlist</h3>
                 </div>
-
-
-
-
-                <div ng-show="env.filters.type!='sale'  && env.advs.rent.length>0">
-                    <h4 translate>Renting</h4>
-
-                    <div class="row" >
-                        <div class="col-sm-5 col-md-3 adv"  ng-repeat="adv in env.advs.rent|limitFromTo:((env.current_rent*8)-8):(env.current_rent*8)">
-                            <div class="thumbnail">
-                                <h3><a ui-sref="adv({id:adv.id})">{{adv.title}}</a></h3>
-                                <a ui-sref="adv({id:adv.id})"><img  ng-src="{{adv.photos[0]}}"  alt=""></a>
-                                <div class="caption">
-                                    <table>
-                                        <tr>
-                                            <td>Area:</td>
-                                            <td >{{adv.area}} m2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rooms:</td>
-                                            <td>{{adv.rooms}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Floor/s:</td>
-                                            <td>{{adv.floor}} of {{adv.floors}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cold rent</td>
-                                            <td>{{adv.floor}} of {{adv.floors}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <button ng-disabled="adv.waiting==true" ng-click="deleteItem(adv)" type="button" class="btn btn-primary">Delete from watchlist</button>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div style="text-align: center" ng-show="env.advs.rent.length>8">
-                        <pagination
-                                items-per-page="8"
-                                total-items="env.advs.rent.length"
-                                ng-model="env.current_rent"
-                                max-size="10"
-                                boundary-links="true">
-                        </pagination>
-                    </div>
-
-                </div>
-
-                <div ng-show="env.filters.type!='rent' && env.advs.sale.length>0">
-
-                    <h4 translate>Selling</h4>
+                <div class="panel-body" id="watch">
                     <div class="row">
-                        <div class="col-sm-5 col-md-3"  ng-repeat="adv in env.advs.sale|limitFromTo:((env.current_sale*8)-8):(env.current_sale*8)">
-                            <div class="thumbnail">
-                                <h3><a href="">{{adv.title}}</a></h3>
-                                <a href=""><img  ng-src="{{adv.photos[0]}}"  alt=""></a>
-                                <div class="caption">
-                                    <table>
-                                        <tr>
-                                            <td>Area:</td>
-                                            <td >{{adv.area}} m2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rooms:</td>
-                                            <td>{{adv.rooms}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Floor/s:</td>
-                                            <td>{{adv.floor}} of {{adv.floors}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cold rent</td>
-                                            <td>{{adv.floor}} of {{adv.floors}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"><button type="button" class="btn btn-primary">Delete from watchlist</button> </td>
-                                        </tr>
-                                    </table>
-                                </div>
+                        <div class="col-md-6">
+                            <div class="col-md-2" translate>Show</div>
+                            <div class="col-md-2">
+                                <label class="radio-inline">
+                                    <input type="radio"   ng-model="env.filters.type" value="all"> {{'All'|translate}}
+                                </label>
                             </div>
+
+                            <div class="col-md-2">
+                                <label class="radio-inline">
+                                    <input ng-disabled="env.advs.rent.length==0" type="radio"   ng-model="env.filters.type" value="rent"> {{'Renting'|translate}}
+                                </label>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="radio-inline">
+                                    <input ng-disabled="env.advs.sale.length==0" type="radio"  ng-model="env.filters.type" value="sale"> {{'Selling'|translate}}
+                                </label>
+                            </div>
+
                         </div>
-                        <div style="text-align: center" ng-show="env.advs.sale.length>8">
+
+
+
+                    </div>
+
+
+
+
+                    <div ng-show="env.filters.type!='sale'  && env.advs.rent.length>0">
+                        <h4 translate>Renting</h4>
+
+                        <div class="row" >
+                            <div class="col-sm-5 col-md-3 adv"  ng-repeat="adv in env.advs.rent|limitFromTo:((env.current_rent*8)-8):(env.current_rent*8)">
+
+                                <div class="col-md-11" ng-if="adv.category==1" ng-include="'apps/core/adv/tpl/privateFav/rentFlat.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==2" ng-include="'apps/core/adv/tpl/privateFav/rentHouse.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==3" ng-include="'apps/core/adv/tpl/privateFav/rentGarage.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==4" ng-include="'apps/core/adv/tpl/privateFav/rentOffice.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==5" ng-include="'apps/core/adv/tpl/privateFav/rentBuilding.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==6" ng-include="'apps/core/adv/tpl/privateFav/rentHotel.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==7" ng-include="'apps/core/adv/tpl/privateFav/rentHall.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==8" ng-include="'apps/core/adv/tpl/privateFav/rentRetail.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==9" ng-include="'apps/core/adv/tpl/privateFav/rentCommercialLand.html'"></div>
+
+                            </div>
+
+
+                        </div>
+                        <div style="text-align: center" ng-show="env.advs.rent.length>8">
                             <pagination
                                     items-per-page="8"
-                                    total-items="env.advs.sale.length"
-                                    ng-model="env.current_sale"
+                                    total-items="env.advs.rent.length"
+                                    ng-model="env.current_rent"
                                     max-size="10"
                                     boundary-links="true">
                             </pagination>
                         </div>
+
                     </div>
+
+                    <div ng-show="env.filters.type!='rent' && env.advs.sale.length>0">
+
+                        <h4 translate>Selling</h4>
+                        <div class="row">
+                            <div class="col-sm-5 col-md-3"  ng-repeat="adv in env.advs.sale|limitFromTo:((env.current_sale*8)-8):(env.current_sale*8)">
+                                <div class="col-md-11" ng-if="adv.category==1" ng-include="'apps/core/adv/tpl/privateFav/saleFlat.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==2" ng-include="'apps/core/adv/tpl/privateFav/saleHouse.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==3" ng-include="'apps/core/adv/tpl/privateFav/saleGarage.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==4" ng-include="'apps/core/adv/tpl/privateFav/saleOffice.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==5" ng-include="'apps/core/adv/tpl/privateFav/saleBuilding.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==6" ng-include="'apps/core/adv/tpl/privateFav/saleHotel.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==7" ng-include="'apps/core/adv/tpl/privateFav/saleHall.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==8" ng-include="'apps/core/adv/tpl/privateFav/saleRetail.html'"></div>
+                                <div class="col-md-11" ng-if="adv.category==9" ng-include="'apps/core/adv/tpl/privateFav/saleCommercialLand.html'"></div>
+                            </div>
+                            <div style="text-align: center" ng-show="env.advs.sale.length>8">
+                                <pagination
+                                        items-per-page="8"
+                                        total-items="env.advs.sale.length"
+                                        ng-model="env.current_sale"
+                                        max-size="10"
+                                        boundary-links="true">
+                                </pagination>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="env.advs.rent.length==0 && env.advs.sale.length==0" translate>You watch-list is empty</div>
+
                 </div>
-
-                <div ng-show="env.advs.rent.length==0 && env.advs.sale.length==0" translate>You watch-list is empty</div>
-
             </div>
         </div>
+    </div>
+
+
+    <div  ng-if="env.adv!=null">
+        <div class="panel panel-default">
+            <div class="panel-body text-right">
+                <button class="btn btn-default" type="button" ng-click="hideAdv()" translate>Back</button>
+            </div>
+        </div>
+        <adv-preview user="$parent.user" hide-contact-form="false" adv="env.adv"></adv-preview>
     </div>
 </div>

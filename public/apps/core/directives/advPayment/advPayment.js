@@ -2,7 +2,7 @@
     'use strict';
 
 
-    function advPaymentDirective(tariffFactory, advPaymentFactory) {
+    function advPaymentDirective(advFactory, advPaymentFactory) {
         return {
             ngModel: 'require',
             replace: true,
@@ -21,13 +21,11 @@
 
           //  promises.push(prices_promise);
 
-            $scope.env = {
-
-
-            };
+            $scope.env = {};
 
 
 
+            $scope.env.guid = advFactory.guid($scope.model.id);
 
 
         }
@@ -35,7 +33,7 @@
 
     }
 
-    angular.module('core').directive('advPayment', ['tariffFactory', 'advPaymentFactory', advPaymentDirective]);
+    angular.module('core').directive('advPayment', ['advFactory', 'advPaymentFactory', advPaymentDirective]);
 
 
 })(window.angular);

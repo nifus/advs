@@ -1,0 +1,38 @@
+<div class="thumbnail">
+    <h3><a class="link" ng-click="displayAdv(adv)">{{adv.title}}</a></h3>
+    <div style="width:200px;margin-left:auto;margin-right:auto">
+        <a class="link" ng-click="displayAdv(adv)"><div class="preview">
+            <div class="preview-item">
+                <div class="center">
+                    <img  ng-src="{{adv.MainPhoto.preview}}">
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+    <div class="caption">
+        <table>
+            <tr>
+                <td translate>Living area:</td>
+                <td >{{adv.living_area}} m<sup>2</sup></td>
+            </tr>
+            <tr>
+                <td translate>Rooms:</td>
+                <td>{{adv.rooms}}</td>
+            </tr>
+            <tr>
+                <td translate>Floor/s:</td>
+                <td>{{adv.floor}} {{'of'|translate}} {{adv.floors}}</td>
+            </tr>
+            <tr>
+                <td translate>Sales price</td>
+                <td>{{adv.price| currency:"€"}}</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button  ng-click="deleteItem(adv)" type="button" class="btn btn-primary" translate>Delete from watchlist</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

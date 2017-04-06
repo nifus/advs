@@ -49,6 +49,8 @@
         var userPromise = userFactory.getAuthUser().then(function (user) {
             $scope.user = user;
             $scope.env.user = user;
+        },function () {
+            $scope.user = null;
         });
         $scope.promises.push(userPromise);
         /*userFactory.refresh().then(function(){

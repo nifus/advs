@@ -109,7 +109,7 @@
 
             Object.deleteFromWatchList = function () {
                 Object.waiting = true;
-                return $http.delete('/api/user/watch-advs/' + Object.id).then(function (response) {
+                return $http.delete('/api/adv/watch/' + Object.id).then(function (response) {
                     Object.waiting = false;
                     return response.data;
                 })
@@ -207,7 +207,10 @@
             if (photos) {
                 return photos[0];
             }
-            return null;
+            return {
+                'preview': '/images/no-photo.jpg',
+                'full' : '/images/no-photo.jpg'
+            };
         }
 
     }
