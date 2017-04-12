@@ -24,7 +24,7 @@ class Adv extends Model
         'city_id', 'region_id', 'country_id',
         'edp_cabling', 'air_conditioner', 'number_beds', 'storey_height', 'users_fav', 'length_shop_window', 'development', 'building_permission',
 
-        'disable_date'
+        'disable_date','reports'
     ];
 
     static private $categories = [
@@ -219,6 +219,11 @@ class Adv extends Model
         return $this->belongsToMany('App\User', 'advs_fav', 'adv_id', 'user_id');
     }
 
+    public function Reports()
+    {
+        return $this->hasMany('App\AdvReport', 'adv_id', 'id')->orderBy('created_at','ASC');
+    }
+
     function toArray()
     {
         $array = parent::toArray();
@@ -258,7 +263,11 @@ class Adv extends Model
 
     public function changeStatus($status)
     {
-        $this->update(['status' => $status]);
+        $fields = ['status'=>$status];
+        if ( $status=='blocked' ){
+            array_push($fields, ['reports'=>0]);
+        }
+        $this->update($fields);
     }
 
     public function getLastPayment()
@@ -454,10 +463,21 @@ class Adv extends Model
         return true;
     }
 
-    public function updateFavs()
+    public function updateFavs($action, User $user = null)
     {
-        $ids = $this->UsersFav()->pluck('user_id')->toArray();
-        $this->update(['users_fav' => json_encode($ids)]);
+        if ( !is_null($user) ){
+            $action == 'add' ? $user->addFavAdv($this->id) : $user->removeFavAdv($this->id);
+            $ids = $this->UsersFav()->pluck('user_id')->toArray();
+            $favorite = $action=='add' ? $this->favorite+1 : $this->favorite - 1;
+            $favorite = $favorite>=0 ? $favorite : 0;
+            $this->update(['users_fav' => json_encode($ids),'favorite'=>$favorite]);
+        }else{
+            $favorite = $action=='add' ? $this->favorite+1 : $this->favorite - 1;
+            $favorite = $favorite>=0 ? $favorite : 0;
+            $this->update(['favorite'=>$favorite]);
+        }
+
+        return true;
     }
 
     public function sendMessage($data, $ip)
@@ -500,7 +520,32 @@ class Adv extends Model
     }
 
     public function createReport(User $user=null, $fields){
-        return AdvReport::createReport($this, $user, $fields);
+        $report = AdvReport::createReport($this, $user, $fields);
+        if ( !is_null($report) ){
+            $this->update(['reports'=>$this->reports+1]);
+        }
+        return $report;
+    }
+
+    public function removeReports(){
+        $this->update(['reports'=>0]);
+        return AdvReport::removeFromAdvert($this->id);
+    }
+
+
+    public function getBlockedEvent(){
+        $event = EventsLog::getLastBlockAdvertEvent($this->id);
+        if ( is_null($event) ){
+            return null;
+        }
+        return [
+            'message'=>nl2br(htmlspecialchars($event->additional_fields->message)),
+            'date'=>$event->created_at
+        ];
+    }
+
+    public function viewIncrement(){
+        $this->update(['visited'=>$this->visited+1]);
     }
 
     static function getWithStatus()
@@ -751,6 +796,16 @@ class Adv extends Model
 
         return $sql->get();
     }
+
+    static function getReports(){
+        return self::where('reports','>',0)->where('status','active')->with('Reports')->with('Owner')->orderBy('reports','DESC')->get();
+    }
+
+    static function getBlocked(){
+        return self::whereIn('status',['blocked','approve_waiting'])->with('Owner')->orderBy('updated_at','DESC')->get();
+    }
+
+
 
 
 }

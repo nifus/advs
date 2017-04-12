@@ -18,7 +18,9 @@
             } else if (status == 'disabled') {
                 return $filter('translate')('You have disabled this advert. It can NOT be found and watched by everyone.');
             } else if (status == 'expired') {
-                return $filter('translate')('This advert is expired. If you don‘t reactivate it, it will be automatically deleted.');
+                return $filter('translate')('This advert is expired. ');
+            }else if (status == 'approve_waiting') {
+                return $filter('translate')('This advert is approve waiting.');
             }
         }
 
@@ -33,6 +35,8 @@
                 return $filter('translate')('Expired');
             } else if (status == 'blocked') {
                 return $filter('translate')('BLOCKED');
+            }else if (status == 'approve_waiting') {
+                return $filter('translate')('Approve Waiting');
             }
         }
         
@@ -48,13 +52,14 @@
 
             Object.DeleteDate = (data.disable_date) ? moment(data.disable_date).add(14, 'days').format('DD.MM.Y') : '-';
             Object.DeleteDateWithTime = (data.disable_date) ? moment(data.disable_date).add(14, 'days').format('DD.MM.Y H:m') : '-';
-
+            if ( Object.blocked_event ){
+                Object.BlockedDeleteDateWithTime = (Object.blocked_event.date) ? moment(Object.blocked_event.date).add(6, 'days').format('DD.MM.Y H:m') : '-';
+            }
 
             Object.MainPhoto = getMainPhoto(data.photos);
             Object.IsFav = angular.isArray(advs) && advs.indexOf(data.id) !== -1 ? true : data.IsFav;
             Object.StatusMessage = statusDesc(Object.status);
             Object.StatusStr = statusStr(Object.status);
-
 
 
             Object.isFav = function (user) {
@@ -77,6 +82,7 @@
             Object.addToFavList = function (user) {
                 if (user == null) {
                     var advs = $cookies.getObject('fav-advs');
+                    console.log(advs)
                     if (advs != undefined) {
                         advs.push(Object.id)
                     } else {
@@ -84,10 +90,11 @@
                     }
                     var expireDate = new Date();
                     expireDate.setDate(expireDate.getDate() + 199);
-                    $cookies.putObject('fav-advs', advs, {expires: expireDate});
-                } else {
+                    $cookies.putObject('fav-advs', advs, {expires: expireDate,path:'/'});
                     $http.post('/api/adv/' + Object.id + '/fav', {'action': 'add'});
-                }
+                } //else {
+
+                //}
                 Object.IsFav = true;
             };
 
@@ -99,11 +106,12 @@
                         advs.splice(index, 1);
                         var expireDate = new Date();
                         expireDate.setDate(expireDate.getDate() + 199);
-                        $cookies.putObject('fav-advs', advs, {expires: expireDate});
+                        $cookies.putObject('fav-advs', advs, {expires: expireDate,path:'/'});
                     }
-                } else {
                     $http.post('/api/adv/' + Object.id + '/fav', {'action': 'delete'});
                 }
+
+
                 Object.IsFav = false;
             };
 
@@ -158,18 +166,17 @@
                 return deferred.promise;
             };
 
-            Object.block = function () {
+            Object.block = function (msg) {
                 var deferred = $q.defer();
                 Object.waiting = true;
-                $http.post('/api/adv/' + Object.id + '/status', {status: 'block'}).then(function (response) {
+                $http.post('/api/adv/' + Object.id + '/status', {status: 'blocked','message': msg}).then(function (response) {
                     Object.waiting = false;
-                    Object.status = 'block';
+                    Object.status = 'blocked';
                     Object.StatusMessage = statusDesc(Object.status);
                     Object.StatusStr = statusStr(Object.status);
                     deferred.resolve(response);
                 }, function (error) {
                     deferred.reject(error.data);
-                    console.log(error);
                 });
                 return deferred.promise;
             };
@@ -203,6 +210,25 @@
             Object.createReport = function (data) {
                 var deferred = $q.defer();
                 $http.post('/api/adv/' + Object.id + '/report', data).then(function (response) {
+                    deferred.resolve(response.data);
+                }, function (error) {
+                    deferred.reject(error.data);
+                });
+                return deferred.promise;
+            };
+
+            Object.removeReports = function () {
+                var deferred = $q.defer();
+                $http.delete('/api/adv/' + Object.id + '/report').then(function (response) {
+                    deferred.resolve(response.data);
+                }, function (error) {
+                    deferred.reject(error.data);
+                });
+                return deferred.promise;
+            };
+            Object.viewIncrement = function () {
+                var deferred = $q.defer();
+                $http.post('/api/adv/' + Object.id + '/view').then(function (response) {
                     deferred.resolve(response.data);
                 }, function (error) {
                     deferred.reject(error.data);

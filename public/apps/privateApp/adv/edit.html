@@ -1,32 +1,19 @@
-<div class="progress" ng-if="env.loading==true">
-    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
-         aria-valuemax="100" style="width: 100%">
-        <span class="sr-only">45% Complete</span>
-    </div>
-</div>
-
-<div ng-if="env.loading==false">
+<div>
     <ol class="breadcrumb">
         <li><a href="/" translate>Home</a></li>
         <li><a ui-sref="my-adv" class="link" translate>My advertisements</a></li>
-        <li class="active" translate>Edit advert {{adv.id}}</li>
+        <li class="active" translate>Edit advert {{model.id}}</li>
     </ol>
 
     <div class="panel panel-danger" ng-if="env.react==1">
         <div class="panel-heading">
-            <h3 class="panel-title" translate>BLOCKED Advert - {{adv.title}}</h3>
+            <h3 class="panel-title" translate>BLOCKED Advert - {{model.title}}</h3>
         </div>
         <div class="panel-body">
             <div class="col-md-7">
                 <h4 translate>Your advert was reported and blocked</h4>
 
-                <div translate>
-                    Dear customer,
-                    This advert was blocked because it violates our policy.
-                    We receive many reports that your equipment in the advert is wrong.
-                    Please check and correct your advert.
-                    Thanks for understanding.
-                </div>
+                <div ng-bind-html="model.blocked_event.message|to_trusted"></div>
             </div>
             <div class="col-md-4">
                 <div class="alert alert-danger" role="alert" translate>Please react on this advert otherwise it will be
@@ -36,17 +23,17 @@
                 <table style="width: 100%">
                     <tr>
                         <td translate>Created on :</td>
-                        <td></td>
+                        <td>{{model.CreateDateWithTime}}</td>
                     </tr>
                     <tr>
                         <td translate>Ends on :</td>
-                        <td></td>
+                        <td>{{model.DisableDateWithTime}}</td>
                     </tr>
                     <tr>
-                        <td translate>If no react, then:
+                        <td translate>If no react, then: <br>
                             Deletion on:
                         </td>
-                        <td></td>
+                        <td>{{model.BlockedDeleteDateWithTime}}</td>
                     </tr>
                 </table>
 
@@ -57,7 +44,7 @@
                 </button>
                 <br><br>
                 <br><br>
-                <button type="button" class="btn btn-danger" ng-click="deleteAdv(adv)" translate>Delete this Advert
+                <button type="button" class="btn btn-danger" ng-click="deleteAdvert(adv)" translate>Delete this Advert
                 </button>
             </div>
         </div>

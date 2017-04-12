@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AdvReport;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,10 +17,39 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class AdvController extends Controller
 {
 
+    function getBlocked(Request $request)
+    {
+        $token = $request->get('token');
+        $current_user = UserModel::getUser($token);
+
+        if (is_null($current_user) || !$current_user->hasPermissions('advert')) {
+            return response()->json(['success' => false], 403);
+        }
+        $result = [];
+        $adverts = AdvModel::getBlocked();
+        foreach( $adverts as $advert ){
+            $event = $advert->getBlockedEvent();
+            array_push($result, array_merge($advert->toArray(),['block_event'=>$event]));
+        }
+
+        return response()->json($result);
+    }
+
+    function getReports(Request $request)
+    {
+        $token = $request->get('token');
+        $current_user = UserModel::getUser($token);
+
+        if (is_null($current_user) || !$current_user->hasPermissions('advert')) {
+            return response()->json(['success' => false], 403);
+        }
+
+        $adverts = AdvModel::getReports();
+        return response()->json($adverts);
+    }
 
     function createReport($id, Request $request)
     {
-
         try {
             $token = $request->get('token');
             $user = UserModel::getUser($token);
@@ -34,7 +64,25 @@ class AdvController extends Controller
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
+    }
 
+    function deleteReports($id, Request $request)
+    {
+        try {
+            $token = $request->get('token');
+            $current_user = UserModel::getUser($token);
+
+            if (is_null($current_user) || !$current_user->hasPermissions('advert')) {
+                return response()->json(['success' => false], 403);
+            }
+
+            $advert = AdvModel::findOrDie($id);
+            $advert->removeReports();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     function uploadImages(Request $request)
@@ -134,6 +182,23 @@ class AdvController extends Controller
             return response()->json($e->getMessage(), 500);
         }
     }
+    function getUserAdvByIdWithBlockMessage($id)
+    {
+        try {
+            $user = UserModel::getUserOrDie();
+            $adv = AdvModel::findOrDie($id);
+
+            if (!$adv->isOwner($user->id)) {
+                abort(403, 'Access Error');
+            }
+            $result = $adv->toArray();
+            $result['blocked_event'] = $adv->getBlockedEvent();
+            return response()->json($result);
+
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
 
     function favlist($id, Request $request)
     {
@@ -141,12 +206,7 @@ class AdvController extends Controller
             $action = $request->get('action');
             $adv = AdvModel::findOrDie($id);
             $user = UserModel::getUser();
-            if (is_null($user)) {
-                throw new \Exception('No user');
-            }
-            $action == 'add' ? $user->addFavAdv($adv->id) : $user->removeFavAdv($adv->id);
-
-            $adv->updateFavs();
+            $adv->updateFavs($action, $user);
             return response()->json(['success' => true]);
 
         } catch (\Exception $e) {
@@ -264,22 +324,37 @@ class AdvController extends Controller
 
     }
 
+    /**
+     * Function for administrators
+     * @param $adv_id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     function changeStatus($adv_id, Request $request)
     {
         try {
             $status = $request->get('status');
-            $user = UserModel::getUser();
-            if (is_null($user)) {
-                //abort(403, 'Access Error');
-                return response()->json(null, 403);
-            }
-            $adv = AdvModel::findOrDie($adv_id);
-            if (!$adv->isOwner($user->id)) {
-                //abort(403, 'Access Error');
-                return response()->json(null, 403);
+            $message = $request->get('message');
+            $current_user = UserModel::getUser();
+            if (is_null($current_user) || !$current_user->hasPermissions('advert')) {
+                return response()->json(['success' => false], 403);
             }
 
+            $adv = AdvModel::findOrDie($adv_id);
+            //if (!$adv->isOwner($user->id)) {
+            //abort(403, 'Access Error');
+            //  return response()->json(null, 403);
+            //}
+            $old = $adv->status;
             $adv->changeStatus($status);
+            if ( $status=='blocked' ){
+                EventsLog::blockAdvert($current_user, $adv, $old, $message);
+                $adv->removeReports();
+            }else{
+                EventsLog::changeAdvertStatus($current_user, $adv, $old, $message);
+            }
+
+            // $message
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
@@ -379,7 +454,11 @@ class AdvController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
+    }
 
-
+    public function viewIncrement($adv_id){
+        $adv = AdvModel::findOrDie($adv_id);
+        $adv->viewIncrement();
+        return response()->json(['success' => true]);
     }
 }

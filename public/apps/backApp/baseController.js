@@ -40,7 +40,13 @@
         };
 
         var userPromise = userFactory.getAuthUser().then(function (user) {
+            if ( !user.isAdminAccount() ){
+                userFactory.logout();
+                $state.go('sign_in');
+                return;
+            }
             $scope.setUser(user)
+
         },function () {
             $state.go('sign_in')
         });

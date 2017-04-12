@@ -41,8 +41,11 @@
             store: store,
            // getUserAdvById: getUserAdvById,
             getByUser: getByUser,
+            getBlocked: getBlocked,
+            getReports: getReports,
             getByCurrentUser: getByCurrentUser,
             getById: getById,
+            getByIdWithBlockMessage: getByIdWithBlockMessage,
             getWatchByCurrentUser: getWatchByCurrentUser,
             getDataSets: getDataSets,
            // getResult: getResult,
@@ -56,6 +59,29 @@
             var defer = $q.defer();
             $http.get('/api/adv/statistics').then(function (response) {
                 defer.resolve(response.data);
+            });
+            return defer.promise;
+        }
+
+        function getBlocked() {
+            var defer = $q.defer();
+            $http.get('/api/adv/blocked').then(function (response) {
+                var objs = [];
+                for (var i in response.data) {
+                    objs.push(new advService(response.data[i]))
+                }
+                defer.resolve(objs);
+            });
+            return defer.promise;
+        }
+        function getReports() {
+            var defer = $q.defer();
+            $http.get('/api/adv/reports').then(function (response) {
+                var objs = [];
+                for (var i in response.data) {
+                    objs.push(new advService(response.data[i]))
+                }
+                defer.resolve(objs);
             });
             return defer.promise;
         }
@@ -94,6 +120,15 @@
             return deferred.promise;
         }*/
 
+        function getByIdWithBlockMessage(id) {
+            var deferred = $q.defer();
+            $http.get('/api/adv/' + id+'/with-block-message').then(function (response) {
+                deferred.resolve(new advService(response.data));
+            }, function (error) {
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
         function getById(id) {
             var deferred = $q.defer();
             $http.get('/api/adv/' + id).then(function (response) {

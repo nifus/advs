@@ -14,7 +14,6 @@ class AlterAdvDisabledDate extends Migration
     public function up()
     {
         Schema::table('advs', function (Blueprint $table) {
-
             $table->timestamp('disable_date')->nullable();
         });
     }

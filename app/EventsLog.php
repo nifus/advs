@@ -45,6 +45,10 @@ class EventsLog extends Model
         }
     }
 
+    static function getLastBlockAdvertEvent($advert_id){
+        return self::where('adv_id', $advert_id)->where('action','blockAdvert')->orderBy('id','DESC')->first();
+    }
+
 
     static function changeContactData(User $user, $old_fields){
         self::create(['type'=>'system','action'=>'changeContactData','user_id'=>$user->id,'additional_fields'=>$old_fields]);
@@ -83,8 +87,18 @@ class EventsLog extends Model
         self::create(['type'=>'system','action'=>'changePayment','user_id'=>$user->id,'additional_fields'=>$old]);
     }
 
-
-
+    static function changeAdvertStatus(User $user, Adv $advert, $old_status, $message=null){
+        self::create(['type'=>'system','action'=>'changeAdvertStatus','adv_id'=>$advert->id,
+            'additional_fields'=>
+                ['user_id'=>$user->id,'message'=>$message,'status'=>$advert->status, 'old_status'=>$old_status]
+        ]);
+    }
+    static function blockAdvert(User $user, Adv $advert, $old_status, $message=null){
+        self::create(['type'=>'system','action'=>'blockAdvert','adv_id'=>$advert->id,
+            'additional_fields'=>
+                ['user_id'=>$user->id,'message'=>$message,'status'=>$advert->status, 'old_status'=>$old_status]
+        ]);
+    }
 
 
     static function getEventLogByUser(User $user){

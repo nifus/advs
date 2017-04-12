@@ -4,148 +4,138 @@
         .module('backApp')
         .controller('advertsBlockedController', advertsBlockedController);
 
-    advertsBlockedController.$inject = ['$scope', 'faqFactory', '$q', '$filter'];
+    advertsBlockedController.$inject = ['$scope', 'advFactory', '$q', '$filter'];
 
-    function advertsBlockedController($scope, faqFactory, $q, $filter) {
-        $scope.env  = {
-            display_instruction_form: false,
-            display_faq_form: false
+    function advertsBlockedController($scope, advFactory, $q, $filter) {
+
+
+        $scope.filter = {
+            type: 'all',
+            account: 'all',
+            status: 'all',
         };
-        $scope.instructions = [];
-        $scope.faqs = [];
-        $scope.model_instruction = {};
-        $scope.model_faq = {};
-        $scope.selected = {
-            instructions:[],
-            faqs:[]
+        $scope.env = {
+            source_adverts: [],
+            adverts: [],
+            blocked_flag: 0,
+            action: 'blocked'
         };
+        $scope.selected = [];
 
         function initPage(deferred) {
+            var promises = [];
             $scope.user = $scope.$parent.user;
-            if ( !$scope.user.hasPermission('advert')) {
+            if (!$scope.user.hasPermission('advert')) {
                 $state.go('sign_in');
                 return;
             }
-            var config_promise = faqFactory.getAll().then(function (response) {
-                angular.forEach(response, function (element) {
-                    if (element.type==='faq'){
-                        $scope.faqs.push(element)
-                    }else{
-                        $scope.instructions.push(element)
-                    }
-                });
+
+            var reportedPromise = advFactory.getBlocked().then(function (response) {
+                $scope.env.adverts = response;
+                $scope.env.source_adverts = response;
             });
-            $q.all([config_promise]).then(function () {
+            promises.push(reportedPromise);
+
+            $q.all(promises).then(function () {
                 deferred.resolve();
             });
+
+
             return deferred.promise;
         }
 
         $scope.$parent.init.push(initPage);
 
-
-        $scope.saveAnnouncement = function (type) {
-            configFactory.saveAnnouncement(type, $scope.model[type]).then(function (response) {
-                alertify.success($filter('translate')('Instruction updated'));
-            })
-        };
-
-
-        $scope.addInstruction = function () {
-            $scope.env.display_instruction_form = true;
-        };
-        $scope.editInstruction = function (instruction) {
-            $scope.model_instruction = instruction;
-            $scope.env.display_instruction_form = true;
-        };
-
-        $scope.cancelInstruction = function () {
-            $scope.env.display_instruction_form = false;
-            $scope.model_instruction = {}
-        };
-
-        $scope.saveInstruction = function (model) {
-            if (model.id ){
-                model.updateInstruction(model.title, model.desc).then(function () {
-                    alertify.success($filter('translate')('Instruction updated'));
-                },function (response) {
-                    alertify.error(response.error);
-                });
-            }else{
-                faqFactory.storeInstruction(model).then(function (response) {
-                    $scope.instructions.push(response)
-                    alertify.success($filter('translate')('Instruction saved'));
-                },function (response) {
-                    alertify.error(response.error);
-                });
+        $scope.deleteSelectedAdverts = function () {
+            var promises = [];
+            var removed_ids = [];
+            for( var i in $scope.selected){
+                promises.push($scope.selected[i].delete());
+                removed_ids.push($scope.selected[i].id);
             }
-
-            $scope.env.display_instruction_form = false;
-            $scope.model_instruction = {};
-        };
-
-        $scope.deleteSelectedInstructions = function () {
-            for( var i in $scope.selected.instructions){
-                $scope.selected.instructions[i].delete();
-                for( var j in $scope.instructions ){
-                    if ($scope.instructions[j].id==$scope.selected.instructions[i].id ){
-                        $scope.instructions.splice(j,1);
-                    }
+            for( var i in $scope.env.adverts){
+                if ( removed_ids.indexOf($scope.env.adverts[i].id)!=-1 ){
+                    $scope.env.adverts.splice(i,1);
                 }
             }
-            $scope.selected.instructions = [];
-            alertify.success($filter('translate')('Instructions deleted'));
+            $q.all(promises).then(function () {
+                alertify.success($filter('translate')('All selected adverts is deleted'));
+            });
+        };
+        $scope.blockAdvert = function (advert, msg) {
+            advert.block(msg).then(function () {
+                alertify.success($filter('translate')('Advert is blocked'));
+            });
 
+            $scope.closeAdvert();
         };
 
 
-
-        $scope.addFaq = function () {
-            $scope.env.display_faq_form = true;
+        $scope.reset = function () {
+            $scope.filter = {
+                type: 'all',
+                account: 'all',
+                status: 'all',
+            };
+            $scope.search()
         };
-        $scope.editFaq = function (faq) {
-            $scope.model_faq = faq;
-            $scope.env.display_faq_form = true;
-        };
-
-        $scope.cancelFaq = function () {
-            $scope.env.display_faq_form = false;
-            $scope.model_faq = {}
-        };
-
-        $scope.saveFaq = function (model) {
-            if (model.id ){
-                model.updateFaq(model.title, model.desc).then(function () {
-                    alertify.success($filter('translate')('Faq updated'));
-                },function (response) {
-                    alertify.error(response.error);
-                });
-            }else{
-                faqFactory.storeFaq(model).then(function (response) {
-                    $scope.faqs.push(response);
-                    alertify.success($filter('translate')('Faq saved'));
-                },function (response) {
-                    alertify.error(response.error);
-                });
-            }
-
-            $scope.env.display_faq_form = false;
-            $scope.model_faq = {};
-        };
-
-        $scope.deleteSelectedFaqs = function () {
-            for( var i in $scope.selected.faqs){
-                $scope.selected.faqs[i].delete();
-                for( var j in $scope.faqs ){
-                    if ($scope.faqs[j].id==$scope.selected.faqs[i].id ){
-                        $scope.faqs.splice(j,1);
+        $scope.search = function () {
+            var result = [];
+            for( var i in $scope.env.source_adverts ){
+                if ( $scope.filter.type!='all'){
+                    if ( $scope.env.source_adverts[i].type!=$scope.filter.type ){
+                        continue;
                     }
                 }
-            }
-            $scope.selected.faqs = [];
-            alertify.success($filter('translate')('Faqs deleted'));
 
+                if ( $scope.filter.account!='all'){
+                    if ( $scope.env.source_adverts[i].owner.group_id!=$scope.filter.account ){
+                        continue;
+                    }
+                }
+
+                if ( $scope.filter.status!='all'){
+                    if ( $scope.env.source_adverts[i].status!=$scope.filter.status ){
+                        continue;
+                    }
+                }
+                result.push($scope.env.source_adverts[i])
+            }
+            $scope.env.adverts = result;
         }
+
+
+        $scope.selectAdvert = function (advert) {
+            $scope.env.advert = advert;
+            $scope.env.action = 'advert';
+            $scope.env.block_flag = 1
+        };
+        $scope.selectUser = function (user) {
+            $scope.env.user = user;
+            $scope.env.action = 'user'
+        };
+        $scope.closeAccount = function () {
+            $scope.env.action = 'blocked';
+            $scope.env.user = null;
+        };
+        $scope.closeAdvert = function () {
+            $scope.env.action = 'blocked';
+            $scope.env.advert = null;
+        };
+        $scope.activateAdvert = function (advert) {
+            advert.activate().then(function () {
+                alertify.success($filter('translate')('Advert is activated'));
+            });
+            $scope.closeAdvert();
+            for( var i in $scope.env.adverts){
+                if ( advert.id==$scope.env.adverts[i].id ){
+                    $scope.env.adverts.splice(i,1);
+                }
+            }
+        };
+
+
+
 
     }
 

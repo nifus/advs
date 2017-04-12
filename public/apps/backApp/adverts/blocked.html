@@ -1,5 +1,5 @@
 <div id="help-desk">
-    <div class="col-md-12" >
+    <div ng-if="env.action=='blocked'" class="col-md-12" >
         <div class="panel panel-default">
             <div class="panel-heading" translate>Blocked adverts</div>
             <div class="panel-body">
@@ -19,13 +19,13 @@
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" ng-model="filter.account" value="private">
+                                            <input type="radio" ng-model="filter.account" value="2">
                                             {{'Private'|translate}}
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" ng-model="filter.account" value="business">
+                                            <input type="radio" ng-model="filter.account" value="3">
                                             {{'Business'|translate}}
                                         </label>
                                     </div>
@@ -40,19 +40,19 @@
                                     <label class="control-label" translate>Advert type</label>
                                     <div class="radio">
                                         <label >
-                                            <input type="radio" ng-model="filter.adv_type" value="all">
+                                            <input type="radio" ng-model="filter.type" value="all">
                                             {{'All'|translate}}
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" ng-model="filter.adv_type" value="rent">
+                                            <input type="radio" ng-model="filter.type" value="rent">
                                             {{'RENT'|translate}}
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" ng-model="filter.adv_type" value="sale">
+                                            <input type="radio" ng-model="filter.type" value="sale">
                                             {{'SALE'|translate}}
                                         </label>
                                     </div>
@@ -106,18 +106,18 @@
                         <th translate>Customer ID</th>
                         <th translate>Account type</th>
                         <th translate>Status</th>
-                        <th translate>React</th>
                         <th translate>Created</th>
                         <th translate>End on</th>
                     </tr>
-                    <tr ng-repeat="adv in env.advs">
-                        <td><input type="checkbox" checklist-model="selected" checklist-value="adv.id"></td>
-                        <td><a ng-click="setAdv(adv)" class="link">{{adv.id}}</a></td>
-                        <td>{{adv.type}}</td>
-                        <td><a href="">{{adv.user_id}}</a></td>
-                        <td>{{adv.owner.group_id==2 ? 'Private' : (adv.owner.group_id==3 ? 'Business' : '')}}</td>
-                        <td>{{adv.StatusStr}}</td>
-                        <td>{{adv.CreateDateWithTime}}</td>
+                    <tr ng-repeat="advert in env.adverts">
+                        <td><input type="checkbox" checklist-model="selected" checklist-value="advert"></td>
+                        <td><a ng-click="selectAdvert(advert)" class="link">{{advert.id}}</a></td>
+                        <td>{{advert.type}}</td>
+                        <td><a ng-click="selectUser(advert.owner)" class="link">{{advert.user_id}}</a></td>
+                        <td>{{advert.owner.group_id==2 ? 'Private' : (advert.owner.group_id==3 ? 'Business' : '')}}</td>
+                        <td>{{advert.StatusStr}}</td>
+                        <td>{{advert.CreateDateWithTime}}</td>
+                        <td>{{advert.DisableDateWithTime}}</td>
                     </tr>
                 </table>
 
@@ -131,14 +131,113 @@
 
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"  ng-model="env.adv.blocked_flag" ng-true-value="1" ng-false-value="0">   Activate deletion
+                                <input type="checkbox"  ng-model="env.blocked_flag" ng-true-value="1" ng-false-value="0">   Activate deletion
                             </label>
                         </div>
-                        <button type="button" class="btn btn-primary" translate>Delete</button>
+                        <button type="button" class="btn btn-primary" ng-click="deleteSelectedAdverts()" ng-disabled="env.blocked_flag==0" translate>Delete</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-12" ng-if="env.action=='user'">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height:40px">
+                <div class="col-md-6  text-left" translate>
+                    Account details
+                </div>
+                <div class="col-md-6 text-right">
+                    <button class="btn btn-primary btn-xs" ng-click="closeAccount()" translate>Close</button>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <account-preview  user="env.user"></account-preview>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12" ng-if="env.action=='advert'">
+
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height:40px">
+                <div class="col-md-6  text-left" translate>
+                    Advert details
+                </div>
+                <div class="col-md-6 text-right">
+                    <button class="btn btn-primary btn-xs" ng-click="closeAdvert()" translate>Close</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table style="width: 100%">
+                    <tr>
+                        <td><strong translate>Advert ID</strong></td>
+                        <td  style="border-right: 2px solid #5B9BD5;text-align: right;padding-right:10px">{{env.advert.id}}</td>
+                        <td  style="border-right: 2px solid #5B9BD5;text-align: center" rowspan="2" colspan="2">
+                            <button ng-if="env.advert.status=='approve_waiting' || env.advert.status=='blocked'" ng-click="activateAdvert(env.advert)" class="btn btn-primary" translate>Activate this advert</button>
+                        </td>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"  ng-model="env.block_flag" ng-true-value="0" ng-false-value="1"> {{'Block this advert'|translate}}
+                                </label>
+                            </div>
+                        </td>
+                        <td style="text-align: right"><button class="btn btn-primary" ng-click="blockAdvert(env.advert, env.block_message)" ng-disabled="env.block_flag=='1'" translate>Block this advert</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong translate>Advert type</strong></td>
+                        <td  style="border-right: 2px solid #5B9BD5;text-align: right;padding-right:10px">{{env.advert.type}}</td>
+                        <td  colspan="2" rowspan="7" style="width:50%;padding-left:10px">
+                            <textarea ng-disabled="env.block_flag=='1'" ng-model="env.advert.block_event.message" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong translate>Status</strong></td>
+                        <td  style="border-right: 2px solid #5B9BD5;text-align: right;padding-right:10px"><span class="{{env.advert.status}}">{{env.advert.StatusStr}}</span></td>
+                        <td translate rowspan="3" style="padding-left:10px">Activated on</td>
+                        <td rowspan="3" style="border-right: 2px solid #5B9BD5;text-align: right;padding-right:10px">04.12.2015 – 9:13</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong translate>Account email</strong></td>
+                        <td  style="border-right: 2px solid #5B9BD5;text-align: right;padding-right:10px">{{env.advert.owner.email}}</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong translate>Account type</strong></td>
+                        <td  style="border-right: 2px solid #5B9BD5;text-align: right;padding-right:10px">{{env.advert.owner.email}}</td>
+                    </tr>
+
+                    <tr>
+                        <td rowspan="2"><strong translate>Account ID</strong></td>
+                        <td   style="border-right: 2px solid #5B9BD5;text-align: right;padding-right:10px"  rowspan="2">{{env.advert.owner.id}}</td>
+                        <td translate style="padding-left:10px">Created on:</td>
+                        <td style="border-right: 2px solid #5B9BD5;padding-right:10px;text-align: right;">03.12.2015 – 19:56</td>
+                    </tr>
+
+                    <tr>
+                        <td translate style="padding-left:10px">Ends on:</td>
+                        <td style="border-right: 2px solid #5B9BD5;text-align: right;padding-right:10px ">03.02.2015</td>
+                    </tr>
+                    <tr>
+
+                        <td></td>
+                        <td   style="border-right: 2px solid #5B9BD5;text-align: right;padding-right:10px"></td>
+                        <td style="padding-left:10px">Deletion on:</td>
+                        <td style="border-right: 2px solid #5B9BD5;text-align: right;padding-right:10px">17.02.2016</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <adv-preview  adv="env.advert" user="$parent.user"></adv-preview>
+
     </div>
 
 </div>

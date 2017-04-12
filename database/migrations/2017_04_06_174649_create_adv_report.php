@@ -23,6 +23,11 @@ class CreateAdvReport extends Migration
             $table->text('message')->nullable();
             $table->timestamps();
         });
+
+        Schema::table('advs', function (Blueprint $table) {
+
+            $table->smallInteger('reports')->default(0);
+        });
     }
 
     /**

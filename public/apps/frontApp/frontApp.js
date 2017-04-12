@@ -1,10 +1,11 @@
 (function (angular) {
     'use strict';
-    angular.module('frontApp', ['core', 'ui.router', 'vcRecaptcha', 'ngCookies', 'satellizer', 'ngAutocomplete', 'checklist-model', 'ui.bootstrap.datetimepicker', 'ngFileUpload', 'AngularGM', 'gettext', 'angucomplete-alt', 'disableAll', 'textCounter'], function ($interpolateProvider) {
+    angular.module('frontApp', ['core',  'vcRecaptcha', 'ngCookies', 'satellizer', 'ngAutocomplete', 'checklist-model', 'ui.bootstrap.datetimepicker', 'ngFileUpload', 'AngularGM', 'gettext', 'angucomplete-alt', 'disableAll', 'textCounter'], function () {
 
-    }).config(function ($authProvider) {
+    }).config(['$authProvider', '$locationProvider',function ($authProvider, $locationProvider) {
         $authProvider.loginUrl = '/api/user/authenticate';
-    }).run(function (gettextCatalog) {
+        $locationProvider.html5Mode(true);
+    }]).run(function (gettextCatalog) {
         var lang = localStorage.getItem('lang');
         lang = lang == undefined ? 'en' : lang;
         gettextCatalog.setCurrentLanguage(lang);

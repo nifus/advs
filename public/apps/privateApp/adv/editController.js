@@ -14,19 +14,27 @@
             react: $state.params.react,
             display_form: !$state.params.react == 1,
             loading: true,
-
         };
 
         function initPage(deferred) {
-
-            var advPromise = advFactory.getById($scope.env.id).then(function (adv) {
-                $scope.model = adv;
-            });
+            var advPromise;
+            if ($state.params.react==1) {
+                advPromise = advFactory.getByIdWithBlockMessage($scope.env.id).then(function (adv) {
+                    $scope.model = adv;
+                });
+            }else{
+                advPromise = advFactory.getById($scope.env.id).then(function (adv) {
+                    $scope.model = adv;
+                });
+            }
             promises.push(advPromise);
 
             tariffFactory.getPrivatePrices().then(function (response) {
                 $scope.env.tariffs = response;
             });
+
+
+
 
             $q.all(promises).then(function () {
                 $scope.env.loading = false;
@@ -84,8 +92,8 @@
                 if (e) {
                     $scope.model.delete().then(function (response) {
                         localStorage.setItem("advert_id", null);
-                        window.location.reload(true);
-
+                        //window.location.reload(true);
+                        $state.go('my-adv')
                     })
                 }
             });
@@ -109,8 +117,6 @@
                 }, function (error) {
                     $scope.env.send = false;
                     $scope.env.submit = false;
-
-                    console.log(error)
                 }
             )
 

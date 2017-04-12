@@ -182,6 +182,7 @@ table.adv tr.active :first-child{
     text-transform: uppercase;
 }
 
+
 table.adv tr.active :last-child{
     color:darkseagreen;
 }
@@ -193,6 +194,16 @@ table.adv tr.payment_waiting :first-child{
 }
 
 table.adv tr.payment_waiting :last-child{
+    color:blue;
+}
+
+table.adv tr.approve_waiting :first-child{
+    background-color:blue;
+    color: white;
+    text-transform: uppercase;
+}
+
+table.adv tr.approve_waiting :last-child{
     color:blue;
 }
 

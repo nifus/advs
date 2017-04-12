@@ -65,6 +65,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::get('/countries', 'UserController@getAllCountries');
         Route::post('/search', 'UserController@search');
 
+
         Route::get('/get-all-administration', 'UserController@getAllAdministration' );
         Route::get('/get-all-new-business', 'UserController@getAllNewBusiness' );
         Route::get('/get-all-blocked', 'UserController@getAllBlocked' );
@@ -98,6 +99,8 @@ Route::group(['prefix'=>'api'], function () {
 
         Route::post('/private-account', 'UserController@createPrivateAccount' );
         Route::post('/business-account', 'UserController@createBusinessAccount' );
+
+
     });
 
 
@@ -105,16 +108,21 @@ Route::group(['prefix'=>'api'], function () {
     Route::group(['prefix'=>'adv'], function () {
         Route::get('/{id}/statistics', 'AdvController@getStatisticsById' )->where('id','[0-9]*');
         Route::get('/statistics', 'AdvController@getStatistics' );
+        Route::get('/blocked', 'AdvController@getBlocked' );
+        Route::get('/reports', 'AdvController@getReports' );
+
         Route::post('/', 'AdvController@store' );
         Route::post('/{id}', 'AdvController@update' )->where('id','[0-9]*');
 
         Route::get('/{id}', 'AdvController@getUserAdvById' )->where('id','[0-9]*');
+        Route::get('/{id}/with-block-message', 'AdvController@getUserAdvByIdWithBlockMessage' )->where('id','[0-9]*');
         Route::get('/{id}/restore', 'AdvController@getRestoreAdvertById' )->where('id','[0-9]*');
         Route::get('/by-user/{id}', 'AdvController@getByUser' )->where('id','[0-9]*');
         Route::get('/by-current-user', 'AdvController@getByCurrentUser' )->where('id','[0-9]*');
 
         Route::delete('{id}', 'AdvController@delete' )->where('id','[0-9]*');
         Route::post('{id}/status', 'AdvController@changeStatus' )->where('id','[0-9]*');
+        Route::post('{id}/view', 'AdvController@viewIncrement' )->where('id','[0-9]*');
 
         Route::get('/watch/by-current-user', 'AdvController@getWatchByCurrentUser' );
         Route::delete('/watch/{id}', 'AdvController@removeWatch' )->where('id','[0-9]*');
@@ -125,6 +133,7 @@ Route::group(['prefix'=>'api'], function () {
 
         Route::post('/upload-images', 'AdvController@uploadImages' );
         Route::post('/{id}/report', 'AdvController@createReport' )->where('id','[0-9]*');
+        Route::delete('/{id}/report', 'AdvController@deleteReports' )->where('id','[0-9]*');
     });
 
     Route::group(['prefix'=>'payment'], function () {

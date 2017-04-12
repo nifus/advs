@@ -32,7 +32,7 @@
             $scope.report = {
                 submit: false,
             };
-
+            $scope.adv.viewIncrement();
             $scope.message = $cookies.getObject('contact');
 
             $scope.displayReport = function () {
@@ -59,7 +59,6 @@
                     )
                 }
             };
-
             $scope.openDefaultBlock = function () {
                 $scope.env.display = $scope.adv.MainPhoto ? 'photos' : 'map';
                 if ($scope.env.display == 'map') {
@@ -68,7 +67,6 @@
                     $scope.displayPhotos()
                 }
             };
-
             $scope.displayPhotos = function () {
                 $scope.env.display = 'photos';
                 initPhotoBlock();
@@ -79,8 +77,10 @@
                 initGoogleMapsView();
                 //}
             };
-
             $scope.openDefaultBlock();
+
+
+
 
             function initGoogleMapsView() {
 

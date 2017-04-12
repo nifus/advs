@@ -21,7 +21,10 @@ class AdvReport extends Model
         return $this->hasOne('App\Adv','id','adv_id');
     }
 
-
+    static function removeFromAdvert($advert_id){
+        self::where('adv_id',$advert_id)->delete();
+        return true;
+    }
 
     static function createReport(Adv $advert, User $user=null, $data){
         if ( !is_null($user)){
