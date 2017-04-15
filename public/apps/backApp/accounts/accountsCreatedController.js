@@ -11,7 +11,8 @@
             users:[],
             selected:[],
             blocked_flag: 0,
-            loading: true
+            loading: true,
+            user: null
         };
 
         function initPage(deferred) {
@@ -32,6 +33,15 @@
 
         $scope.$parent.init.push(initPage);
 
+        $scope.setUser = function (user) {
+            $scope.env.user = user;
+            $scope.env.user.getAdvs().then(function (advs) {
+                $scope.env.user.advs = advs;
+            })
+        };
+        $scope.close = function () {
+            $scope.env.user = null;
+        };
         $scope.activateSelectedAccounts = function () {
             alertify.confirm($filter('translate')("Do you want to activate selected accounts?"), function (e) {
                 if (e) {

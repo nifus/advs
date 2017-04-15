@@ -1,82 +1,81 @@
-<ol class="breadcrumb">
-    <li><a href="/" translate>Home</a></li>
-    <li class="active" translate>Help</li>
-</ol>
-
-<div class="progress" ng-show="env.loading==true">
+<div class="progress" ng-if="env.loading==true">
     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
          aria-valuemax="100" style="width: 100%">
         <span class="sr-only">45% Complete</span>
     </div>
 </div>
 
-<div class="row" ng-show="env.loading==false">
-    <div class="col-md-3">
-        <left-menu></left-menu>
-    </div>
-    <div class="col-md-9">
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" translate>Instruction</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
-                            <div class="panel panel-default" ng-repeat="item in env.items|filter:{type:'instruction'}">
-                                <div class="panel-heading" role="tab" >
-                                    <h5 class="panel-title">
-                                        <a class="collapsed" role="button" ng-click="selectItem(item)" >{{item.title}} </a>
-                                    </h5>
-                                </div>
-                                <div class="panel-collapse collapse" ng-class="{'in':env.item.id==item.id}" role="tabpanel">
-                                    <div class="panel-body">
-                                        {{item.desc}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" translate>Contact</h3>
-                    </div>
-                    <div class="panel-body" translate>
-                        <p>If you have questions or problems you can contact us via email under:</p>
-                        <p>Email: <a href="emailto:adsadsad@dfsdf.ru">adsadsad@dfsdf.ru</a></p>
-                        <p>(Reachable from monday – friday from 10 o‘clock – 15 o‘clock)</p>
-                    </div>
-                </div>
-
+<div class="row" ng-if="env.loading!=true">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" translate>Instruction</h3>
             </div>
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" translate>FAQ‘s</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default" ng-repeat="item in env.items|filter:{type:'faq'}">
-                            <div class="panel-heading" role="tab" >
-                                <h5 class="panel-title">
-                                    <a class="collapsed" role="button" ng-click="selectItem(item)" >{{item.title}} </a>
-                                </h5>
-                            </div>
-                            <div class="panel-collapse collapse" ng-class="{'in':env.item.id==item.id}" role="tabpanel">
-                                <div class="panel-body">
-                                    {{item.desc}}
-                                </div>
+            <div class="panel-body">
+                <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default" ng-repeat="item in env.items|filter:{type:'instruction'}">
+                        <div class="panel-heading" role="tab">
+                            <h5 class="panel-title">
+                                <a class="collapsed" role="button" ng-click="selectItem(item)">{{item.title}} </a>
+                            </h5>
+                        </div>
+                        <div class="panel-collapse collapse" ng-class="{'in':env.item.id==item.id}" role="tabpanel">
+                            <div class="panel-body">
+                                {{item.desc}}
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
 
             </div>
         </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" translate>Contact</h3>
+            </div>
+            <div class="panel-body" >
+                <div translate>If you have questions or problems you can contact us via email under</div>
+
+                <div translate ng-if="$parent.user.isPrivateAccount()">
+                    Email: <a href="mailto:{{env.support_email}}">{{env.support_email}}</a> <br>
+                    (Reachable from monday – friday from 10 o‘clock – 15 o‘clock)
+                </div>
+                <div translate ng-if="$parent.user.sBusinessAccount()">
+                    <form name="message">
+                    <div class="form-group">
+                        <textarea style="height: 100px" class="form-control" ng-model="env.message" required></textarea>
+                    </div>
+                        <button type="submit" ng-disabled="message.$invalid" class="btn btn-default" ng-click="sendMessage(env.message)" translate>Send email</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" translate>FAQ‘s</h3>
+            </div>
+            <div class="panel-body">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default" ng-repeat="item in env.items|filter:{type:'faq'}">
+                        <div class="panel-heading" role="tab">
+                            <h5 class="panel-title">
+                                <a class="collapsed" role="button" ng-click="selectItem(item)">{{item.title}} </a>
+                            </h5>
+                        </div>
+                        <div class="panel-collapse collapse" ng-class="{'in':env.item.id==item.id}" role="tabpanel">
+                            <div class="panel-body">
+                                {{item.desc}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

@@ -240,6 +240,15 @@ table.adv tr.approve_waiting :last-child{
     overflow: hidden;
 }
 
+#watch div.disable h3{
+    opacity: 0.4;
+}
+#watch div.disable div.caption{
+    opacity: 0.4;
+}
+#watch div.disable div.image{
+    opacity: 0.4;
+}
 #watch div.adv{
     margin-bottom: 5px
 }

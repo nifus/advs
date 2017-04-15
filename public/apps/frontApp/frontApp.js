@@ -4,7 +4,7 @@
 
     }).config(['$authProvider', '$locationProvider',function ($authProvider, $locationProvider) {
         $authProvider.loginUrl = '/api/user/authenticate';
-        $locationProvider.html5Mode(true);
+        //$locationProvider.html5Mode(true);
     }]).run(function (gettextCatalog) {
         var lang = localStorage.getItem('lang');
         lang = lang == undefined ? 'en' : lang;

@@ -53,7 +53,7 @@
             Object.DeleteDate = (data.disable_date) ? moment(data.disable_date).add(14, 'days').format('DD.MM.Y') : '-';
             Object.DeleteDateWithTime = (data.disable_date) ? moment(data.disable_date).add(14, 'days').format('DD.MM.Y H:m') : '-';
             if ( Object.blocked_event ){
-                Object.BlockedDeleteDateWithTime = (Object.blocked_event.date) ? moment(Object.blocked_event.date).add(6, 'days').format('DD.MM.Y H:m') : '-';
+                Object.BlockedDeleteDateWithTime = (Object.blocked_date) ? moment(Object.blocked_date).add(6, 'days').format('DD.MM.Y H:m') : '-';
             }
 
             Object.MainPhoto = getMainPhoto(data.photos);
@@ -80,7 +80,7 @@
             };
 
             Object.addToFavList = function (user) {
-                if (user == null) {
+                //if (user == null) {
                     var advs = $cookies.getObject('fav-advs');
                     console.log(advs)
                     if (advs != undefined) {
@@ -92,7 +92,7 @@
                     expireDate.setDate(expireDate.getDate() + 199);
                     $cookies.putObject('fav-advs', advs, {expires: expireDate,path:'/'});
                     $http.post('/api/adv/' + Object.id + '/fav', {'action': 'add'});
-                } //else {
+               // } //else {
 
                 //}
                 Object.IsFav = true;
@@ -153,7 +153,7 @@
             Object.disable = function () {
                 var deferred = $q.defer();
                 Object.waiting = true;
-                $http.post('/api/adv/' + Object.id + '/status', {status: 'disabled'}).then(function (response) {
+                $http.post('/api/adv/' + Object.id + '/disable').then(function (response) {
                     Object.waiting = false;
                     Object.status = 'disabled';
                     Object.StatusMessage = statusDesc(Object.status);
@@ -184,7 +184,7 @@
             Object.activate = function () {
                 var deferred = $q.defer();
                 Object.waiting = true;
-                $http.post('/api/adv/' + Object.id + '/status', {status: 'active'}).then(function (response) {
+                $http.post('/api/adv/' + Object.id + '/activate').then(function (response) {
                     Object.waiting = false;
                     Object.status = 'active';
                     Object.StatusMessage = statusDesc(Object.status);

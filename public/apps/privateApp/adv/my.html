@@ -1,8 +1,3 @@
-<ol class="breadcrumb">
-    <li><a href="/" translate>Home</a></li>
-    <li class="active" translate>My advertisements</li>
-</ol>
-
 <div class="progress" ng-if="env.loading==true">
     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
          aria-valuemax="100" style="width: 100%">
@@ -10,158 +5,170 @@
     </div>
 </div>
 
-<div ng-if="env.loading==false">
-    <div class="row" >
-        <div class="col-md-3">
-            <left-menu></left-menu>
-        </div>
+<div  ng-if="env.loading!=true">
+    <div ng-if="env.advert==null">
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="height:50px">
+                <select ng-model="env.order" style="float:right;width:300px" class="form-control">
+                    <option value="end_date_up" translate>End date upward</option>
+                    <option value="price_up" translate>Price upward</option>
+                    <option value="price_down" translate>Price downward</option>
+                    <option value="created_up" translate>Created upward</option>
+                    <option value="created_down" translate>Created downward</option>
+                </select>
 
-        <div class="col-md-9" ng-if="env.advert==null">
-            <div class="panel panel-primary">
-                <div class="panel-heading" style="height:50px">
-                    <select ng-model="env.order" style="float:right;width:300px" class="form-control">
-                        <option value="end_date_up" translate>End date upward</option>
-                        <option value="price_up" translate>Price upward</option>
-                        <option value="price_down" translate>Price downward</option>
-                        <option value="created_up" translate>Created upward</option>
-                        <option value="created_down" translate>Created downward</option>
-                    </select>
+                <h3 class="panel-title" style="float:left" translate>My Advertisements</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-2" translate>Show</div>
+                        <div class="col-md-2">
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="env.filters.type" value="all"> {{'All'|translate}}
+                            </label>
+                        </div>
 
-                    <h3 class="panel-title" style="float:left" translate>My Advertisements</h3>
+                        <div class="col-md-2">
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="env.filters.type" value="rent"> {{'Renting'|translate}}
+                            </label>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="radio-inline">
+                                <input type="radio" ng-model="env.filters.type" value="sale"> {{'Selling'|translate}}
+                            </label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6 text-right">
+                        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom"
+                                title="Tooltip on bottom<br>1">
+                            <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> {{'Page
+                            description'|translate}}
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="col-md-2" translate>Show</div>
-                            <div class="col-md-2">
-                                <label class="radio-inline">
-                                    <input type="radio" ng-model="env.filters.type" value="all"> {{'All'|translate}}
-                                </label>
+
+                <div ng-show="env.filters.type!='sale'">
+                    <h4 translate>Renting</h4>
+                    <div class="row" ng-repeat="adv in env.advs.rent" ng-if="env.advs.rent.length>0">
+                        <div class="col-md-11" ng-if="adv.category==1"
+                             ng-include="'apps/core/adv/tpl/privatePreview/flat.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==2"
+                             ng-include="'apps/core/adv/tpl/privatePreview/house.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==3"
+                             ng-include="'apps/core/adv/tpl/privatePreview/garage.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==4"
+                             ng-include="'apps/core/adv/tpl/privatePreview/office.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==5"
+                             ng-include="'apps/core/adv/tpl/privatePreview/building.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==6"
+                             ng-include="'apps/core/adv/tpl/privatePreview/hotel.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==7"
+                             ng-include="'apps/core/adv/tpl/privatePreview/hall.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==8"
+                             ng-include="'apps/core/adv/tpl/privatePreview/retail.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==9"
+                             ng-include="'apps/core/adv/tpl/privatePreview/commercialLand.html'"></div>
+
+
+                        <div class="col-md-1">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    {{'Action'|translate}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="link" ng-click="editAdv(adv)" ng-if="adv.status!='blocked'"
+                                           translate>Edit</a></li>
+                                    <li><a class="link" ng-click="extendAdv(adv)"
+                                           ng-if="adv.status=='expired' || adv.status=='active'"
+                                           translate>Extend</a></li>
+
+                                    <li><a class="link" ng-click="disableAdv(adv);" ng-if="adv.status=='active'"
+                                           translate>Disable</a></li>
+
+                                    <li><a class="link" ng-click="activateAdv(adv)" ng-if="adv.status=='disabled' "
+                                           translate>Enable</a></li>
+
+                                    <li><a class="link" ng-click="deleteAdv(adv)" translate>Delete</a></li>
+                                    <li><a class="link" ng-click="reactAdv(adv)" ng-if="adv.status=='blocked'"
+                                           translate>React</a></li>
+                                </ul>
                             </div>
-
-                            <div class="col-md-2">
-                                <label class="radio-inline">
-                                    <input type="radio" ng-model="env.filters.type" value="rent"> {{'Renting'|translate}}
-                                </label>
-                            </div>
-
-                            <div class="col-md-2">
-                                <label class="radio-inline">
-                                    <input type="radio" ng-model="env.filters.type" value="sale"> {{'Selling'|translate}}
-                                </label>
-                            </div>
-
-                        </div>
-
-
-                        <div class="col-md-6 text-right">
-                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom"
-                                    title="Tooltip on bottom<br>1">
-                                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> {{'Page description'|translate}}
-                            </button>
                         </div>
                     </div>
-
-                    <div ng-show="env.filters.type!='sale'">
-                        <h4 translate>Renting</h4>
-                        <div class="row" ng-repeat="adv in env.advs.rent" ng-if="env.advs.rent.length>0">
-                            <div class="col-md-11" ng-if="adv.category==1" ng-include="'apps/core/adv/tpl/privatePreview/flat.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==2" ng-include="'apps/core/adv/tpl/privatePreview/house.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==3" ng-include="'apps/core/adv/tpl/privatePreview/garage.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==4" ng-include="'apps/core/adv/tpl/privatePreview/office.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==5" ng-include="'apps/core/adv/tpl/privatePreview/building.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==6" ng-include="'apps/core/adv/tpl/privatePreview/hotel.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==7" ng-include="'apps/core/adv/tpl/privatePreview/hall.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==8" ng-include="'apps/core/adv/tpl/privatePreview/retail.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==9" ng-include="'apps/core/adv/tpl/privatePreview/commercialLand.html'"></div>
-
-
-
-                            <div class="col-md-1">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        {{'Action'|translate}} <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="link" ng-click="editAdv(adv)" ng-show="adv.status!='blocked'"
-                                               translate>Edit</a></li>
-                                        <li><a class="link" ng-click="extendAdv(adv)" ng-show="adv.status!='blocked'"
-                                               translate>Extend</a></li>
-
-                                        <li><a class="link" ng-click="disableAdv(adv);"
-                                               ng-show="(adv.status!='disabled' && adv.status!='blocked' && adv.status!='expired')"
-                                               translate>Disable</a></li>
-
-                                        <li><a class="link" ng-click="activateAdv(adv)" ng-show="adv.status=='disabled' "
-                                               translate>Enable</a></li>
-
-                                        <li><a class="link" ng-click="deleteAdv(adv)" translate>Delete</a></li>
-                                        <li><a class="link" ng-click="reactAdv(adv)" ng-show="adv.status=='blocked'"
-                                               translate>React</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <p translate ng-if="env.advs.rent==0">There are no renting adverts</p>
-                    </div>
-
-                    <div ng-show="env.filters.type!='rent'">
-
-                        <h4 translate>Selling</h4>
-                        <div class="row" ng-if="env.advs.sale.length>0" ng-repeat="adv in env.advs.sale">
-
-                            <div class="col-md-11" ng-if="adv.category==1" ng-include="'apps/core/adv/tpl/privatePreview/flat.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==2" ng-include="'apps/core/adv/tpl/privatePreview/house.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==3" ng-include="'apps/core/adv/tpl/privatePreview/garage.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==4" ng-include="'apps/core/adv/tpl/privatePreview/office.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==5" ng-include="'apps/core/adv/tpl/privatePreview/building.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==6" ng-include="'apps/core/adv/tpl/privatePreview/hotel.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==7" ng-include="'apps/core/adv/tpl/privatePreview/hall.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==8" ng-include="'apps/core/adv/tpl/privatePreview/retail.html'"></div>
-                            <div class="col-md-11" ng-if="adv.category==9" ng-include="'apps/core/adv/tpl/privatePreview/commercialLand.html'"></div>
-                            <div class="col-md-1">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        {{'Action'|translate}} <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="link" ng-click="editAdv(adv)" translate>Edit</a></li>
-                                        <li><a class="link" ng-click="extendAdv(adv)" ng-show="adv.status=='expired'"
-                                               translate>Extend</a></li>
-
-                                        <li><a class="link" ng-click="disableAdv(adv)"
-                                               ng-show="(adv.status!='disabled' && adv.status!='blocked' && adv.status!='expired')"
-                                               translate>Disable</a></li>
-                                        <li><a class="link" ng-click="enableAdv(adv)" ng-show="adv.status=='disabled' "
-                                               translate>Enable</a></li>
-
-                                        <li><a class="link" ng-click="deleteAdv(adv)" translate>Delete</a></li>
-                                        <li><a class="link" ng-click="editAdv(adv)" ng-show="adv.status=='blocked'"
-                                               translate>React</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <p translate ng-if="env.advs.sale==0">There are no selling adverts</p>
-                    </div>
-
+                    <p translate ng-if="env.advs.rent==0">There are no renting adverts</p>
                 </div>
+
+                <div ng-show="env.filters.type!='rent'">
+
+                    <h4 translate>Selling</h4>
+                    <div class="row" ng-if="env.advs.sale.length>0" ng-repeat="adv in env.advs.sale">
+
+                        <div class="col-md-11" ng-if="adv.category==1"
+                             ng-include="'apps/core/adv/tpl/privatePreview/flat.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==2"
+                             ng-include="'apps/core/adv/tpl/privatePreview/house.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==3"
+                             ng-include="'apps/core/adv/tpl/privatePreview/garage.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==4"
+                             ng-include="'apps/core/adv/tpl/privatePreview/office.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==5"
+                             ng-include="'apps/core/adv/tpl/privatePreview/building.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==6"
+                             ng-include="'apps/core/adv/tpl/privatePreview/hotel.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==7"
+                             ng-include="'apps/core/adv/tpl/privatePreview/hall.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==8"
+                             ng-include="'apps/core/adv/tpl/privatePreview/retail.html'"></div>
+                        <div class="col-md-11" ng-if="adv.category==9"
+                             ng-include="'apps/core/adv/tpl/privatePreview/commercialLand.html'"></div>
+                        <div class="col-md-1">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    {{'Action'|translate}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="link" ng-click="editAdv(adv)" translate>Edit</a></li>
+                                    <li><a class="link" ng-click="extendAdv(adv)"
+                                           ng-if="adv.status=='expired' || adv.status=='active'"
+                                           translate>Extend</a></li>
+
+                                    <li><a class="link" ng-click="disableAdv(adv)" ng-if="adv.status=='active'"
+                                           translate>Disable</a></li>
+                                    <li><a class="link" ng-click="activateAdv(adv)" ng-if="adv.status=='disabled' "
+                                           translate>Enable</a></li>
+
+                                    <li><a class="link" ng-click="deleteAdv(adv)" translate>Delete</a></li>
+                                    <li><a class="link" ng-click="editAdv(adv)" ng-if="adv.status=='blocked'"
+                                           translate>React</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <p translate ng-if="env.advs.sale==0">There are no selling adverts</p>
+                </div>
+
             </div>
         </div>
+    </div>
 
-        <div class="col-md-9" ng-if="env.advert!=null">
-            <div class="navbar-right navbar-form ">
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-warning" ng-click="goBack()" translate>
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        Go to Back
-                    </button>
+    <div  ng-if="env.advert!=null">
+        <div class="navbar-right navbar-form ">
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-warning" ng-click="goBack()" translate>
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    Go to Back
+                </button>
 
-                </div>
             </div>
-            <adv-preview adv="env.advert" user="user" hide-contact-form="true"></adv-preview>
         </div>
+        <adv-preview adv="env.advert" user="$parent.user" hide-contact-form="true"></adv-preview>
     </div>
 </div>

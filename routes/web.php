@@ -100,6 +100,7 @@ Route::group(['prefix'=>'api'], function () {
         Route::post('/private-account', 'UserController@createPrivateAccount' );
         Route::post('/business-account', 'UserController@createBusinessAccount' );
 
+        Route::post('/send-message-for-administrator', 'UserController@sendMessage4Administrator' );
 
     });
 
@@ -122,6 +123,8 @@ Route::group(['prefix'=>'api'], function () {
 
         Route::delete('{id}', 'AdvController@delete' )->where('id','[0-9]*');
         Route::post('{id}/status', 'AdvController@changeStatus' )->where('id','[0-9]*');
+        Route::post('{id}/disable', 'AdvController@disable' )->where('id','[0-9]*');
+        Route::post('{id}/activate', 'AdvController@activate' )->where('id','[0-9]*');
         Route::post('{id}/view', 'AdvController@viewIncrement' )->where('id','[0-9]*');
 
         Route::get('/watch/by-current-user', 'AdvController@getWatchByCurrentUser' );
@@ -177,6 +180,7 @@ Route::group(['prefix'=>'api'], function () {
     Route::get('/mail/templates', 'MailTemplateController@getAll' );
     Route::post('/mail/templates/{id}', 'MailTemplateController@update' )->where('id','[0-9]*');
 
+
     Route::post('/config/announcement/{type}', 'ConfigController@announcement' )->where('type','private|business');
     Route::post('/config/instruction', 'ConfigController@instruction' );
     Route::post('/config/faq', 'ConfigController@faq' );
@@ -188,7 +192,6 @@ Route::group(['prefix'=>'api'], function () {
 
     // Route::get('/address', 'AddressController@search');
     Route::get('/news/{type}', 'News@getLastNews' );
-    //Route::get('/config', 'ConfigController@getConfig' );
 
 
 
@@ -197,8 +200,7 @@ Route::group(['prefix'=>'api'], function () {
             'categories'=>Adv::getCategories(),
             'sub_categories'=>Adv::getSubCategories(),
             'equipments'=>Adv::getEquipments(),
-            'agb' =>  \Config::get('app.agb'),
-            'disabled_msg'=>\Config::get('app.disabled_msg'),
+            'support_email'=>\Config::get('app.support_email'),
             'energy_class'=>Adv::getEnergyClassSource(),
             'heating'=>Adv::getHeatingSource(),
             'energy_source'=>Adv::getEnergySource(),

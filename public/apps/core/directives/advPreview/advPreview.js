@@ -28,9 +28,11 @@
                 display: $scope.adv.MainPhoto ? 'photos' : 'map',
                 submit: false,
                 send: false,
+                display_report: !($scope.user && $scope.user.id == $scope.adv.user_id)
             };
+
             $scope.report = {
-                submit: false,
+                submit: false
             };
             $scope.adv.viewIncrement();
             $scope.message = $cookies.getObject('contact');

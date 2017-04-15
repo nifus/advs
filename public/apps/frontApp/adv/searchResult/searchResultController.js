@@ -93,10 +93,10 @@
         $scope.addToFav = function (adv, flag) {
             if (flag === true) {
                 adv.addToFavList($scope.user);
-                alertify.success('Adv added to watchlist');
+                alertify.success($filter('translate')('Adv added to watchlist'));
             } else {
                 adv.deleteFromFavList($scope.user);
-                alertify.success('Adv removed from watchlist');
+                alertify.success($filter('translate')('Adv removed from watchlist'));
             }
         }
 

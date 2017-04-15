@@ -1,6 +1,6 @@
 <div id="help-desk" ng-if="!env.loading">
     <div class="col-md-12" >
-        <div class="panel panel-default">
+        <div class="panel panel-default" ng-if="env.user==null">
             <div class="panel-heading" translate>New business accounts</div>
             <div class="panel-body">
                 <form class="form-horizontal">
@@ -82,6 +82,24 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-md-12" ng-if="env.user">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="height:40px">
+                    <div class="col-md-6  text-left" translate>
+                        Account details
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button class="btn btn-primary btn-xs" ng-click="close()" translate>Close</button>
+                    </div>
+
+                </div>
+                <div class="panel-body">
+                    <account-preview user="env.user" ng-if="env.user"></account-preview>
+                </div>
+            </div>
+
+
         </div>
     </div>
 

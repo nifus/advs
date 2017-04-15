@@ -41,17 +41,16 @@
         $scope.$parent.init.push(initPage);
 
         $scope.deleteItem = function(item){
-            item.deleteFromWatchList().then( function(){
-                $scope.env.advs.rent = $scope.env.advs.rent.filter( function(adv){
-                    if ( adv.id!=item.id){
-                        return true;
-                    }
-                });
-                $scope.env.advs.sale = $scope.env.advs.sale.filter( function(adv){
-                    if ( adv.id!=item.id){
-                        return true;
-                    }
-                })
+            item.deleteFromWatchList()
+            $scope.env.advs.rent = $scope.env.advs.rent.filter( function(adv){
+                if ( adv.id!=item.id){
+                    return true;
+                }
+            });
+            $scope.env.advs.sale = $scope.env.advs.sale.filter( function(adv){
+                if ( adv.id!=item.id){
+                    return true;
+                }
             })
         };
         $scope.displayAdv = function (adv) {

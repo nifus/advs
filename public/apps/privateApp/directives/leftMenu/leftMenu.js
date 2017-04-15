@@ -10,10 +10,7 @@
         };
 
         function leftController($scope) {
-            function initPage(deferred) {
-                return deferred.promise;
-            }
-            $scope.$parent.init.push(initPage);
+
         }
     }
 

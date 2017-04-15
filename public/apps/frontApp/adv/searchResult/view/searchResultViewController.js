@@ -17,8 +17,8 @@
 
         };
 
-        var url = window.location.href.match(/\/view([0-9]*)/);
-        console.log($scope.$parent)
+        var url = window.location.href.match(/\/([0-9]*)/);
+        console.log(url)
 
         $scope.env.adv_id = url!=null && url[1]!=undefined ?  url[1]*1 : $scope.env.adv_id;
 

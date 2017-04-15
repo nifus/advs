@@ -1,363 +1,367 @@
-<ol class="breadcrumb">
-    <li><a href="/" translate>Home</a></li>
-    <li class="active" translate>My settings</li>
-</ol>
-
-<div class="progress" ng-show="env.loading==true">
+<div class="progress" ng-if="env.loading==true">
     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
          aria-valuemax="100" style="width: 100%">
         <span class="sr-only">45% Complete</span>
     </div>
 </div>
 
-<div class="row" ng-show="env.loading==false">
-    <div class="col-md-3">
-        <left-menu></left-menu>
-    </div>
-    <div class="col-md-9">
+<div ng-if="env.loading!=true">
 
-        <div class="col-md-6">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" translate>Change email address</h3>
-                    </div>
-                    <div class="panel-body">
-
-                        <form class="form-horizontal" name="email">
-                            <div class="alert alert-danger" role="alert"
-                                 ng-show="(email.email.$error.match==true ||email_form.error!=undefined) " translate>
-                                New email must be different from the previous
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label" translate>Current email address</label>
-                                <div class="col-sm-8">
-                                    <input type="email" class="form-control" disabled ng-model="user.email"
-                                           placeholder="{{'Email'|translate}}">
-                                </div>
-                            </div>
-                            <div class="form-group"
-                                 ng-class="{ 'has-error': email.email.$invalid && email_form.submit==true }">
-                                <label class="col-sm-4 control-label" translate>New email address</label>
-                                <div class="col-sm-8">
-                                    <input type="email" class="form-control" placeholder="{{'Email'|translate}}" name="email"
-                                           ng-disabled="email_form.is_confirmed"
-                                           ng-model="email_form.email" required match="user.email" not-match="true">
-                                </div>
-                            </div>
-                            <div class="form-group"
-                                 ng-class="{ 'has-error': email.re_email.$invalid && email_form.submit==true }">
-                                <label class="col-sm-4 control-label" translate>Repeat new email address</label>
-                                <div class="col-sm-8">
-                                    <input type="email" class="form-control" placeholder="{{'Email'|translate}}" name="re_email"
-                                           ng-disabled="email_form.is_confirmed"
-                                           ng-model="email_form.re_email" required match="email_form.email">
-                                </div>
-
-                            </div>
-
-                            <div class="form-group" ng-show="email_form.is_confirmed">
-                                <div class="alert alert-warning" role="alert" translate>We sent a confirmation code to you new email. Please entire this code </div>
-
-                                <label class="col-sm-4 control-label" translate>Confirmation code</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control"  name="code"
-                                           ng-model="email_form.code" ng-required="email_form.is_confirmed===true">
-                                </div>
-                            </div>
-
-                            <div class="form-group" ng-show="email_form.is_confirmed===false">
-                                <div class="col-sm-offset-2 col-sm-10 text-right">
-                                    <button type="button"
-                                            ng-disabled="email_form.submit"
-                                            ng-click="sendConformCode(email_form)"
-                                            class="btn btn-default" translate>Send confirm code
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="form-group" ng-show="email_form.is_confirmed===true">
-                                <div class="col-sm-offset-2 col-sm-10 text-right">
-                                    <button type="button"
-                                            ng-disabled="email_form.submit"
-                                            ng-click="changeEmail(email_form)"
-                                            class="btn btn-default" translate>Change email address
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" translate>Change email address</h3>
                 </div>
-            </div>
+                <div class="panel-body">
 
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" translate>Change password</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="alert alert-danger" role="alert" ng-show="(password_form.error!=undefined) ">
-                            {{password_form.error}}
+                    <form class="form-horizontal" name="email">
+                        <div class="alert alert-danger" role="alert"
+                             ng-show="(email.email.$error.match==true ||email_form.error!=undefined) " translate>
+                            New email must be different from the previous
                         </div>
-                        <form class="form-horizontal" name="password">
-                            <div class="form-group"
-                                 ng-class="{ 'has-error': password.current_password.$invalid && password_form.submit==true }">
-                                <label class="col-sm-4 control-label" translate>Current password</label>
-                                <div class="col-sm-8">
-                                    <input type="password" class="form-control" name="current_password"
-                                           ng-model="password_form.current_password" required minlength="6">
-                                </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" translate>Current email address</label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control" disabled ng-model="user.email"
+                                       placeholder="{{'Email'|translate}}">
                             </div>
-                            <div class="form-group"
-                                 ng-class="{ 'has-error': password.password.$invalid && password_form.submit==true }">
-                                <label class="col-sm-4 control-label" translate>New password</label>
-                                <div class="col-sm-8">
-                                    <input type="password" class="form-control" name="password"
-                                           ng-model="password_form.password" required minlength="6">
-                                </div>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': email.email.$invalid && email_form.submit==true }">
+                            <label class="col-sm-4 control-label" translate>New email address</label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control" placeholder="{{'Email'|translate}}"
+                                       name="email"
+                                       ng-disabled="email_form.is_confirmed"
+                                       ng-model="email_form.email" required match="user.email" not-match="true">
                             </div>
-                            <div class="form-group"
-                                 ng-class="{ 'has-error': password.re_password.$invalid && password_form.submit==true }">
-                                <label class="col-sm-4 control-label" translate>Repeat new password</label>
-                                <div class="col-sm-8">
-                                    <input type="password" class="form-control" name="re_password"
-                                           ng-model="password_form.re_password" required match="password_form.password">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10 text-right">
-                                    <button type="button"
-                                            ng-disabled="password_form.submit"
-                                            ng-click="changePassword(password_form)" class="btn btn-default" translate>
-                                        Change password
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" translate>Contact data</h3>
-                    </div>
-                    <div class="panel-body">
-                        <p translate>If you create a new advertisement, this parameters will taken automatically</p>
-
-                        <form class="form-horizontal" name="contact">
-
-                            <div class="form-group" ng-class="{ 'has-error': contact.sex.$invalid && contact_form.submit==true }">
-                                <label class="col-sm-2 control-label" translate>Title</label>
-                                <div class="col-sm-10">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="sex" ng-model="contact_form.sex" value="male" required> {{'Mister'|translate}}
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="sex" ng-model="contact_form.sex" value="female" required> {{'Miss'|translate}}
-                                    </label>
-                                </div>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': email.re_email.$invalid && email_form.submit==true }">
+                            <label class="col-sm-4 control-label" translate>Repeat new email address</label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control" placeholder="{{'Email'|translate}}"
+                                       name="re_email"
+                                       ng-disabled="email_form.is_confirmed"
+                                       ng-model="email_form.re_email" required match="email_form.email">
                             </div>
 
+                        </div>
 
-                            <div class="form-group" ng-class="{ 'has-error': contact.name.$invalid && contact_form.submit==true }">
-                                <label class="col-sm-2 control-label" translate>Forename</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" ng-model="contact_form.name" name="name"
-                                           placeholder="Alexander" required minlength="2">
-
-                                </div>
+                        <div class="form-group" ng-show="email_form.is_confirmed">
+                            <div class="alert alert-warning" role="alert" translate>We sent a confirmation code to you
+                                new email. Please entire this code
                             </div>
 
-                            <div class="form-group" ng-class="{ 'has-error': contact.surname.$invalid && contact_form.submit==true }">
-                                <label class="col-sm-2 control-label" translate>Surname</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" ng-model="contact_form.surname" name="surname"
-                                           placeholder="Pushkin" required minlength="2">
-                                </div>
+                            <label class="col-sm-4 control-label" translate>Confirmation code</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="code"
+                                       ng-model="email_form.code" ng-required="email_form.is_confirmed===true">
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" translate>Address</label>
-                                <div class="col-sm-10">
-
-                                    <input type="text" class="form-control" name="autocomplete"
-                                           ng-autocomplete ng-model="autocomplete.value" details="autocomplete.details"
-                                           >
-
-                                </div>
+                        <div class="form-group" ng-show="email_form.is_confirmed===false">
+                            <div class="col-sm-offset-2 col-sm-10 text-right">
+                                <button type="button"
+                                        ng-disabled="email_form.submit"
+                                        ng-click="sendConformCode(email_form)"
+                                        class="btn btn-default" translate>Send confirm code
+                                </button>
                             </div>
+                        </div>
 
-                            <div class="form-group"
-                                 ng-show="contact_form.address_zip"
-                                 >
-                                <label class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10 form-inline">
-
-                                    <input type="text" class="form-control" ng-model="contact_form.address_zip" name="zip"
-
-                                           placeholder="{{'Zip'|translate}}"  style="width:80px">
-                                    <input type="text" class="form-control" ng-model="contact_form.address_city" name="city"
-                                           placeholder="{{'City'|translate}}"  style="width:120px" >
-                                    <input type="text" class="form-control" ng-model="contact_form.address_street" name="street"
-                                           placeholder="{{'Street'|translate}}"  style="width:120px" >
-                                    <input type="text" class="form-control" ng-model="contact_form.address_number" name="no"
-                                           placeholder="{{'Haus No.'|translate}}"  style="width:80px">
-
-
-                                </div>
+                        <div class="form-group" ng-show="email_form.is_confirmed===true">
+                            <div class="col-sm-offset-2 col-sm-10 text-right">
+                                <button type="button"
+                                        ng-disabled="email_form.submit"
+                                        ng-click="changeEmail(email_form)"
+                                        class="btn btn-default" translate>Change email address
+                                </button>
                             </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" translate>Additional address</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" ng-model="contact_form.address_additional"
-                                           name="additional">
-                                </div>
-                            </div>
-
-
-
-
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" translate>Phone number</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" ng-model="contact_form.phone" name="phone">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10 text-right">
-                                    <button type="button" ng-disabled="contact_form.submit" ng-click="changeContactData(contact_form)" class="btn btn-default" translate>
-                                        Save
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
-
-        <div class="col-md-6">
-
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" translate>Information emails</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-sm-10 control-label" style="text-align: left" translate> Disable information emails
-                                    <br>(You will not receive information email anymore)</label>
-                                <div class="col-sm-2 checkbox">
-                                    <input type="checkbox" ng-model="user.allow_notifications" ng-true_value="0"
-                                           ng-false_value="1"
-                                           ng-change="changeAllowNotifications(user.allow_notifications)">
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" translate>Change password</h3>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" translate>Method of Payment</h3>
+                <div class="panel-body">
+                    <div class="alert alert-danger" role="alert" ng-show="(password_form.error!=undefined) ">
+                        {{password_form.error}}
                     </div>
-                    <div class="panel-body">
-                        <form name="payment">
-                            <p translate>Here you can select your prefered method for payment.
-                                This data will take over when you create or extend your next advertisement.</p>
-
-
-                            <div class="col-sm-10" >
-                                <div class="radio" ng-class="{ 'has-error': ( payment.paypal_email.$invalid && payment_form.submit==true) }">
-                                    <label>
-                                        <input type="radio" value="paypal" ng-model="payment_form.payment_type">
-                                        {{'PayPal'|translate}}<br>
-                                        {{'(you will be forwarded to PayPal by clicking on „Next“)'|translate}}
-
-                                    </label>
-
-                                    <div class="form-inline">
-                                        <label class="col-sm-3 " translate>PayPal email </label>
-                                        <div class="col-sm-9">
-                                            <input type="email" name="paypal_email" class="form-control" ng-model="payment_form.paypal_email"
-                                                   ng-disabled="payment_form.payment_type!='paypal'"
-                                                   ng-required="payment_form.payment_type=='paypal'">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <br>
-                                <br>
-                                <div class="radio" ng-class="{ 'has-error': ( payment.giro_account.$invalid && payment_form.submit==true) }">
-                                    <label>
-                                        <input type="radio" value="giropay" ng-model="payment_form.payment_type">
-                                        {{'GiroPay'|translate}}
-                                        <br>
-                                        {{'(you will be forwarded to your Bank)'|translate}}
-
-                                    </label>
-
-                                    <div class="form-inline">
-                                        <label class="col-sm-3" translate>BIC</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" name="giro_account" class="form-control" ng-model="payment_form.giro_account"
-                                                   ng-disabled="payment_form.payment_type!='giropay'"
-                                                   ng-required="payment_form.payment_type=='giropay'">
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <br>
-                                <br>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" value="prepayment" ng-model="payment_form.payment_type">
-                                        {{'Prepayment'|translate}}
-
-                                    </label>
-                                </div>
-
-
+                    <form class="form-horizontal" name="password">
+                        <div class="form-group"
+                             ng-class="{ 'has-error': password.current_password.$invalid && password_form.submit==true }">
+                            <label class="col-sm-4 control-label" translate>Current password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="current_password"
+                                       ng-model="password_form.current_password" required minlength="6">
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10 text-right">
-                                    <button type="button" ng-disabled="payment_form.submit" ng-click="changePayment(payment_form)" class="btn btn-default" translate>
-                                        Save
-                                    </button>
-                                </div>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': password.password.$invalid && password_form.submit==true }">
+                            <label class="col-sm-4 control-label" translate>New password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="password"
+                                       ng-model="password_form.password" required minlength="6">
                             </div>
-                        </form>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{ 'has-error': password.re_password.$invalid && password_form.submit==true }">
+                            <label class="col-sm-4 control-label" translate>Repeat new password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="re_password"
+                                       ng-model="password_form.re_password" required match="password_form.password">
+                            </div>
+                        </div>
 
-                    </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10 text-right">
+                                <button type="button"
+                                        ng-disabled="password_form.submit"
+                                        ng-click="changePassword(password_form)" class="btn btn-default" translate>
+                                    Change password
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
 
         <div class="col-md-12">
-
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title" translate>Account delete</h3>
+                    <h3 class="panel-title" translate>Contact data</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="col-md-6 text-left" translate>I want to delete my account</div>
-                    <div class="col-md-6 text-right">
-                        <button type="button" class="btn btn-primary" ng-click="deleteAccount()" translate>Next</button>
-                    </div>
+                    <p translate>If you create a new advertisement, this parameters will taken automatically</p>
+
+                    <form class="form-horizontal" name="contact">
+
+                        <div class="form-group"
+                             ng-class="{ 'has-error': contact.sex.$invalid && contact_form.submit==true }">
+                            <label class="col-sm-2 control-label" translate>Title</label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" ng-model="contact_form.sex" value="male" required>
+                                    {{'Mister'|translate}}
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" ng-model="contact_form.sex" value="female" required>
+                                    {{'Miss'|translate}}
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group"
+                             ng-class="{ 'has-error': contact.name.$invalid && contact_form.submit==true }">
+                            <label class="col-sm-2 control-label" translate>Forename</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="contact_form.name" name="name"
+                                       placeholder="Alexander" required minlength="2">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             ng-class="{ 'has-error': contact.surname.$invalid && contact_form.submit==true }">
+                            <label class="col-sm-2 control-label" translate>Surname</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="contact_form.surname" name="surname"
+                                       placeholder="Pushkin" required minlength="2">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate>Address</label>
+                            <div class="col-sm-10">
+
+                                <input type="text" class="form-control" name="autocomplete"
+                                       ng-autocomplete ng-model="autocomplete.value" details="autocomplete.details"
+                                >
+
+                            </div>
+                        </div>
+
+                        <div class="form-group"
+                             ng-show="contact_form.address_zip"
+                        >
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10 form-inline">
+
+                                <input type="text" class="form-control" ng-model="contact_form.address_zip" name="zip"
+
+                                       placeholder="{{'Zip'|translate}}" style="width:80px">
+                                <input type="text" class="form-control" ng-model="contact_form.address_city" name="city"
+                                       placeholder="{{'City'|translate}}" style="width:120px">
+                                <input type="text" class="form-control" ng-model="contact_form.address_street"
+                                       name="street"
+                                       placeholder="{{'Street'|translate}}" style="width:120px">
+                                <input type="text" class="form-control" ng-model="contact_form.address_number" name="no"
+                                       placeholder="{{'Haus No.'|translate}}" style="width:80px">
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate>Additional address</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="contact_form.address_additional"
+                                       name="additional">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" translate>Phone number</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="contact_form.phone" name="phone">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10 text-right">
+                                <button type="button" ng-disabled="contact_form.submit"
+                                        ng-click="changeContactData(contact_form)" class="btn btn-default" translate>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" translate>Information emails</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-10 control-label" style="text-align: left" translate> Disable
+                                information emails
+                                <br>(You will not receive information email anymore)</label>
+                            <div class="col-sm-2 checkbox">
+                                <input type="checkbox" ng-model="user.allow_notifications" ng-true_value="0"
+                                       ng-false_value="1"
+                                       ng-change="changeAllowNotifications(user.allow_notifications)">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" translate>Method of Payment</h3>
+                </div>
+                <div class="panel-body">
+                    <form name="payment">
+                        <p translate>Here you can select your prefered method for payment.
+                            This data will take over when you create or extend your next advertisement.</p>
+
+
+                        <div class="col-sm-10">
+                            <div class="radio"
+                                 ng-class="{ 'has-error': ( payment.paypal_email.$invalid && payment_form.submit==true) }">
+                                <label>
+                                    <input type="radio" value="paypal" ng-model="payment_form.payment_type">
+                                    {{'PayPal'|translate}}<br>
+                                    {{'(you will be forwarded to PayPal by clicking on „Next“)'|translate}}
+
+                                </label>
+
+                                <div class="form-inline">
+                                    <label class="col-sm-3 " translate>PayPal email </label>
+                                    <div class="col-sm-9">
+                                        <input type="email" name="paypal_email" class="form-control"
+                                               ng-model="payment_form.paypal_email"
+                                               ng-disabled="payment_form.payment_type!='paypal'"
+                                               ng-required="payment_form.payment_type=='paypal'">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <br>
+                            <div class="radio"
+                                 ng-class="{ 'has-error': ( payment.giro_account.$invalid && payment_form.submit==true) }">
+                                <label>
+                                    <input type="radio" value="giropay" ng-model="payment_form.payment_type">
+                                    {{'GiroPay'|translate}}
+                                    <br>
+                                    {{'(you will be forwarded to your Bank)'|translate}}
+
+                                </label>
+
+                                <div class="form-inline">
+                                    <label class="col-sm-3" translate>BIC</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="giro_account" class="form-control"
+                                               ng-model="payment_form.giro_account"
+                                               ng-disabled="payment_form.payment_type!='giropay'"
+                                               ng-required="payment_form.payment_type=='giropay'">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <br>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="prepayment" ng-model="payment_form.payment_type">
+                                    {{'Prepayment'|translate}}
+
+                                </label>
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10 text-right">
+                                <button type="button" ng-disabled="payment_form.submit"
+                                        ng-click="changePayment(payment_form)" class="btn btn-default" translate>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" translate>Account delete</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6 text-left" translate>I want to delete my account</div>
+                <div class="col-md-6 text-right">
+                    <button type="button" class="btn btn-primary" ng-click="deleteAccount()" translate>Next</button>
                 </div>
             </div>
         </div>

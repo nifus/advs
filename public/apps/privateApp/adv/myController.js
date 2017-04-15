@@ -38,10 +38,7 @@
         function initPage(deferred) {
             $window.document.title = $filter('translate')('My Advertisements');
 
-
             var advPromise = $scope.user.getAdvsByCurrentUser().then(function (result) {
-               // result = $filter('orderBy')(result, '-created_at');
-
                 $scope.env.advs = {
                     rent: $filter('filter')(result, {type: 'rent'}),
                     sale: $filter('filter')(result, {type: 'sale'})
@@ -59,10 +56,6 @@
         $scope.$parent.init.push(initPage);
 
 
-        $scope.logout = function () {
-            userFactory.logout();
-            window.location.reload(true)
-        };
 
 
         $scope.deleteAdv = function (adv) {
@@ -124,6 +117,7 @@
 
         $scope.setAdvert = function (adv) {
             $scope.env.advert = adv;
+            $(window).scrollTop(0);
         };
         $scope.goBack = function () {
             $scope.env.advert = null;

@@ -12,6 +12,7 @@
                 rent: {
                     total: 0,
                     payment_waiting: 0,
+                    approve_waiting: 0,
                     active: 0,
                     disabled: 0,
                     expired: 0,
@@ -20,6 +21,7 @@
                 sale: {
                     total: 0,
                     payment_waiting: 0,
+                    approve_waiting: 0,
                     active: 0,
                     disabled: 0,
                     expired: 0,

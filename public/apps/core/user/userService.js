@@ -149,7 +149,9 @@
             Object.hasPermission = function (permission) {
                 return Object.permissions.indexOf(permission) != -1
             };
-
+            Object.sendMessage4Administrator = function (message) {
+                return $http.post('/api/user/send-message-for-administrator',{message: message})
+            };
             return Object;
         }
     }

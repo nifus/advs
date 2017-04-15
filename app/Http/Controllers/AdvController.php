@@ -353,15 +353,51 @@ class AdvController extends Controller
             }else{
                 EventsLog::changeAdvertStatus($current_user, $adv, $old, $message);
             }
-
-            // $message
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
-
     }
 
+    function disable($adv_id)
+    {
+        try {
+            $user = UserModel::getUser();
+            $adv = AdvModel::findOrDie($adv_id);
+            if (!$adv->isOwner($user->id)) {
+                return response()->json(null, 403);
+            }
+            if ($adv->status!='active'){
+                return response()->json(null, 403);
+            }
+            $old = $adv->status;
+            $adv->changeStatus('disabled');
+            EventsLog::changeAdvertStatus($user, $adv, $old);
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
+
+    function activate($adv_id)
+    {
+        try {
+            $user = UserModel::getUser();
+            $adv = AdvModel::findOrDie($adv_id);
+            if (!$adv->isOwner($user->id)) {
+                return response()->json(null, 403);
+            }
+            if ($adv->status!='disabled'){
+                return response()->json(null, 403);
+            }
+            $old = $adv->status;
+            $adv->changeStatus('active');
+            EventsLog::changeAdvertStatus($user, $adv, $old);
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
 
     public function getStatistics(Request $request)
     {

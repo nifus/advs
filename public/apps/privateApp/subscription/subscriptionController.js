@@ -23,7 +23,7 @@
 
             $window.document.title = $filter('translate')('Subscription');
 
-            var tariffsPromise = $http.get('/api/tariffs').then(function (response) {
+            var tariffsPromise = $http.get('/api/tariff/business-prices').then(function (response) {
                 $scope.env.tariffs = response.data;
             });
 

@@ -1,14 +1,27 @@
-<div class="thumbnail">
-    <h3><a class="link" ng-click="displayAdv(adv)">{{adv.title}}</a></h3>
-    <div style="width:200px;margin-left:auto;margin-right:auto">
-        <a class="link" ng-click="displayAdv(adv)"><div class="preview">
-            <div class="preview-item">
-                <div class="center">
-                    <img  ng-src="{{adv.MainPhoto.preview}}">
+<div class="thumbnail" ng-class="{'disable':adv.status!='active' }">
+    <div ng-if="adv.status=='active'">
+        <h3><a class="link" ng-click="displayAdv(adv)" >{{adv.title}}</a></h3>
+        <div style="width:200px;margin-left:auto;margin-right:auto" class="image link" ng-click="displayAdv(adv)" >
+            <div class="preview">
+                <div class="preview-item">
+                    <div class="center">
+                        <img ng-src="{{adv.MainPhoto.preview}}">
+                    </div>
                 </div>
             </div>
         </div>
-        </a>
+    </div>
+    <div ng-if="adv.status!='active'">
+        <h3>{{adv.title}}</h3>
+        <div style="width:200px;margin-left:auto;margin-right:auto" class="image link" >
+            <div class="preview">
+                <div class="preview-item">
+                    <div class="center">
+                        <img src="/images/no-available.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="caption">
         <table>
@@ -29,11 +42,8 @@
                 <td translate>Rental price</td>
                 <td>{{adv.price| currency:"€"}}</td>
             </tr>
-            <tr>
-                <td colspan="2">
-                    <button  ng-click="deleteItem(adv)" type="button" class="btn btn-primary" translate>Delete from watchlist</button>
-                </td>
-            </tr>
+
         </table>
     </div>
+    <button ng-click="deleteItem(adv)" type="button" style="width: 100%" class="btn btn-primary" translate>Delete from watchlist</button>
 </div>

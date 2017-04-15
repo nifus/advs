@@ -30,11 +30,13 @@
 
                     <div class="form-group" ng-class="{ 'has-error': register.company.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_company_name') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="text" class="form-control" ng-model="form.company" name="company"   required minlength="2">
                             <p class="help-block">{{ trans('main.register_company_vat') }}</p>
 
                         </div>
+                        <div class="col-sm-3">Please enter your legal company name according to
+                            your VAT ID confirmation.</div>
                     </div>
 
                     <div class="form-group form-inline" ng-class="{ 'has-error': (register.country.$invalid || register.commercial_id.$invalid)  && submit==true }">
@@ -60,14 +62,14 @@
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{ trans('main.register_company_website') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="text" class="form-control" ng-model="form.website" name="website"  >
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="{ 'has-error': ( (register.autocomplete.$invalid )  && submit==true )  }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_company_address') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
 
                             <input type="text" class="form-control"  name="autocomplete" placeholder="{{ trans('main.register_company_address') }}"
                                    ng-autocomplete ng-model="autocomplete.value"  details="autocomplete.details"
@@ -75,13 +77,18 @@
 
                             <p class="help-block">{{ trans('main.register_company_address_related_vat') }}</p>
                         </div>
+                        <div class="col-sm-3">
+                            Please enter the company data which is identical to
+                            the address on your official VAT ID registration
+                            document.
+                        </div>
                     </div>
 
                     <div class="form-group"
 
                          ng-class="{ 'has-error': (register.zip.$invalid || register.city.$invalid || register.no.$invalid || register.street.$invalid) && submit==true }">
                         <label class="col-sm-2 control-label"></label>
-                        <div class="col-sm-10 form-inline">
+                        <div class="col-sm-7 form-inline">
                             <input type="text" class="form-control" ng-model="form.address_street" name="street" placeholder="{{ trans('main.register_company_street') }}" required>
                             <input type="text" class="form-control" ng-model="form.address_number" name="no" placeholder="{{ trans('main.register_company_no') }}" required>
                             <input type="text" class="form-control" ng-model="form.address_zip" name="zip" placeholder="{{ trans('main.register_company_zip') }}" required>
@@ -91,7 +98,7 @@
 
                     <div class="form-group" >
                         <label class="col-sm-2 control-label">{{ trans('main.register_company_add_addr') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="text" class="form-control" ng-model="form.address_additional" name="additional" >
                         </div>
                     </div>
@@ -99,7 +106,7 @@
 
                     <div class="form-group" ng-class="{ 'has-error': register.country.$invalid  && submit==true }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_company_country') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <select class="form-control" name="country" ng-model="form.commercial_country" required>
                                 <option value="germany">Germany</option>
                                 <option value="austria">Austria</option>
@@ -115,40 +122,42 @@
 
                     <div class="form-group" ng-class="{ 'has-error': register.email.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_email') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="email" class="form-control" ng-model="form.email" name="email"  required >
-
+                        </div>
+                        <div class="col-md-3">
+                            This email address and password are later your login credentials <br>
+                            Please note that a valid email address is required.
                         </div>
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': register.re_email.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_email_re') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="email" class="form-control" ng-model="form.re_email" name="re_email"  required ng-match="email">
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="{ 'has-error': register.password.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_password') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="password" class="form-control" ng-model="form.password" name="password"  required >
                         </div>
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': register.re_password.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_password_re') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="password" class="form-control" ng-model="form.re_password" name="re_password" required ng-match="password">
                         </div>
                     </div>
 
 
                     <h4>{{ trans('main.register_company_contact') }}</h4>
-                    <div class="alert alert-info" role="alert"> {!!  trans('main.register_company_manager')  !!}
-                    </div>
+                    <div class="alert alert-info" role="alert"> {!!  trans('main.register_company_manager')  !!} </div>
 
 
                     <div class="form-group" ng-class="{ 'has-error': register.sex.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_title') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <label class="radio-inline">
                                 <input type="radio" name="sex" ng-model="form.sex"  value="male" required> {{ trans('main.register_man') }}
                             </label>
@@ -157,35 +166,46 @@
                             </label>
                             <p class="help-block"></p>
                         </div>
+                        <div class="col-sm-3">
+                            Please enter here the general manager of the
+                            company.
+                        </div>
                     </div>
 
 
                     <div class="form-group" ng-class="{ 'has-error': register.name.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_forename') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="text" class="form-control" ng-model="form.name" name="name" placeholder="Alexander" required minlength="2">
-
+                        </div>
+                        <div class="col-sm-3">
+                            Later you can assign an other contact person which is
+                             visible for all users in the account settings.
                         </div>
                     </div>
 
                     <div class="form-group" ng-class="{ 'has-error': register.surname.$invalid && submit==true }">
                         <label class="col-sm-2 control-label">{{ trans('main.register_surname') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="text" class="form-control" ng-model="form.surname" name="surname" placeholder="Pushkin" required  minlength="2">
                         </div>
                     </div>
 
                     <div class="form-group" >
                         <label class="col-sm-2 control-label">{{ trans('main.register_email') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="text" class="form-control" ng-model="form.contact_email"  >
                             <p class="help-block">{{ trans('main.register_company_personal_email') }}</p>
+                        </div>
+                        <div class="col-sm-3">
+                            This is the personal email address of the contact
+                            person (not the login email address)
                         </div>
                     </div>
 
                     <div class="form-group" >
                         <label class="col-sm-2 control-label">{{ trans('main.register_company_phone') }}</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-7">
                             <input type="text" class="form-control" ng-model="form.phone" name="phone" >
                         </div>
                     </div>

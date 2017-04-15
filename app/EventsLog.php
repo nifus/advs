@@ -99,6 +99,18 @@ class EventsLog extends Model
                 ['user_id'=>$user->id,'message'=>$message,'status'=>$advert->status, 'old_status'=>$old_status]
         ]);
     }
+    static function removeBlockedAdvert( Adv $advert){
+        self::create(['type'=>'system','action'=>'removeBlockedAdvert','adv_id'=>$advert->id,
+            'additional_fields'=>
+                ['blocked_date'=>$advert->blocked_date]
+        ]);
+    }
+    static function disableBlockedAdvert( Adv $advert){
+        self::create(['type'=>'system','action'=>'disableBlockedAdvert','adv_id'=>$advert->id,
+            'additional_fields'=>
+                ['disable_date'=>$advert->disable_date]
+        ]);
+    }
 
 
     static function getEventLogByUser(User $user){

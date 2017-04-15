@@ -1,144 +1,139 @@
-<ol class="breadcrumb">
-    <li><a href="/" translate>Home</a></li>
-    <li class="active" translate>Dashboard</li>
-</ol>
-
-<div class="progress" ng-show="env.loading==true">
+<div class="progress" ng-if="env.loading==true">
     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
          aria-valuemax="100" style="width: 100%">
         <span class="sr-only">45% Complete</span>
     </div>
 </div>
 
-<div class="row" ng-show="env.loading==false">
-    <div class="col-md-3">
-        <left-menu></left-menu>
+<div class="panel panel-primary" ng-if="env.loading!=true">
+    <div class="panel-heading">
+        <h3 class="panel-title" translate>Account overview</h3>
     </div>
+    <div class="panel-body">
+        <div class="row">
 
-    <div class="col-md-9">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title" translate>Account overview</h3>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-
-                    <div class="col-md-6">
-                        <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title" translate>Advert type: Renting</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <ul class="list-group">
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.rent.total}}</span>
-                                            {{'Adverts currently:'|translate}}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.rent.payment_waiting}}</span>
-                                            {{'Waiting for payment:'|translate}}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.rent.active}}</span>
-                                            {{'Advert active:'|translate}}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.rent.disabled}}</span>
-                                            {{'Advert disabled:'|translate}}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.rent.expired}}</span>
-                                            {{'Advert expired:'|translate}}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.rent.blocked}}</span>
-                                            {{'Advert blocked:'|translate}}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+            <div class="col-md-6">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" translate>Advert type: Renting</h3>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title" translate>Advert type: Selling</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <ul class="list-group">
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.sale.total}}</span>
-                                            {{'Adverts currently:'|translate}}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.sale.payment_waiting}}</span>
-                                            {{'Waiting for payment:'|translate}}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.sale.active}}</span>
-                                            {{'Advert active:'|translate}}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.sale.disabled}}</span>
-                                            {{'Advert disabled:'|translate}}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.sale.expired}}</span>
-                                            {{'Advert expired:'|translate}}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="badge">{{env.stat.sale.blocked}}</span>
-                                            {{'Advert blocked:'|translate}}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.rent.total}}</span>
+                                    {{'Adverts currently:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.rent.payment_waiting}}</span>
+                                    {{'Waiting for payment:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.rent.active}}</span>
+                                    {{'Advert active:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.rent.disabled}}</span>
+                                    {{'Advert disabled:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.rent.expired}}</span>
+                                    {{'Advert expired:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.rent.blocked}}</span>
+                                    {{'Advert blocked:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.rent.approve_waiting}}</span>
+                                    {{'Approve waiting:'|translate}}
+                                </li>
+                            </ul>
                         </div>
-
-
-                        <div class="col-md-12">
-                            <h4 translate>On our own behalf</h4>
-                            <div translate>
-                                <p>
-                                    At first we want to say „Thank you“ for your decision to use ImmoSterne!
-                                    We are willing to provide you a clear and comfortable platform.... And more...
-                                </p>
-
-                                <p>
-                                    We wish you many fun and success by watching and creating advertisements on
-                                    ImmoSterne,
-                                </p>
-
-                                <p>
-                                    Your ImmoSterne Team
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-6">
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title" translate>Notifications</h3>
-                            </div>
-                            <div class="panel-body" id="news">
-
-                                <div class="post" ng-repeat="post in env.announcements">
-                                    <p class="date">{{post.ReadableDate}}</p>
-                                    <p class="header" ng-show="post.title">{{post.title}}</p>
-                                    <p class="desc">{{post.desc}}</p>
-                                </div>
-
-                                <div ng-show="env.announcements.length==0" translate>Sorry, not yet</div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" translate>Advert type: Selling</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.sale.total}}</span>
+                                    {{'Adverts currently:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.sale.payment_waiting}}</span>
+                                    {{'Waiting for payment:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.sale.active}}</span>
+                                    {{'Advert active:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.sale.disabled}}</span>
+                                    {{'Advert disabled:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.sale.expired}}</span>
+                                    {{'Advert expired:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.sale.blocked}}</span>
+                                    {{'Advert blocked:'|translate}}
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{env.stat.sale.approve_waiting}}</span>
+                                    {{'Approve waiting:'|translate}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <h4 translate>On our own behalf</h4>
+                    <div translate>
+                        <p>
+                            At first we want to say „Thank you“ for your decision to use ImmoSterne!
+                            We are willing to provide you a clear and comfortable platform.... And more...
+                        </p>
+
+                        <p>
+                            We wish you many fun and success by watching and creating advertisements on
+                            ImmoSterne,
+                        </p>
+
+                        <p>
+                            Your ImmoSterne Team
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" translate>Notifications</h3>
+                    </div>
+                    <div class="panel-body" id="news">
+
+                        <div class="post" ng-repeat="post in env.announcements">
+                            <p class="date">{{post.ReadableDate}}</p>
+                            <p class="header" ng-show="post.title">{{post.title}}</p>
+                            <p class="desc">{{post.desc}}</p>
+                        </div>
+
+                        <div ng-show="env.announcements.length==0" translate>Sorry, not yet</div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

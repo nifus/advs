@@ -5,7 +5,7 @@
         <div class="row" ng-if="adv.MainPhoto">
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
-                    <div class="col-md-5 navbar-left navbar-form">
+                    <div class="col-md-5 navbar-left navbar-form" ng-if="env.display_report==true">
                         <button class="btn btn-danger" ng-click="displayReport()" translate>
                             Report
                         </button>

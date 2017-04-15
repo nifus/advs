@@ -2,16 +2,7 @@
 
 return [
 
-
-    'disabled_msg'=>'Dear customer,
-    This advert was blocked because it violates our policy.
-    
-    We receive many reports that your equipment in the advert is wrong.
-Please check and correct your advert.
-
-Thanks for your understanding.
-    ',
-    'agb'=>'',
+    'support_email'=>'nifus@mail.ru',
     /*
     |--------------------------------------------------------------------------
     | Application Name

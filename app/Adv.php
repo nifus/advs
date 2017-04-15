@@ -24,7 +24,7 @@ class Adv extends Model
         'city_id', 'region_id', 'country_id',
         'edp_cabling', 'air_conditioner', 'number_beds', 'storey_height', 'users_fav', 'length_shop_window', 'development', 'building_permission',
 
-        'disable_date','reports'
+        'disable_date','reports','blocked_date'
     ];
 
     static private $categories = [
@@ -806,6 +806,20 @@ class Adv extends Model
     }
 
 
+    /**
+     * Return blocked adverts
+     * @return mixed
+     */
+    static function getForRemove(){
+        $now = new \DateTime();
+        $now->modify('-14 days');
+        return self::where('status','blocked')->where('blocked_date','<', $now->format('Y-m-d H:i:s'))->get();
+    }
+
+    static function getForDisable(){
+        $now = new \DateTime();
+        return self::where('status','activate')->where('disable_date','<', $now->format('Y-m-d H:i:s'))->get();
+    }
 
 
 }

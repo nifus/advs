@@ -71,10 +71,10 @@
     <script src="/apps/privateApp/settings/settingsController.js"></script>
     <script src="/apps/privateApp/deleteAccount/deleteAccountController.js"></script>
     <script src="/apps/privateApp/directives/leftMenu/leftMenu.js"></script>
+    <script src="/apps/privateApp/directives/breadcrumb/breadcrumb.js"></script>
     <script src="/apps/privateApp/help/helpController.js"></script>
 
     <script src="/apps/privateApp/adv/editController.js"></script>
-    <script src="/apps/privateApp/adv/reactController.js"></script>
 
 
 
@@ -92,7 +92,16 @@
         </div>
     </div>
 
-    <div id="content" ui-view ></div>
+    <div id="content"  >
+        <breadcrumb></breadcrumb>
+        <div class="row" >
+            <div class="col-md-3">
+                <left-menu></left-menu>
+            </div>
+
+            <div class="col-md-9" ui-view></div>
+        </div>
+    </div>
 
     <div id="footer-menu">
         <ul>

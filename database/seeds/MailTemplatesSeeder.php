@@ -126,6 +126,20 @@ You can use replay to answer for this message.
 '
         ]);
 
+        MailTemplate::createTemplate([
+            'id'=>11,
+            'header'=>'New for administrator',
+            'name' => 'New for administrator',
+            'type' => 'system',
+            'path' => 'message4Administrator',
+            'body'=> '[varContactForename] [varContactSurename] ([varContactId]) writes to you: <br><br>
+[message]
+<hr>
+<br><br>
+You can use replay to answer for this message.
+'
+        ]);
+
         /*MailTemplate::createTemplate([
             'name' => 'Activation link expired and new activation link',
             'type' => 'system',

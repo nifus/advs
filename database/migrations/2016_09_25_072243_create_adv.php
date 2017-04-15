@@ -70,6 +70,8 @@ class CreateAdv extends Migration
             $table->integer('city_id');
             $table->decimal('lng',9,6)->nullable();
             $table->decimal('lat',9,6)->nullable();
+            $table->timestamp('disable_date')->nullable();
+            $table->timestamp('blocked_date')->nullable();
 
 
         });

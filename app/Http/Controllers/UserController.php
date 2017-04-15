@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BusinessTariff;
+use App\Jobs\Message4Administrator;
 use App\Tariff;
 use Illuminate\Http\Request;
 use App\User;
@@ -517,6 +518,19 @@ class UserController extends Controller
             $result[$user->group_id]++;
         }
         return response()->json(['private'=>$result['2'],'business'=>$result['3'],'total'=>$result['2']+$result['3']]);
+    }
+
+
+    public function sendMessage4Administrator(Request $request){
+        $token = $request->get('token');
+        $message = $request->get('message');
+        $user = User::getUser($token);
+        if (is_null($user) || false===$user->isBusinessAccount()){
+            return response()->json(null, 403);
+        }
+        dispatch(new Message4Administrator($user, $message));
+        return response()->json(['success'=>true]);
+
     }
 
 
