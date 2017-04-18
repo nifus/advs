@@ -1,0 +1,273 @@
+<div class="progress" ng-if="env.loading==true">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+         aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">45% Complete</span>
+    </div>
+</div>
+<div ng-if="env.loading!=true">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" translate>About my profile page</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-11">
+                    Here you can create and modify your personal profile page! <br>
+                    With your personal profile page you or your company is findable in our „Real estate agent“-Search.
+                </div>
+                <div class="col-md-1 text-left">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option1" checked>
+                            {{'Modify'|translate}}
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option2">
+                            {{'Modify'|translate}}
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option2">
+                            {{'Disable'|translate}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" translate>My profile page</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="col-md-6">
+                    <div style="width:70%;text-align:left;float:left" translate>We are specialized for...</div>
+                    <div style="width:30%;text-align:right;float:left" translate>(max. 12)</div>
+                    <hr style="background-color:#a8cae9;height:2px;">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="Residential properties"> {{'Residential
+                            properties'|translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="Commercial properties"> {{'Commercial properties'|translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="New build properties"> {{'New build properties'|translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="Investment properties"> {{'Investment properties'|translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="Seniors properties"> {{'Seniors properties'|translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="Building grounds"> {{'Building grounds'|translate}}
+                        </label>
+                    </div>
+
+
+                    <br>
+                    <div>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="{{'e.g. Consulting...'|translate}}">
+                            <span class="input-group-btn"><button class="btn btn-primary" type="button" translate>Add</button></span>
+                        </div>
+
+                        <div style="margin-top:20px;">
+                            <div class="col-md-10" style="padding:0">Specialization ABCD</div>
+                            <div class="col-md-2"  style="padding:0;text-align: right">
+                                <button class="btn btn-danger" type="button">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-6">
+                    <div style="width:70%;text-align:left;float:left" translate>Our services for you...</div>
+                    <div style="width:30%;text-align:right;float:left" translate>(max. 12)</div>
+                    <hr style="background-color:#a8cae9;height:2px;">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="Price calculation of properties"> {{'Price calculation of
+                            properties'|translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="Financial intermediation"> {{'Financial
+                            intermediation'|translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="Reconstruction service"> {{'Reconstruction
+                            service'|translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="Real estate consultancy"> {{'Real estate
+                            consultancy'|translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="House management"> {{'House management'|translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="Renting and selling of properties"> {{'Renting and selling of
+                            properties'|translate}}
+                        </label>
+                    </div>
+
+                    <br>
+                    <div>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="{{'e.g. Consulting...'|translate}}">
+                            <span class="input-group-btn"><button class="btn btn-primary" type="button" translate>Add</button></span>
+                        </div>
+
+                        <div style="margin-top:20px;">
+                            <div class="col-md-10" style="padding:0">Specialization ABCD</div>
+                            <div class="col-md-2"  style="padding:0;text-align: right">
+                                <button class="btn btn-danger" type="button">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-12">
+                        <div style="text-align:left;" translate>About us</div>
+                        <hr style="background-color:#a8cae9;height:2px;margin:0">
+
+                        <textarea class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div style="text-align:left" translate>Company data</div>
+                    <hr style="background-color:#a8cae9;height:2px;margin:0px">
+
+                    <div class="radio">
+                        <label>
+                            <input type="radio" value="Show my company data from „My Settings“">
+                            {{'Show my company data from „My Settings“'|translate}}
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="Show other data on my personal site">
+                            {{'Show other data on my personal site'|translate}}
+                        </label>
+                    </div>
+
+                    <div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="{{'Company name'|translate}}">
+                        </div>
+                        <div class="form-group form-inline">
+                            <input type="text" class="form-control" style="width: 87%"
+                                   placeholder="{{'Street'|translate}}">
+                            <input type="text" class="form-control" style="width: 50px"
+                                   placeholder="{{'No'|translate}}">
+                        </div>
+                        <div class="form-group form-inline">
+                            <input type="text" class="form-control" style="width: 120px"
+                                   placeholder="{{'Zip'|translate}}">
+                            <input type="text" class="form-control" style="width: 70%"
+                                   placeholder="{{'City'|translate}}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="{{'Additional address'|translate}}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="{{'https://company.de'|translate}}">
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div style="text-align:left;" translate>Company Logo</div>
+                        <hr style="background-color:#a8cae9;height:2px;margin:0">
+
+                        <div style="margin: 10px; text-align: center">
+                            <button class="btn btn-danger" type="button" translate>Upload image</button>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div style="text-align:left;" translate>Contact person</div>
+                        <hr style="background-color:#a8cae9;height:2px;margin:0">
+
+                        <div style="margin-top:10px">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" value="Show my contact data from „My Settings“">
+                                    {{'Show my contact data from „My Settings“'|translate}}
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" value="Show other contact person on my personal site">
+                                    {{'Show other contact person on my personal site'|translate}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:10px">
+                            <div class="form-group">
+                                <label class="radio-inline">
+                                    <input type="radio"  value="Mister"> {{'Mister'|translate}}
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio"  value="Miss"> {{'Miss'|translate}}
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="{{'Forename'|translate}}">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="{{'Surename'|translate}}">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="{{'Email address'|translate}}">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <hr style="background-color:#a8cae9;height:2px;margin:0">
+
+                <div class="col-md-10">Last time modified on:12.12.2015 – 00:22</div>
+                <div class="col-md-2 text-right"><button class="btn btn-primary" translate>Save</button></div>
+            </div>
+        </div>
+    </div>
+</div>

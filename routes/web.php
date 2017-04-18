@@ -158,7 +158,7 @@ Route::group(['prefix'=>'api'], function () {
 
     Route::group(['prefix'=>'search'], function () {
         Route::get('/cities/{key}', 'SearchController@findCity');
-        Route::post('/{type}', 'SearchController@createSearch')->where('type','advs|accounts');
+        Route::post('/{type}', 'SearchController@createSearch')->where('type','advs|accounts|invoices');
         Route::get('/{id}', 'SearchController@getSearch')->where('id','[0-9]*');
         Route::post('/{id}/config-update', 'SearchController@searchConfigUpdate')->where('id','[0-9]*');
         Route::post('/{id}/query-update', 'SearchController@searchQueryUpdate')->where('id','[0-9]*');
@@ -181,12 +181,18 @@ Route::group(['prefix'=>'api'], function () {
     Route::post('/mail/templates/{id}', 'MailTemplateController@update' )->where('id','[0-9]*');
 
 
+    /* depricated
     Route::post('/config/announcement/{type}', 'ConfigController@announcement' )->where('type','private|business');
     Route::post('/config/instruction', 'ConfigController@instruction' );
     Route::post('/config/faq', 'ConfigController@faq' );
+    Route::post('/config/variables', 'ConfigController@variables' );
+    */
 
 
 
+    Route::get('/variables', 'VariableController@getAll' )->where('id','[0-9]*');
+    Route::get('/variables/{id}', 'VariableController@getById' )->where('id','[0-9]*');
+    Route::post('/variables/{id}', 'VariableController@update' );
 
 
 

@@ -2,7 +2,7 @@
     'use strict';
 
 
-    function advFormDirective(advFactory, $interval, $q, tariffFactory, $filter, Upload, advPaymentFactory, $timeout, $state) {
+    function advFormDirective(advFactory, $interval, $q, $filter, Upload, advPaymentFactory) {
         return {
             ngModel: 'require',
             replace: true,
@@ -304,7 +304,7 @@
 
     }
 
-    angular.module('core').directive('advForm', ['advFactory', '$interval', '$q', 'tariffFactory', '$filter', 'Upload', 'advPaymentFactory', '$timeout', '$state', advFormDirective]);
+    angular.module('core').directive('advForm', ['advFactory', '$interval', '$q', '$filter', 'Upload', 'advPaymentFactory', advFormDirective]);
 
 
 })(window.angular);

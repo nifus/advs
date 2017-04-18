@@ -12,6 +12,7 @@
             getById: getById,
             storeAccounts: storeAccounts,
             storeAdvs: storeAdvs,
+            storeInvoices: storeInvoices,
         };
 
         function getById(id) {
@@ -36,6 +37,16 @@
         function storeAdvs(query) {
             var deferred = $q.defer();
             $http.post('/api/search/advs',{query:query}).then(function (response) {
+                deferred.resolve( new searchLogService(response.data) );
+            }, function (error) {
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
+
+        function storeInvoices(query) {
+            var deferred = $q.defer();
+            $http.post('/api/search/invoices',{query:query}).then(function (response) {
                 deferred.resolve( new searchLogService(response.data) );
             }, function (error) {
                 deferred.reject({success: false, error: error.data});

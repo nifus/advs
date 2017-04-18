@@ -66,6 +66,14 @@
             url: '/mail-templates',
             templateUrl: '../apps/backApp/mail/templates.html',
             controller: 'mailTemplatesController'
+        }).state('invoices', {
+            url: '/invoices',
+            templateUrl: '../apps/backApp/invoice/invoice.html',
+            controller: 'invoiceController'
+        }).state('variables', {
+            url: '/variables',
+            templateUrl: '../apps/backApp/variable/variable.html',
+            controller: 'variableController'
         })
 
     }]).run(function (gettextCatalog) {

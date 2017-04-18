@@ -124,4 +124,21 @@ class AdvPayment extends Model
             'status'=>'wait'
         ]);
     }
+
+    static function getByPage($page, $limit, $filter)
+    {
+
+        $sql = self::orderBy('id', 'DESC');
+        if (isset($filter['id'])) {
+            $sql = $sql->where('id', $filter['id']);
+        }
+
+
+        if (!is_null($page) && !is_null($limit)) {
+            $offset = ($page - 1) * $limit;
+            $sql = $sql->offset($offset)->limit($limit);
+        }
+
+        return $sql->get();
+    }
 }

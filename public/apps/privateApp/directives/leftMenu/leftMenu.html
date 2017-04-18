@@ -10,6 +10,7 @@
         <a ui-sref="my-watch-list" ui-sref-active="active" class="list-group-item" translate>My watchlist</a>
 
         <br>
+        <a ui-sref="profile" ui-sref-active="active"  class="list-group-item" translate ng-if="user.group_id==3">My profile page</a>
         <a ui-sref="my-subscription" ui-sref-active="active"  class="list-group-item" translate ng-if="user.group_id==3">My subscription</a>
         <a ui-sref="my-settings" ui-sref-active="active"  class="list-group-item" translate>My settings</a>
         <a ui-sref="help" ui-sref-active="active" class="list-group-item" translate>Help</a>

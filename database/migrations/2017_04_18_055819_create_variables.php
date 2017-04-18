@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSearchLog extends Migration
+class CreateVariables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSearchLog extends Migration
      */
     public function up()
     {
-        Schema::create('search_log', function (Blueprint $table) {
+        Schema::create('variables', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('query');
-            $table->text('config')->nullable()->default(null);
-            $table->enum('type',['accounts','advs','invoices'])->default('advs');
+            $table->integer('user_id')->nullable();
+            $table->string('title');
+            $table->string('value')->nullable();
+            $table->text('desc')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateSearchLog extends Migration
      */
     public function down()
     {
-        Schema::drop('search_log');
+        Schema::drop('variables');
     }
 }

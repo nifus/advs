@@ -3,17 +3,17 @@
     'use strict';
 
     angular.module('core')
-        .factory('configFactory', [ '$http','$q',configFactory]);
+        .factory('configFactory', ['$http', '$q', configFactory]);
 
     function configFactory($http, $q) {
 
         return {
-            get:get,
-            saveAnnouncement:saveAnnouncement,
-            saveInstruction:saveInstruction,
-            saveFaq:saveFaq,
-            savePrivatePrices:savePrivatePrices,
-            saveBusinessPrices:saveBusinessPrices,
+            get: get,
+            saveAnnouncement: saveAnnouncement,
+            saveInstruction: saveInstruction,
+            saveFaq: saveFaq,
+            savePrivatePrices: savePrivatePrices,
+            saveBusinessPrices: saveBusinessPrices,
             //getCurrencyList:getCurrencyList
         };
 
@@ -21,19 +21,19 @@
             var defer = $q.defer();
             $http.get('/config/config.json').then(function (response) {
                 defer.resolve(response.data)
-            },function (response) {
-                defer.reject({error:'error'})
+            }, function (response) {
+                defer.reject({error: 'error'})
             });
             return defer.promise;
         }
 
         function saveAnnouncement(type, data) {
             var defer = $q.defer();
-            $http.post('/api/config/announcement/'+type, data).then(function (response) {
+            $http.post('/api/config/announcement/' + type, data).then(function (response) {
                 defer.resolve(response.data)
-            },function (response) {
+            }, function (response) {
                 var error = response.data.error ? response.data.error : response.statusText
-                defer.reject({error:error})
+                defer.reject({error: error})
             });
             return defer.promise;
         }
@@ -42,8 +42,8 @@
             var defer = $q.defer();
             $http.post('/api/config/instruction', data).then(function (response) {
                 defer.resolve(response.data)
-            },function (response) {
-                defer.reject({error:'error'})
+            }, function (response) {
+                defer.reject({error: 'error'})
             });
             return defer.promise;
         }
@@ -52,8 +52,8 @@
             var defer = $q.defer();
             $http.post('/api/config/faq', data).then(function (response) {
                 defer.resolve(response.data)
-            },function (response) {
-                defer.reject({error:'error'})
+            }, function (response) {
+                defer.reject({error: 'error'})
             });
             return defer.promise;
         }
@@ -62,8 +62,8 @@
             var defer = $q.defer();
             $http.post('/api/config/private-prices', data).then(function (response) {
                 defer.resolve(response.data)
-            },function (response) {
-                defer.reject({error:'error'})
+            }, function (response) {
+                defer.reject({error: 'error'})
             });
             return defer.promise;
         }
@@ -72,8 +72,8 @@
             var defer = $q.defer();
             $http.post('/api/config/business-prices', data).then(function (response) {
                 defer.resolve(response.data)
-            },function (response) {
-                defer.reject({error:'error'})
+            }, function (response) {
+                defer.reject({error: 'error'})
             });
             return defer.promise;
         }

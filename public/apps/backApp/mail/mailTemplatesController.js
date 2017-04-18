@@ -9,7 +9,6 @@
         $scope.env = {
             templates:[],
             template: null,
-            enable_save: 0,
             loading: true
         };
 
@@ -37,11 +36,16 @@
             $scope.env.template = template
         };
         $scope.saveTemplate = function () {
-            $scope.env.template.update().then(function (response) {
-                $scope.env.template = null;
-                $scope.env.enable_save = 0;
-                alertify.success($filter('translate')('Template was updated'))
-            })
+            alertify.confirm( $filter('translate')("Do you really want change selected mail template?"), function (e) {
+                if (e) {
+                    $scope.env.template.update().then(function (response) {
+                        $scope.env.template = null;
+                        alertify.success($filter('translate')('Template was updated'))
+                    })
+                }
+            });
+        };
+        $scope.previewTemplate = function () {
 
         }
     }

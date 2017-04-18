@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
          $this->call(PlaceSeeder::class);
          $this->call(MailTemplateSeeder::class);
          $this->call(TariffsSeeder::class);
+         $this->call(VariablesSeeder::class);
     }
 }

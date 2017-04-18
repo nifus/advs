@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="../components/bootstrap/dist/css/bootstrap-theme.min.css">
 
 
-    <link rel="stylesheet" href="../components/alertify.js/themes/alertify.bootstrap.css"/>
     <link rel="stylesheet" href="../components/alertify.js/themes/alertify.core.css"/>
     <link rel="stylesheet" href="../components/alertify.js/themes/alertify.default.css"/>
 
@@ -31,7 +30,7 @@
 <body ng-app="backApp" ng-controller="baseController">
 
 
-<div >
+<div>
     <nav class="navbar navbar-default" ng-if="user">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -70,6 +69,9 @@
                             <li><a ui-sref="accounts-blocked" translate>Blocked accounts</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown" ng-if="user.hasPermission('bookkeeping')">
+                        <a  ui-sref="invoices" translate>Bookkeeping</a>
+                    </li>
 
                     <li class="dropdown" ng-if="user.hasPermission('mailing')">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" translate>Mailing <span class="caret"></span></a>
@@ -86,7 +88,9 @@
                     </li>
                     <li class="dropdown" ng-if="user.hasPermission('administration')">
                         <a ui-sref="administration" translate>Administration </a>
-
+                    </li>
+                    <li class="dropdown" ng-if="user.hasPermission('variables')">
+                        <a ui-sref="variables" translate>Variables </a>
                     </li>
                     <li><a class="link" ng-click="logout()" translate>Exit</a></li>
                 </ul>
@@ -123,7 +127,6 @@
 <script src="../apps/core/tariff/tariffFactory.js"></script>
 <script src="../apps/core/tariff/privateTariffService.js"></script>
 <script src="../apps/core/tariff/businessTariffService.js"></script>
-<script src="../apps/core/config/configFactory.js"></script>
 <script src="../apps/core/faq/faqFactory.js"></script>
 <script src="../apps/core/faq/faqService.js"></script>
 <script src="../apps/core/searchLog/searchLogFactory.js"></script>
@@ -131,8 +134,13 @@
 <script src="../apps/core/mailTemplate/mailTemplateFactory.js"></script>
 <script src="../apps/core/mailTemplate/mailTemplateService.js"></script>
 
+<script src="../apps/core/advPayment/advPaymentService.js"></script>
+<script src="../apps/core/advPayment/advPaymentFactory.js"></script>
+
 <script src="../apps/core/directives/advPreview/advPreview.js"></script>
 <script src="../apps/core/directives/accountPreview/accountPreview.js"></script>
+
+<script src="../apps/core/baseControllers/searchController.js"></script>
 
 <script src="../apps/backApp/backApp.js"></script>
 <script src="../apps/backApp/baseController.js"></script>
@@ -152,6 +160,8 @@
 <script src="../apps/backApp/prices/pricesController.js"></script>
 <script src="../apps/backApp/mail/mailSendController.js"></script>
 <script src="../apps/backApp/mail/mailTemplatesController.js"></script>
+<script src="../apps/backApp/invoice/invoiceController.js"></script>
+<script src="../apps/backApp/variable/variableController.js"></script>
 
 
 

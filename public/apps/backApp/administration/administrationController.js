@@ -2,8 +2,7 @@
     'use strict';
     angular
         .module('backApp')
-        .controller('administrationController',['$scope','userFactory', '$q', '$filter', '$state',administrationController] );
-
+        .controller('administrationController', ['$scope', 'userFactory', '$q', '$filter', '$state', administrationController]);
 
 
     function administrationController($scope, userFactory, $q, $filter, $state) {
@@ -17,7 +16,7 @@
         function initPage(deferred) {
             $scope.user = $scope.$parent.user;
 
-            if ( !$scope.user.hasPermission('administration')) {
+            if (!$scope.user.hasPermission('administration')) {
                 $state.go('sign_in');
                 return;
             }
@@ -32,6 +31,7 @@
             return deferred.promise;
 
         }
+
         $scope.setInit(initPage);
 
 
@@ -43,22 +43,27 @@
         };
 
         $scope.delete = function () {
-            $scope.env.user.deleteAdministrator().then(function () {
-                    for (var i in $scope.env.users) {
-                        if ($scope.env.users[i].id == $scope.env.user.id) {
-                            $scope.env.users.splice(i, 1);
+            alertify.confirm( $filter('translate')("Do you really want delete selected account?"), function (e) {
+                if (e) {
+                    $scope.env.user.deleteAdministrator().then(function () {
+                            for (var i in $scope.env.users) {
+                                if ($scope.env.users[i].id == $scope.env.user.id) {
+                                    $scope.env.users.splice(i, 1);
+                                }
+                            }
+                            $scope.cancel();
+                            alertify.success($filter('translate')('Account was deleted'));
+                            $scope.env.submit = false;
+                        }, function (error) {
+                            alertify.error(error);
+                            $scope.env.submit = false;
                         }
-                    }
-
-                    $scope.cancel();
-                    alertify.success($filter('translate')('Account was deleted'));
-                    $scope.env.submit = false;
-                }, function (error) {
-                    alertify.error(error);
-                    $scope.env.submit = false;
+                    )
                 }
-            )
-        }
+            });
+
+        };
+
         $scope.save = function () {
             $scope.env.submit = true;
             if ($scope.env.user.id) {

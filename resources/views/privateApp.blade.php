@@ -76,6 +76,8 @@
 
     <script src="/apps/privateApp/adv/editController.js"></script>
 
+    <script src="/apps/privateApp/profile/profileController.js"></script>
+
 
 
 
