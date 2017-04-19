@@ -35,11 +35,11 @@ class ConfirmCode extends Mailable
         return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
             [
                 'varContactForename' => $user->name,
-                'varContactSurename' => $user->surname,
+                'varContactSurname' => $user->surname,
+                'varContactTitle' => $user->sex=='male' ? 'Mister' : 'Miss',
                 'varAccountEmail' => $user->email,
-                'code' => $this->code,
+                'varConfirmCode' => $this->code,
             ]
         );
-       // return $this->view('emails.confirmCode',['name'=>$user->name,'code'=>$this->code,'email'=>$user->email]);
     }
 }

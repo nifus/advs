@@ -31,88 +31,10 @@
                     </div>
                     <div class="col-md-3" ng-if="env.template">
                         <table class="table">
-                            <tr>
-                                <td>[varAccountID]</td>
-                                <td translate>The ID of the account</td>
+                            <tr ng-repeat="variable in env.using_variables">
+                                <td>[{{variable.title}}]</td>
+                                <td>{{variable.desc}}</td>
                             </tr>
-                            <tr>
-                                <td>[varAccountActivationLink]</td>
-                                <td translate>The generated activation link for the account</td>
-                            </tr>
-                            <tr>
-                                <td>[varAccountEmail]</td>
-                                <td translate>The login email address of the account</td>
-                            </tr>
-                            <tr>
-                                <td>[varAccountCompanyName]</td>
-                                <td translate>The company name of the account</td>
-                            </tr>
-                            <tr>
-                                <td>[varAccountCountry]</td>
-                                <td translate>The country of the account</td>
-                            </tr>
-                            <tr>
-                                <td>[varAccountSubscription]</td>
-                                <td translate>The current subscription of the account</td>
-                            </tr>
-                            <tr>
-                                <td>[varAccountPayment]</td>
-                                <td translate>The current prefered payment method of the account</td>
-                            </tr>
-                            <tr>
-                                <td>[varContactTitle]</td>
-                                <td translate>The title of the contact person</td>
-                            </tr>
-                            <tr>
-                                <td>[varContactForename]</td>
-                                <td translate>The forename of the contact person</td>
-                            </tr>
-                            <tr>
-                                <td>[varContactForename]</td>
-                                <td translate>The surname of the contact person</td>
-                            </tr>
-                            <tr>
-                                <td>[varContactEmail]</td>
-                                <td translate>The email address of the contact person</td>
-                            </tr>
-                            <tr>
-                                <td>[varContactPhone]</td>
-                                <td translate>The phone of the contact person</td>
-                            </tr>
-                            <tr>
-                                <td>[varAdvertID]</td>
-                                <td translate>The ID of the advert</td>
-                            </tr>
-                            <tr>
-                                <td>[varAdvertStatus]</td>
-                                <td translate>The current advert status</td>
-                            </tr>
-                            <tr>
-                                <td>[varAdvertDateCreation]</td>
-                                <td translate>The date when this advert was created</td>
-                            </tr>
-                            <tr>
-                                <td>[varAdvertDateDeletion]</td>
-                                <td translate>The date when this advert will be automatically deleted</td>
-                            </tr>
-                            <tr>
-                                <td>[varAdvertDateDeleted]</td>
-                                <td translate>The date when this advert was deleted</td>
-                            </tr>
-                            <tr>
-                                <td>[varAdvertDateEnds]</td>
-                                <td translate>The date when this advert will end</td>
-                            </tr>
-                            <tr>
-                                <td>[varAdvertDateBlocked]</td>
-                                <td translate>The date when this advert was blocked</td>
-                            </tr>
-                            <tr>
-                                <td>[varAdvertDateActivated]</td>
-                                <td translate>The date when this advert was activated</td>
-                            </tr>
-
-
                         </table>
 
 
@@ -130,13 +52,15 @@
                         </div>
 
                         <hr>
+                        <div class="alert alert-info" ng-if="env.display_template" ng-bind-html="env.template_text|to_trusted"></div>
+
                         <table class="information">
                             <tr>
                                 <td translate>Last edited:</td>
                                 <td>{{env.template.user.name}} {{env.template.user.surname}}</td>
                                 <td  rowspan="2" class="text-right">
                                     <div class="btn-group" >
-                                        <button class="btn btn-success" translate ng-click="previewTemplate()">Preview</button>
+                                        <button class="btn btn-success" translate ng-click="previewTemplate(env.template.MailTemplate)">Preview</button>
                                         <button class="btn btn-primary" translate ng-click="saveTemplate()">Save</button>
                                     </div>
                                 </td>

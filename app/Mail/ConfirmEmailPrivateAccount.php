@@ -34,7 +34,9 @@ class ConfirmEmailPrivateAccount extends Mailable
         return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
             [
                 'varContactForename' => $user->name,
-                'varContactSurename' => $user->surname,
+                'varContactSurname' => $user->surname,
+                'varContactTitle' => $user->sex=='male' ? 'Mister' : 'Miss',
+
                 'varAccountActivationLink' => $link
             ]
         );

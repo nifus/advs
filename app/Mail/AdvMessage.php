@@ -43,8 +43,9 @@ class AdvMessage extends Mailable
         return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
             [
                 'varContactForename' => $user_to->name,
-                'varContactSurename' => $user_to->surname,
+                'varContactSurname' => $user_to->surname,
                 'varAdvertUrl' => route('adv.preview',['id'=>$advert->id]),
+                'varContactTitle' => $user_to->sex=='male' ? 'Mister' : 'Miss',
                 'varAdvertTitle' => $advert->title,
                 'varMessageFullName' => $log->FullName,
                 'varMessageEmail' => $log->data->email,

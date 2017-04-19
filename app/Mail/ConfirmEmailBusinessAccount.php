@@ -35,7 +35,8 @@ class ConfirmEmailBusinessAccount extends Mailable
             [
                 'varContactForename' => $user->name,
                 'varContactSurename' => $user->surname,
-                'varAccountActivationLink' => $link
+                'varContactTitle' => $user->sex=='male' ? 'Mister' : 'Miss',
+                'varAccountConfirmLink' => $link
             ]);
 
     }

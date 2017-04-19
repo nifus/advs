@@ -35,8 +35,9 @@ class ForgotPassword extends Mailable
         return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
             [
                 'varContactForename' => $user->name,
-                'varContactSurename' => $user->surname,
-                'link' => $link,
+                'varContactSurname' => $user->surname,
+                'varContactTitle' => $user->sex=='male' ? 'Mister' : 'Miss',
+                'varForgotLink' => $link,
             ]
         );
     }

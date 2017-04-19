@@ -34,8 +34,9 @@ class ActivateBusinessAccount extends Mailable
         return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
             [
                 'varContactForename' => $user->name,
-                'varContactSurename' => $user->surname,
+                'varContactSurname' => $user->surname,
                 'varAccountEmail' => $user->email,
+                'varContactTitle' => $user->sex=='male' ? 'Mister' : 'Miss',
             ]
         );
 

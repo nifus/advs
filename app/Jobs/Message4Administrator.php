@@ -32,6 +32,6 @@ class Message4Administrator implements ShouldQueue
     public function handle()
     {
 
-        \Mail::to(\Config::get('app.support_email'))->send(new Message4AdministratorMail($this->user, $this->message));
+        \Mail::to(\Config::get('variables.varHelpEmailAddress'))->send(new Message4AdministratorMail($this->user, $this->message));
     }
 }

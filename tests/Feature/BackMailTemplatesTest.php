@@ -35,11 +35,13 @@ class BackMailTemplatesTest extends TestCase
 
         $mail = MailTemplate::getById(1);
 
+
         $response = $this->json('POST', '/api/mail/templates/1?token='.$token,[
             'body'=>$mail->body,
             'MailTemplate'=>$mail->body,
             'header'=>$mail->header,
         ]);
+
         $response->assertStatus(200);
 
 

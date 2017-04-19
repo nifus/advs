@@ -20,6 +20,7 @@ class CreateMailTemplates extends Migration
             $table->string('header')->nullable();
             $table->string('name')->nullable();
             $table->text('body')->nullable();
+            $table->text('variables')->nullable();
             $table->timestamps();
         });
     }

@@ -38,9 +38,10 @@ class Message4Administrator extends Mailable
         return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
             [
                 'varContactForename' => $user->name,
-                'varContactSurename' => $user->surname,
+                'varContactSurname' => $user->surname,
                 'varContactId' => $user->id,
-                'msg' => $this->message,
+                'varContactTitle' => $user->sex=='male' ? 'Mister' : 'Miss',
+                'varMessageForAdministrator' => $this->message,
             ]
         );
 

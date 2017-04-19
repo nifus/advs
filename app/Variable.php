@@ -21,6 +21,18 @@ class Variable extends Model
     public function updateValue($value, User $user){
         $data = ['value'=>$value, 'user_id'=>$user->id];
         self::update($data);
+        self::updateConfig();
+        return true;
+    }
+
+    static function updateConfig(){
+        $rows = self::get(['value','title']);
+        $content = [];
+        foreach($rows as $row){
+            $content[]='"'.$row['title'].'"=>"'.$row['value'].'"';
+        }
+        $content = '<?php'."\n\r".'return ['.implode(',',$content).'];';
+        file_put_contents( config_path('variables.php'),$content);
         return true;
     }
 

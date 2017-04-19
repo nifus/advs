@@ -35,9 +35,10 @@ class NewPassword extends Mailable
         return $this->subject($tmpl->header)->view('emails.'.$tmpl->path,
             [
                 'varContactForename' => $user->name,
-                'varContactSurename' => $user->surname,
-                'password' => $this->password,
-                'email' => $user->email,
+                'varContactSurname' => $user->surname,
+                'varContactTitle' => $user->sex=='male' ? 'Mister' : 'Miss',
+                'varNewPassword' => $this->password,
+                'varAccountEmail' => $user->email,
             ]
         );
     }
