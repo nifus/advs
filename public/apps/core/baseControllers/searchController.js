@@ -12,6 +12,20 @@
             founds: []
         };
 
+        var search = localStorage.getItem($scope.$parent.env.type+'_search');
+        if (search != null) {
+            searchLogFactory.getById(search).then(function (search) {
+                $scope.search.query = search;
+                $scope.$emit('search', {$scope:$scope,query:search.query});
+                $scope.search.per_page = search.config.per_page;
+                $scope.search.page = search.config.page;
+                //$scope.env.total = search.number_of_results;
+                //$scope.search($scope.filter)
+            }, function () {
+
+            });
+        }
+
         $scope.setPerPage = function (count) {
             $scope.search.per_page = count;
             $scope.setPage(1);
@@ -24,6 +38,9 @@
             $scope.$emit('search', {$scope:$scope});
         };
 
+        $scope.reset = function () {
+            $scope.$emit('reset', {$scope:$scope});
+        };
         $scope.searchSubmit = function () {
             $scope.$emit('search', {$scope:$scope});
         };
@@ -45,7 +62,8 @@
                     $scope.search.query.updateQuery(data).then(function () {
                         getResultFunc(type)($scope.search.page, $scope.search.per_page).then(function (response) {
                             $scope.search.total = $scope.search.query.number_of_results;
-                            $scope.search.found = response.found;
+                            $scope.search.found = response.rows;
+                            console.log(response)
                             search_defer.resolve(response);
                         })
                     });
@@ -55,7 +73,7 @@
                     localStorage.setItem(type+'_search', search.id);
                     getResultFunc(type)($scope.search.page, $scope.search.per_page).then(function (response) {
                         $scope.search.total = $scope.search.query.number_of_results;
-                        $scope.search.found = response.found;
+                        $scope.search.found = response.rows;
                         search_defer.resolve(response);
                     })
                 });

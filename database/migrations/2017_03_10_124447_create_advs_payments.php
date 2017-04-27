@@ -13,11 +13,14 @@ class CreateAdvsPayments extends Migration
      */
     public function up()
     {
-        Schema::create('advs_payments', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('adv_id');
+            $table->integer('adv_id')->nullable();
+            $table->integer('user_id')->nullable();
             $table->integer('tariff_id')->nullable();
-            $table->enum('payment_type',['paypal','giro','prepayment'])->default('paypal');
+            $table->smallInteger('slots')->nullable();
+            $table->enum('type',['advert','subscription','slot'])->default('advert');
+            $table->enum('way',['paypal','giro','prepayment'])->default('paypal');
             $table->enum('status',['wait','error','success'])->default('wait');
             $table->text('payment_log')->nullable();
             $table->string('guid')->nullable();
@@ -35,6 +38,6 @@ class CreateAdvsPayments extends Migration
      */
     public function down()
     {
-        Schema::drop('advs_payments');
+        Schema::drop('payments');
     }
 }

@@ -19,7 +19,7 @@
                     <div class="radio">
                         <label>
                             <input type="radio" name="optionsRadios" value="option1" checked>
-                            {{'Modify'|translate}}
+                            {{'Activate'|translate}}
                         </label>
                     </div>
                     <div class="radio">
@@ -46,118 +46,135 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="col-md-6">
-                    <div style="width:70%;text-align:left;float:left" translate>We are specialized for...</div>
-                    <div style="width:30%;text-align:right;float:left" translate>(max. 12)</div>
-                    <hr style="background-color:#a8cae9;height:2px;">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Residential properties"> {{'Residential
-                            properties'|translate}}
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Commercial properties"> {{'Commercial properties'|translate}}
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="New build properties"> {{'New build properties'|translate}}
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Investment properties"> {{'Investment properties'|translate}}
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Seniors properties"> {{'Seniors properties'|translate}}
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Building grounds"> {{'Building grounds'|translate}}
-                        </label>
-                    </div>
-
-
-                    <br>
-                    <div>
-
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="{{'e.g. Consulting...'|translate}}">
-                            <span class="input-group-btn"><button class="btn btn-primary" type="button" translate>Add</button></span>
+                        <div style="width:70%;text-align:left;float:left" translate>We are specialized for...</div>
+                        <div style="width:30%;text-align:right;float:left" translate>(max. 12)</div>
+                        <hr style="background-color:#a8cae9;height:2px;">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.specializations"
+                                       checklist-value="'Residential properties'"> {{'Residential
+                                properties'|translate}}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.specializations.common"
+                                       checklist-value="'Commercial properties'"> {{'Commercial properties'|translate}}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.specializations.common"
+                                       checklist-value="'New build properties'"> {{'New build properties'|translate}}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.specializations.common"
+                                       checklist-value="'Investment properties'"> {{'Investment properties'|translate}}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.specializations.common"
+                                       checklist-value="'Seniors properties'"> {{'Seniors properties'|translate}}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.specializations.common"
+                                       checklist-value="'Building grounds'"> {{'Building grounds'|translate}}
+                            </label>
+                        </div>
+                        <hr>
+                        <div class="checkbox" ng-repeat="spec in model.specializations.personal track by $index">
+                            <label>
+                                <input type="checkbox" checklist-model="model.specializations.personal"
+                                       checklist-value="spec"> {{spec}}
+                            </label>
                         </div>
 
-                        <div style="margin-top:20px;">
-                            <div class="col-md-10" style="padding:0">Specialization ABCD</div>
-                            <div class="col-md-2"  style="padding:0;text-align: right">
-                                <button class="btn btn-danger" type="button">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
+                        <br>
+                        <div>
+
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="env.specialization"
+                                       placeholder="{{'e.g. Consulting...'|translate}}">
+                                <span class="input-group-btn"><button class="btn btn-primary"
+                                                                      ng-disabled="model.specializations.personal.length==12"
+                                                                      ng-click="addSpecialization()" type="button"
+                                                                      translate>Add</button></span>
                             </div>
+
+
                         </div>
                     </div>
-                </div>
                     <div class="col-md-6">
-                    <div style="width:70%;text-align:left;float:left" translate>Our services for you...</div>
-                    <div style="width:30%;text-align:right;float:left" translate>(max. 12)</div>
-                    <hr style="background-color:#a8cae9;height:2px;">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Price calculation of properties"> {{'Price calculation of
-                            properties'|translate}}
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Financial intermediation"> {{'Financial
-                            intermediation'|translate}}
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Reconstruction service"> {{'Reconstruction
-                            service'|translate}}
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Real estate consultancy"> {{'Real estate
-                            consultancy'|translate}}
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="House management"> {{'House management'|translate}}
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Renting and selling of properties"> {{'Renting and selling of
-                            properties'|translate}}
-                        </label>
-                    </div>
-
-                    <br>
-                    <div>
-
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="{{'e.g. Consulting...'|translate}}">
-                            <span class="input-group-btn"><button class="btn btn-primary" type="button" translate>Add</button></span>
+                        <div style="width:70%;text-align:left;float:left" translate>Our services for you...</div>
+                        <div style="width:30%;text-align:right;float:left" translate>(max. 12)</div>
+                        <hr style="background-color:#a8cae9;height:2px;">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.services.common"
+                                       checklist-value="'Price calculation of properties'"> {{'Price calculation of
+                                properties'|translate}}
+                            </label>
                         </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.services.common"
+                                       checklist-value="'Financial intermediation'"> {{'Financial
+                                intermediation'|translate}}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.services.common"
+                                       checklist-value="'Reconstruction service'"> {{'Reconstruction
+                                service'|translate}}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.services.common"
+                                       checklist-value="'Real estate consultancy'"> {{'Real estate
+                                consultancy'|translate}}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.services.common"
+                                       checklist-value="'House management'"> {{'House management'|translate}}
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checklist-model="model.services.common"
+                                       checklist-value="'Renting and selling of properties'"> {{'Renting and selling of
+                                properties'|translate}}
+                            </label>
+                        </div>
+                        <hr>
+                        <div class="checkbox" ng-repeat="serv in model.services.personal track by $index">
+                            <label>
+                                <input type="checkbox" checklist-model="model.services.personal"
+                                       checklist-value="serv"> {{serv}}
+                            </label>
+                        </div>
+                        <br>
+                        <div>
 
-                        <div style="margin-top:20px;">
-                            <div class="col-md-10" style="padding:0">Specialization ABCD</div>
-                            <div class="col-md-2"  style="padding:0;text-align: right">
-                                <button class="btn btn-danger" type="button">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="env.service"
+                                       placeholder="{{'e.g. Consulting...'|translate}}">
+                                <span class="input-group-btn"><button class="btn btn-primary"
+                                                                      ng-disabled="model.services.personal.length==12"
+                                                                      ng-click="addService()" type="button" translate>Add</button></span>
                             </div>
+
+
                         </div>
                     </div>
-                </div>
                     <div class="col-md-12">
                         <div style="text-align:left;" translate>About us</div>
                         <hr style="background-color:#a8cae9;height:2px;margin:0">
@@ -225,13 +242,15 @@
                         <div style="margin-top:10px">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="optionsRadios" value="Show my contact data from „My Settings“">
+                                    <input type="radio" name="optionsRadios"
+                                           value="Show my contact data from „My Settings“">
                                     {{'Show my contact data from „My Settings“'|translate}}
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="optionsRadios" value="Show other contact person on my personal site">
+                                    <input type="radio" name="optionsRadios"
+                                           value="Show other contact person on my personal site">
                                     {{'Show other contact person on my personal site'|translate}}
                                 </label>
                             </div>
@@ -240,10 +259,10 @@
                         <div style="margin-top:10px">
                             <div class="form-group">
                                 <label class="radio-inline">
-                                    <input type="radio"  value="Mister"> {{'Mister'|translate}}
+                                    <input type="radio" value="Mister"> {{'Mister'|translate}}
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio"  value="Miss"> {{'Miss'|translate}}
+                                    <input type="radio" value="Miss"> {{'Miss'|translate}}
                                 </label>
                             </div>
 
@@ -266,7 +285,9 @@
                 <hr style="background-color:#a8cae9;height:2px;margin:0">
 
                 <div class="col-md-10">Last time modified on:12.12.2015 – 00:22</div>
-                <div class="col-md-2 text-right"><button class="btn btn-primary" translate>Save</button></div>
+                <div class="col-md-2 text-right">
+                    <button class="btn btn-primary" translate>Save</button>
+                </div>
             </div>
         </div>
     </div>

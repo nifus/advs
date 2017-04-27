@@ -20,8 +20,8 @@ Route::group(['prefix'=>'user'], function () {
 });
 
 Route::group(['prefix'=>'payment'], function () {
-    Route::get('/emulation/{type}/{id}', 'PaymentController@emulation')->where('type','giro|paypal|pre-payment')->where('id','[0-9]*');
-    Route::post('/emulation/{type}/{id}', 'PaymentController@emulationSave')->where('type','giro|paypal|pre-payment')->where('id','[0-9]*');
+    Route::post('/emulation/{type}/{id}', 'PaymentController@emulation')->where('type','giro|paypal|pre-payment')->where('id','[0-9]*');
+    Route::post('/emulation/{type}/{id}/end', 'PaymentController@emulationSave')->where('type','giro|paypal|pre-payment')->where('id','[0-9]*');
 });
 
 
@@ -140,7 +140,8 @@ Route::group(['prefix'=>'api'], function () {
     });
 
     Route::group(['prefix'=>'payment'], function () {
-        Route::post('/{type}', 'PaymentController@store' )->where('type','giro|paypal|pre-payment');
+        //Route::post('/{type}', 'PaymentController@store' )->where('type','giro|paypal|pre-payment');
+        Route::post('/{type}/{way}', 'PaymentController@store' )->where('way','giro|paypal|pre-payment')->where('type','subscription|advert|slot');
 
     });
 
@@ -152,8 +153,15 @@ Route::group(['prefix'=>'api'], function () {
 
         Route::post('/private', 'TariffController@updatePrivate');
         Route::post('/business', 'TariffController@updateBusiness');
-    });
 
+        Route::get('/current', 'TariffController@getCurrentTariff');
+        Route::get('/slots', 'TariffController@getSlots');
+        Route::get('/future', 'TariffController@getFutureTariff');
+        Route::get('/end', 'TariffController@endTariff');
+
+    });
+        // @depricated
+    //Route::get('/tariffs', 'TariffController@getAll' );
 
 
     Route::group(['prefix'=>'search'], function () {
@@ -213,7 +221,7 @@ Route::group(['prefix'=>'api'], function () {
         ];
         return response()->json($sets);
     } );
-    Route::get('/tariffs', 'TariffController@getAll' );
+
 });
 
 

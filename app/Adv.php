@@ -272,10 +272,10 @@ class Adv extends Model
 
     public function getLastPayment()
     {
-        return AdvPayment::getLastPayment($this->id);
+        return Payment::getLastPayment($this->id);
     }
 
-    public function activate(AdvPayment $payment)
+    public function activate(Payment $payment)
     {
         //$now = new \DateTime();
         $disable_date = new \DateTime();
@@ -753,10 +753,6 @@ class Adv extends Model
 
     static function getByPage($page, $limit, $filter)
     {
-
-        // dd($filter);
-
-
         $sql = self::with('Owner')->whereHas('Owner', function ($query) use ($filter) {
 
             if (isset($filter['account']) && $filter['account'] == 'private') {
@@ -770,6 +766,7 @@ class Adv extends Model
 
 
         })->orderBy('id', 'DESC');
+
         if (isset($filter['id'])) {
             $sql = $sql->where('id', $filter['id']);
         }
@@ -795,6 +792,42 @@ class Adv extends Model
         }
 
         return $sql->get();
+    }
+
+    static function getAllFound($filter)
+    {
+        $sql = self::whereHas('Owner', function ($query) use ($filter) {
+
+            if (isset($filter['account']) && $filter['account'] == 'private') {
+                $query->where('group_id', 2);
+            } elseif (isset($filter['account']) && $filter['account'] == 'business') {
+                $query->where('group_id', 3);
+            }
+            if (isset($filter['email'])) {
+                $query->where('email', $filter['email']);
+            }
+
+
+        });
+
+        if (isset($filter['id'])) {
+            $sql = $sql->where('id', $filter['id']);
+        }
+        if (isset($filter['user_id'])) {
+            $sql = $sql->where('user_id', $filter['user_id']);
+        }
+        if (isset($filter['category'])) {
+            $sql = $sql->where('category', $filter['category']);
+        }
+        if (isset($filter['type']) && $filter['type'] != 'all') {
+            $sql = $sql->where('type', $filter['type']);
+        }
+        if (isset($filter['statuses']) && !in_array('all', $filter['statuses'])) {
+            $sql = $sql->whereIn('status', $filter['statuses']);
+        }
+
+        $sql = $sql->where('is_deleted', '0');
+        return $sql->count();
     }
 
     static function getReports(){

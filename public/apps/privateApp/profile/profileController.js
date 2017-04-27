@@ -7,7 +7,18 @@
         $scope.promises = null;
         $scope.env = {
             loading: true,
-
+            specialization: null,
+            service: null,
+        };
+        $scope.model = {
+            specializations: {
+                common:[],
+                personal:[]
+            },
+            services:{
+                common:[],
+                personal:[]
+            }
         };
 
         function initPage(deferred) {
@@ -38,9 +49,19 @@
         $scope.$parent.init.push(initPage);
 
 
-        $scope.logout = function () {
-            userFactory.logout();
-            window.location.reload(true)
+        $scope.addSpecialization = function () {
+            if ($scope.env.specialization==null){
+                return;
+            }
+            $scope.model.specializations.personal.push($scope.env.specialization);
+            $scope.env.specialization = null;
+        };
+        $scope.addService = function () {
+            if ($scope.env.service==null){
+                return;
+            }
+            $scope.model.services.personal.push($scope.env.service);
+            $scope.env.service = null;
         };
 
 

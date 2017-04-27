@@ -9,7 +9,8 @@
 
     <h1>{{$type}} payment</h1>
     <div style="text-align: center">
-        <form method="post">
+        <form method="post" action="/payment/emulation/{{$type}}/{{$id}}/end">
+            <input type="hidden" name="redirect" value="{{$redirect}}" />
             <button class="btn btn-default"  type="submit" name="result" value="success" >Success</button>
             <button class="btn btn-default"  type="submit" name="result" value="fail">Fail</button>
         </form>

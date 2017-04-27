@@ -1,0 +1,129 @@
+<div>
+    <form name="payment_form">
+        <h4 translate>Method of pay</h4>
+        <div translate>At the moment this payment methods are available – please select:</div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="radio"
+                     ng-class="{ 'has-error': ( payment_form.paypal_email.$invalid && env.submit==true) }">
+                    <label>
+                        <input type="radio" value="paypal" ng-model="user.payment_type">
+                        {{'PayPal'|translate}}<br>
+                        {{'(you will be forwarded to PayPal by clicking on „Next“)'|translate}}
+
+                    </label>
+
+                    <div class="form-inline">
+                        <label class="col-sm-3 " translate>PayPal email </label>
+                        <div class="col-sm-9">
+                            <input type="email" name="paypal_email" class="form-control"
+                                   ng-model="user.paypal_email"
+                                   ng-disabled="user.payment_type!='paypal'"
+                                   ng-required="user.payment_type=='paypal'">
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+                <div class="radio"
+                     ng-class="{ 'has-error': ( payment_form.giro_account.$invalid && env.submit==true) }">
+                    <label>
+                        <input type="radio" value="giropay" ng-model="user.payment_type">
+                        {{'GiroPay'|translate}}
+                        <br>
+                        {{'(you will be forwarded to your Bank)'|translate}}
+
+                    </label>
+
+                    <div class="form-inline">
+                        <label class="col-sm-3" translate>BIC</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="giro_account" class="form-control"
+                                   ng-model="user.giro_account"
+                                   ng-disabled="user.payment_type!='giropay'"
+                                   ng-required="user.payment_type=='giropay'">
+
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+                <div class="radio">
+                    <label>
+                        <input type="radio" value="prepayment" ng-model="user.payment_type">
+                        {{'Prepayment'|translate}}
+                    </label>
+                </div>
+
+                <div ng-if="user.payment_type=='prepayment'">
+                    <div translate>Please use this transaction code for your transaction:</div>
+                    <table>
+                        <tr>
+                            <td style="text-align: left" translate>Price:</td>
+                            <td style="text-align: right">{{price|currency:"€"}}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left;font-weight: bold" translate>Transaction code:</td>
+                            <td style="text-align: left;font-weight: bold">{{env.guid}}</td>
+                        </tr>
+                    </table>
+                    <div style="color:red" translate>
+                        It is important that you mention this transaction code at your transaction! <br>
+                        Otherwise we can not ensure the correct transaction.
+                    </div>
+
+                    <div translate style="margin-top:20px">Please pay the following price to this bank
+                        account:
+                    </div>
+                    <table>
+                        <tr>
+                            <td style="text-align: left" translate>Bank account:</td>
+                            <td style="text-align: right">2608722016</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left" translate>BIC:</td>
+                            <td style="text-align: right">591954772</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left" translate>IBAN:</td>
+                            <td style="text-align: right">DE06 2546 2549 3500 0015 0161</td>
+                        </tr>
+                    </table>
+                    <div translate>Please pay within the next 10 days.</div>
+                </div>
+            </div>
+        </div>
+
+        <h4 translate>Final</h4>
+
+        <div>
+            <div class="col-md-6">
+                <div class="checkbox "
+                     ng-class="{ 'has-error': ( payment_form.agb_accepted.$invalid && env.submit==true) }">
+                    <label translate>
+                        <input type="checkbox" required ng-model="user.agb_accepted"
+                               name="agb_accepted"> I noticed and accepted the <a target="_blank"
+                                                                                  href="/agb">AGB‘s</a>
+                    </label>
+                </div>
+
+            </div>
+            <div class="col-md-6 text-right">
+                <button translate class="btn btn-primary" type="button" ng-click="pay(payment_form)">
+                    Next
+                </button>
+            </div>
+        </div>
+    </form>
+    <form ng-if="user.payment_type=='paypal'" id="paypalForm" method="post">
+        <input type="hidden" name="redirect">
+    </form>
+
+    <form ng-if="user.payment_type=='giropay'" id="giroForm" method="post">
+        <input type="hidden" name="redirect">
+
+    </form>
+</div>

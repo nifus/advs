@@ -6,8 +6,8 @@
 </div>
 
 <div class="row" ng-if="env.loading==false">
-
-    <div class="col-md-4">
+    <div ng-if="env.action=='subscription'">
+        <div class="col-md-4">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -29,9 +29,9 @@
                         </tr>
                         <tr>
                             <td style="width: 50%;text-align: left" translate>Running out in</td>
-                            <td style="width: 50%;text-align: right">
-                                <span ng-if="env.tariff.Range>1" translate>Days</span>
-                                <span ng-if="env.tariff.Range==1" translate>Day</span>
+                            <td style="width: 50%;text-align: right">{{env.tariff.LeftDays}}
+                                <span ng-if="env.tariff.LeftDays>1" translate>Days</span>
+                                <span ng-if="env.tariff.LeftDays==1" translate>Day</span>
                             </td>
                         </tr>
                         <tr style="height: 50px">
@@ -39,11 +39,11 @@
                         </tr>
                         <tr>
                             <td style="width: 50%;text-align: left" translate>Ordered package</td>
-                            <td style="width: 50%;text-align: right"><strong>{{env.tariff.TariffName}}</strong></td>
+                            <td style="width: 50%;text-align: right"><strong>{{env.tariff.tariff_details.title}}</strong></td>
                         </tr>
                         <tr>
                             <td style="width: 50%;text-align: left" translate>Additional slots</td>
-                            <td style="width: 50%;text-align: right"><strong>{{env.tariff.AdditionalSlots}}</strong>
+                            <td style="width: 50%;text-align: right"><strong>{{env.tariff.slots}}</strong>
                             </td>
                         </tr>
                         <tr>
@@ -99,14 +99,14 @@
                                                                             ng-model="slot_form.number_of" min="1"></td>
                         </tr>
                         <tr>
-                            <td style="width: 70%;text-align: left">Price <br>( - x {{env.tariff.extra|currency:'€'}} )
+                            <td style="width: 70%;text-align: left">Price <br>( {{slot_form.number_of}} x {{env.tariff.extra|currency:'€'}} )
                             </td>
-                            <td style="width: 30%;text-align: right">0,00 €</td>
+                            <td style="width: 30%;text-align: right">{{env.tariff.extra*slot_form.number_of|currency:'€'}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2">
+                            <td colspan="2" style="text-align: right">
                                 <button type="button"
-                                        ng-disabled="env.submit==true"
+
                                         ng-click="buyAdditionalSlot()" class="btn btn-success" translate>Buy additional
                                     slot
                                 </button>
@@ -119,9 +119,7 @@
             </div>
         </div>
     </div>
-
-
-    <div class="col-md-8">
+        <div class="col-md-8">
 
         <div class="col-md-12" ng-if="env.tariff!=null">
             <div class="panel panel-default">
@@ -130,7 +128,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-md-4">
-                        <h4>Package: Pack 20</h4>
+                        <h4>Package: {{env.tariff.tariff_details.title}}</h4>
                         <table style="width: 100%">
                             <tr>
                                 <td style="width:80%;text-align: left" translate>Max. package slots</td>
@@ -138,22 +136,22 @@
                             </tr>
                             <tr>
                                 <td style="width:80%;text-align: left" translate>Package slots in use</td>
-                                <td style="width:20%;text-align: right">{{env.tariff.UsedSlots}}</td>
+                                <td style="width:20%;text-align: right">{{env.tariff.usedPackageSlots}}</td>
                             </tr>
                             <tr>
                                 <td style="width:80%;text-align: left" translate>Package slots free</td>
-                                <td style="width:20%;text-align: right">{{env.tariff.FreeSlots}}</td>
+                                <td style="width:20%;text-align: right">{{env.tariff.freshPackageSlots}}</td>
                             </tr>
                             <tr style="height: 50px">
                                 <td colspan="2"></td>
                             </tr>
                             <tr>
                                 <td style="width:80%;text-align: left" translate>Additional slots in use</td>
-                                <td style="width:20%;text-align: right">{{env.tariff.UsedAdditionalSlots}}</td>
+                                <td style="width:20%;text-align: right">{{env.tariff.usedExtraSlots}}</td>
                             </tr>
                             <tr>
                                 <td style="width:80%;text-align: left" translate>Additional slots useable</td>
-                                <td style="width:20%;text-align: right">{{env.tariff.FreeAdditionalSlots}}</td>
+                                <td style="width:20%;text-align: right">{{env.tariff.freshExtraSlots}}</td>
                             </tr>
                         </table>
                     </div>
@@ -234,9 +232,10 @@
                     <h3 class="panel-title" translate>Buy subscription</h3>
                 </div>
                 <div class="panel-body">
+
                     <table class="table tariffs table-hover">
                         <tr>
-                            <th colspan="2">
+                            <th>
                                 <div class="package" translate>Package</div>
                             </th>
                             <th>
@@ -249,19 +248,18 @@
                                 <div class="extra" translate>Each extra slot</div>
                             </th>
                         </tr>
-                        <tr ng-repeat="tariff in env.tariffs" ng-click="model.type_id=tariff.id">
-                            <td class="first"><input type="radio" ng-model="model.type_id" value="{{tariff.id}}"></td>
+                        <tr ng-repeat="tariff in env.tariffs" ng-click="env.selected_tariff=tariff" ng-class="{'success':tariff.id==env.selected_tariff.id}">
                             <td>
-                                <div class="package" translate>{{tariff.name}}</div>
+                                <div class="package">{{tariff.title}}</div>
                             </td>
                             <td>
-                                <div class="slots">{{tariff.slots}}</div>
+                                <div class="slots">{{tariff.number_of_slots}}</div>
                             </td>
                             <td>
                                 <div class="price">{{tariff.price| currency:'€'}}</div>
                             </td>
                             <td class="last">
-                                <div class="extra">+ {{tariff.additional| currency:'€'}}</div>
+                                <div class="extra">+ {{tariff.price_extra_slots| currency:'€'}}</div>
                             </td>
                         </tr>
                     </table>
@@ -273,7 +271,7 @@
 
 
                     <div class="alert alert-warning" role="alert" ng-if="env.tariff!=null">
-                        At the moment your current subscription (Pack 20) is valid to: <strong>12.08.2016</strong>
+                        At the moment your current subscription ({{env.tariff.tariff_details.title}}) is valid to: <strong>{{env.tariff.EndDate}}</strong>
                     </div>
                     <div class="alert alert-warning" role="alert" ng-if="env.tariff!=null">It will be automatically
                         extended if it will not be terminated
@@ -281,14 +279,14 @@
 
                     <div class="row">
                         <div class="col-md-6 text-left">
-                            <button type="button" class="btn btn-primary" ng-if="env.tariff!=null" translate>End
+                            <button type="button" class="btn btn-primary" ng-click="endSubscription()" ng-if="env.tariff!=null" translate>End
                                 subscription
                             </button>
                         </div>
                         <div class="col-md-6 text-right">
                             <button type="button"
-                                    ng-disabled="model.type_id==null"
-                                    ng-click="buyTariff(model.type_id)"
+                                    ng-disabled="env.selected_tariff==null"
+                                    ng-click="buyTariff()"
                                     class="btn btn-primary" translate>Buy subscription
                             </button>
                         </div>
@@ -298,4 +296,30 @@
             </div>
         </div>
     </div>
+    </div>
+
+    <duv ng-if="env.action=='buy_tariff'">
+        <div class="panel panel-default">
+            <div class="panel-heading" translate>Buy subscription {{env.selected_tariff.title}}</div>
+            <div class="panel-body">
+
+                <div translate>Are you sure that you want to buy this subscription?</div>
+                <p translate>Price: {{env.selected_tariff.price|currency:"€"}}</p>
+                <payment-form tariff="env.selected_tariff" type="subscription" user="$parent.user"></payment-form>
+            </div>
+        </div>
+
+    </duv>
+
+    <duv ng-if="env.action=='buy_slot'">
+        <div class="panel panel-default">
+            <div class="panel-heading" translate>Buy additional slots: <strong>{{slot_form.number_of}}</strong></div>
+            <div class="panel-body">
+
+                <p translate>Price: {{env.tariff.extra*slot_form.number_of|currency:'€'}}</p>
+                <payment-form slots="{{slot_form.number_of}}" type="slots" user="$parent.user" ></payment-form>
+            </div>
+        </div>
+
+    </duv>
 </div>

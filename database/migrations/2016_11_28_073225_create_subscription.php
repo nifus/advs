@@ -22,7 +22,7 @@ class CreateSubscription extends Migration
             $table->timestamps();
         });*/
 
-        Schema::create('tariffs', function (Blueprint $table) {
+        Schema::create('user_tariffs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('tariff_id');
@@ -38,7 +38,7 @@ class CreateSubscription extends Migration
             $table->timestamps();
         });
 
-        Schema::create('tariffs_details', function (Blueprint $table) {
+        Schema::create('user_tariffs_slots', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('tariff_id');

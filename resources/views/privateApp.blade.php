@@ -50,6 +50,8 @@
     <script src="/apps/core/adv/advFactory.js"></script>
     <script src="/apps/core/adv/advService.js"></script>
 
+    <script src="/apps/core/tariff/businessTariffService.js"></script>
+
 
 
     <script src="/apps/core/faq/faqFactory.js"></script>
@@ -58,6 +60,7 @@
     <script src="/apps/core/advPayment/advPaymentFactory.js"></script>
     <script src="/apps/core/directives/advPreview/advPreview.js"></script>
     <script src="/apps/core/directives/advForm/advForm.js"></script>
+    <script src="/apps/core/directives/paymentForm/paymentForm.js"></script>
 
     <script src="/apps/privateApp/privateApp.js"></script>
     <script src="/apps/privateApp/login/loginController.js"></script>

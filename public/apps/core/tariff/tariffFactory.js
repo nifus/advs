@@ -3,9 +3,9 @@
     'use strict';
 
     angular.module('core')
-        .factory('tariffFactory', [ '$http', '$q', tariffFactory]);
+        .factory('tariffFactory', ['$http', '$q', 'businessTariffService', tariffFactory]);
 
-    function tariffFactory( $http, $q) {
+    function tariffFactory($http, $q, businessTariffService) {
 
         return {
             getPrivatePrices: getPrivatePrices,
@@ -14,8 +14,39 @@
             getBusinessTariffs: getBusinessTariffs,
             updatePrivateTariffs: updatePrivateTariffs,
             updateBusinessTariffs: updateBusinessTariffs,
+            getCurrentTariff: getCurrentTariff,
 
+            getFutureTariff: getFutureTariff,
         };
+
+
+        function getCurrentTariff() {
+            var deferred = $q.defer();
+            $http.get('/api/tariff/current').then(function (response) {
+                if (response.data.tariff==null){
+                    deferred.resolve( null );
+                }else{
+                    deferred.resolve( new businessTariffService(response.data.tariff) );
+                }
+            }, function (error) {
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
+
+        function getFutureTariff() {
+            var deferred = $q.defer();
+            $http.get('/api/tariff/future').then(function (response) {
+                if (response.data.tariff==null){
+                    deferred.resolve( null );
+                }else{
+                    deferred.resolve( new businessTariffService(response.data.tariff) );
+                }
+            }, function (error) {
+                deferred.reject({success: false, error: error.data});
+            });
+            return deferred.promise;
+        }
 
         function getPrivatePrices() {
             var deferred = $q.defer();
@@ -26,6 +57,7 @@
             });
             return deferred.promise;
         }
+
         function getBusinessPrices() {
             var deferred = $q.defer();
             $http.get('/api/tariff/business-prices').then(function (response) {
@@ -46,6 +78,7 @@
             });
             return deferred.promise;
         }
+
         function updatePrivateTariffs(data) {
             var defer = $q.defer();
             $http.post('/api/tariff/private', data).then(
@@ -58,6 +91,7 @@
             );
             return defer.promise;
         }
+
         function getBusinessTariffs() {
             var deferred = $q.defer();
 
@@ -68,6 +102,7 @@
             });
             return deferred.promise;
         }
+
         function updateBusinessTariffs(data) {
             var defer = $q.defer();
             $http.post('/api/tariff/business', data).then(

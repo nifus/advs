@@ -1,8 +1,8 @@
 (function (angular, window) {
     'use strict';
-    angular.module('core').service('userService', ['$http', 'advFactory', '$q', userService]);
+    angular.module('core').service('userService', ['$http', 'advFactory', '$q', 'tariffFactory', userService]);
 
-    function userService($http, advFactory, $q) {
+    function userService($http, advFactory, $q, tariffFactory) {
         return function (data) {
             var Object = data;
             Object.waiting = false;
@@ -45,8 +45,11 @@
                 })
             };
 
-            Object.getTariff = function () {
-                return tariffFactory.getActiveTariff();
+            Object.getCurrentTariff = function () {
+                return tariffFactory.getCurrentTariff();
+            };
+            Object.getFutureTariff = function () {
+                return tariffFactory.getFutureTariff();
             };
 
             Object.buyTariff = function (tariff_id) {

@@ -19,7 +19,7 @@
 </div>
 
 <div class="row text-right" style="margin:10px;">
-    <button class="btn btn-primary" ng-click="backToForm()">Back</button>
+    <button class="btn btn-primary" ng-click="backToForm()" translate>Back</button>
 </div>
 
 <div class="row">
@@ -134,8 +134,8 @@
                             <td translate>( Taxes included )</td>
                         </tr>
                     </table>
-                    <h4>Method of pay</h4>
-                    <div>At the moment this payment methods are available – please select:</div>
+                    <h4 translate>Method of pay</h4>
+                    <div translate>At the moment this payment methods are available – please select:</div>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -231,7 +231,7 @@
                         </div>
                     </div>
 
-                    <h4>Final</h4>
+                    <h4  translate>Final</h4>
 
                     <div>
 
@@ -260,11 +260,11 @@
             </div>
         </div>
     </form>
-    <form ng-if="user.payment_type=='paypal'" id="paypalForm">
+    <form ng-if="user.payment_type=='paypal'" id="paypalForm" method="post">
 
     </form>
 
-    <form ng-if="user.payment_type=='giropay'" id="giroForm">
+    <form ng-if="user.payment_type=='giropay'" id="giroForm" method="post">
 
     </form>
 </div>

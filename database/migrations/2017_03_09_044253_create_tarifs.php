@@ -41,6 +41,7 @@ class CreateTarifs extends Migration
             $table->integer('tariff_id');
             $table->enum('is_future',['0','1'])->default('0');
             $table->enum('is_paid',['0','1'])->default('0');
+            $table->enum('is_end',['0','1'])->default('0');
             $table->datetime('begin_time');
             $table->datetime('end_time');
             $table->decimal('price',8,2);
@@ -51,7 +52,7 @@ class CreateTarifs extends Migration
             $table->timestamps();
         });
 
-        Schema::create('users_tariff_details', function (Blueprint $table) {
+        Schema::create('users_tariff_slots', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('tariff_id');
@@ -76,6 +77,6 @@ class CreateTarifs extends Migration
         Schema::drop('business_tariffs');
         Schema::drop('private_tariffs');
         Schema::drop('users_tariff');
-        Schema::drop('users_tariff_details');
+        Schema::drop('users_tariff_slots');
     }
 }

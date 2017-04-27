@@ -2,43 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use App\BusinessTariff;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
-use App\AdvPayment;
+use App\Payment;
 
 class PaymentController extends Controller
 {
-    function emulation($type, $id){
-        return view('paymentEmulation',['type'=>$type,'id'=>$id]);
+    function emulation($type, $id, Request $request)
+    {
+        return view('paymentEmulation', ['type' => $type, 'id' => $id, 'redirect' => $request->get('redirect')]);
     }
 
-    function emulationSave($type, $id, Request $request){
+    function emulationSave($type, $id, Request $request)
+    {
         $result = $request->get('result');
-        $payment = AdvPayment::find($id);
+        $payment = Payment::find($id);
 
-        if ($result=='success'){
+        if ($result == 'success') {
             $payment->success();
-            return response()->redirectTo('/');
-        }else{
+            return response()->redirectTo($request->get('redirect'));
+        } else {
             $payment->fail();
-            return response()->redirectTo('/offer');
+            return response()->redirectTo($request->get('redirect'));
         }
 
 
     }
 
 
-    function store( $type, Request $request){
-        try{
+    function store($type, $way, Request $request)
+    {
+        try {
             $user = User::getUser();
-            if ( is_null($user) ){
-                return response()->json([],403);
+            if (is_null($user)) {
+                return response()->json([], 403);
             }
-            $data = $request->only(['adv_id','guid','price','tariff_id','email','account']);
+            $data = $request->only(['adv_id', 'guid', 'tariff_id', 'email', 'account','slots']);
 
-            $payment = AdvPayment::createNewPayment($type,$data);
+            if ($type == 'subscription') {
+                $tariff = BusinessTariff::find($data['tariff_id']);
+                $data['price'] = $tariff->price;
+            } elseif ($type == 'slot') {
+                $tariff = $user->getCurrentTariff();
+                $data['price'] = $tariff->extra*$data['slots'];
+                $data['tariff_id'] = $tariff->tariff_id;
+            }
+
+            $payment = Payment::createNewPayment($type, $user, $way, $data);
 
             return response()->json($payment);
         } catch (\Exception $e) {
@@ -47,7 +60,6 @@ class PaymentController extends Controller
 
 
     }
-
 
 
 }

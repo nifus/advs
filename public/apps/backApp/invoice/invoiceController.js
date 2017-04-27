@@ -38,7 +38,6 @@
 
         $scope.$on('search', function (e) {
             $scope.result(e.targetScope);
-
         });
         $scope.result = function (search_scope) {
             $scope.env.loading = true;

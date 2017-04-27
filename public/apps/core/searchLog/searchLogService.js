@@ -64,7 +64,7 @@
                         }
                         adverts.push(adv)
                     }
-                    deferred.resolve({advs: adverts, search: response.data.search, city: response.data.city});
+                    deferred.resolve({rows: adverts, search: response.data.search, city: response.data.city});
                 }, function (error) {
                     deferred.reject({success: false, error: error.data});
                 });

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserTariffDetails extends Model
+class UserTariffSlot extends Model
 {
-    public $table='tariffs_details';
+    public $table='users_tariff_slots';
 
 
 
@@ -16,21 +16,25 @@ class UserTariffDetails extends Model
 
     public function Tariff()
     {
-        return $this->hasOne('App\Tariff');
+        return $this->hasOne('App\UserTariff');
     }
     public function User()
     {
         return $this->hasOne('App\User');
     }
 
-    static function createSlot($user_id, $tariff_id){
+    static function getSlots($user_id, $tariff_id){
+        return self::where('user_id', $user_id)->where('tariff_id', $tariff_id )->get();
+    }
+
+    static function createSlot($user_id, $user_tariff_id, $extra='0'){
         $date = new \DateTime();
         return self::create([
             'user_id'=>$user_id,
-            'tariff_id'=>$tariff_id,
-            'is_extra_slot'=>'0',
+            'tariff_id'=>$user_tariff_id,
+            'is_extra_slot'=>$extra,
             'buy_time' => $date->format('Y-m-d H:i:s'),
-            'is_paid'=>'1'
+            //'is_paid'=>'1'
         ]);
     }
 }

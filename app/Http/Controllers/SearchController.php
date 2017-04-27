@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\AdvPayment;
+use App\Payment;
 use Illuminate\Http\Request;
 use App\User;
 use App\Adv;
@@ -76,10 +76,9 @@ class SearchController extends Controller
         if ($type == 'accounts') {
             $count = User::getTotal($query);
         } elseif ($type == 'advs') {
-            $sql = Adv::orderBy('title', 'ASC');
-            $count = $sql->count();
+            $count = Adv::getAllFound($query);
         } elseif ($type == 'invoices') {
-            $sql = AdvPayment::orderBy('id', 'DESC');
+            $sql = Payment::orderBy('id', 'DESC');
             $count = $sql->count();
         }
 
@@ -123,7 +122,7 @@ class SearchController extends Controller
         } elseif( $log->type=='accounts') {
             $result = User::getByPage($log->config['page'], $log->config['per_page'], $log->query);
         } elseif( $log->type=='invoices') {
-            $result = AdvPayment::getByPage($log->config['page'], $log->config['per_page'], $log->query);
+            $result = Payment::getByPage($log->config['page'], $log->config['per_page'], $log->query);
         }
 
 
@@ -150,8 +149,7 @@ class SearchController extends Controller
         if ($log->type == 'accounts') {
             $count = User::getTotal($query);
         } else {
-            $sql = Adv::orderBy('title', 'ASC');
-            $count = $sql->count();
+            $count = Adv::getAllFound($query);
         }
         // $config = $log->config;
         // $config['page']=1;

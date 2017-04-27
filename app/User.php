@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'surname', 'sex', 'group_id', 'activate_key', 'company', 'contact_email', 'giro_account', 'payment_type', 'paypal_email', 'phone', 'tariff', 'website', 'commercial_country', 'commercial_id', 'commercial_additional', 'address_additional', 'address_city', 'address_number', 'address_street', 'address_zip', 'allow_notifications', 'is_deleted', 'status','blocked_at','permissions','initials'
+        'name', 'email', 'password', 'surname', 'sex', 'group_id', 'activate_key', 'company', 'contact_email', 'giro_account', 'payment_type', 'paypal_email', 'phone', 'website', 'commercial_country', 'commercial_id', 'commercial_additional', 'address_additional', 'address_city', 'address_number', 'address_street', 'address_zip', 'allow_notifications', 'is_deleted', 'status','blocked_at','permissions','initials'
     ];
 
     /**
@@ -286,9 +286,13 @@ class User extends Authenticatable
         $this->Fav()->sync($result);
     }
 
-    public function getActualTariff()
+    public function getCurrentTariff()
     {
-        return Tariff::getActiveTariff($this->id);
+        return UserTariff::getCurrentTariff($this->id);
+    }
+    public function getFutureTariff()
+    {
+        return UserTariff::getFutureTariff($this->id);
     }
 
     public function isPrivateAccount()
@@ -421,6 +425,21 @@ class User extends Authenticatable
             'full'=>'/uploads/adv/full/'.$this->id.'/'.$new_name,
             'preview'=>'/uploads/adv/preview/'.$this->id.'/'.$new_name,
         ];
+    }
+
+    public function setSubscription($tariff_id){
+        $is_future = '0';
+        $tariff = UserTariff::getCurrentTariff($this->id);
+        if (!is_null($tariff)){
+            $f_tariff = UserTariff::getFutureTariff($this->id);
+            $is_future = is_null($f_tariff) ? '1' : '0';
+        }
+        return UserTariff::addNewTariff($this, $tariff_id, $is_future);
+    }
+
+    public function addExtraSlots($slots){
+        $tariff = $this->getCurrentTariff();
+        return $tariff->addExtraSlots($slots);
     }
 
     static function createPrivateAccount($data)
