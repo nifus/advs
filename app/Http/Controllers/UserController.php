@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BusinessTariff;
 use App\Jobs\Message4Administrator;
 use App\Tariff;
+use App\UserProfile;
 use Illuminate\Http\Request;
 use App\User;
 use App\Adv;
@@ -473,10 +474,55 @@ class UserController extends Controller
                 dispatch(new ActivateBusinessAccount($user));
             }
         }
-
-
         return response()->json(['success'=>true]);
     }
+
+    public function deactivateProfile(){
+        $user = User::getUser();
+        if (is_null($user) || !$user->isBusinessAccount()){
+            return response()->json(null, 403);
+        }
+
+        $user->deactivateProfile();
+        return response()->json(['success'=>true]);
+    }
+
+    public function activateProfile(){
+        $user = User::getUser();
+        if (is_null($user) || !$user->isBusinessAccount()){
+            return response()->json(null, 403);
+        }
+
+        $user->activateProfile();
+        return response()->json(['success'=>true]);
+    }
+
+    public function getProfile(){
+        $user = User::getUser();
+        if (is_null($user) || !$user->isBusinessAccount()){
+            return response()->json(null, 403);
+        }
+        return response()->json($user->Profile);
+    }
+
+    public function updateProfile(Request $request){
+        $user = User::getUser();
+        if (is_null($user) || !$user->isBusinessAccount()){
+            return response()->json(null, 403);
+        }
+        $data = $request->all();
+        $profile = $user->Profile;
+        if ( is_null($profile) ){
+            UserProfile::createProfile($user, $data);
+        }else{
+            $user->Profile->update($data);
+        }
+       // dd($profile);
+
+
+        return response()->json($user->Profile);
+    }
+
 
     public function getAllNewBusiness(){
         $user = User::getUser();

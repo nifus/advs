@@ -275,19 +275,16 @@ class Adv extends Model
         return Payment::getLastPayment($this->id);
     }
 
-    public function activate(Payment $payment)
+    public function activate(Payment $payment=null)
     {
-        //$now = new \DateTime();
+
         $disable_date = new \DateTime();
         if ($this->Owner->isPrivateAccount()) {
             $tariff = $payment->PrivateTariff;
-
             $disable_date->modify('+' . $tariff->duration);
         } else {
-            $tariff = $payment->BusinessTariff;
-            //TODO add for business tariff
+            $disable_date->modify('+1 month');
         }
-
 
         $this->update(['status' => 'active', 'disable_date' => $disable_date->format('Y-m-d H:i:s')]);
         return true;
@@ -656,10 +653,10 @@ class Adv extends Model
         return true;
     }
 
-    static function createNewAdv($data, $user_id)
+    static function createNewAdv($data, User $user)
     {
 
-        $data['user_id'] = $user_id;
+        $data['user_id'] = $user->id;
 
         $data['status'] = 'payment_waiting';
 
@@ -678,7 +675,13 @@ class Adv extends Model
         $photos = $data['photos'];
         unset($data['photos']);
         $adv = self::create($data);
+
         $adv->update(['photos' => $photos]);
+
+        if ( $user->isBusinessAccount() && $user->useSlotWithAdvert($adv) ){
+
+            $adv->activate();
+        }
         return $adv;
     }
 

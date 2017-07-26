@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'surname', 'sex', 'group_id', 'activate_key', 'company', 'contact_email', 'giro_account', 'payment_type', 'paypal_email', 'phone', 'website', 'commercial_country', 'commercial_id', 'commercial_additional', 'address_additional', 'address_city', 'address_number', 'address_street', 'address_zip', 'allow_notifications', 'is_deleted', 'status','blocked_at','permissions','initials'
+        'name', 'email', 'password', 'surname', 'sex', 'group_id', 'activate_key', 'company', 'contact_email', 'giro_account', 'payment_type', 'paypal_email', 'phone', 'website', 'commercial_country', 'commercial_id', 'commercial_additional', 'address_additional', 'address_city', 'address_number', 'address_street', 'address_zip', 'allow_notifications', 'is_deleted', 'status','blocked_at','permissions','initials','profile'
     ];
 
     /**
@@ -44,6 +44,10 @@ class User extends Authenticatable
     public function Adv()
     {
         return $this->hasMany('App\Adv');
+    }
+    public function Profile()
+    {
+        return $this->hasOne('App\UserProfile');
     }
 
     public function afterRegisterArray(){
@@ -442,6 +446,30 @@ class User extends Authenticatable
         return $tariff->addExtraSlots($slots);
     }
 
+    /**
+     * Using one slot for new advert
+     */
+    public function useSlotWithAdvert(Adv $advert){
+        $tariff = $this->getCurrentTariff();
+        if ( is_null($tariff) ){
+            return false;
+        }
+        $slot = $tariff->getSlot();
+
+        if ( is_null($slot) ){
+            return false;
+        }
+        $slot->useWithAdvert($advert);
+        return true;
+    }
+
+    public function activateProfile(){
+
+        $this->update(['profile'=>1]);
+    }
+    public function deactivateProfile(){
+        $this->update(['profile'=>0]);
+    }
     static function createPrivateAccount($data)
     {
         $validator = [

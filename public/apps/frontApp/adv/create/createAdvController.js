@@ -62,17 +62,30 @@
                     $scope.model = response;
                     $scope.env.action = 'payment';
                     $scope.env.restore_flag = true;
-
                     $scope.env.guid = advFactory.guid($scope.model.id);
-
                 }, function () {
 
                 });
                 promises.push(adv_restore_promise);
             }
-            tariffFactory.getPrivatePrices().then(function (response) {
-                $scope.env.tariffs = response;
-            });
+            if ( $scope.user.isPrivateAccount() ){
+                tariffFactory.getPrivatePrices().then(function (response) {
+                    $scope.env.tariffs = response;
+                });
+            }else{
+                tariffFactory.getBusinessPrices().then(function (response) {
+                    $scope.env.tariffs = response;
+
+                });
+                $scope.user.getCurrentTariff().then(function (response) {
+                    $scope.env.tariff = response;
+                    //if ( response ){
+                    //    $scope.env.tariff.getSlots()
+                   // }
+                    console.log(response)
+                })
+            }
+
 
             $q.all(promises).then(function () {
                 deferred.resolve();
@@ -141,9 +154,15 @@
                 advFactory.store(data).then(
                     function (response) {
                         $scope.model = response;
-                        localStorage.setItem("advert_id", $scope.model.id);
-                        $scope.env.action = 'payment';
-                        $scope.env.guid = advFactory.guid($scope.model.id);
+
+                        if (response.status!='active'){
+                            $scope.env.action = 'payment';
+                            $scope.env.guid = advFactory.guid($scope.model.id);
+                            localStorage.setItem("advert_id", $scope.model.id);
+                        }else{
+                            window.location.href='/';
+                        }
+
                     },
                     function (error) {
                         // $scope.env.send = false;

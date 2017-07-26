@@ -13,7 +13,6 @@
                 user: '=',
                 tariff: '=',
                 price: '@',
-                description: '@',
                 type: '@',
                 slots: '@',
                 advert: '='
@@ -23,7 +22,6 @@
 
         function paymentFormController($scope) {
             $scope.env = {
-                guid: guid(null),
                 submit: false
             };
 
@@ -93,16 +91,16 @@
 
             function payAdvert() {
                 if ($scope.user.payment_type == 'prepayment') {
-                    advPaymentFactory.createPrePayment($scope.model.id, $scope.env.guid, $scope.env.tariff.id, $scope.env.tariff.price).then(function (response) {
+                    advPaymentFactory.createAdvert('prepayment', $scope.advert.id, $scope.tariff.id, guid($scope.advert.id)).then(function (response) {
                         window.location.href = '/'
                     })
                 } else if ($scope.user.payment_type == 'paypal') {
-                    advPaymentFactory.createPaypalPayment($scope.model.id, $scope.user.paypal_email, $scope.env.tariff.id, $scope.env.tariff.price).then(function (payment) {
+                    advPaymentFactory.createAdvert('paypal', $scope.advert.id, $scope.tariff.id, $scope.user.paypal_email).then(function (payment) {
                         $('#paypalForm').attr('action', '/payment/emulation/paypal/' + payment.id);
                         $('#paypalForm').submit();
                     })
                 } else if ($scope.user.payment_type == 'giropay') {
-                    advPaymentFactory.createGiroPayment($scope.model.id, $scope.user.giro_account, $scope.env.tariff.id, $scope.env.tariff.price).then(function (payment) {
+                    advPaymentFactory.createAdvert('giropay', $scope.advert.id, $scope.tariff.id, $scope.user.giro_account).then(function (payment) {
                         $('#giroForm').attr('action', '/payment/emulation/giro/' + payment.id);
                         $('#giroForm').submit();
                     })

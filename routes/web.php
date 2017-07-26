@@ -101,7 +101,10 @@ Route::group(['prefix'=>'api'], function () {
         Route::post('/business-account', 'UserController@createBusinessAccount' );
 
         Route::post('/send-message-for-administrator', 'UserController@sendMessage4Administrator' );
-
+        Route::post('/active-profile', 'UserController@activateProfile' );
+        Route::post('/deactivate-profile', 'UserController@deactivateProfile' );
+        Route::get('/profile', 'UserController@getProfile' );
+        Route::post('/profile', 'UserController@updateProfile' );
     });
 
 

@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('privateApp', ['core', 'satellizer', 'ngCookies', 'ui.router', 'ui.bootstrap', 'validation.match', 'ngAutocomplete', 'gettext','ui.bootstrap.datetimepicker','checklist-model','ngFileUpload']).config(function ($stateProvider, $urlRouterProvider) {
+    angular.module('privateApp', ['core', 'satellizer', 'ngCookies', 'ui.router', 'ui.bootstrap', 'validation.match', 'ngAutocomplete', 'gettext','ui.bootstrap.datetimepicker','checklist-model','ngFileUpload','textCounter','naif.base64']).config(function ($stateProvider, $urlRouterProvider) {
 
 
         $urlRouterProvider.otherwise('/dashboard');

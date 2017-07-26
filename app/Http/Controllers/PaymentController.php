@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Adv;
 use App\BusinessTariff;
+use App\PrivateTariff;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -40,7 +42,7 @@ class PaymentController extends Controller
             if (is_null($user)) {
                 return response()->json([], 403);
             }
-            $data = $request->only(['adv_id', 'guid', 'tariff_id', 'email', 'account','slots']);
+            $data = $request->only(['advert_id', 'guid', 'tariff_id', 'email', 'account','slots']);
 
             if ($type == 'subscription') {
                 $tariff = BusinessTariff::find($data['tariff_id']);
@@ -49,6 +51,13 @@ class PaymentController extends Controller
                 $tariff = $user->getCurrentTariff();
                 $data['price'] = $tariff->extra*$data['slots'];
                 $data['tariff_id'] = $tariff->tariff_id;
+            }elseif ($type == 'advert') {
+                $tariff = PrivateTariff::find($data['tariff_id']);
+                if (is_null($tariff) ){
+                    return response()->json([], 403);
+                }
+                $advert = Adv::findOrDie($data['advert_id']);
+                $data['price'] = $advert->type=='rent' ? $tariff->rent_price : $tariff->sale_price;
             }
 
             $payment = Payment::createNewPayment($type, $user, $way, $data);

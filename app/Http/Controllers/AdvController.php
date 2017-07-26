@@ -115,7 +115,7 @@ class AdvController extends Controller
             }
 
             $data = $request->all();
-            $adv = AdvModel::createNewAdv($data, $user->id);
+            $adv = AdvModel::createNewAdv($data, $user);
             return response()->json($adv->toArray());
         } catch (\Exception $e) {
 

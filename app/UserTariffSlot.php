@@ -23,8 +23,16 @@ class UserTariffSlot extends Model
         return $this->hasOne('App\User');
     }
 
+    public function useWithAdvert(Adv $advert){
+        $this->update(['adv_id'=>$advert->id,'activate_time'=>date('Y-m-d H:i:s')]);
+    }
+
     static function getSlots($user_id, $tariff_id){
         return self::where('user_id', $user_id)->where('tariff_id', $tariff_id )->get();
+    }
+
+    static function getSlot($user_id, $tariff_id){
+        return self::where('user_id', $user_id)->where('tariff_id', $tariff_id )->where('activate_time', null)->first();
     }
 
     static function createSlot($user_id, $user_tariff_id, $extra='0'){

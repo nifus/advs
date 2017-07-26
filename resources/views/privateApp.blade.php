@@ -37,7 +37,8 @@
     <script src="/components/checklist-model/checklist-model.js"></script>
     <script src='/components/ng-file-upload/ng-file-upload-shim.min.js'></script>
     <script src='/components/ng-file-upload/ng-file-upload.min.js'></script>
-
+    <script src="/components/angular-text-counter/src/textCounter.js"></script>
+    <script src="/components/angular-base64-upload/dist/angular-base64-upload.js"></script>
 
     <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
     <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
@@ -61,6 +62,7 @@
     <script src="/apps/core/directives/advPreview/advPreview.js"></script>
     <script src="/apps/core/directives/advForm/advForm.js"></script>
     <script src="/apps/core/directives/paymentForm/paymentForm.js"></script>
+    <script src="/apps/core/directives/upload/upload.js"></script>
 
     <script src="/apps/privateApp/privateApp.js"></script>
     <script src="/apps/privateApp/login/loginController.js"></script>

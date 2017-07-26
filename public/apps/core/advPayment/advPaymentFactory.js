@@ -10,12 +10,46 @@
         return {
             createSubscription: createSubscription,
             createSlots: createSlots,
-
-            createPrePayment: createPrePayment,
-            createPaypalPayment: createPaypalPayment,
-            createGiroPayment: createGiroPayment,
+            createAdvert: createAdvert
         };
 
+        function createAdvert(type, advert_id, tariff_id,  options) {
+            var defer = $q.defer();
+            var url, data;
+            if (type=='prepayment'){
+                url = '/api/payment/advert/pre-payment';
+                data = {
+                    guid: options,
+                    advert_id: advert_id,
+                    tariff_id: tariff_id
+                }
+            }else if(type=='paypal'){
+                url = '/api/payment/advert/paypal';
+                data = {
+                    email: options,
+                    advert_id: advert_id,
+                    tariff_id: tariff_id
+                }
+            }else if(type=='giropay'){
+                url = '/api/payment/advert/giro';
+                data = {
+                    account: options,
+                    advert_id: advert_id,
+                    tariff_id: tariff_id
+                }
+            }
+
+
+            $http.post(url, data).then(
+                function (response) {
+                    defer.resolve(response.data);
+                }, function (response) {
+                    var error = response.data.error ? response.data.error : response.statusText;
+                    defer.reject({error: error})
+                }
+            );
+            return defer.promise;
+        }
         function createSlots(type, slots, options) {
             var defer = $q.defer();
             var url, data;

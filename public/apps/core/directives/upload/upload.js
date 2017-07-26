@@ -1,75 +1,97 @@
 (function (angular) {
     'use strict';
 
-
-    function uploadDirective($compile, $interval) {
+    function uploadDirective($compile) {
         return {
             ngModel: 'require',
             replace: true,
             restrict: 'E',
             link: uploadLink,
             controller: uploadController,
-            templateUrl: '/apps/directives/upload/upload.html',
-
             scope: {
                 ngModel: '=',
                 numberOfFiles: '@',
                 ngChange: '=',
+                hideResult: '@'
             }
         };
 
 
-        function uploadLink(scope, element, el2) {
+        function uploadLink($scope, element) {
+            var html = '';
+            if (!$scope.hideResult) {
+                html = '<div class="row" style="margin:10px"><div style="margin:5px" class="col-md-3" ng-repeat="item in ngModel" style="text-align: right">' +
+                    '<img ng-src="data:{{item.filetype}};base64,{{item.base64}}" style="width: 200px" ng-show="item.base64!=undefined">' +
+                    '<img ng-src="{{item.base64==undefined ? item : \'\'}}" style="width: 200px" ng-show="item.base64==undefined">' +
+                    '<button type="button" style="position: absolute;left:15px;top:0px" ng-click="deleteItem($index)" class="btn btn-danger">' +
+                    '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div></div>';
+            }
 
-            element.find('#upload_trigger').click(function () {
+
+            if ($scope.numberOfFiles == undefined || $scope.numberOfFiles <= 1) {
+                html += '<input type="file" ng-model="file"  base-sixty-four-input style="visibility: hidden; display: none"  >';
+            } else {
+                html += '<input type="file" ng-model="file" multiple base-sixty-four-input style="visibility: hidden; display: none"  >';
+            }
+            var linkFn = $compile(html);
+
+            var content = linkFn($scope);
+            element.append(content);
+            if (element.find('button').length == 1) {
+                $scope.button = element.find('button');
+            } else if (element.find('img').length == 1) {
+                $scope.button = element.find('img');
+            } else if (element.find('a').length == 1) {
+                $scope.button = element.find('a');
+            }
+
+            $scope.button.click(function () {
                 element.find('input[type=file]').trigger('click')
             })
+
         }
 
-       // uploadController.$inject = ['$scope'];
 
         function uploadController($scope) {
 
-           // $scope.allowAddNewFiles = false;
-            //$scope.count = 0;
-           // var max = $scope.numberOfFiles == undefined || $scope.numberOfFiles <= 1 ? 1 : $scope.numberOfFiles;
+            $scope.allowAddNewFiles = false;
+            $scope.count = 0;
+            var max = $scope.numberOfFiles == undefined || $scope.numberOfFiles <= 1 ? 1 : $scope.numberOfFiles;
+
             $scope.$watch('ngModel', function (value) {
-               /* if (angular.isString(value)) {
+                if (angular.isString(value)) {
                     $scope.ngModel = [value]
-                }else if( angular.isArray(value) ) {
-                    $scope.ngModel = value
                 }
-                rematch(value)*/
+
+                rematch(value)
             }, true);
 
             $scope.$watch('file', function (value) {
-console.log(value)
-                /*if (value == null) {
+                if (value == null) {
                     return false;
                 }
+
                 if (!$scope.ngModel) {
                     $scope.ngModel = max == 1 ? [value] : [];
                 }
 
                 if (angular.isArray($scope.ngModel) && angular.isArray(value)) {
                     for (var i in value) {
-                        if ($scope.ngModel.length < max){
-                            if ( value[i].filetype.indexOf('image')!==-1){
-                                $scope.ngModel.push(value[i])
-                            }else{
-                                alertify.error( 'File '+value[i].filename+' is not an image' );
-                            }
-                        }
-
+                        if ($scope.ngModel.length < max)
+                            $scope.ngModel.push(value[i])
                     }
-                } else if (angular.isArray($scope.ngModel) && angular.isObject(value)) {
-                   // if ($scope.ngModel.length < max)
-                       // $scope.ngModel.push(value)
+                } else if (max > 1 && angular.isArray($scope.ngModel) && angular.isObject(value)) {
 
+                    if ($scope.ngModel.length < max)
+                        $scope.ngModel.push(value)
+
+                } else if (max == 1 && angular.isArray($scope.ngModel) && angular.isObject(value)) {
+
+                    $scope.ngModel[0] = (value)
                 }
                 if ($scope.ngChange) {
                     $scope.ngChange($scope.ngModel);
-                }*/
+                }
 
             }, true);
 
@@ -104,7 +126,5 @@ console.log(value)
 
     }
 
-    angular.module('core').directive('upload', uploadDirective);
-
-
+    angular.module('core').directive('upload', ['$compile',uploadDirective]);
 })(window.angular);

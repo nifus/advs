@@ -26,7 +26,6 @@
     <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
-
     <script src="/components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="/components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
     <script src="/components/angular-cookies/angular-cookies.min.js"></script>
@@ -60,10 +59,12 @@
     <script src="/apps/core/tariff/tariffFactory.js"></script>
     <script src="/apps/core/advPayment/advPaymentFactory.js"></script>
     <script src="/apps/core/tariff/businessTariffService.js"></script>
+    <script src="/apps/core/advPayment/advPaymentService.js"></script>
 
 
     <script src="/apps/core/directives/advPreview/advPreview.js"></script>
     <script src="/apps/core/directives/advForm/advForm.js"></script>
+    <script src="/apps/core/directives/paymentForm/paymentForm.js"></script>
 
     <script src="/apps/frontApp/frontApp.js"></script>
     <script src="/apps/frontApp/directives/citySelect/citySelect.js"></script>

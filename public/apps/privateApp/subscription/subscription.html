@@ -298,7 +298,7 @@
     </div>
     </div>
 
-    <duv ng-if="env.action=='buy_tariff'">
+    <div ng-if="env.action=='buy_tariff'">
         <div class="panel panel-default">
             <div class="panel-heading" translate>Buy subscription {{env.selected_tariff.title}}</div>
             <div class="panel-body">
@@ -309,9 +309,9 @@
             </div>
         </div>
 
-    </duv>
+    </div>
 
-    <duv ng-if="env.action=='buy_slot'">
+    <div ng-if="env.action=='buy_slot'">
         <div class="panel panel-default">
             <div class="panel-heading" translate>Buy additional slots: <strong>{{slot_form.number_of}}</strong></div>
             <div class="panel-body">
@@ -321,5 +321,5 @@
             </div>
         </div>
 
-    </duv>
+    </div>
 </div>

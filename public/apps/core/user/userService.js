@@ -81,6 +81,41 @@
                 return $http.put('/api/user/change-contact-data', data)
             };
 
+            Object.activateProfile = function () {
+                var defer = $q.defer();
+                $http.post('/api/user/active-profile').then(function () {
+                    Object.profile = 1;
+                    defer.resolve();
+                });
+                return defer.promise;
+            };
+            Object.deactivateProfile = function () {
+                var defer = $q.defer();
+                $http.post('/api/user/deactivate-profile').then(function () {
+                    Object.profile = 0;
+                    defer.resolve();
+                });
+                return defer.promise;
+            };
+
+            Object.getProfile = function () {
+                var defer = $q.defer();
+                $http.get('/api/user/profile').then(function (response) {
+                    defer.resolve(response.data);
+                });
+                return defer.promise;
+            };
+
+            Object.updateProfile = function (data) {
+                var defer = $q.defer();
+                $http.post('/api/user/profile',data).then(function (response) {
+                    console.log(response.data.updated_at)
+                    Object.updated_at = response.data.updated_at
+                    defer.resolve(response.data);
+                });
+                return defer.promise;
+            };
+
             Object.activate = function () {
                 var defer = $q.defer();
                 $http.post('/api/user/' + Object.id + '/set-active-status').then(function () {

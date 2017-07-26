@@ -86,10 +86,11 @@ class Payment extends Model
             'tariff_id' => 'required',
         ];
         if ($type == 'advert') {
-            $validator['adv_id'] = 'required';
+            $validator['advert_id'] = 'required';
         } elseif ($type == 'slot') {
             $validator['slots'] = 'required';
         }
+
         $validator = \Validator::make($data, $validator);
         if ($validator->fails()) {
             $messages = $validator->messages();
@@ -102,7 +103,7 @@ class Payment extends Model
             'giro' => $data['account'],
             'tariff_id' => $data['tariff_id'],
             'price' => $data['price'],
-            'adv_id' => $data['adv_id'],
+            'adv_id' => $data['advert_id'],
             'status' => 'wait',
             'slots' => isset($data['slots']) ? $data['slots'] : null,
 
@@ -118,7 +119,7 @@ class Payment extends Model
             'tariff_id' => 'required',
         ];
         if ($type == 'advert') {
-            $validator['adv_id'] = 'required';
+            $validator['advert_id'] = 'required';
         } elseif ($type == 'slot') {
             $validator['slots'] = 'required';
         }
@@ -134,7 +135,7 @@ class Payment extends Model
             'paypal_email' => $data['email'],
             'tariff_id' => $data['tariff_id'],
             'price' => $data['price'],
-            'adv_id' => $data['adv_id'],
+            'adv_id' => $data['advert_id'],
             'slots' => isset($data['slots']) ? $data['slots'] : null,
             'status' => 'wait'
         ]);
@@ -149,7 +150,7 @@ class Payment extends Model
             'tariff_id' => 'required',
         ];
         if ($type == 'advert') {
-            $validator['adv_id'] = 'required';
+            $validator['advert_id'] = 'required';
         } elseif ($type == 'slot') {
             $validator['slots'] = 'required';
         }
@@ -165,7 +166,7 @@ class Payment extends Model
             'guid' => $data['guid'],
             'tariff_id' => $data['tariff_id'],
             'price' => $data['price'],
-            'adv_id' => $data['adv_id'],
+            'adv_id' => $data['advert_id'],
             'status' => 'wait',
             'slots' => isset($data['slots']) ? $data['slots'] : null,
 

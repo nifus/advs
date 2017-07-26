@@ -22,6 +22,12 @@ class UserTariff extends Model
         return $this->hasOne('App\BusinessTariff', 'id', 'tariff_id');
     }
 
+
+    public function getSlot()
+    {
+        return UserTariffSlot::getSlot($this->user_id, $this->id);
+    }
+
     public function getSlots()
     {
         return UserTariffSlot::getSlots($this->user_id, $this->id);
@@ -46,6 +52,9 @@ class UserTariff extends Model
 
     public function doCurrentTariff(){
         $this->update(['is_future'=>'0']);
+        for ($i = 0; $i < $this->slots; $i++) {
+            UserTariffSlot::createSlot($this->user_id, $this->id);
+        }
     }
 
     static function addNewTariff(User $user, $tariff_id, $is_future = '0')
