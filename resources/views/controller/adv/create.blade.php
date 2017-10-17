@@ -17,38 +17,27 @@
         @else
             <div ng-controller="createAdvController">
                 <div class="progress" ng-if="env.loading == true">
-                    <div class="progress-bar progress-bar-striped active" role="progressbar"  style="width: 100%">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%">
                         <span class="sr-only">100% Complete</span>
                     </div>
                 </div>
 
 
-
-
                 <div ng-if="env.loading==false">
-
-
-
-                    <adv-form ng-if="env.action=='form'" model="model"  on-save="save"></adv-form>
-
-
-
+                    <adv-form ng-if="env.action=='form'" model="model" on-save="save"></adv-form>
                     <div ng-if="env.action=='preview'">
                         <div class="panel panel-default">
                             <div class="panel-body text-right">
-                                <button class="btn btn-default" type="button" ng-click="backToPayment()" translate>Back</button>
+                                <button class="btn btn-default" type="button" ng-click="backToPayment()" translate>
+                                    Back
+                                </button>
 
                             </div>
                         </div>
-                        <adv-preview  adv="model"  user="user" hide-contact-form="true"></adv-preview>
+                        <adv-preview adv="model" user="user" hide-contact-form="true"></adv-preview>
                     </div>
-                    <div  ng-if="env.action=='payment'" ng-include="'/apps/frontApp/adv/create/payment.html'"></div>
-
+                    <div ng-if="env.action=='payment'" ng-include="'/apps/frontApp/adv/create/payment.html'"></div>
                 </div>
-
-
-
-
             </div>
         @endif
     </div>

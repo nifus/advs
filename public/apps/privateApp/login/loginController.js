@@ -1,14 +1,16 @@
 (function () {
-    'use strict';
-    angular.module('privateApp').controller('loginController', loginController);
+  'use strict';
+  angular.module('privateApp').controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', 'userFactory'];
+  loginController.$inject = ['$scope', 'userFactory'];
 
-    function loginController($scope, userFactory) {
-        $scope.logout = function () {
-            userFactory.logout();
-            window.location.href = '/'
-        }
+  function loginController($scope, userFactory) {
+    $scope.logout = function () {
+      userFactory.logout();
+      window.location.href = '/'
     }
+
+
+  }
 })();
 

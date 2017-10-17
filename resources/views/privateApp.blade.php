@@ -28,7 +28,7 @@
     <script src="/components/angular-cookies/angular-cookies.min.js"></script>
     <script src="/components/satellizer/dist/satellizer.min.js"></script>
     <script src="/components/moment/min/moment-with-locales.js"></script>
-    <script src="/components/angular-bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <script src="/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="/components/angular-validation-match/dist/angular-validation-match.min.js"></script>
     <script src="/components/alertify.js/lib/alertify.min.js"></script>
     <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>

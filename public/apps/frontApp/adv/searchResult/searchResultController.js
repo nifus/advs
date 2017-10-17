@@ -112,7 +112,7 @@
             $scope.env.current =  rows.chunk_inefficient(2);
 
             window.scrollTo(0, 0);
-        };
+        }
 
         function updateSearch() {
             $scope.env.search.updateConfig(
@@ -125,7 +125,7 @@
                     lng: $scope.env.lng
                 }
             )
-        };
+        }
 
 
 
@@ -286,8 +286,8 @@
                     }
                     if ( $scope.env.rows==null){
                        $scope.env.search.getAdvertResult({}).then(function (response) {
-                            $scope.env.rows = response.advs;
-                           console.log(response.advs)
+                            $scope.env.rows = response.rows;
+                           console.log(response)
                            defer.resolve();
                         });
                        // $scope.promises.push(advPromise);

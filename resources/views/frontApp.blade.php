@@ -9,7 +9,7 @@
     <title>@yield('meta-header')</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans%3A400%2C400i%2C700%2C700i%7CPT+Sans+Narrow%3A400%2C700%7CPT+Serif" />
     <link href="/css/app.css" rel="stylesheet" type="text/css">
 
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -19,10 +19,11 @@
     <link href="/components/alertify.js/themes/alertify.default.css" rel="stylesheet" type="text/css">
 
 
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyDhoywlfGZRVpt8hcYkJORK4ioyBeEIweU"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyDhoywlfGZRVpt8hcYkJORK4ioyBeEIweU&language=de"></script>
 
     <script src="/components/jquery/dist/jquery.min.js"></script>
     <script src="/components/angular/angular.min.js"></script>
+
     <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
@@ -47,6 +48,8 @@
     <script src="/components/angular-text-counter/src/textCounter.js"></script>
     <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
     <script src="/components/markerclustererplus/dist/markerclusterer.min.js"></script>
+    <script src="/components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
 
     <script src="/apps/core/core.js"></script>
@@ -68,6 +71,7 @@
 
     <script src="/apps/frontApp/frontApp.js"></script>
     <script src="/apps/frontApp/directives/citySelect/citySelect.js"></script>
+    <script src="/apps/frontApp/directives/cityDetect/cityDetect.js"></script>
     <script src="/apps/frontApp/login/loginController.js"></script>
     <script src="/apps/frontApp/mainController.js"></script>
     <script src="/apps/frontApp/adv/create/createAdvController.js"></script>
@@ -81,19 +85,22 @@
 <body ng-app="frontApp" ng-controller="mainController" >
     {!!$composer_header_menu!!}
 
-    <div id="main-menu" >
+    <!-- <div id="main-menu" >
         <div class="row">
             <div class="item col-md-4" ><a href="{{ route('adv.rent') }}" >{{ trans('main.rent')  }}</a></div>
             <div class="item col-md-4"><a href="{{ route('adv.sale') }}" >{{ trans('main.buy')  }}</a></div>
             <div class="item col-md-4"><a href="{{ route('adv.offer') }}" >{{ trans('main.offer')  }}</a></div>
         </div>
-    </div>
+    </div>-->
 
     <div id="content" >
+
         @yield('content')
     </div>
 
     <div id="footer-menu">
+        <h4>ImmoSterne.de</h4>
+        <hr>
         <ul>
             <li><a href="{{ route('main') }}">{{ trans('main.home')  }}</a></li>
             <li><a href="{{ route('contacts') }}">{{ trans('main.contacts')  }}</a></li>

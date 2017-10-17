@@ -1,0 +1,24 @@
+<div style="float:right;margin-right:30px">
+  <script type="text/ng-template" id="template.html">
+    <div class="city-detect">
+      If this is not your city, please enter the correct
+
+      <input type="text" options="options" ng-autocomplete ng-model="address.value" details="address.details"
+
+             placeholder='Your City'
+             class="form-control">
+
+      <br>
+      <div class='text-right'>
+        <button class='btn btn-default' ng-click='closePopover()'>Cancel</button>
+      </div>
+    </div>
+  </script>
+  <span class="glyphicon glyphicon-map-marker"></span> <a class="link" popover-enable="true"
+                                                          popover-trigger="none"
+                                                          ng-click="openPopover()"
+                                                          uib-popover-template="'template.html'"
+                                                          popover-placement="bottom-left"
+                                                          popover-is-open="popover"
+                                                          popover-title="Your City">{{ displayCity }}</a>
+</div>

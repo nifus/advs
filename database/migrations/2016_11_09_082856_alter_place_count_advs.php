@@ -15,6 +15,8 @@ class AlterPlaceCountAdvs extends Migration
     {
         Schema::table('places', function (Blueprint $table) {
             $table->integer('count_advs')->default(0);
+            $table->integer('geo_ip_id')->nullable();
+            $table->string('google_place_id')->nullable();
         });
 
 

@@ -16,6 +16,6 @@ class DashboardController extends Controller
     function index() {
         $user = User::getUser();
 
-        return view('frontApp',['user'=>$user]);
+        return view('controller.dashboard.index',['user'=>$user]);
     }
 }

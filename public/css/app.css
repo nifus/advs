@@ -58,24 +58,34 @@ div.login-form button{
 
 
 #head {
-    padding: 20px;
-    background-color: #203864
+    padding: 10px;
+
+}
+#head a{
+    color: #51555D;
 }
 
-#head div.right {
-    position: absolute;
-    right: 0;
-    width: 180px
+#head ul.user-menu {
+    float:right;
+    margin-left:30px;
+    list-style-type: none;
+}
+#head ul.user-menu li{
+    width: 60px;
+    font-size:14px;
+    float: left;
 }
 
-#head ul {
+#head ul.main-menu {
     list-style-type: none;
     float: right
 }
 
-#head li {
+#head ul.main-menu li {
     float: left;
-    width: 70px
+    width: 90px;
+    text-align: right;
+    font-size:18px
 }
 
 #head h1 {
@@ -84,6 +94,9 @@ div.login-form button{
     padding: 50px;
     color: #ffffff;
     padding-bottom: 0px;
+}
+#head div.logo img{
+    width:150px;
 }
 
 #main-menu {
@@ -121,13 +134,33 @@ div.login-form button{
     border-bottom: 3px solid #00b3ee;
     font-weight: bold;
 }
+
+#footer-menu{
+    background-color: #51555D;
+    color:#F2F2F2;
+    padding: 30px;
+}
+
+#footer-menu a{
+    color: #C6D7EB;
+}
+#footer-menu a:hover{
+    color: #6FDA44;
+}
+#footer-menu h4{
+    text-align: center;
+    font-weight: bold;
+}
+#footer-menu hr{
+    width:60%;
+    height: 4px;
+}
 #footer-menu ul {
     list-style-type: none;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
     width: 330px
-
 }
 
 #footer-menu li {
@@ -547,4 +580,11 @@ div.thumbnail  div.preview div.preview-item{
 
 div.thumbnail  div.preview div.preview-item div.center{
     margin:0;text-align: center;
+}
+
+/**
+FIX to autocomplete directive
+ */
+div.pac-container{
+    z-index:11111
 }

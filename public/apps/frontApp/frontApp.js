@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('frontApp', ['ui.router','core',  'vcRecaptcha', 'ngCookies', 'satellizer', 'ngAutocomplete', 'checklist-model', 'ui.bootstrap.datetimepicker', 'ngFileUpload', 'AngularGM', 'gettext', 'angucomplete-alt', 'disableAll', 'textCounter'], function () {
+    angular.module('frontApp', ['ui.router','core',  'vcRecaptcha', 'ngCookies', 'satellizer', 'ngAutocomplete', 'checklist-model', 'ui.bootstrap.datetimepicker', 'ngFileUpload', 'AngularGM', 'gettext', 'angucomplete-alt', 'disableAll', 'textCounter','ui.bootstrap'], function () {
 
     }).config(['$authProvider', '$locationProvider',function ($authProvider, $locationProvider) {
         $authProvider.loginUrl = '/api/user/authenticate';
