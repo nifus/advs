@@ -34,7 +34,7 @@
             $scope.report = {
                 submit: false
             };
-            $scope.adv.viewIncrement();
+            //$scope.adv.viewIncrement();
             $scope.message = $cookies.getObject('contact');
 
             $scope.displayReport = function () {

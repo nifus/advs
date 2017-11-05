@@ -6,6 +6,7 @@ use App\Payment;
 use Illuminate\Http\Request;
 use App\User;
 use App\Adv;
+use App\Category;
 use App\SearchLog;
 use App\Place;
 use App\Jobs\ActivatePrivateAccount as ActivatePrivateAccountJob;
@@ -31,7 +32,7 @@ class SearchController extends Controller
         }
         //$user = User::getUser();
         return view('controller.search.rent', [
-            'categories' => Adv::getCategories(),
+            'categories' => Category::getCategories(),
             'search' => $log,
             'place' => null,
         ]);
@@ -47,7 +48,7 @@ class SearchController extends Controller
         }
         //$user = User::getUser();
         return view('controller.search.buy', [
-            'categories' => Adv::getCategories(),
+            'categories' => Category::getCategories(),
             'search' => $log
         ]);
     }

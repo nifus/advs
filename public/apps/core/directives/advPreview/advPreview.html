@@ -1,771 +1,772 @@
 <div>
 
 
-    <div class="col-md-6">
-        <div class="row" ng-if="adv.MainPhoto">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="col-md-5 navbar-left navbar-form" ng-if="env.display_report==true">
-                        <button class="btn btn-danger" ng-click="displayReport()" translate>
-                            Report
-                        </button>
-                    </div>
+  <div class="col-md-6">
+    <div class="row" ng-if="adv.MainPhoto">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="col-md-5 navbar-left navbar-form" ng-if="env.display_report==true">
+            <button class="btn btn-danger" ng-click="displayReport()" translate>
+              Report
+            </button>
+          </div>
 
-                    <div class="col-md-5 navbar-right navbar-form">
-                        <button class="btn btn-success" style="float:right"
-                                ng-if="env.display=='photos' "
-                                ng-click="displayMap(true)" translate><span class="glyphicon glyphicon-map-marker"
-                                                                  aria-hidden="true"></span>
-                            Display map
-                        </button>
+          <div class="col-md-5 navbar-right navbar-form">
+            <button class="btn btn-success" style="float:right"
+                    ng-if="env.display=='photos' "
+                    ng-click="displayMap(true)" translate><span class="glyphicon glyphicon-map-marker"
+                                                                aria-hidden="true"></span>
+              Display map
+            </button>
 
-                        <button class="btn btn-success" style="float:right"
-                                ng-if="env.display=='map' "
-                                ng-click="displayPhotos()" translate><span class="glyphicon glyphicon-picture"
-                                                                 aria-hidden="true"></span>
-                            Display photos
-                        </button>
-                    </div>
-                </div>
-            </nav>
+            <button class="btn btn-success" style="float:right"
+                    ng-if="env.display=='map' "
+                    ng-click="displayPhotos()" translate><span class="glyphicon glyphicon-picture"
+                                                               aria-hidden="true"></span>
+              Display photos
+            </button>
+          </div>
         </div>
-
-        <div class="row" id="photo-block"  ng-if="env.display=='photos'" >
-            <div class="col-sm-12 col-md-12 main" >
-                <div class="center">
-                <div class="wrapper">
-                    <img ng-src="{{adv.MainPhoto.full}}"  ></div>
-                </div>
-                <div class="back navigate hide"></div>
-                <div class="next navigate hide"></div>
-            </div>
-
-            <div class="preview col-md-12" style="height:120px;overflow-x: auto">
-                <div  ng-style="{'width':adv.photos.length*100}">
-                    <div ng-repeat="photo in adv.photos" style="width:100px;height:100px;float:left">
-                        <div  class="preview-item" >
-                            <div  class="center">
-                                <img  ng-src="{{photo.preview}}"  >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" ng-show="env.display=='map'">
-            <div id="view_map" style="height: 500px;width:100%"></div>
-        </div>
-
-        <div class="row" ng-show="env.display=='report'">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title" translate>Report</h3>
-                </div>
-                <div class="panel-body">
-                    <form name="report_form">
-                        <div class="form-group" ng-class="{ 'has-error': report_form.reason.$invalid  && report.submit==true }">
-                            <label translate>Reason</label>
-                            <select name="reason" required class="form-control" ng-model="report.reason">
-                                <option value="Reason 1">Reason 1</option>
-                                <option value="Reason 2">Reason 2</option>
-                                <option value="Reason 3">Reason 3</option>
-                            </select>
-                        </div>
-                        <div class="form-group"  >
-                            <label translate>Message</label>
-                            <textarea name="message"  class="form-control" ng-model="report.message"></textarea>
-                        </div>
-
-
-                        <button type="button" class="btn btn-default" ng-click="createReport(report_form)">Send</button>
-                        <button type="button" class="btn btn-default" ng-click="openDefaultBlock()">Cancel</button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-
-
-
-        <div class="row">
-            <div class="col-md-5">
-                <h4 translate>Vendor</h4>
-                <table class="table">
-                    <tr>
-                        <td translate>Contact person:</td>
-                        <td>{{adv.author.sex=='male' ? 'Mr' : 'Ms'}} {{adv.author.name}} {{adv.author.surname}}</td>
-                    </tr>
-                    <tr ng-if="adv.author.hide_contacts!==true">
-                        <td translate>Phone:</td>
-                        <td>{{adv.author.phone}}</td>
-                    </tr>
-                    <tr ng-if="adv.author.hide_contacts!==true">
-                        <td translate>Email:</td>
-                        <td>{{adv.author.email}}</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="col-md-7" ng-if="hideContactForm==='false'">
-                <h4 translate>Contact</h4>
-
-
-                <form class="form-horizontal" name="messageForm">
-                    <div class="form-group" ng-class="{ 'has-error': messageForm.sex.$invalid && env.submit==true }">
-                        <label class="col-sm-3 control-label" style="text-align: left;" translate> Title</label>
-                        <div class="col-sm-9">
-                            <label class="radio-inline">
-                                <input type="radio" name="sex" ng-model="message.sex" value="male"
-                                       required> {{'Mister'|translate}}
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="sex" ng-model="message.sex" value="female"
-                                       required> {{'Miss'|translate}}
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"  style="text-align: left;" translate>Your name</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" ng-model="message.name">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label "  style="text-align: left;" translate>Your phone</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" ng-model="message.phone">
-                        </div>
-                    </div>
-
-                    <div class="form-group" ng-class="{ 'has-error': messageForm.email.$invalid && env.submit==true }">
-                        <label class="col-sm-3 control-label"  style="text-align: left;" translate>Your email</label>
-                        <div class="col-sm-9">
-                            <input type="email" class="form-control" name="email" required ng-model="message.email">
-                        </div>
-                    </div>
-                    <div class="form-group"
-                         ng-class="{ 'has-error': messageForm.message.$invalid && env.submit==true }">
-                        <div class="col-sm-12">
-                        <textarea style="height:100px" class="form-control" ng-model="message.message" name="message" required></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button"
-                                    ng-disabled="env.send==true"
-                                    ng-click="sendMessage(messageForm, message)" class="btn btn-default" translate>Send message
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+      </nav>
     </div>
-    <div class="col-md-6">
-        <h4>{{adv.title}}</h4>
 
-        <div class="row">
-            <div class="col-md-6">
-                <table style="width: 100%">
-                    <tr>
-                        <td translate>City:</td>
-                        <td>{{adv.address.city}}</td>
-                    </tr>
-                    <tr>
-                        <td translate>ZIP:</td>
-                        <td>{{adv.address.zip}}</td>
-                    </tr>
-                    <tr>
-                        <td translate>Street / House number:</td>
-                        <td ng-if="adv.address.display_house">{{adv.address.street}} {{adv.address.house_number}}</td>
-                        <td ng-if="adv.address.display_house===false">
-                            <div class="alert alert-warning" role="alert" translate>
-                                Street and house number were hidden
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-
-
-                <table style="width: 100%" ng-if="adv.category==1">
-                    <tr>
-                        <td translate>Flat type:</td>
-                        <td>{{adv.subcategory}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.build_year">
-                        <td translate>Build year:</td>
-                        <td>{{adv.props.build_year}}</td>
-                    </tr>
-                    <tr ng-if="adv.living_area">
-                        <td translate>Living area:</td>
-                        <td>{{adv.living_area}}</td>
-                    </tr>
-                    <tr ng-if="adv.floor">
-                        <td translate>Floor:</td>
-                        <td>{{adv.floor}}/ {{adv.floors}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.rooms">
-                        <td translate>Number of rooms:</td>
-                        <td>{{adv.rooms}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.number_of_garage">
-                        <td translate>Number of garage/parking space:</td>
-                        <td>{{adv.props.number_of_garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.garage">
-                        <td translate>Type of garage/parking space:</td>
-                        <td>{{adv.props.garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.pets  && adv.type=='rent'">
-                        <td translate>Pets:</td>
-                        <td>{{adv.props.pets}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.move_date">
-                        <td translate>Move in ready:</td>
-                        <td>{{adv.move_date}}</td>
-                    </tr>
-                </table>
-
-                <table style="width: 100%" ng-if="adv.category==2 ">
-                    <tr>
-                        <td translate>House type:</td>
-                        <td>{{adv.subcategory}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.build_year">
-                        <td translate>Build year:</td>
-                        <td>{{adv.props.build_year}}</td>
-                    </tr>
-                    <tr ng-if="adv.plot_area">
-                        <td translate>Plot area:</td>
-                        <td>{{adv.plot_area}}</td>
-                    </tr>
-                    <tr ng-if="adv.living_area">
-                        <td translate>Living area:</td>
-                        <td>{{adv.living_area}}</td>
-                    </tr>
-                    <tr ng-if="adv.floors">
-                        <td translate>Number of floors:</td>
-                        <td>{{adv.floors}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.rooms">
-                        <td translate>Number of rooms:</td>
-                        <td>{{adv.rooms}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.number_of_garage">
-                        <td translate>Number of garage/parking space:</td>
-                        <td>{{adv.props.number_of_garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.garage">
-                        <td translate>Type of garage/parking space:</td>
-                        <td>{{adv.props.garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.pets && adv.type=='rent'">
-                        <td translate>Pets:</td>
-                        <td>{{adv.props.pets}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.move_date">
-                        <td translate>Move in ready:</td>
-                        <td>{{adv.move_date}}</td>
-                    </tr>
-                </table>
-
-                <table style="width: 100%" ng-if="adv.category==3">
-                    <tr>
-                        <td translate>Parking type:</td>
-                        <td>{{adv.subcategory}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.build_year">
-                        <td translate>Build year:</td>
-                        <td>{{adv.props.build_year}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.length">
-                        <td translate>Length:</td>
-                        <td>{{adv.props.length}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.width">
-                        <td translate>Width:</td>
-                        <td>{{adv.props.width}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.height">
-                        <td translate>Height:</td>
-                        <td>{{adv.props.height}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.area">
-                        <td translate>Area ca.:</td>
-                        <td>{{adv.area}}</td>
-                    </tr>
-
-
-                    <tr ng-if="adv.move_date">
-                        <td translate>Move in ready:</td>
-                        <td>{{adv.move_date}}</td>
-                    </tr>
-                </table>
-
-                <table style="width: 100%" ng-if="adv.category==4">
-                    <tr>
-                        <td translate>Office/praxis type:</td>
-                        <td>{{adv.subcategory}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.build_year">
-                        <td translate>Build year:</td>
-                        <td>{{adv.props.build_year}}</td>
-                    </tr>
-                    <tr ng-if="adv.area">
-                        <td translate>Office/Praxis area:</td>
-                        <td>{{adv.area}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.floor">
-                        <td translate>Number of floors:</td>
-                        <td>{{adv.floor}} / {{adv.props.floors}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.rooms">
-                        <td translate>Number of rooms:</td>
-                        <td>{{adv.rooms}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.floor_cover">
-                        <td translate>Floor cover:</td>
-                        <td>{{adv.props.floor_cover}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.number_of_garage">
-                        <td translate>Number of garage/parking space:</td>
-                        <td>{{adv.props.number_of_garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.garage">
-                        <td translate>Type of garage/parking space:</td>
-                        <td>{{adv.props.garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.air_conditioner">
-                        <td translate>Air conditioner available:</td>
-                        <td>{{adv.air_conditioner}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.edp_cabling">
-                        <td translate>EDP cabling:</td>
-                        <td>{{adv.edp_cabling}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.move_date">
-                        <td translate>Move in ready:</td>
-                        <td>{{adv.move_date}}</td>
-                    </tr>
-                </table>
-
-                <table style="width: 100%" ng-if="adv.category==5">
-
-                    <tr ng-if="adv.area">
-                        <td translate>Plot area:</td>
-                        <td>{{adv.area}}</td>
-                    </tr>
-                    <tr ng-if="adv.development">
-                        <td translate>Development:</td>
-                        <td>{{adv.development}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.buildable_after">
-                        <td translate>Buildable after:</td>
-                        <td>{{adv.props.buildable_after}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.building_permission">
-                        <td translate>Building license needed:</td>
-                        <td>{{adv.building_permission}}</td>
-                    </tr>
-
-
-                </table>
-
-                <table style="width: 100%" ng-if="adv.category==6">
-                    <tr>
-                        <td translate>Gastronomy/Hotel type:</td>
-                        <td>{{adv.subcategory}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.area">
-                        <td translate>Total area:</td>
-                        <td>{{adv.area}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.floors">
-                        <td translate>Number of floors:</td>
-                        <td>{{adv.floors}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.rooms">
-                        <td translate>Number of rooms:</td>
-                        <td>{{adv.rooms}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.number_beds">
-                        <td translate>Number of beds/guests:</td>
-                        <td>{{adv.number_beds}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.number_of_garage">
-                        <td translate>Number of garage/parking space:</td>
-                        <td>{{adv.props.number_of_garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.garage">
-                        <td translate>Type of garage/parking space:</td>
-                        <td>{{adv.props.garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.move_date">
-                        <td translate>Move in ready:</td>
-                        <td>{{adv.move_date}}</td>
-                    </tr>
-                </table>
-
-                <table style="width: 100%" ng-if="adv.category==7">
-                    <tr>
-                        <td translate>Hall/Production type:</td>
-                        <td>{{adv.subcategory}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.build_year">
-                        <td translate>Build year:</td>
-                        <td>{{adv.props.build_year}}</td>
-                    </tr>
-                    <tr ng-if="adv.area">
-                        <td translate>Total area:</td>
-                        <td>{{adv.area}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.production_area">
-                        <td translate>Production area:</td>
-                        <td>{{adv.props.production_area}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.warehouse_area">
-                        <td translate>Warehouse area:</td>
-                        <td>{{adv.props.warehouse_area}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.office_area">
-                        <td translate>Office area:</td>
-                        <td>{{adv.props.office_area}}</td>
-                    </tr>
-                    <tr ng-if="adv.storey_height">
-                        <td translate>Storey height:</td>
-                        <td>{{adv.storey_height}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.floors">
-                        <td translate>Number of floors:</td>
-                        <td>{{adv.floors}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.floor_loading">
-                        <td translate>Floor loading:</td>
-                        <td>{{adv.props.floor_loading}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.power_connection_value">
-                        <td translate>Power connection value:</td>
-                        <td>{{adv.props.power_connection_value}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.number_of_garage">
-                        <td translate>Number of garage/parking space:</td>
-                        <td>{{adv.props.number_of_garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.garage">
-                        <td translate>Type of garage/parking space:</td>
-                        <td>{{adv.props.garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.move_date">
-                        <td translate>Move in ready:</td>
-                        <td>{{adv.move_date}}</td>
-                    </tr>
-                </table>
-
-                <table style="width: 100%" ng-if="adv.category==8">
-                    <tr>
-                        <td translate>Retail trade type:</td>
-                        <td>{{adv.subcategory}}</td>
-                    </tr>
-                    <tr ng-if="adv.area">
-                        <td translate>Total area:</td>
-                        <td>{{adv.area}}</td>
-                    </tr>
-                    <tr ng-if="adv.floors">
-                        <td translate>Number of floors:</td>
-                        <td>{{adv.floors}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.length_shop_window">
-                        <td translate>Length shop window:</td>
-                        <td>{{adv.length_shop_window}}</td>
-                    </tr>
-                    <tr ng-if="adv.props.supply">
-                        <td translate>Supply:</td>
-                        <td>{{adv.props.supply}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.number_of_garage">
-                        <td translate>Number of garage/parking space:</td>
-                        <td>{{adv.props.number_of_garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.garage">
-                        <td translate>Type of garage/parking space:</td>
-                        <td>{{adv.props.garage}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.air_conditioner">
-                        <td translate>Air conditioner available:</td>
-                        <td>{{adv.props.air_conditioner}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.move_date">
-                        <td translate>Move in ready:</td>
-                        <td>{{adv.move_date}}</td>
-                    </tr>
-                </table>
-
-                <table style="width: 100%" ng-if="adv.category==9">
-
-                    <tr ng-if="adv.area">
-                        <td translate>Plot area:</td>
-                        <td>{{adv.area}}</td>
-                    </tr>
-                    <tr ng-if="adv.development">
-                        <td translate>Development:</td>
-                        <td>{{adv.development}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.buildable_after">
-                        <td translate>Buildable after:</td>
-                        <td>{{adv.props.buildable_after}}</td>
-                    </tr>
-                    <tr ng-if="adv.building_permission">
-                        <td translate>Building permission required:</td>
-                        <td>{{adv.building_permission}}</td>
-                    </tr>
-
-                    <tr ng-if="adv.props.recommended_usage">
-                        <td translate>Recommended usage:</td>
-                        <td>{{adv.props.recommended_usage}}</td>
-                    </tr>
-
-                </table>
-
-            </div>
-
-            <div class="col-md-6">
-                <table class="table" ng-if="(adv.category==1 || adv.category==2) && adv.type=='rent'">
-                    <tr class="info">
-                        <th colspan="2" translate>Finance</th>
-                    </tr>
-                    <tr class="info" ng-if="adv.price">
-                        <td translate>Cold rent:</td>
-                        <td>{{adv.price|currency:'€'}}</td>
-                    </tr>
-                    <tr class="info" ng-if="adv.finance.ancillary_cost">
-                        <td translate>Ancillary cost:</td>
-                        <td>{{adv.finance.ancillary_cost|currency:'€'}}</td>
-                    </tr>
-                    <tr class="info" ng-if="adv.finance.heating_cost">
-                        <td translate>Heating cost:</td>
-                        <td>{{adv.finance.heating_cost|currency:'€'}}</td>
-                    </tr>
-                    <tr class="info" ng-if="adv.finance.total_cost">
-                        <td translate>Total cost:</td>
-                        <td>{{adv.finance.total_cost|currency:'€'}}</td>
-                    </tr>
-                    <tr class="info" ng-if="adv.finance.caution_money">
-                        <td translate>Caution money:</td>
-                        <td>{{adv.finance.caution_money|currency:'€'}}</td>
-                    </tr>
-                </table>
-                <table class="table" ng-if="adv.category==3">
-                    <tr class="info">
-                        <th colspan="2" translate>Finance</th>
-                    </tr>
-                    <tr class="info" ng-if="adv.price">
-                        <td translate>Monthly rent:</td>
-                        <td>{{adv.price|currency:'€'}}</td>
-                    </tr>
-                    <tr class="info" ng-if="adv.finance.ancillary_cost">
-                        <td translate>Ancillary cost:</td>
-                        <td>{{adv.finance.ancillary_cost|currency:'€'}}</td>
-                    </tr>
-                    <tr class="info" ng-if="adv.finance.total_cost">
-                        <td translate>Total cost:</td>
-                        <td>{{adv.finance.total_cost|currency:'€'}}</td>
-                    </tr>
-                    <tr class="info">
-                        <td translate>Caution money:</td>
-                        <td>{{adv.finance.caution_money|currency:'€'}}</td>
-                    </tr>
-                </table>
-                <table class="table" ng-if="(adv.category==4 || adv.category==6 || adv.category==7 || adv.category==8) && adv.type=='rent'">
-                    <tr class="info">
-                        <th colspan="2" translate>Finance</th>
-                    </tr>
-
-                    <tr class="info" ng-if="adv.price_type">
-                        <td translate>Price type:</td>
-                        <td>{{adv.price_type}}</td>
-                    </tr>
-
-                    <tr class="info" ng-if="adv.price">
-                        <td translate>Rental price:</td>
-                        <td>{{adv.price|currency:'€'}}</td>
-                    </tr>
-
-                    <tr class="info" ng-if="adv.finance.ancillary_cost">
-                        <td translate>Ancillary cost:</td>
-                        <td>{{adv.finance.ancillary_cost|currency:'€'}}</td>
-                    </tr>
-
-                    <tr class="info" ng-if="adv.finance.heating_cost">
-                        <td translate>Heating cost:</td>
-                        <td>{{adv.finance.heating_cost|currency:'€'}}</td>
-                    </tr>
-
-                    <tr class="info">
-                        <td translate>Caution money:</td>
-                        <td>{{adv.finance.caution_money|currency:'€'}}</td>
-                    </tr>
-                </table>
-
-                <table class="table" ng-if="(adv.category==9) && adv.type=='rent'">
-                    <tr class="info">
-                        <th colspan="2" translate>Finance</th>
-                    </tr>
-
-                    <tr class="info" ng-if="adv.finance.commercial_type">
-                        <td translate>Commercial type:</td>
-                        <td>{{adv.finance.commercial_type}}</td>
-                    </tr>
-
-                    <tr class="info" ng-if="adv.price">
-                        <td translate>Price per year:</td>
-                        <td>{{adv.price|currency:'€'}}</td>
-                    </tr>
-
-
-                </table>
-
-                <table class="table" ng-if="(adv.category==1 || adv.category==2 || adv.category==3 || adv.category==4 || adv.category==6 || adv.category==7 || adv.category==8 || adv.category==9 ) && adv.type=='sale'">
-                    <tr class="info">
-                        <th colspan="2" translate>Finance</th>
-                    </tr>
-
-                    <tr class="info" ng-if="adv.price">
-                        <td translate>Sales price:</td>
-                        <td>{{adv.price}}</td>
-                    </tr>
-                </table>
-                <table class="table" ng-if="(adv.category==5) && adv.type=='sale'">
-                    <tr class="info">
-                        <th colspan="2" translate>Finance</th>
-                    </tr>
-
-                    <tr class="info" ng-if="adv.finance.commercial_type">
-                        <td translate>Commercial type:</td>
-                        <td>{{adv.finance.commercial_type}}</td>
-                    </tr>
-
-                    <tr class="info" ng-if="adv.price">
-                        <td translate>Sales price:</td>
-                        <td>{{adv.price}}</td>
-                    </tr>
-
-                    <tr class="info" ng-if="adv.emphyteusis_per_year">
-                        <td translate>Emphyteusis per year:</td>
-                        <td>{{adv.emphyteusis_per_year}}</td>
-                    </tr>
-                </table>
-
-
-                <table class="table" ng-if="adv.address.distances">
-                    <tr class="warning">
-                        <th colspan="2" translate>Location</th>
-                    </tr>
-                    <tr class="warning" ng-if="adv.address.distances.transport">
-                        <td translate>Walkway to public transport ca.:.</td>
-                        <td>{{adv.address.distances.transport}}</td>
-                    </tr>
-                    <tr class="warning" ng-if="adv.address.distances.driving">
-                        <td translate>Driving time to the next central station ca.:</td>
-                        <td>{{adv.address.distances.driving}}</td>
-                    </tr>
-                    <tr class="warning" ng-if="adv.address.distances.autoban">
-                        <td translate>Driving time to the next Autobahn ca.:</td>
-                        <td>{{adv.address.distances.autoban}}</td>
-                    </tr>
-                    <tr class="warning" ng-if="adv.address.distances.airport">
-                        <td translate>Driving time to the next Airport ca.:</td>
-                        <td>{{adv.address.distances.airport}}</td>
-                    </tr>
-                </table>
-
-                <table class="table" ng-if="adv.energy.length>0">
-                    <tr class="success">
-                        <th colspan="2" translate>Energy</th>
-                    </tr>
-                    <tr class="success">
-                        <td translate>Last modernization of the building </td>
-                        <td>{{adv.energy.modernization_year}}</td>
-                    </tr>
-                    <tr class="success">
-                        <td translate>Energy source</td>
-                        <td>{{adv.energy.source}}</td>
-                    </tr>
-                    <tr class="success">
-                        <td translate>Method of heating</td>
-                        <td>{{adv.energy.heating}}</td>
-                    </tr>
-                    <tr class="success">
-                        <td translate>Energy pass</td>
-                        <td>{{adv.energy.pass}}</td>
-                    </tr>
-                    <tr class="success">
-                        <td translate>Energy pass date</td>
-                        <td>{{adv.energy.pass_date}}</td>
-                    </tr>
-                    <tr class="success">
-                        <td translate>Energy pass type</td>
-                        <td>{{adv.energy.pass_type}}</td>
-                    </tr>
-                    <tr class="success">
-                        <td translate>Energy consumption value</td>
-                        <td>{{adv.energy.consumption}}</td>
-                    </tr>
-                </table>
-            </div>
+    <div class="row" id="photo-block" ng-if="env.display=='photos'">
+      <div class="col-sm-12 col-md-12 main">
+        <div class="center">
+          <div class="wrapper">
+            <img ng-src="{{adv.MainPhoto.full}}"></div>
         </div>
+        <div class="back navigate hide"></div>
+        <div class="next navigate hide"></div>
+      </div>
 
-        <div ng-if="adv.equipments!=null && adv.equipments.length>0 && adv.category!=3 && adv.category!=9 && adv.category!=5 ">
-            <h4 translate>Equipment</h4>
-            <div class="row">
-                <div class="col-md-2" ng-repeat="equipment in adv.equipments">
-                    <span class="label label-primary">{{equipment}}</span>
-                </div>
+      <div class="preview col-md-12" style="height:120px;overflow-x: auto">
+        <div ng-style="{'width':adv.photos.length*100}">
+          <div ng-repeat="photo in adv.photos" style="width:100px;height:100px;float:left">
+            <div class="preview-item">
+              <div class="center">
+                <img ng-src="{{photo.preview}}">
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <h4 translate>Description</h4>
-        <div ng-bind-html="adv.DescWithBr|to_trusted"></div>
+    <div class="row" ng-show="env.display=='map'">
+      <div id="view_map" style="height: 500px;width:100%"></div>
+    </div>
+
+    <div class="row" ng-if="env.display=='report'">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title" translate>Report</h3>
+        </div>
+        <div class="panel-body">
+          <form name="report_form">
+            <div class="form-group" ng-class="{ 'has-error': report_form.reason.$invalid  && report.submit==true }">
+              <label translate>Reason</label>
+              <select name="reason" required class="form-control" ng-model="report.reason">
+                <option value="Reason 1">Reason 1</option>
+                <option value="Reason 2">Reason 2</option>
+                <option value="Reason 3">Reason 3</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label translate>Message</label>
+              <textarea name="message" class="form-control" ng-model="report.message"></textarea>
+            </div>
+
+
+            <button type="button" class="btn btn-default" ng-click="createReport(report_form)">Send</button>
+            <button type="button" class="btn btn-default" ng-click="openDefaultBlock()">Cancel</button>
+          </form>
+        </div>
+      </div>
 
     </div>
+
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4 translate>Vendor</h4>
+        <table class="table">
+          <tr>
+            <td translate>Contact person:</td>
+            <td>{{adv.author.sex=='male' ? 'Mr' : 'Ms'}} {{adv.author.name}} {{adv.author.surname}}</td>
+          </tr>
+          <tr ng-if="adv.author.hide_contacts!==true">
+            <td translate>Phone:</td>
+            <td>{{adv.author.phone}}</td>
+          </tr>
+          <tr ng-if="adv.author.hide_contacts!==true">
+            <td translate>Email:</td>
+            <td>{{adv.author.email}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-7" ng-if="hideContactForm==='false'">
+        <h4 translate>Contact</h4>
+
+
+        <form class="form-horizontal" name="messageForm">
+          <div class="form-group" ng-class="{ 'has-error': messageForm.sex.$invalid && env.submit==true }">
+            <label class="col-sm-3 control-label" style="text-align: left;" translate> Title</label>
+            <div class="col-sm-9">
+              <label class="radio-inline">
+                <input type="radio" name="sex" ng-model="message.sex" value="male"
+                       required> {{'Mister'|translate}}
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="sex" ng-model="message.sex" value="female"
+                       required> {{'Miss'|translate}}
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" style="text-align: left;" translate>Your name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="message.name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label " style="text-align: left;" translate>Your phone</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="message.phone">
+            </div>
+          </div>
+
+          <div class="form-group" ng-class="{ 'has-error': messageForm.email.$invalid && env.submit==true }">
+            <label class="col-sm-3 control-label" style="text-align: left;" translate>Your email</label>
+            <div class="col-sm-9">
+              <input type="email" class="form-control" name="email" required ng-model="message.email">
+            </div>
+          </div>
+          <div class="form-group"
+               ng-class="{ 'has-error': messageForm.message.$invalid && env.submit==true }">
+            <div class="col-sm-12">
+              <textarea style="height:100px" class="form-control" ng-model="message.message" name="message"
+                        required></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="button"
+                      ng-disabled="env.send==true"
+                      ng-click="sendMessage(messageForm, message)" class="btn btn-default" translate>Send message
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>{{adv.title}}</h4>
+
+    <div class="row">
+      <div class="col-md-6">
+        <table style="width: 100%">
+          <tr>
+            <td translate>City:</td>
+            <td>{{adv.address.city}}</td>
+          </tr>
+          <tr>
+            <td translate>ZIP:</td>
+            <td>{{adv.address.zip}}</td>
+          </tr>Description
+            <td translate>Street / House number:</td>
+            <td ng-if="adv.address.display_house">{{adv.address.street}} {{adv.address.house_number}}</td>
+            <td ng-if="adv.address.display_house===false">
+              <div class="alert alert-warning" role="alert" translate>
+                Street and house number were hidden
+              </div>
+            </td>
+          </tr>
+        </table>
+
+
+        <table style="width: 100%" ng-if="adv.category==1">
+          <tr>
+            <td translate>Flat type:</td>
+            <td>{{adv.subcategory}}</td>
+          </tr>
+          <tr ng-if="adv.props.build_year">
+            <td translate>Build year:</td>
+            <td>{{adv.props.build_year}}</td>
+          </tr>
+          <tr ng-if="adv.living_area">
+            <td translate>Living area:</td>
+            <td>{{adv.living_area}}</td>
+          </tr>
+          <tr ng-if="adv.floor">
+            <td translate>Floor:</td>
+            <td>{{adv.floor}}/ {{adv.floors}}</td>
+          </tr>
+
+          <tr ng-if="adv.rooms">
+            <td translate>Number of rooms:</td>
+            <td>{{adv.rooms}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.number_of_garage">
+            <td translate>Number of garage/parking space:</td>
+            <td>{{adv.props.number_of_garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.garage">
+            <td translate>Type of garage/parking space:</td>
+            <td>{{adv.props.garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.pets  && adv.type=='rent'">
+            <td translate>Pets:</td>
+            <td>{{adv.props.pets}}</td>
+          </tr>
+
+          <tr ng-if="adv.move_date">
+            <td translate>Move in ready:</td>
+            <td>{{adv.move_date}}</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%" ng-if="adv.category==2 ">
+          <tr>
+            <td translate>House type:</td>
+            <td>{{adv.subcategory}}</td>
+          </tr>
+          <tr ng-if="adv.props.build_year">
+            <td translate>Build year:</td>
+            <td>{{adv.props.build_year}}</td>
+          </tr>
+          <tr ng-if="adv.plot_area">
+            <td translate>Plot area:</td>
+            <td>{{adv.plot_area}}</td>
+          </tr>
+          <tr ng-if="adv.living_area">
+            <td translate>Living area:</td>
+            <td>{{adv.living_area}}</td>
+          </tr>
+          <tr ng-if="adv.floors">
+            <td translate>Number of floors:</td>
+            <td>{{adv.floors}}</td>
+          </tr>
+
+          <tr ng-if="adv.rooms">
+            <td translate>Number of rooms:</td>
+            <td>{{adv.rooms}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.number_of_garage">
+            <td translate>Number of garage/parking space:</td>
+            <td>{{adv.props.number_of_garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.garage">
+            <td translate>Type of garage/parking space:</td>
+            <td>{{adv.props.garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.pets && adv.type=='rent'">
+            <td translate>Pets:</td>
+            <td>{{adv.props.pets}}</td>
+          </tr>
+
+          <tr ng-if="adv.move_date">
+            <td translate>Move in ready:</td>
+            <td>{{adv.move_date}}</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%" ng-if="adv.category==3">
+          <tr>
+            <td translate>Parking type:</td>
+            <td>{{adv.subcategory}}</td>
+          </tr>
+          <tr ng-if="adv.props.build_year">
+            <td translate>Build year:</td>
+            <td>{{adv.props.build_year}}</td>
+          </tr>
+          <tr ng-if="adv.props.length">
+            <td translate>Length:</td>
+            <td>{{adv.props.length}}</td>
+          </tr>
+          <tr ng-if="adv.props.width">
+            <td translate>Width:</td>
+            <td>{{adv.props.width}}</td>
+          </tr>
+          <tr ng-if="adv.props.height">
+            <td translate>Height:</td>
+            <td>{{adv.props.height}}</td>
+          </tr>
+
+          <tr ng-if="adv.area">
+            <td translate>Area ca.:</td>
+            <td>{{adv.area}}</td>
+          </tr>
+
+
+          <tr ng-if="adv.move_date">
+            <td translate>Move in ready:</td>
+            <td>{{adv.move_date}}</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%" ng-if="adv.category==4">
+          <tr>
+            <td translate>Office/praxis type:</td>
+            <td>{{adv.subcategory}}</td>
+          </tr>
+          <tr ng-if="adv.props.build_year">
+            <td translate>Build year:</td>
+            <td>{{adv.props.build_year}}</td>
+          </tr>
+          <tr ng-if="adv.area">
+            <td translate>Office/Praxis area:</td>
+            <td>{{adv.area}}</td>
+          </tr>
+
+          <tr ng-if="adv.floor">
+            <td translate>Number of floors:</td>
+            <td>{{adv.floor}} / {{adv.props.floors}}</td>
+          </tr>
+
+          <tr ng-if="adv.rooms">
+            <td translate>Number of rooms:</td>
+            <td>{{adv.rooms}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.floor_cover">
+            <td translate>Floor cover:</td>
+            <td>{{adv.props.floor_cover}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.number_of_garage">
+            <td translate>Number of garage/parking space:</td>
+            <td>{{adv.props.number_of_garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.garage">
+            <td translate>Type of garage/parking space:</td>
+            <td>{{adv.props.garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.air_conditioner">
+            <td translate>Air conditioner available:</td>
+            <td>{{adv.air_conditioner}}</td>
+          </tr>
+
+          <tr ng-if="adv.edp_cabling">
+            <td translate>EDP cabling:</td>
+            <td>{{adv.edp_cabling}}</td>
+          </tr>
+
+          <tr ng-if="adv.move_date">
+            <td translate>Move in ready:</td>
+            <td>{{adv.move_date}}</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%" ng-if="adv.category==5">
+
+          <tr ng-if="adv.area">
+            <td translate>Plot area:</td>
+            <td>{{adv.area}}</td>
+          </tr>
+          <tr ng-if="adv.development">
+            <td translate>Development:</td>
+            <td>{{adv.development}}</td>
+          </tr>
+          <tr ng-if="adv.props.buildable_after">
+            <td translate>Buildable after:</td>
+            <td>{{adv.props.buildable_after}}</td>
+          </tr>
+
+          <tr ng-if="adv.building_permission">
+            <td translate>Building license needed:</td>
+            <td>{{adv.building_permission}}</td>
+          </tr>
+
+
+        </table>
+
+        <table style="width: 100%" ng-if="adv.category==6">
+          <tr>
+            <td translate>Gastronomy/Hotel type:</td>
+            <td>{{adv.subcategory}}</td>
+          </tr>
+
+          <tr ng-if="adv.area">
+            <td translate>Total area:</td>
+            <td>{{adv.area}}</td>
+          </tr>
+
+          <tr ng-if="adv.floors">
+            <td translate>Number of floors:</td>
+            <td>{{adv.floors}}</td>
+          </tr>
+
+          <tr ng-if="adv.rooms">
+            <td translate>Number of rooms:</td>
+            <td>{{adv.rooms}}</td>
+          </tr>
+
+          <tr ng-if="adv.number_beds">
+            <td translate>Number of beds/guests:</td>
+            <td>{{adv.number_beds}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.number_of_garage">
+            <td translate>Number of garage/parking space:</td>
+            <td>{{adv.props.number_of_garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.garage">
+            <td translate>Type of garage/parking space:</td>
+            <td>{{adv.props.garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.move_date">
+            <td translate>Move in ready:</td>
+            <td>{{adv.move_date}}</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%" ng-if="adv.category==7">
+          <tr>
+            <td translate>Hall/Production type:</td>
+            <td>{{adv.subcategory}}</td>
+          </tr>
+          <tr ng-if="adv.props.build_year">
+            <td translate>Build year:</td>
+            <td>{{adv.props.build_year}}</td>
+          </tr>
+          <tr ng-if="adv.area">
+            <td translate>Total area:</td>
+            <td>{{adv.area}}</td>
+          </tr>
+          <tr ng-if="adv.props.production_area">
+            <td translate>Production area:</td>
+            <td>{{adv.props.production_area}}</td>
+          </tr>
+          <tr ng-if="adv.props.warehouse_area">
+            <td translate>Warehouse area:</td>
+            <td>{{adv.props.warehouse_area}}</td>
+          </tr>
+          <tr ng-if="adv.props.office_area">
+            <td translate>Office area:</td>
+            <td>{{adv.props.office_area}}</td>
+          </tr>
+          <tr ng-if="adv.storey_height">
+            <td translate>Storey height:</td>
+            <td>{{adv.storey_height}}</td>
+          </tr>
+
+          <tr ng-if="adv.floors">
+            <td translate>Number of floors:</td>
+            <td>{{adv.floors}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.floor_loading">
+            <td translate>Floor loading:</td>
+            <td>{{adv.props.floor_loading}}</td>
+          </tr>
+          <tr ng-if="adv.props.power_connection_value">
+            <td translate>Power connection value:</td>
+            <td>{{adv.props.power_connection_value}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.number_of_garage">
+            <td translate>Number of garage/parking space:</td>
+            <td>{{adv.props.number_of_garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.garage">
+            <td translate>Type of garage/parking space:</td>
+            <td>{{adv.props.garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.move_date">
+            <td translate>Move in ready:</td>
+            <td>{{adv.move_date}}</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%" ng-if="adv.category==8">
+          <tr>
+            <td translate>Retail trade type:</td>
+            <td>{{adv.subcategory}}</td>
+          </tr>
+          <tr ng-if="adv.area">
+            <td translate>Total area:</td>
+            <td>{{adv.area}}</td>
+          </tr>
+          <tr ng-if="adv.floors">
+            <td translate>Number of floors:</td>
+            <td>{{adv.floors}}</td>
+          </tr>
+
+          <tr ng-if="adv.length_shop_window">
+            <td translate>Length shop window:</td>
+            <td>{{adv.length_shop_window}}</td>
+          </tr>
+          <tr ng-if="adv.props.supply">
+            <td translate>Supply:</td>
+            <td>{{adv.props.supply}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.number_of_garage">
+            <td translate>Number of garage/parking space:</td>
+            <td>{{adv.props.number_of_garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.garage">
+            <td translate>Type of garage/parking space:</td>
+            <td>{{adv.props.garage}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.air_conditioner">
+            <td translate>Air conditioner available:</td>
+            <td>{{adv.props.air_conditioner}}</td>
+          </tr>
+
+          <tr ng-if="adv.move_date">
+            <td translate>Move in ready:</td>
+            <td>{{adv.move_date}}</td>
+          </tr>
+        </table>
+
+        <table style="width: 100%" ng-if="adv.category==9">
+
+          <tr ng-if="adv.area">
+            <td translate>Plot area:</td>
+            <td>{{adv.area}}</td>
+          </tr>
+          <tr ng-if="adv.development">
+            <td translate>Development:</td>
+            <td>{{adv.development}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.buildable_after">
+            <td translate>Buildable after:</td>
+            <td>{{adv.props.buildable_after}}</td>
+          </tr>
+          <tr ng-if="adv.building_permission">
+            <td translate>Building permission required:</td>
+            <td>{{adv.building_permission}}</td>
+          </tr>
+
+          <tr ng-if="adv.props.recommended_usage">
+            <td translate>Recommended usage:</td>
+            <td>{{adv.props.recommended_usage}}</td>
+          </tr>
+
+        </table>
+
+      </div>
+
+      <div class="col-md-6">
+        <table class="table" ng-if="(adv.category==1 || adv.category==2) && adv.type=='rent'">
+          <tr class="info">
+            <th colspan="2" translate>Finance</th>
+          </tr>
+          <tr class="info" ng-if="adv.price">
+            <td translate>Cold rent:</td>
+            <td>{{adv.price|currency:'€'}}</td>
+          </tr>
+          <tr class="info" ng-if="adv.finance.ancillary_cost">
+            <td translate>Ancillary cost:</td>
+            <td>{{adv.finance.ancillary_cost|currency:'€'}}</td>
+          </tr>
+          <tr class="info" ng-if="adv.finance.heating_cost">
+            <td translate>Heating cost:</td>
+            <td>{{adv.finance.heating_cost|currency:'€'}}</td>
+          </tr>
+          <tr class="info" ng-if="adv.finance.total_cost">
+            <td translate>Total cost:</td>
+            <td>{{adv.finance.total_cost|currency:'€'}}</td>
+          </tr>
+          <tr class="info" ng-if="adv.finance.caution_money">
+            <td translate>Caution money:</td>
+            <td>{{adv.finance.caution_money|currency:'€'}}</td>
+          </tr>
+        </table>
+        <table class="table" ng-if="adv.category==3">
+          <tr class="info">
+            <th colspan="2" translate>Finance</th>
+          </tr>
+          <tr class="info" ng-if="adv.price">
+            <td translate>Monthly rent:</td>
+            <td>{{adv.price|currency:'€'}}</td>
+          </tr>
+          <tr class="info" ng-if="adv.finance.ancillary_cost">
+            <td translate>Ancillary cost:</td>
+            <td>{{adv.finance.ancillary_cost|currency:'€'}}</td>
+          </tr>
+          <tr class="info" ng-if="adv.finance.total_cost">
+            <td translate>Total cost:</td>
+            <td>{{adv.finance.total_cost|currency:'€'}}</td>
+          </tr>
+          <tr class="info">
+            <td translate>Caution money:</td>
+            <td>{{adv.finance.caution_money|currency:'€'}}</td>
+          </tr>
+        </table>
+        <table class="table"
+               ng-if="(adv.category==4 || adv.category==6 || adv.category==7 || adv.category==8) && adv.type=='rent'">
+          <tr class="info">
+            <th colspan="2" translate>Finance</th>
+          </tr>
+
+          <tr class="info" ng-if="adv.price_type">
+            <td translate>Price type:</td>
+            <td>{{adv.price_type}}</td>
+          </tr>
+
+          <tr class="info" ng-if="adv.price">
+            <td translate>Rental price:</td>
+            <td>{{adv.price|currency:'€'}}</td>
+          </tr>
+
+          <tr class="info" ng-if="adv.finance.ancillary_cost">
+            <td translate>Ancillary cost:</td>
+            <td>{{adv.finance.ancillary_cost|currency:'€'}}</td>
+          </tr>
+
+          <tr class="info" ng-if="adv.finance.heating_cost">
+            <td translate>Heating cost:</td>
+            <td>{{adv.finance.heating_cost|currency:'€'}}</td>
+          </tr>
+
+          <tr class="info">
+            <td translate>Caution money:</td>
+            <td>{{adv.finance.caution_money|currency:'€'}}</td>
+          </tr>
+        </table>
+
+        <table class="table" ng-if="(adv.category==9) && adv.type=='rent'">
+          <tr class="info">
+            <th colspan="2" translate>Finance</th>
+          </tr>
+
+          <tr class="info" ng-if="adv.finance.commercial_type">
+            <td translate>Commercial type:</td>
+            <td>{{adv.finance.commercial_type}}</td>
+          </tr>
+
+          <tr class="info" ng-if="adv.price">
+            <td translate>Price per year:</td>
+            <td>{{adv.price|currency:'€'}}</td>
+          </tr>
+
+
+        </table>
+
+        <table class="table"
+               ng-if="(adv.category==1 || adv.category==2 || adv.category==3 || adv.category==4 || adv.category==6 || adv.category==7 || adv.category==8 || adv.category==9 ) && adv.type=='sale'">
+          <tr class="info">
+            <th colspan="2" translate>Finance</th>
+          </tr>
+
+          <tr class="info" ng-if="adv.price">
+            <td translate>Sales price:</td>
+            <td>{{adv.price}}</td>
+          </tr>
+        </table>
+        <table class="table" ng-if="(adv.category==5) && adv.type=='sale'">
+          <tr class="info">
+            <th colspan="2" translate>Finance</th>
+          </tr>
+
+          <tr class="info" ng-if="adv.finance.commercial_type">
+            <td translate>Commercial type:</td>
+            <td>{{adv.finance.commercial_type}}</td>
+          </tr>
+
+          <tr class="info" ng-if="adv.price">
+            <td translate>Sales price:</td>
+            <td>{{adv.price}}</td>
+          </tr>
+
+          <tr class="info" ng-if="adv.emphyteusis_per_year">
+            <td translate>Emphyteusis per year:</td>
+            <td>{{adv.emphyteusis_per_year}}</td>
+          </tr>
+        </table>
+
+
+        <table class="table" ng-if="adv.address.distances">
+          <tr class="warning">
+            <th colspan="2" translate>Location</th>
+          </tr>
+          <tr class="warning" ng-if="adv.address.distances.transport">
+            <td translate>Walkway to public transport ca.:.</td>
+            <td>{{adv.address.distances.transport}}</td>
+          </tr>
+          <tr class="warning" ng-if="adv.address.distances.driving">
+            <td translate>Driving time to the next central station ca.:</td>
+            <td>{{adv.address.distances.driving}}</td>
+          </tr>
+          <tr class="warning" ng-if="adv.address.distances.autoban">
+            <td translate>Driving time to the next Autobahn ca.:</td>
+            <td>{{adv.address.distances.autoban}}</td>
+          </tr>
+          <tr class="warning" ng-if="adv.address.distances.airport">
+            <td translate>Driving time to the next Airport ca.:</td>
+            <td>{{adv.address.distances.airport}}</td>
+          </tr>
+        </table>
+
+        <table class="table" ng-if="adv.energy.length>0">
+          <tr class="success">
+            <th colspan="2" translate>Energy</th>
+          </tr>
+          <tr class="success">
+            <td translate>Last modernization of the building</td>
+            <td>{{adv.energy.modernization_year}}</td>
+          </tr>
+          <tr class="success">
+            <td translate>Energy source</td>
+            <td>{{adv.energy.source}}</td>
+          </tr>
+          <tr class="success">
+            <td translate>Method of heating</td>
+            <td>{{adv.energy.heating}}</td>
+          </tr>
+          <tr class="success">
+            <td translate>Energy pass</td>
+            <td>{{adv.energy.pass}}</td>
+          </tr>
+          <tr class="success">
+            <td translate>Energy pass date</td>
+            <td>{{adv.energy.pass_date}}</td>
+          </tr>
+          <tr class="success">
+            <td translate>Energy pass type</td>
+            <td>{{adv.energy.pass_type}}</td>
+          </tr>
+          <tr class="success">
+            <td translate>Energy consumption value</td>
+            <td>{{adv.energy.consumption}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div ng-if="adv.equipments!=null && adv.equipments.length>0 && adv.category!=3 && adv.category!=9 && adv.category!=5 ">
+      <h4 translate>Equipment</h4>
+      <div class="row">
+        <div class="col-md-2" ng-repeat="equipment in adv.equipments">
+          <span class="label label-primary">{{equipment}}</span>
+        </div>
+      </div>
+    </div>
+
+    <h4 translate>Description</h4>
+    <div ng-bind-html="adv.desc|to_trusted"></div>
+
+  </div>
 </div>

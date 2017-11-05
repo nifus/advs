@@ -204,7 +204,7 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::get('/adv-data-sets', function () {
         $sets = [
-            'categories' => Adv::getCategories(),
+            'categories' => Category::getCategories(),
             'sub_categories' => Adv::getSubCategories(),
             'equipments' => Adv::getEquipments(),
             'support_email' => \Config::get('variables.varHelpEmailAddress'),

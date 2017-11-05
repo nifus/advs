@@ -1,516 +1,162 @@
-<div class="row" ng-init="initGoogleMap(model.lat, model.lng, true)">
-    <h4 translate>Location</h4>
-    <div class="col-md-5">
+<div ng-init="initGoogleMap(model.lat, model.lng, true)">
 
-        <div class="form-group" ng-class="{ 'has-error': adv_form.address.$invalid && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Address</label>
-            <div class="col-sm-10">
-                <input type="text" ng-autocomplete ng-model="env.address.value" details="env.address.details"
-                       name="address"
-                       ng-disabled="env.limited"
-                       class="form-control" id="address_field" ng-required="model.id==undefined">
+  <h4>Basic Information</h4>
 
-            </div>
-        </div>
+  <div ng-include="'/apps/core/adv/tpl/create/sections/address.html'"></div>
 
 
-
-        <div class="form-group"
-             ng-class="{ 'has-error': (adv_form.street.$invalid || adv_form.house_number.$invalid) && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Street, House number</label>
-            <div class="col-sm-10 form-inline">
-                <input type="text" ng-model="model.address.street" style="width:70%" class="form-control"
-                       ng-disabled="!model.address.city || env.limited"
-                       placeholder="{{'Street'|translate}}" name="street" required>
-                <input type="text" ng-model="model.address.house_number" class="form-control"
-                       ng-disabled="!model.address.city || env.limited"
-                       placeholder="{{'House number'|translate}}" name="house_number" required>
-            </div>
-        </div>
-        <div class="form-group"
-             ng-class="{ 'has-error': (adv_form.zip.$invalid || adv_form.city.$invalid) && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Zip, City</label>
-            <div class="col-sm-10 form-inline">
-                <input type="text" ng-model="model.address.zip" class="form-control" placeholder="{{'Zip'|translate}}"
-                       ng-disabled="!model.address.city || env.limited"
-                       name="zip" required >
-                <input type="text" ng-model="model.address.city" style="width:70%" class="form-control" name="city"
-                       ng-disabled="!model.address.city || env.limited"
-                       required
-                       placeholder="{{'City'|translate}}">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate>Don‘t show the street and house number</label>
-            <div class="col-sm-10 ">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="model.address.display_house" ng-true-value="false" ng-false-value="true">
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group" >
-            <label class="col-sm-2 control-label" translate>Walkway to public transport ca.</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" placeholder="{{'minutes'|translate}}"
-                       ng-model="model.address.distances.transport" name="distances_transport" min="1">
-            </div>
-        </div>
-
-        <div class="form-group" >
-            <label class="col-sm-2 control-label" translate>Driving time to the next central station ca.</label>
-            <div class="col-sm-10">
-                <input type="number"  class="form-control" placeholder="{{'minutes'|translate}}"
-                       ng-model="model.address.distances.driving" name="distances_driving" min="1">
-            </div>
-        </div>
-
-        <div class="form-group" >
-            <label class="col-sm-2 control-label" translate>Driving time to the next Autobahn ca.</label>
-            <div class="col-sm-10">
-                <input type="number"  name="distances_autoban" class="form-control" placeholder="{{'minutes'|translate}}"
-                       ng-model="model.address.distances.autoban" min="1">
-            </div>
-        </div>
-
-        <div class="form-group" >
-            <label class="col-sm-2 control-label" translate>Driving time to the next Airport ca.</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" placeholder="{{'minutes'|translate}}"
-                       ng-model="model.address.distances.airport" name="distances_airport" min="1">
-            </div>
-        </div>
-
-
+  <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid && env.submit==true }">
+    <label class="control-label col-sm-3" translate>Living area</label>
+    <div class="col-sm-9">
+      <div class="input-group ">
+        <input type="number" min="1" class="form-control" ng-model="model.living_area" name="area" required>
+        <span class="input-group-addon">m<sup>2</sup></span>
+      </div>
     </div>
-    <div class="col-md-5">
-        <div id="map" style="height: 400px;width: 100%;"></div>
-    </div>
-    <div class="col-md-2">
-        <div class="alert alert-warning" role="alert" translate>
-            Based on your selection you will receive the
-            corresponding template
+  </div>
+
+
+  <div class="form-group" ng-class="{ 'has-error': adv_form.rooms.$invalid && env.submit==true }">
+    <label class="control-label col-sm-3" translate>Number of rooms</label>
+    <div class="col-sm-9"><input type="number" min="1" class="form-control" placeholder="{{'Room/Rooms'|translate}}"
+                                 ng-model="model.rooms" required name="rooms"></div>
+  </div>
+
+
+  <div class="form-group" ng-class="{ 'has-error': adv_form.floor.$invalid  && env.submit==true }">
+    <label class="control-label col-sm-3" translate>Floor</label>
+    <div class="col-sm-9">
+      <div class="row">
+        <div class="col-md-6">
+          <input type="number" min="1" class="form-control" placeholder="{{'Your Floor'|translate}}"
+                 ng-model="model.floor" name="floor" required>
         </div>
+        <div class="col-md-6">
+          <input type="number" class="form-control" placeholder="{{'All Floors'|translate}}"
+                 ng-model="model.floors" name="floors">
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-error': adv_form.price.$invalid  && env.submit==true }">
+    <label class="control-label col-sm-3" translate>Sales price (in &euro;)</label>
+    <div class="col-sm-9">
+      <div class="input-group ">
+        <input type="number" min="0" class="form-control" ng-model="model.price" required name="price">
+        <span class="input-group-addon">&euro;</span>
+      </div>
+    </div>
+  </div>
 
 
-<div class="row">
+  <div class="form-group" ng-class="{ 'has-error': adv_form.title.$invalid && env.submit==true }">
+    <label class="control-label col-sm-3" translate>Title</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" ng-model="model.title" name="title" required max="80" maxlength="80">
+    </div>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-error': adv_form.desc.$invalid && env.submit==true }">
+    <label class="control-label col-sm-3" translate>Description</label>
+    <div class="col-sm-9">
+      <textarea class="form-control desc" ng-model="model.desc" name="desc" maxlength="3000" required></textarea>
+      <div>
+        <text-counter text="model.desc" reverse="true" max-length="3000"></text-counter>
+      </div>
+    </div>
+  </div>
+
+  <div ng-include="'/apps/core/adv/tpl/create/sections/energy.html'"></div>
+
+
+  <div ng-include="'/apps/core/adv/tpl/create/sections/photos.html'"></div>
+
+
+  <div ng-include="'/apps/core/adv/tpl/create/sections/contacts.html'"></div>
+
+
+  <h4 translate>Do you want get more information?</h4>
+
+  <div class="form-group">
+    <div class="adv-type">
+      <ul>
+        <li ng-click="setDisplayAdditionalInformation(true)"
+            ng-class="{'active':env.display_additional_information==true}">Yes
+        </li>
+      </ul>
+
+      <ul>
+        <li ng-click="setDisplayAdditionalInformation(false)" ng-class="{'active':!env.display_additional_information}">
+          No
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div ng-if="env.display_additional_information">
+    <div ng-include="'/apps/core/adv/tpl/create/sections/additionalAddress.html'"></div>
+
     <h4 translate>Flat type</h4>
-    <div class="col-md-10">
-        <div class="form-group">
-            <label class="col-sm-2 control-label"></label>
-            <div class="col-sm-10">
-                <div class="col-md-4" ng-repeat="cat in env.subcats[model.category]">
-                    <label>
-                        <input type="radio" ng-model="model.subcategory" value="{{cat.id}}">
-                        {{cat.title}}
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="alert alert-warning" role="alert" translate>
-            Based on your selection you will receive the
-            corresponding template
-        </div>
-    </div>
-</div>
+    <div ng-include="'/apps/core/adv/tpl/create/sections/type.html'"></div>
 
 
-<div class="row">
     <h4 translate>Basic Information</h4>
-    <div class="col-md-10"  ng-class="{ 'has-error': adv_form.build_year.$invalid && env.submit==true }">
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate>Build year</label>
-            <div class="col-sm-10 input-group">
-                <input type="number" class="form-control" placeholder="{{'In year'|translate}}"
-                       ng-model="model.props.build_year" name="build_year" minlength="4" maxlength="4" min="1500">
-            </div>
-        </div>
 
-
-        <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Living area</label>
-            <div class="col-sm-10 input-group">
-                <input type="number" min="1" class="form-control" ng-model="model.living_area" name="area" required>
-                <span class="input-group-addon">m<sup>2</sup></span>
-
-            </div>
-        </div>
-
-        <div class="form-group form-inline" ng-class="{ 'has-error': adv_form.floor.$invalid  && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Floor</label>
-            <div class="col-sm-10" style="padding-left: 0px">
-                <input type="number" min="1" class="form-control" placeholder="{{'Your Floor'|translate}}"
-                       ng-model="model.floor" name="floor" required>
-                {{'of'|translate}}
-                <input type="number" class="form-control" placeholder="{{'All Floors'|translate}}"
-                       ng-model="model.floors" name="floors">
-            </div>
-        </div>
-
-        <div class="form-group" ng-class="{ 'has-error': adv_form.rooms.$invalid  && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Number of rooms</label>
-            <div class="col-sm-10 input-group">
-                <input type="number" min="1" class="form-control" placeholder="{{'Room/Rooms'|translate}}"
-                       ng-model="model.rooms" required name="rooms">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate>Number of garage/parking space</label>
-            <div class="col-sm-10 input-group">
-                <input type="number" class="form-control" ng-model="model.props.number_of_garage" min="0">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate>Type of garage/parking space</label>
-            <div class="col-sm-10 input-group">
-                <select class="form-control" ng-model="model.props.garage">
-                    <option value="Outdoor parking" translate>Outdoor parking</option>
-                    <option value="Carport" translate>Carport</option>
-                    <option value="Duplex" translate>Duplex</option>
-                    <option value="Garage" translate>Garage</option>
-                    <option value="Parking structure" translate>Parking structure</option>
-                    <option value="Underground car park" translate>Underground car park</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate>Available from now on</label>
-            <div class="col-sm-10 input-group">
-                <div class="dropdown">
-                    <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown"
-                       data-target="#" href="">
-                        <div class="input-append"><input type="text" class="input-large form-control"
-                                                         data-ng-model="model.move_date"><span class="add-on"><i
-                                class="icon-calendar"></i></span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="env.move_date"
-                                        data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select',minView:'day' }"></datetimepicker>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label" translate>Build year</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" placeholder="{{'In year'|translate}}"
+               ng-model="model.props.build_year" name="build_year" minlength="4" maxlength="4" min="1500">
+      </div>
     </div>
-    <div class="col-md-2">
-        <div class="alert alert-warning" role="alert" translate>
-            Based on your selection you will receive the
-            corresponding template
-        </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label" translate>Number of garage/parking space</label>
+      <div class="col-sm-9 ">
+        <input type="number" class="form-control" ng-model="model.props.number_of_garage" min="0">
+      </div>
     </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label" translate>Type of garage/parking space</label>
+      <div class="col-sm-9">
+        <select class="form-control" ng-model="model.props.garage">
+          <option value="Outdoor parking" translate>Outdoor parking</option>
+          <option value="Carport" translate>Carport</option>
+          <option value="Duplex" translate>Duplex</option>
+          <option value="Garage" translate>Garage</option>
+          <option value="Parking structure" translate>Parking structure</option>
+          <option value="Underground car park" translate>Underground car park</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label" translate>Available from now on</label>
+      <div class="col-sm-9">
+        <div class="dropdown">
+          <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown"
+             data-target="#" href="">
+            <div class="input-append"><input type="text" class="input-large form-control"
+                                             data-ng-model="model.move_date">
+            </div>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <datetimepicker data-ng-model="env.move_date"
+                            data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select',minView:'day' }"></datetimepicker>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div ng-include="'/apps/core/adv/tpl/create/sections/additionalEnergy.html'"></div>
+    <div ng-include="'/apps/core/adv/tpl/create/sections/equipment.html'"></div>
+
+  </div>
 </div>
 
-<div class="row">
-    <h4 translate>Finance</h4>
-
-    <div class="col-md-10">
-        <div class="form-group" ng-class="{ 'has-error': adv_form.price.$invalid  && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Sales price(in &euro;)</label>
-            <div class="col-sm-10">
-                <input type="number" min="1" class="form-control" ng-model="model.price" required name="price">
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="alert alert-warning" role="alert" translate>
-            Based on your selection you will receive the
-            corresponding template
-        </div>
-    </div>
-
-
-</div>
-
-<div class="row">
-    <h4 translate>Energy</h4>
-    <div class="col-md-10">
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate>Last modernization of the building (in year)</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" min="0"
-                       ng-model="model.energy.modernization_year">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate>Energy source </label>
-            <div class="col-sm-10">
-                <select class="form-control" ng-model="model.energy.source"
-                        ng-options="obj.id as obj.value for obj in env.energy_source">
-                    <option value="" translate>Please select</option>
-                </select>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate>Method of heating</label>
-            <div class="col-sm-10">
-                <select class="form-control" ng-model="model.energy.heating"
-                        ng-options="obj.id as obj.value for obj in env.heating">
-                    <option value="" translate>Please select</option>
-                </select>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate>Energy pass</label>
-            <div class="col-sm-10">
-                <label class="radio-inline">
-                    <input type="radio" ng-model="model.energy.pass" value="Available"> {{'Available'|translate}}
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" ng-model="model.energy.pass" value="Available on inspection"> {{'Available
-                    on inspection'|translate}}
-
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" ng-model="model.energy.pass" value="Underlies not EnEV"> {{'Underlies not
-                    EnEV'|translate}}
-                </label>
-            </div>
-        </div>
-
-        <div class="form-group" ng-show="model.energy.pass=='Available'">
-            <label class="col-sm-2 control-label" translate>Energy pass date</label>
-            <div class="col-sm-10">
-                <label class="radio-inline">
-                    <input type="radio" ng-model="model.energy.pass_date" value="Till 30.04.14 (EnEV 2009)">
-                    {{'Till 30.04.14 (EnEV 2009)'|translate}}
-
-
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" ng-model="model.energy.pass_date" value="After 01.05.14 (EnEV 2014)">
-                    {{'After 01.05.14 (EnEV 2014)'|translate}}
-                </label>
-
-            </div>
-        </div>
-
-        <div class="form-group" ng-show="model.energy.pass=='Available' && model.energy.pass_date">
-            <label class="col-sm-2 control-label" translate>Energy pass type</label>
-            <div class="col-sm-10">
-                <label class="radio-inline">
-                    <input type="radio" ng-model="model.energy.pass_type" value="Requirement pass">
-                    {{'Requirement pass'|translate}}
-
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" ng-model="model.energy.pass_type" value="Consumption pass">
-                    {{'Consumption pass'|translate}}
-                </label>
-
-            </div>
-        </div>
-
-
-        <div class="form-group"
-             ng-show="model.energy.pass=='Available' && model.energy.pass_date && model.energy.pass_type">
-            <label class="col-sm-2 control-label" translate>Energy consumption value</label>
-            <div class="col-sm-10 form-inline">
-                <div class="input-group">
-                    <input type="text" class="form-control" ng-model="model.energy.consumption">
-                    <span class="input-group-addon" translate>kWh/(m<sup>2</sup>*a)</span>
-                </div>
-
-                <label ng-show="model.energy.pass_type=='Consumption pass'">
-                    <input type="checkbox" ng-model="model.energy.water_included"> {{'Warm water
-                    included'|translate}}
-                </label>
-            </div>
-        </div>
-
-        <div class="form-group"
-             ng-show="model.energy.pass_date=='After 01.05.14 (EnEV 2014)' && model.energy.pass=='Available'">
-            <label class="col-sm-2 control-label" translate>Energy efficiency class</label>
-            <div class="col-sm-10 ">
-                <select class="form-control" ng-model="model.energy.class"
-                        ng-options="obj.id as obj.value for obj in env.energy_class ">
-                    <option value="" translate>Please select</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="alert alert-warning" role="alert" translate>
-            Based on your selection you will receive the
-            corresponding template
-        </div>
-    </div>
-
-</div>
-
-<div class="row">
-    <h4 translate>Equipment</h4>
-    <div class="col-md-10">
-        <div class="form-group">
-            <label class="col-sm-2 control-label"></label>
-            <div class="col-sm-10">
-                <div class="col-md-4" ng-repeat="equipment in env.equipments[model.category]">
-                    <label>
-                        <input type="checkbox" checklist-model="model.equipments" checklist-value="equipment">
-                        {{equipment}}
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="alert alert-warning" role="alert" translate>
-            Based on your selection you will receive the
-            corresponding template
-        </div>
-    </div>
-</div>
-
-
-<div class="row">
-    <h4 translate>Advertisement pictures</h4>
-    <div class="col-md-10">
-        <div class="form-group">
-            <div class="col-md-12">
-                <div id="photo-block" style="overflow: auto;">
-                    <div  class="preview"  style="width:200px;height:200px;position: relative;float:left"  ng-repeat="photo in model.photos" >
-                        <button ng-click="removePhoto($index)" type="button" class="btn btn-danger" style="position: absolute;left: 155px;top: 5px;">
-                            <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                        <div class="preview-item" style="width:200px;height:200px;" >
-
-                            <div class="center">
-                                <img style="max-height: 190px;max-width:190px" ng-src="{{photo.preview}}">
-                            </div>
-                        </div>
-                    </div>
-
-                    <br style="clear: both;">
-                    <div class="progress" ng-if="env.progress >= 0 && env.upload_files==true">
-                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"  style="width:100%">
-                            <span class="sr-only">45% Complete</span>
-                        </div>
-                    </div>
-                    <div style="text-align: center" id="upload_trigger" ng-if="model.photos.length<12" >
-                        <button type="button" ngf-select="uploadFiles($files)" multiple  ngf-max-files="12" ngf-max-size="6MB"   accept="image/*" translate>Upload photos</button>
-                    </div>
-                    <div class="alert alert-warning" role="alert" ng-if="model.photos.length==12" translate>You can upload only 12 photos</div>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="alert alert-warning" role="alert" translate>
-            Based on your selection you will receive the corresponding template
-        </div>
-    </div>
-</div>
-
-
-<div class="row form-horizontal">
-    <h4 translate>Advertisement description</h4>
-    <div class="col-md-10">
-        <div class="form-group" ng-class="{ 'has-error': adv_form.title.$invalid && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Title of your advertisement</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="model.title" name="title" required max="80"
-                       maxlength="80">
-            </div>
-        </div>
-
-        <div class="form-group" ng-class="{ 'has-error': adv_form.desc.$invalid && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Description</label>
-            <div class="col-sm-10">
-                <textarea class="form-control desc" ng-model="model.desc" maxlength="3000" name="desc" required></textarea>
-                <text-counter text="model.desc" reverse="true" max-length="3000"></text-counter>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="alert alert-warning" role="alert" translate>
-            Based on your selection you will receive the
-            corresponding template
-        </div>
-    </div>
-</div>
-
-
-<div class="row form-horizontal">
-    <h4 translate>Contact details</h4>
-    <div class="col-md-10">
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate>Title</label>
-            <div class="col-sm-10">
-                <label class="radio-inline">
-                    <input type="radio" ng-model="model.author.sex" value="male"> {{'Mister'|translate}}
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" ng-model="model.author.sex" value="female"> {{'Miss'|translate}}
-                </label>
-            </div>
-        </div>
-
-        <div class="form-group" ng-class="{ 'has-error': adv_form.author_name.$invalid && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Forename</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="model.author.name" name="author_name" required>
-            </div>
-        </div>
-
-        <div class="form-group" ng-class="{ 'has-error': adv_form.author_surname.$invalid && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Surname</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="model.author.surname" name="author_surname" required>
-            </div>
-        </div>
-
-        <div class="form-group" ng-class="{ 'has-error': adv_form.author_email.$invalid && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Email</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" ng-model="model.author.email" name="author_email" required>
-            </div>
-        </div>
-
-
-        <div class="form-group" ng-class="{ 'has-error': adv_form.author_phone.$invalid && env.submit==true }">
-            <label class="col-sm-2 control-label" translate>Phone number</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="model.author.phone" name="author_phone" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">
-                {{'Contact only via email?'|translate}}
-                <span class="help-block" translate>Your phone number will not being displayed in the advert</span>
-
-            </label>
-
-            <div class="col-sm-10">
-                <label class="checkbox-inline">
-                    <input type="checkbox" ng-model="model.author.hide_contacts">
-                </label>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="alert alert-warning" role="alert" translate>
-            Based on your selection you will receive the
-            corresponding template
-        </div>
-    </div>
-</div>

@@ -1,213 +1,137 @@
-<div>
-    <form class="form-horizontal" name="adv_form">
+<form class="form-horizontal" name="adv_form" id="advert-form">
+  <div class="container">
+    <h4>Advert Type</h4>
 
-        <div class="row">
-            <h4 translate>Advert type</h4>
+    <div class="form-group">
+      <label>Do you want to rent or sell your object?</label>
+      <div class="adv-type">
+        <ul>
+          <li ng-click="setType('rent')" ng-class="{'active':model.type=='rent'}">Rent</li>
+        </ul>
 
-            <div class="col-md-2" translate>Please select your advertisement type</div>
-            <div class="col-md-4">
+        <ul>
+          <li ng-click="setType('sale')" ng-class="{'active':model.type=='sale'}">Sale</li>
+        </ul>
+      </div>
+    </div>
 
-                <div class="header"
-                     style="background-color: orange;padding:20px;margin:0px;text-align: center">
-                    <strong translate>Rent</strong></div>
+    <div class="form-group" ng-if="model.type=='rent'">
+      <label>Please select the type of your object</label>
+      <div class="category">
+        <ul>
+          <li class="first">Living objects</li>
+          <li ng-repeat="category in env.categories"
+              ng-if="category.ic_business==false && (category.is_sale_only==false)"
+              ng-class="{'active':model.type=='rent' && model.category==category.id}"
+              ng-click="setCategory(category.id)"
+          >{{category.title}}
+          </li>
+        </ul>
 
-                <div class="type"
-                     style="background-color: lightyellow;padding:10px;margin:0px;height:120px">
+        <ul>
+          <li class="first">Business objects</li>
+          <li ng-repeat="category in env.categories"
+              ng-if="category.ic_business==true && (category.is_sale_only==false)"
+              ng-class="{'active':model.type=='rent' && model.category==category.id}"
+              ng-click="setCategory(category.id)"
+          >{{category.title}}
+          </li>
+        </ul>
+      </div>
+    </div>
 
-                    <div class="radio" ng-class="{'disabled':env.limited}" ng-repeat="category in env.categories"
-                         ng-if="category.ic_business==false && category.is_sale_only==false">
-                        <label>
-                            <input type="radio" value="flat"
-                                   ng-disabled="env.limited"
-                                   ng-checked="model.type=='rent' && model.category==category.id"
-                                   ng-click="setPrivateType('rent',category.id)">
-                            {{category.title}}
-                        </label>
-                    </div>
+    <div class="form-group" ng-if="model.type=='sale'">
+      <label>Please select the type of your object</label>
+      <div class="category">
+        <ul>
+          <li class="first">Living objects</li>
+          <li ng-repeat="category in env.categories"
+              ng-if="category.ic_business==false "
+              ng-class="{'active':model.type=='sale' && model.category==category.id}"
+              ng-click="setCategory(category.id)"
+          >{{category.title}}
+          </li>
+        </ul>
 
-                </div>
-                <div style="background-color: darkseagreen;padding:10px;margin:0px;">
-                    <div class="radio" ng-class="{'disabled':env.is_business_sale || env.limited}">
-                        <label>
-                            <input type="radio" ng-model="env.is_business_rent"
-                                   ng-disabled="env.is_business_sale || env.limited"
-                                   ng-click="isBusiness('rent')">
-                            {{'Business realty'|translate}}
-                        </label>
-                    </div>
-                </div>
-
-                <div style="background-color: lightyellow;padding:10px;margin:0px;">
-
-                    <div class="radio" ng-class="{'disabled' : env.is_business_rent==0 || env.limited}"
-                         ng-repeat="category in env.categories" ng-if="category.ic_business==true">
-                        <label>
-                            <input type="radio"
-                                   ng-disabled="env.is_business_rent==0 || env.limited"
-                                   ng-checked="model.type=='rent' && model.category==category.id"
-                                   ng-click="setBusinessType('rent',category.id)">
-                            {{category.title}}
-                        </label>
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div style="background-color: lightcoral;margin:0px;padding:20px;text-align: center">
-                    <strong translate>Sale</strong></div>
-
-
-                <div class="type" style="background-color: oldlace;margin:0px;padding:10px;height:120px">
-
-                    <div class="radio" ng-class="{'disabled':env.limited}" ng-repeat="category in env.categories"
-                         ng-if="category.ic_business==false">
-                        <label>
-                            <input type="radio" value="flat"
-                                   ng-disabled="env.limited"
-                                   ng-checked="model.type=='sale' && model.category==category.id"
-                                   ng-click="setPrivateType('sale',category.id)">
-                            {{category.title}}
-                        </label>
-                    </div>
+        <ul>
+          <li class="first">Business objects</li>
+          <li ng-repeat="category in env.categories"
+              ng-if="category.ic_business==true"
+              ng-class="{'active':model.type=='sale' && model.category==category.id}"
+              ng-click="setCategory(category.id)"
+          >{{category.title}}
+          </li>
+        </ul>
+      </div>
+    </div>
 
 
-                </div>
-                <div style="background-color: darkseagreen;margin:0px;padding:10px">
+    <div ng-include="'apps/core/adv/tpl/create/rentFlatForm.html'"
+         ng-if="model.category==1 && model.type=='rent'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/rentHouseForm.html'"
+         ng-if="model.category==2 && model.type=='rent'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/rentGarageForm.html'"
+         ng-if="model.category==3 && model.type=='rent'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/rentOfficeForm.html'"
+         ng-if="model.category==4 && model.type=='rent'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/rentHotelForm.html'"
+         ng-if="model.category==6 && model.type=='rent'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/rentHallForm.html'"
+         ng-if="model.category==7 && model.type=='rent'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/rentRetailForm.html'"
+         ng-if="model.category==8 && model.type=='rent'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/rentCommercialLandForm.html'"
+         ng-if="model.category==9 && model.type=='rent'"></div>
 
-                    <div class="radio" ng-class="{'disabled':env.is_business_rent || env.limited}">
-                        <label >
-                            <input type="radio" ng-model="env.is_business_sale"
-                                   ng-disabled="env.is_business_rent || env.limited"
-                                   ng-click="isBusiness('sale')">
-                            {{'Business realty'|translate}}
-                        </label>
-                    </div>
-                </div>
-
-                <div style="background-color: oldlace;margin:0px;padding:10px">
-
-
-                    <div class="radio" ng-class="{'disabled' : env.is_business_sale==0 || env.limited}"
-                         ng-repeat="category in env.categories" ng-if="category.ic_business==true">
-                        <label>
-                            <input type="radio" value="flat"
-                                   ng-disabled="env.is_business_sale==0 || env.limited"
-                                   ng-checked="model.type=='sale' && model.category==category.id"
-                                   ng-click="setBusinessType('sale',category.id)">
-                            {{category.title}}
-                        </label>
-                    </div>
-
-                </div>
-
-
-            </div>
-            <div class="col-md-2">
-                <div class="alert alert-warning" role="alert" translate>
-                    Based on your selection you will receive the
-                    corresponding template
-                </div>
-            </div>
-        </div>
+    <div ng-include="'apps/core/adv/tpl/create/saleFlatForm.html'"
+         ng-if="model.category==1 && model.type=='sale'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/saleHouseForm.html'"
+         ng-if="model.category==2 && model.type=='sale'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/saleGarageForm.html'"
+         ng-if="model.category==3 && model.type=='sale'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/saleOfficeForm.html'"
+         ng-if="model.category==4 && model.type=='sale'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/saleBuildingForm.html'"
+         ng-if="model.category==5 && model.type=='sale'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/saleHotelForm.html'"
+         ng-if="model.category==6 && model.type=='sale'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/saleHallForm.html'"
+         ng-if="model.category==7 && model.type=='sale'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/saleRetailForm.html'"
+         ng-if="model.category==8 && model.type=='sale'"></div>
+    <div ng-include="'apps/core/adv/tpl/create/saleCommercialLandForm.html'"
+         ng-if="model.category==9 && model.type=='sale'"></div>
 
 
-        <div ng-include="'apps/core/adv/tpl/create/rentFlatForm.html'"
-             ng-if="model.category==1 && model.type=='rent'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/rentHouseForm.html'"
-             ng-if="model.category==2 && model.type=='rent'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/rentGarageForm.html'"
-             ng-if="model.category==3 && model.type=='rent'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/rentOfficeForm.html'"
-             ng-if="model.category==4 && model.type=='rent'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/rentHotelForm.html'"
-             ng-if="model.category==6 && model.type=='rent'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/rentHallForm.html'"
-             ng-if="model.category==7 && model.type=='rent'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/rentRetailForm.html'"
-             ng-if="model.category==8 && model.type=='rent'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/rentCommercialLandForm.html'"
-             ng-if="model.category==9 && model.type=='rent'"></div>
+    <div ng-if="env.display_preview"  >
+      <h4 translate>Preview your advert</h4>
+      <adv-preview adv="model" user="user" hide-contact-form="true"></adv-preview>
+    </div>
 
-        <div ng-include="'apps/core/adv/tpl/create/saleFlatForm.html'"
-             ng-if="model.category==1 && model.type=='sale'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/saleHouseForm.html'"
-             ng-if="model.category==2 && model.type=='sale'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/saleGarageForm.html'"
-             ng-if="model.category==3 && model.type=='sale'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/saleOfficeForm.html'"
-             ng-if="model.category==4 && model.type=='sale'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/saleBuildingForm.html'"
-             ng-if="model.category==5 && model.type=='sale'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/saleHotelForm.html'"
-             ng-if="model.category==6 && model.type=='sale'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/saleHallForm.html'"
-             ng-if="model.category==7 && model.type=='sale'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/saleRetailForm.html'"
-             ng-if="model.category==8 && model.type=='sale'"></div>
-        <div ng-include="'apps/core/adv/tpl/create/saleCommercialLandForm.html'"
-             ng-if="model.category==9 && model.type=='sale'"></div>
+    <br style="clear: both;">
+    <div class="form-group"  ng-show="adv_form.$invalid && env.submit==true" >
+      <div class="alert alert-warning" role="alert"
+          translate>You did not fill in all
+        fields
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <div class="text-right">
+        <button class="btn btn-primary btn-lg" type="button" ng-click="preview(adv_form)" translate>
+          <span class="glyphicon glyphicon-zoom-in"></span>
+          Preview
+        </button>
+        <button class="btn btn-success btn-lg" type="button" ng-click="save(model, adv_form)"
+                ng-disabled="env.send==true" translate>
+          <span class="glyphicon glyphicon-play"></span>
+          Next step
+        </button>
+      </div>
+    </div>
 
 
-        <div class="row form-horizontal" ng-show="model.category">
-            <h4 translate>Finish</h4>
 
-            <div class="form-group" ng-class="{ 'has-error': adv_form.agb.$invalid && env.submit==true }">
-                <label class="col-sm-2 control-label"></label>
-                <div class="col-sm-10">
+  </div>
 
-        <textarea class="form-control" style="height: 200px"
-                  disabled>Stand: September 2015
-                1. Allgemeines / Vertragsabschluss
-                1.1 Diese Allgemeinen Geschäftsbedingungen (nachfolgend „AGB“) der/des ALTERNATE GmbH (nachfolgend „Verkäufer“) gelten für alle Verträge, die ein Verbraucher oder Unternehmer (nachfolgend „Kunde“)
-                mit dem Verkäufer hinsichtlich der vom Verkäufer in dem vorliegenden Online-Shop dargestellten Waren und/oder Leistungen abschließt. Hiermit wird der Einbeziehung von eigenen Bedingungen des Kunden
-                widersprochen, es sei denn, es ist etwas anderes vereinbart worden.
-                1.2 Für den Erwerb von Gutscheinen gelten diese AGB entsprechend, sofern insoweit nicht ausdrücklich etwas Abweichendes geregelt ist.
-                1.3 Verbraucher im Sinne dieser AGB ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit
-                zugerechnet werden können. Unternehmer im Sinne dieser AGB ist jede natürliche oder juristische Person oder eine rechtsfä- hige Personengesellschaft, die bei Abschluss eines Rechtsgeschäfts in Ausübung
-                ihrer selbstständigen beruflichen oder gewerblichen Tätigkeit handelt
-                2. Preise und Zahlungsbedingungen
-                2.1 Für die Lieferung gelten die Listenpreise zum Zeitpunkt der Bestellung. Sofern sich aus dem Angebot des Verkäufers nichts anderes ergibt, handelt es sich bei den angegebenen Preisen um Endpreise, die die
-                gesetzliche Umsatzsteuer oder Versicherungssteuer enthalten und verstehen sich zzgl. Versandkosten, gegebenenfalls Nachnahmegebühren, Transaktionskosten, Installations- und Schulungskosten etc. Je nach
-                Versandart errechnen sich die Versandkosten in Abhängigkeit von Größe, Gewicht und Anzahl der Pakete.
-                2.2 Soweit Lieferungen in Länder außerhalb der Europäischen Union in diesem Online- Shop möglich sind, können im Einzelfall weitere Kosten anfallen, die der Verkäufer nicht zu vertreten hat und die vom
-                Kunden zu tragen sind. Hierzu zählen beispielsweise Kosten für die Geldübermittlung durch Kreditinstitute (z.B. Überweisungsgebühren, Wechselkursgebühren) oder einfuhrrechtliche Abgaben bzw. Steuern (z.B.
-                Zölle).
-                2.3 Dem Kunden stehen verschiedene Zahlungsmöglichkeiten zur Verfügung, auf die er in diesem Online- Shop hingewiesen wird.
-                3. Lieferung, Versand, Gefahrübergang
-                3.1 Die Lieferung von Waren erfolgt auf dem Versandweg an die vom Kunden angegebene Lieferanschrift, sofern nichts anderes vereinbart ist. Bei der Abwicklung der Transaktion ist die in der Bestellabwicklung
-                des Verkäufers angegebene Lieferanschrift maßgeblich. Ausgenommen hiervon ist die ausgewählte Zahlungsart PayPal. Hier ist die vom Kunden zum Zeitpunkt der Bezahlung bei PayPal hinterlegte Lieferanschrift
-                maßgeblich.
-                3.2 Sendet das Transportunternehmen die versandte Ware an den Verkäufer zurück, da eine Zustellung beim Kunden nicht möglich war, trägt der Kunde die Kosten für den erfolglosen Versand. Dies gilt nicht,
-                wenn der Kunde den Umstand, der zur Unmöglichkeit der Zustellung geführt hat, nicht zu vertreten hat oder wenn er vorübergehend an der Annahme der angebotenen Leistung verhindert war, es sei denn, dass
-                der Verkäufer dem Kunden die Leistung eine angemessene Zeit vorher angekündigt hatte.
-                3.3 Grundsätzlich geht die Gefahr des zufälligen Untergangs und der zufälligen Verschlechterung der verkauften Ware mit der Übergabe an den Kunden oder eine empfangsberechtigte Person über. Handelt der
-                Kunde als Unternehmer, geht die Gefahr des zufälligen Untergangs und der zufälligen Verschlechterung beim Versendungskauf mit der Auslieferung der Ware an eine geeignete Transportperson am Geschäftssitz
-                    des Verkäufers über</textarea> <br>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" name="agb" ng-model="model.agb"
-                               required> {{'AGB accept?'|translate}}
-                    </label>
-
-                </div>
-            </div>
-
-
-            <div class="form-group">
-
-                <div class="col-sm-10">
-                    <div class="alert alert-warning" role="alert"
-                         ng-show="adv_form.$invalid && env.submit==true" translate>You did not fill in all
-                        fields
-                    </div>
-
-                    <button class="btn btn-primary" type="button" ng-click="save(model, adv_form)"
-                            ng-disabled="env.send==true" translate>
-                        Send
-                    </button>
-                </div>
-            </div>
-        </div>
-    </form>
-
-</div>
+</form>
