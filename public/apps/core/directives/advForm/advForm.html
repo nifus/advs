@@ -108,6 +108,14 @@
       <adv-preview adv="model" user="user" hide-contact-form="true"></adv-preview>
     </div>
 
+
+    <div>
+      <label class="checkbox-inline">
+        <input type="checkbox" name="agb" ng-model="model.agb"
+               required> <a href="/agb" target="_blank" translate>AGB accept?</a>
+      </label>
+    </div>
+
     <br style="clear: both;">
     <div class="form-group"  ng-show="adv_form.$invalid && env.submit==true" >
       <div class="alert alert-warning" role="alert"

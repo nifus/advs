@@ -25,45 +25,7 @@
 <div class="row">
     <form name="paymentForm">
         <div class="col-md-6">
-            <h4 translate>Your advert</h4>
 
-
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentFlat.html'"
-                 ng-if="model.category==1 && model.type=='rent'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentHouse.html'"
-                 ng-if="model.category==2 && model.type=='rent'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentGarage.html'"
-                 ng-if="model.category==3 && model.type=='rent'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentOffice.html'"
-                 ng-if="model.category==4 && model.type=='rent'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentHotel.html'"
-                 ng-if="model.category==6 && model.type=='rent'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentHall.html'"
-                 ng-if="model.category==7 && model.type=='rent'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentRetail.html'"
-                 ng-if="model.category==8 && model.type=='rent'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/rentCommercialLand.html'"
-                 ng-if="model.category==9 && model.type=='rent'"></div>
-
-
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleFlat.html'"
-                 ng-if="model.category==1 && model.type=='sale'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleHouse.html'"
-                 ng-if="model.category==2 && model.type=='sale'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleGarage.html'"
-                 ng-if="model.category==3 && model.type=='sale'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleOffice.html'"
-                 ng-if="model.category==4 && model.type=='sale'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleBuilding.html'"
-                 ng-if="model.category==5 && model.type=='sale'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleHotel.html'"
-                 ng-if="model.category==6 && model.type=='sale'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleHall.html'"
-                 ng-if="model.category==7 && model.type=='sale'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleRetail.html'"
-                 ng-if="model.category==8 && model.type=='sale'"></div>
-            <div ng-include="'apps/core/adv/tpl/paymentPreview/saleCommercialLand.html'"
-                 ng-if="model.category==9 && model.type=='sale'"></div>
 
             <div ng-if="user.sBusinessAccount()">
                 <div ng-if="env.tariff!=null">
