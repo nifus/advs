@@ -2,7 +2,7 @@
 
 
   <div class="col-md-6">
-    <div class="row" ng-if="adv.MainPhoto">
+    <div class="row" ng-if="adv.photos.length>0">
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="col-md-5 navbar-left navbar-form" ng-if="env.display_report==true">
@@ -30,11 +30,11 @@
       </nav>
     </div>
 
-    <div class="row" id="photo-block" ng-if="env.display=='photos'">
+    <div class="row animation" id="photo-block" ng-if="env.display=='photos'">
       <div class="col-sm-12 col-md-12 main">
         <div class="center">
           <div class="wrapper">
-            <img ng-src="{{adv.MainPhoto.full}}"></div>
+            <img ng-src="{{adv.photos[0].full}}"></div>
         </div>
         <div class="back navigate hide"></div>
         <div class="next navigate hide"></div>
@@ -53,11 +53,11 @@
       </div>
     </div>
 
-    <div class="row" ng-show="env.display=='map'">
+    <div class="row animation" ng-show="env.display=='map'">
       <div id="view_map" style="height: 500px;width:100%"></div>
     </div>
 
-    <div class="row" ng-if="env.display=='report'">
+    <div class="row animation" ng-if="env.display=='report'">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title" translate>Report</h3>
@@ -759,8 +759,8 @@
     <div ng-if="adv.equipments!=null && adv.equipments.length>0 && adv.category!=3 && adv.category!=9 && adv.category!=5 ">
       <h4 translate>Equipment</h4>
       <div class="row">
-        <div class="col-md-2" ng-repeat="equipment in adv.equipments">
-          <span class="label label-primary">{{equipment}}</span>
+        <div class="col-md-12" >
+          <span style="margin: 5px;" class="label label-primary" ng-repeat="equipment in adv.equipments">{{equipment}}</span>
         </div>
       </div>
     </div>

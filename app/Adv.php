@@ -569,7 +569,7 @@ class Adv extends Model
             'title' => 'required',
             'category' => 'required',
             'subcategory' => 'required',
-            'agb' => 'required',
+            //'agb' => 'required',
             'desc' => 'required',
             'address.city' => 'required',
             'address.country' => 'required',

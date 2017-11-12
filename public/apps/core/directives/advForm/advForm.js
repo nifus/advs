@@ -2,7 +2,7 @@
   'use strict';
 
 
-  function advFormDirective(advFactory, $interval, $q, $filter, Upload, advPaymentFactory) {
+  function advFormDirective(advFactory, $interval, $q, $filter, Upload, advPaymentFactory, tariffFactory) {
     return {
       ngModel: 'require',
       replace: true,
@@ -12,6 +12,7 @@
       scope: {
         model: '=',
         onSave: '=',
+        user: '='
       }
     };
 
@@ -20,6 +21,9 @@
 
 
       $scope.env = {
+        payment_type: 'pay_pal',
+        tariffs: [],
+        tariff: null,
         display_additional_information: false,
         display_preview: false,
         categories: [],
@@ -58,7 +62,7 @@
         $scope.env.category_name = getCategoryName($scope.model.category);
         $scope.env.limited = $scope.model.status != 'payment_waiting' && $scope.model.status;
         if ($scope.model.id) {
-          $scope.env.guid = advFactory.guid($scope.model.id);
+          $scope.model.guid = advFactory.guid($scope.model.id);
         }
 
       });
@@ -109,10 +113,7 @@
         $scope.model.move_date = $filter('date')(value, 'dd-MM-yyyy');
       });
 
-
       $scope.$watch('env.address', function (value) {
-
-
         if (value.value != undefined && value.details && value.details.address_components) {
           for (var i in value.details.address_components) {
             var el = angular.copy(value.details.address_components[i]);
@@ -153,15 +154,14 @@
       }, true);
 
       $scope.changeEquipment = function (equipment) {
-        console.log(equipment)
         var index = $scope.model.equipments.indexOf(equipment);
-        console.log(index)
         if (index==-1){
           $scope.model.equipments.push(equipment)
         }else{
           $scope.model.equipments.splice(index,1)
         }
-      }
+      };
+
       $scope.initGoogleMap = function (lat, lng, reload) {
         var interval = $interval(function () {
           if ($('#address_field').length == 1) {
@@ -220,7 +220,6 @@
         }
       };
 
-
       $scope.uploadFiles = function (files) {
         var left = 12 - $scope.model.photos.length;
         if (left == 0) {
@@ -255,56 +254,22 @@
           });
         }
       };
+
       $scope.removePhoto = function ($index) {
         $scope.model.photos.splice($index, 1)
       };
 
-      $scope.pay = function (form) {
-        $scope.env.submit = true;
-        if (form.$invalid) {
-          return false;
-        }
-        if ($scope.user.payment_type == 'prepayment') {
-          advPaymentFactory.createPrePayment($scope.model.id, $scope.env.guid, $scope.env.tariff.id, $scope.env.tariff.price).then(function (response) {
 
-          })
-        } else if ($scope.user.payment_type == 'paypal') {
-          advPaymentFactory.createPaypalPayment($scope.model.id, $scope.user.paypal_email, $scope.env.tariff.id, $scope.env.tariff.price).then(function (payment) {
-            $('#paypalForm').attr('action', '/payment/emulation/paypal/' + payment.id);
-            $('#paypalForm').submit();
-          })
-        } else if ($scope.user.payment_type == 'giropay') {
-          advPaymentFactory.createGiroPayment($scope.model.id, $scope.user.giro_account, $scope.env.tariff.id, $scope.env.tariff.price).then(function (payment) {
-            $('#giroForm').attr('action', '/payment/emulation/giro/' + payment.id);
-            $('#giroForm').submit();
-          })
-        }
-        return false;
-      };
-      $scope.setPrivateTariff = function (tariff) {
-        $scope.env.tariff = tariff;
-        $scope.env.tariff.price = ($scope.model.type == 'rent') ? tariff.rent_price : tariff.sale_price;
-        $scope.env.tariff.begin_date = moment().format('D.MM.Y');
-        if (tariff.duration == '1 week') {
-          $scope.env.tariff.end_date = moment().add(7, 'days').format('D.MM.Y')
-        } else if (tariff.duration == '2 weeks') {
-          $scope.env.tariff.end_date = moment().add(14, 'days').format('D.MM.Y')
-        } else if (tariff.duration == '1 month') {
-          $scope.env.tariff.end_date = moment().add(1, 'months').format('D.MM.Y')
-        } else if (tariff.duration == '2 months') {
-          $scope.env.tariff.end_date = moment().add(2, 'months').format('D.MM.Y')
-        } else if (tariff.duration == '3 months') {
-          $scope.env.tariff.end_date = moment().add(3, 'months').format('D.MM.Y')
-        }
-      };
 
       $scope.save = function (data, form) {
         $scope.env.submit = true;
         if (!form.$invalid) {
           $scope.env.send = true;
           $scope.onSave(data);
+
         }
       };
+
 
 
       $scope.deleteAdvert = function () {
@@ -327,12 +292,13 @@
         }
       }
 
+
     }
 
 
   }
 
-  angular.module('core').directive('advForm', ['advFactory', '$interval', '$q', '$filter', 'Upload', 'advPaymentFactory', advFormDirective]);
+  angular.module('core').directive('advForm', ['advFactory', '$interval', '$q', '$filter', 'Upload', 'advPaymentFactory','tariffFactory', advFormDirective]);
 
 
 })(window.angular);

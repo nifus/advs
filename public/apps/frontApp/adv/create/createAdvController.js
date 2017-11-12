@@ -19,37 +19,37 @@
 
     var promises = [];
     var default_model = {
-          type: 'rent',
-          category: 1,
-          subcategory: 'Any',
-          photos: [],
-          address: {
-            display_house: true
-          },
-          energy: {
-            pass: 'Available',
-            pass_date: 'Till 30.04.14 (EnEV 2009)',
-            pass_type: 'Consumption pass',
-            class: 'Any',
-            source: ''
-          },
-          props: {
-            pets: 'Any',
-            floor_cover: 'Any',
-            air_conditioner: 'By agreement',
-            recommended_usage: 'Any'
-          },
-          finance: {
-            ancillary_cost_included: 1,
-          },
-          author: {},
-          air_conditioner: 'By agreement',
-          edp_cabling: 'By agreement',
-          price_type: 'Price per month',
-          development: 'Developed',
-          building_permission: 'Yes',
-          equipments:[]
-        };
+      type: 'rent',
+      category: 1,
+      subcategory: 'Any',
+      photos: [],
+      address: {
+        display_house: true
+      },
+      energy: {
+        pass: 'Available',
+        pass_date: 'Till 30.04.14 (EnEV 2009)',
+        pass_type: 'Consumption pass',
+        class: 'Any',
+        source: ''
+      },
+      props: {
+        pets: 'Any',
+        floor_cover: 'Any',
+        air_conditioner: 'By agreement',
+        recommended_usage: 'Any'
+      },
+      finance: {
+        ancillary_cost_included: 1,
+      },
+      author: {},
+      air_conditioner: 'By agreement',
+      edp_cabling: 'By agreement',
+      price_type: 'Price per month',
+      development: 'Developed',
+      building_permission: 'Yes',
+      equipments: []
+    };
     $scope.model = default_model;
 
     function initPage(deferred) {
@@ -65,7 +65,7 @@
       if (restore_advert_id != null) {
         var adv_restore_promise = advFactory.restoreAdvert(restore_advert_id).then(function (response) {
           $scope.model = response;
-          $scope.env.action = 'payment';
+          $scope.env.action = 'form';
           $scope.env.restore_flag = true;
           $scope.env.guid = advFactory.guid($scope.model.id);
         }, function () {
@@ -73,9 +73,12 @@
         });
         promises.push(adv_restore_promise);
       }
+
+
       if ($scope.user.isPrivateAccount()) {
         tariffFactory.getPrivatePrices().then(function (response) {
           $scope.env.tariffs = response;
+          $scope.setPrivateTariff(response[0])
         });
       } else {
         tariffFactory.getBusinessPrices().then(function (response) {
@@ -102,13 +105,13 @@
     $scope.$parent.init.push(initPage);
 
 
-    $scope.pay = function (form) {
+    /*$scope.pay = function (form) {
       $scope.env.submit = true;
       if (form.$invalid) {
         return false;
       }
       if ($scope.user.payment_type == 'prepayment') {
-        advPaymentFactory.createPrePayment($scope.model.id, $scope.env.guid, $scope.env.tariff.id, $scope.env.tariff.price).then(function (response) {
+        advPaymentFactory.createPrePayment($scope.model.id, $scope.model.guid, $scope.env.tariff.id, $scope.env.tariff.price).then(function (response) {
           window.location.href = '/'
         })
       } else if ($scope.user.payment_type == 'paypal') {
@@ -124,7 +127,7 @@
       }
 
       return false;
-    };
+    };*/
     $scope.setPrivateTariff = function (tariff) {
       $scope.env.tariff = tariff;
       $scope.env.tariff.price = ($scope.model.type == 'rent') ? tariff.rent_price : tariff.sale_price;
@@ -141,6 +144,7 @@
         $scope.env.tariff.end_date = moment().add(3, 'months').format('D.MM.Y')
       }
     };
+
     $scope.deleteAdvert = function () {
       alertify.confirm($filter('translate')("Are you sure  want to delete this advert?"), function (e) {
         if (e) {
@@ -154,15 +158,15 @@
     };
 
     $scope.save = function (data) {
-
+      $scope.env.restore_flag = false
       if ($scope.model.id == null) {
         advFactory.store(data).then(
             function (response) {
               $scope.model = response;
-
               if (response.status != 'active') {
                 $scope.env.action = 'payment';
-                $scope.env.guid = advFactory.guid($scope.model.id);
+                $scope.model.guid = advFactory.guid($scope.model.id);
+
                 localStorage.setItem("advert_id", $scope.model.id);
               } else {
                 window.location.href = '/';

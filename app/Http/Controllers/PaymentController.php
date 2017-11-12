@@ -60,6 +60,7 @@ class PaymentController extends Controller
                 $data['price'] = $advert->type=='rent' ? $tariff->rent_price : $tariff->sale_price;
             }
 
+
             $payment = Payment::createNewPayment($type, $user, $way, $data);
 
             return response()->json($payment);

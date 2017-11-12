@@ -292,6 +292,7 @@ class User extends Authenticatable
 
     public function getCurrentTariff()
     {
+
         return UserTariff::getCurrentTariff($this->id);
     }
     public function getFutureTariff()
