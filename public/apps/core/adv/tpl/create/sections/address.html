@@ -1,0 +1,42 @@
+<div class="form-group" ng-class="{ 'has-error': adv_form.address.$invalid && env.submit==true }">
+  <label class="control-label col-sm-3" translate>Address</label>
+  <div class="col-sm-9">
+    <input type="text" ng-autocomplete ng-model="env.address.value" details="env.address.details"
+           name="address"
+           ng-disabled="env.limited"
+           class="form-control" id="address_field" ng-required="model.id==undefined">
+  </div>
+</div>
+
+<div class="form-group" ng-if="env.address.details"
+     ng-class="{ 'has-error': (adv_form.city.$invalid || adv_form.zip.$invalid) && env.submit==true }">
+  <label class="control-label col-sm-3" translate>City, Zip</label>
+  <div class="col-sm-9 form-inline">
+    <input type="text" ng-model="model.address.city" style="width:20%" class="form-control" name="city"
+           required
+           placeholder="{{'City'|translate}}">
+
+    <input type="text" ng-model="model.address.zip" style="width: 15%" class="form-control"
+           placeholder="{{'Zip'|translate}}"
+
+           name="zip" required>
+  </div>
+</div>
+
+<div class="form-group" ng-if="env.address.details"
+     ng-class="{ 'has-error': (adv_form.street.$invalid || adv_form.house.$invalid) && env.submit==true }">
+  <label class="control-label col-sm-3" translate>Street, House</label>
+  <div class="col-sm-9 form-inline">
+    <input type="text" ng-model="model.address.street" style="width:50%" class="form-control"
+
+           placeholder="{{'Street'|translate}}" name="street" required>
+    <input type="text" ng-model="model.address.house_number" class="form-control" style="width: 10%"
+
+           placeholder="{{'House number'|translate}}" name="house_number" required>
+  </div>
+</div>
+
+
+<div class="form-group" ng-if="model.address.city">
+  <div ng-show="model.lat" id="map" style="height: 400px;width: 100%;"></div>
+</div>

@@ -1,0 +1,10 @@
+<h4 translate>Equipment</h4>
+<div class="form-group">
+  <div class="col-sm-12">
+    <ul class="select">
+      <li ng-repeat="equipment in env.equipments[model.category]"
+          ng-click="changeEquipment(equipment)"
+          ng-class="{'active' :model.equipments.indexOf(equipment)!==-1}">{{equipment}}</li>
+    </ul>
+  </div>
+</div>

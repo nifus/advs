@@ -1,0 +1,42 @@
+<h4 translate>Contact details</h4>
+
+<div class="form-group">
+  <label class="control-label col-sm-3" translate>Title</label>
+  <div class="col-sm-9 ">
+    <ul class="select">
+      <li  ng-class="{'active' : model.author.sex=='male'}"
+           ng-click="model.author.sex = 'male'">{{'Mister'|translate}}</li>
+      <li ng-class="{'active' : model.author.sex=='female'}"
+          ng-click="model.author.sex = 'female'">{{'Miss'|translate}}</li>
+    </ul>
+  </div>
+</div>
+
+<div class="form-group"
+     ng-class="{ 'has-error': (adv_form.author_name.$invalid ||  adv_form.author_surname.$invalid) && env.submit==true }">
+  <label class="control-label col-sm-3" translate>Full Name</label>
+  <div class="col-sm-9 form-inline">
+    <input type="text" class="form-control" placeholder="Forename" ng-model="model.author.name" name="author_name"
+           required>
+    <input type="text" class="form-control" placeholder="Surname" ng-model="model.author.surname"
+           name="author_surname" required>
+  </div>
+</div>
+
+<div class="form-group" ng-class="{ 'has-error': adv_form.author_email.$invalid && env.submit==true }">
+  <label class="control-label col-sm-3" translate>Email</label>
+  <div class="col-sm-9">
+    <input type="email" class="form-control" ng-model="model.author.email" name="author_email" required>
+  </div>
+</div>
+
+<div class="form-group" ng-class="{ 'has-error': adv_form.author_phone.$invalid && env.submit==true }">
+  <label class="control-label col-sm-3" translate>Phone number</label>
+  <div class="col-sm-9">
+    <input type="text" class="form-control" ng-model="model.author.phone" name="author_phone" required>
+    <label>
+      <input type="checkbox" ng-model="model.author.hide_contacts"><span translate> &nbsp; {{'Contact only via email?'|translate}}</span>
+    </label>
+  </div>
+
+</div>

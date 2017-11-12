@@ -1,0 +1,60 @@
+
+<div class="form-group">
+  <label class="control-label col-sm-3" translate>Energy pass</label>
+  <div class="col-sm-9">
+    <ul class="select">
+      <li ng-class="{'active' : model.energy.pass=='Available'}"
+          ng-click="model.energy.pass = 'Available'">{{'Available'|translate}}
+      </li>
+      <li ng-class="{'active' : model.energy.pass=='Available on inspection'}"
+          ng-click="model.energy.pass = 'Available on inspection'">{{'Available on inspection'|translate}}
+      </li>
+      <li ng-class="{'active' : model.energy.pass=='Underlies not EnEV'}"
+          ng-click="model.energy.pass = 'Underlies not EnEV'">{{'Underlies not EnEV'|translate}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="form-group" ng-show="model.energy.pass=='Available'">
+  <label class="control-label col-sm-3" translate>Energy pass date</label>
+  <div class="col-sm-9">
+    <ul class="select">
+      <li ng-class="{'active' : model.energy.pass_date=='Till 30.04.14 (EnEV 2009)'}"
+          ng-click="model.energy.pass_date = 'Till 30.04.14 (EnEV 2009)'">{{'Till 30.04.14 (EnEV 2009)'|translate}}
+      </li>
+      <li ng-class="{'active' : model.energy.pass_date=='After 01.05.14 (EnEV 2014)'}"
+          ng-click="model.energy.pass_date = 'After 01.05.14 (EnEV 2014)'">{{'After 01.05.14 (EnEV 2014)'|translate}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="form-group" ng-show="model.energy.pass=='Available' && model.energy.pass_date">
+  <label class="control-label col-sm-3" translate>Energy pass type</label>
+  <div class="col-sm-9">
+    <ul class="select">
+      <li ng-class="{'active' : model.energy.pass_type=='Consumption pass'}"
+          ng-click="model.energy.pass_type = 'Consumption pass'">{{'Requirement pass'|translate}}
+      </li>
+      <li ng-class="{'active' : model.energy.pass_type=='Requirement pass'}"
+          ng-click="model.energy.pass_type = 'Requirement pass'">{{'Consumption pass'|translate}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="form-group" ng-show="model.energy.pass=='Available' && model.energy.pass_date && model.energy.pass_type">
+  <label class="control-label col-sm-3" translate>Energy consumption value</label>
+  <div class="col-sm-9">
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="model.energy.consumption">
+      <span class="input-group-addon" translate>kWh/(m<sup>2</sup>*a)</span>
+    </div>
+
+    <label ng-show="model.energy.pass_type=='Consumption pass'">
+      <input type="checkbox" ng-model="model.energy.water_included"> {{'Warm water included'|translate}}
+    </label>
+  </div>
+</div>

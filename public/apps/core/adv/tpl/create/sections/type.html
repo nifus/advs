@@ -1,0 +1,9 @@
+<div class="form-group">
+  <div class="col-sm-12">
+    <ul class="select">
+      <li ng-class="{'active': model.subcategory==cat.id}"
+          ng-repeat="cat in env.subcats[model.category]" ng-click="model.subcategory=cat.id">{{cat.title}}
+      </li>
+    </ul>
+  </div>
+</div>
