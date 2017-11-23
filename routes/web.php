@@ -25,8 +25,9 @@ Route::group(['prefix' => 'payment'], function () {
 });
 
 
-Route::get('/rent', ['as' => 'adv.rent', 'uses' => 'SearchController@rent']);
-Route::get('/buy', ['as' => 'adv.sale', 'uses' => 'SearchController@buy']);
+Route::get('/search', ['as' => 'adv.search-offer', 'uses' => 'SearchController@rent']);
+//Route::get('/rent', ['as' => 'adv.rent', 'uses' => 'SearchController@rent']);
+//Route::get('/buy', ['as' => 'adv.sale', 'uses' => 'SearchController@buy']);
 
 
 Route::get('/offer', ['as' => 'adv.offer', 'uses' => 'AdvController@create']);

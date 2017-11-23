@@ -1,188 +1,120 @@
-<div class="col-md-7">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title" translate>Detailed search</h3>
-        </div>
-        <div class="panel-body">
-            <div class="col-md-12 form-horizontal">
-                <div class="col-md-4">
-                    <label translate>Cold rent in €</label>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" translate>From</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" min="0" ng-model="search.price.from">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" translate>To</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" min="0" ng-model="search.price.to">
-                        </div>
-                    </div>
-                </div>
-            </div>
+<h4>Detailed search</h4>
 
-            <div class="col-md-12 form-horizontal">
-                <div class="col-md-4">
-                    <label translate>Living area in m<sup>2</sup></label>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" translate>From</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" min="1" ng-model="search.living_area.from">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" translate>To</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control"  min="1" ng-model="search.living_area.to">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-12 form-horizontal">
-                <div class="col-md-4">
-                    <label translate>Rooms</label>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" translate>From</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" min="1" ng-model="search.rooms.from">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" translate>To</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" min="1" ng-model="search.rooms.to">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12 form-horizontal">
-                <div class="col-md-4">
-                    <label translate>Floor</label>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" translate>From</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" min="1" ng-model="search.floor.from">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" translate>To</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" min="1" ng-model="search.floor.to">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-12 form-horizontal">
-                <div class="col-md-4">
-                    <label translate>Parking place available</label>
-                </div>
-                <div class="col-md-8">
-                    <label class="radio-inline">
-                        <input type="radio"  ng-model="search.parking_place" value="Any"> {{'Any'|translate}}
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio"  ng-model="search.parking_place" value="Yes"> {{'Yes'|translate}}
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" ng-model="search.parking_place" value="No"> {{'No'|translate}}
-                    </label>
-                </div>
-
-            </div>
-
-            <div>
-                <h4 translate>Building type</h4>
-                <div class="row">
-                    <div class="col-md-4" ng-repeat="cat in env.subcats[search.category]">
-                        <label>
-                            <input type="checkbox" checklist-model="search.subcategory" checklist-value="cat.id">
-                            {{cat.title}}
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <h4 translate>Equipment</h4>
-                <div class="row">
-                    <div class="col-md-4" ng-repeat="equipment in env.equipments[search.category]">
-                        <label>
-                            <input type="checkbox" checklist-model="search.equipments" checklist-value="equipment">
-                            {{equipment}}
-                        </label>
-                    </div>
-
-
-                </div>
-            </div>
-
-            <div>
-                <h4 translate>Heating system</h4>
-                <div class="row">
-                    <div class="col-md-2" ng-repeat="heating_system in env.heating_systems" >
-                        <label>
-                            <input type="radio" ng-model="search.heating" value="{{heating_system}}">
-                            {{heating_system}}
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <h4 translate>Pets</h4>
-                <div class="row">
-                    <div class="col-md-2" >
-                        <label>
-                            <input type="radio" ng-model="search.pets" value="Any">
-                            {{'Any'|translate}}
-                        </label>
-                    </div>
-
-                    <div class="col-md-2" >
-                        <label>
-                            <input type="radio" ng-model="search.pets" value="Allowed">
-                            {{'Allowed'|translate}}
-                        </label>
-                    </div>
-
-                    <div class="col-md-2" >
-                        <label>
-                            <input type="radio" ng-model="search.pets" value="Forbidden">
-                            {{'Forbidden'|translate}}
-                        </label>
-                    </div>
-
-                    <div class="col-md-2" >
-                        <label>
-                            <input type="radio" ng-model="search.pets" value="By agreement">
-                            {{'By agreement'|translate}}
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label ng-if="search.type=='rent'" translate>Cold rent in €</label>
+      <label ng-if="search.type=='sale'" translate>Sales price in €</label>
+      <input type="number" class="form-control" placeholder="From" min="0" ng-model="search.price.from" id="focus">
+      <input type="number" class="form-control" placeholder="To" min="0" ng-model="search.price.to">
     </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Living area in m<sup>2</sup></label>
+      <input type="number" class="form-control" placeholder="From" min="1" ng-model="search.living_area.from">
+      <input type="number" class="form-control" placeholder="To" min="1" ng-model="search.living_area.to">
+    </div>
+  </div>
 </div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Rooms</label>
+      <input type="number" class="form-control" placeholder="From" min="0" ng-model="search.price.from">
+      <input type="number" class="form-control" placeholder="To" min="0" ng-model="search.price.to">
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Floor</label>
+      <input type="number" class="form-control" placeholder="From" min="1" ng-model="search.floor.from">
+      <input type="number" class="form-control" placeholder="To" min="1" ng-model="search.floor.to">
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="form-group col-md-12">
+    <label translate>Parking place available</label>
+    <ul class="select">
+      <li ng-click="search.parking_place = 'Any'"
+          ng-class="{'active' : search.parking_place=='Any'}">{{'Any'|translate}}
+      </li>
+      <li ng-click="search.parking_place = 'Yes'"
+          ng-class="{'active' : search.parking_place=='Yes'}">{{'Yes'|translate}}
+      </li>
+      <li ng-click="search.parking_place = 'No'"
+          ng-class="{'active' : search.parking_place=='No'}">{{'No'|translate}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col-md-12">
+    <label translate>Heating system</label>
+    <ul class="select">
+      <li ng-repeat="heating_system in env.heating_systems"
+          ng-click="search.heating=heating_system"
+          ng-class="{'active' :search.heating==heating_system}">{{heating_system}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col-md-12">
+    <label translate>Pets</label>
+    <ul class="select">
+      <li ng-click="search.pets = 'Any'"
+          ng-class="{'active' : search.pets=='Any'}">{{'Any'|translate}}
+      </li>
+      <li ng-click="search.pets = 'Allowed'"
+          ng-class="{'active' : search.pets=='Allowed'}">{{'Allowed'|translate}}
+      </li>
+      <li ng-click="search.pets = 'Forbidden'"
+          ng-class="{'active' : search.pets=='Forbidden'}">{{'Forbidden'|translate}}
+      </li>
+      <li ng-click="search.pets = 'By agreement'"
+          ng-class="{'active' : search.pets=='By agreement'}">{{'By agreement'|translate}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+<h4 translate>Building type</h4>
+
+<div class="row">
+  <div class="form-group col-md-12">
+    <ul class="select">
+      <li ng-repeat="cat in env.subcats[search.category]"
+          ng-click="changeSubCategory(cat.id)"
+          ng-class="{'active' :search.subcategory.indexOf(cat.id)!==-1}">{{cat.title}}
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+
+<h4 translate>Equipment</h4>
+<div class="row">
+  <div class="form-group col-md-12">
+    <ul class="select">
+      <li ng-repeat="equipment in env.equipments[search.category]"
+          ng-click="changeEquipment(equipment)"
+          ng-class="{'active' :search.equipments.indexOf(equipment)!==-1}">{{equipment}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+

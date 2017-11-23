@@ -5,93 +5,138 @@
 @endsection
 @section('content')
 
+    @verbatim
+    <div ng-controller="searchAdvController" id="advert-form">
 
-    <div ng-controller="searchAdvController">
 
-        <div>
-            <ol class="breadcrumb">
-                <li><a href="/">{{ trans('main.home') }}</a></li>
-                <li class="active">Search real estate</li>
-            </ol>
-        </div>
         <div class="progress" ng-show="env.loading==true">
-            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45"
+                 aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                 <span class="sr-only">45% Complete</span>
             </div>
         </div>
-        <form name="searchAdvForm"  ng-show="env.loading==false">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Rent</h3>
-                    </div>
-                    <div class="panel-body">
-                        <p>Please select the advertisement type, which you are looking for.
-                            Based on your selection you will receive the required template.</p>
-                        <div class="col-md-6">
-                            @foreach($categories as $category)
-                                @if ($category['is_sale_only']===false && $category['ic_business']===false)
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" ng-model="search.category" value="{{$category['id']}}">
-                                            {{$category['title']}}
-                                        </label>
-                                    </div>
-                                @endif
-                            @endforeach
-                        </div>
-                        <div class="col-md-6">
-                            <div class="panel panel-success">
-                                <div class="panel-heading">
-                                    Business realty
-                                </div>
-                                <div class="panel-body">
 
-                                    @foreach($categories as $category)
-                                        @if ($category['is_sale_only']===false && $category['ic_business']===true)
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" ng-model="search.category" value="{{$category['id']}}">
-                                                    {{$category['title']}}
-                                                </label>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <form name="searchAdvForm" ng-show="env.loading==false">
+            <h1>Search Advert</h1>
+            <h4>Advert Type</h4>
 
+            <div class="form-group">
+                <label>Do you want find rent or sell objects?</label>
+                <div class="adv-type">
+                    <ul>
+                        <li ng-click="setType('rent')" ng-class="{'active':search.type=='rent'}">Rent</li>
+                    </ul>
 
-                </div>
-                <h4>Location</h4>
-                <div class="col-md-12">
-                    <city-select ng-model="search" ></city-select>
-                </div>
-
-
-                <div class="col-md-12">
-                    banner
+                    <ul>
+                        <li ng-click="setType('sale')" ng-class="{'active':search.type=='sale'}">Sale</li>
+                    </ul>
                 </div>
             </div>
-            <div ng-include="'apps/core/adv/tpl/searchForm/rentFlatSearchDetails.html'"  ng-if="search.category==1"></div>
-            <div ng-include="'apps/core/adv/tpl/searchForm/rentHouseSearchDetails.html'"  ng-if="search.category==2"></div>
-            <div ng-include="'apps/core/adv/tpl/searchForm/rentGarageSearchDetails.html'"  ng-if="search.category==3"></div>
-            <div ng-include="'apps/core/adv/tpl/searchForm/rentOfficeSearchDetails.html'"  ng-if="search.category==4"></div>
-            <div ng-include="'apps/core/adv/tpl/searchForm/rentHotelSearchDetails.html'"  ng-if="search.category==6"></div>
-            <div ng-include="'apps/core/adv/tpl/searchForm/rentHallSearchDetails.html'"  ng-if="search.category==7"></div>
-            <div ng-include="'apps/core/adv/tpl/searchForm/rentRetailSearchDetails.html'"  ng-if="search.category==8"></div>
-            <div ng-include="'apps/core/adv/tpl/searchForm/rentCommercialLandSearchDetails.html'"  ng-if="search.category==9"></div>
+
+            <div class="form-group" ng-if="search.type=='rent'">
+                <label>Which object type are your searching?</label>
+                <div class="category">
+                    <ul>
+                        <li class="first">Living objects</li>
+                        <li ng-repeat="category in env.categories"
+                            ng-if="category.ic_business==false && (category.is_sale_only==false)"
+                            ng-class="{'active':search.type=='rent' && search.category==category.id}"
+                            ng-click="setCategory(category.id)"
+                        >{{category.title}}
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li class="first">Business objects</li>
+                        <li ng-repeat="category in env.categories"
+                            ng-if="category.ic_business==true && (category.is_sale_only==false)"
+                            ng-class="{'active':search.type=='rent' && search.category==category.id}"
+                            ng-click="setCategory(category.id)"
+                        >{{category.title}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group" ng-if="search.type=='sale'">
+                <label>Please select the type of your object</label>
+                <div class="category">
+                    <ul>
+                        <li class="first">Living objects</li>
+                        <li ng-repeat="category in env.categories"
+                            ng-if="category.ic_business==false "
+                            ng-class="{'active':search.type=='sale' && search.category==category.id}"
+                            ng-click="setCategory(category.id)"
+                        >{{category.title}}
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li class="first">Business objects</li>
+                        <li ng-repeat="category in env.categories"
+                            ng-if="category.ic_business==true"
+                            ng-class="{'active':search.type=='sale' && search.category==category.id}"
+                            ng-click="setCategory(category.id)"
+                        >{{category.title}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>Location</h4>
+            <div class="form-group">
+                    <city-select ng-model="search"></city-select>
+            </div>
+
+            <div class="animation" ng-if="env.detail_search==true">
+
+                <div ng-include="'apps/core/adv/tpl/searchForm/rentFlatSearchDetails.html'"
+                     ng-if="search.category==1"></div>
+                <div ng-include="'apps/core/adv/tpl/searchForm/rentHouseSearchDetails.html'"
+                     ng-if="search.category==2"></div>
+                <div ng-include="'apps/core/adv/tpl/searchForm/rentGarageSearchDetails.html'"
+                     ng-if="search.category==3"></div>
+                <div ng-include="'apps/core/adv/tpl/searchForm/rentOfficeSearchDetails.html'"
+                     ng-if="search.category==4"></div>
+                <div ng-include="'apps/core/adv/tpl/searchForm/rentBuildingSearchDetails.html'"
+                     ng-if="search.category==5"></div>
+                <div ng-include="'apps/core/adv/tpl/searchForm/rentHotelSearchDetails.html'"
+                     ng-if="search.category==6"></div>
+                <div ng-include="'apps/core/adv/tpl/searchForm/rentHallSearchDetails.html'"
+                     ng-if="search.category==7"></div>
+                <div ng-include="'apps/core/adv/tpl/searchForm/rentRetailSearchDetails.html'"
+                     ng-if="search.category==8"></div>
+                <div ng-include="'apps/core/adv/tpl/searchForm/rentCommercialLandSearchDetails.html'"
+                     ng-if="search.category==9"></div>
+
+            </div>
+
+            <div class="form-group text-right">
+                <button style="width: 200px;" ng-if="env.detail_search!=true"
+                        class="btn btn-success btn-lg" type="button"  ng-click="detailSearch(true)"
+                        translate>
+                    <span class="glyphicon glyphicon-play"></span>
+                    Detailed Search
+                </button>
+
+                <button style="width: 200px;" ng-if="env.detail_search==true"
+                        class="btn btn-success btn-lg" type="button"  ng-click="detailSearch(false)"
+                        translate>
+                    <span class="glyphicon glyphicon-play"></span>
+                    Hide Details
+                </button>
+
+                <button style="width: 200px" class="btn btn-primary btn-lg" type="button" ng-disabled="env.submit==true || !search.lat"
+                        ng-click="searchAdvs(search)"
+                        translate>
+                    <span class="glyphicon glyphicon-zoom-in"></span>
+                    Search
+                </button>
 
 
-        </div>
-
-        <div class="row text-right">
-            <button type="button" class="btn btn-primary"
-                    ng-disabled="env.submit==true || !search.lat"
-                    ng-click="searchAdvs(search)">Search</button>        </div>
+            </div>
         </form>
     </div>
     <br style="clear: both">
+    @endverbatim
 @endsection

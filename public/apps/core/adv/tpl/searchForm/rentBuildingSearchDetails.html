@@ -1,10 +1,9 @@
 <h4>Detailed search</h4>
 
-<div class="row">
+<div class="row" ng-if="search.type=='rent'">
   <div class="col-md-6">
     <div class="form-group form-inline">
-      <label translate ng-if="search.type=='rent'">Price per year in €</label>
-      <label translate ng-if="search.type=='sale'">Sales price in €</label>
+      <label translate >Price per year in €</label>
       <input type="number" class="form-control" placeholder="From" min="0" ng-model="search.price.from"
              id="focus">
       <input type="number" class="form-control" placeholder="To" min="0" ng-model="search.price.to">
@@ -20,6 +19,34 @@
   </div>
 </div>
 
+<div class="row" ng-if="search.type=='sale'">
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate >Sales price in €</label>
+      <input type="number" class="form-control" placeholder="From" min="0" ng-model="search.price.from"
+             id="focus">
+      <input type="number" class="form-control" placeholder="To" min="0" ng-model="search.price.to">
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Emphyteusis per year in €</label>
+      <input type="number" class="form-control" placeholder="From" min="0" ng-model="search.price_per_year.from">
+      <input type="number" class="form-control" placeholder="To" min="0" ng-model="search.price_per_year.to">
+    </div>
+  </div>
+</div>
+
+<div class="row" ng-if="search.type=='sale'">
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Area in m<sup>2</sup></label>
+      <input type="number" class="form-control" placeholder="From" min="0" ng-model="search.area.from">
+      <input type="number" class="form-control" placeholder="To" min="0" ng-model="search.area.to">
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="form-group col-md-12">
     <label translate>Development</label>

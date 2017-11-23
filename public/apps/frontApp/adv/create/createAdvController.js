@@ -105,29 +105,7 @@
     $scope.$parent.init.push(initPage);
 
 
-    /*$scope.pay = function (form) {
-      $scope.env.submit = true;
-      if (form.$invalid) {
-        return false;
-      }
-      if ($scope.user.payment_type == 'prepayment') {
-        advPaymentFactory.createPrePayment($scope.model.id, $scope.model.guid, $scope.env.tariff.id, $scope.env.tariff.price).then(function (response) {
-          window.location.href = '/'
-        })
-      } else if ($scope.user.payment_type == 'paypal') {
-        advPaymentFactory.createPaypalPayment($scope.model.id, $scope.user.paypal_email, $scope.env.tariff.id, $scope.env.tariff.price).then(function (payment) {
-          $('#paypalForm').attr('action', '/payment/emulation/paypal/' + payment.id);
-          $('#paypalForm').submit();
-        })
-      } else if ($scope.user.payment_type == 'giropay') {
-        advPaymentFactory.createGiroPayment($scope.model.id, $scope.user.giro_account, $scope.env.tariff.id, $scope.env.tariff.price).then(function (payment) {
-          $('#giroForm').attr('action', '/payment/emulation/giro/' + payment.id);
-          $('#giroForm').submit();
-        })
-      }
 
-      return false;
-    };*/
     $scope.setPrivateTariff = function (tariff) {
       $scope.env.tariff = tariff;
       $scope.env.tariff.price = ($scope.model.type == 'rent') ? tariff.rent_price : tariff.sale_price;

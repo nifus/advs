@@ -1,7 +1,7 @@
-<div>
-    <div class="row">
+<div  class="row">
+    <div style="height: 80px">
         <div class="col-md-8">
-            <div class="form-group">
+
                 <label>Zip, City</label>
                 <input type="text" class="form-control" ng-model="env.city">
                 <ul class="autocomplete" ng-show="env.search_results.length>0">
@@ -10,23 +10,18 @@
                             ng-class="{'active': env.selected==$index}"
                             ng-click="select(result)">{{result.description}}</li>
                 </ul>
-            </div>
+
         </div>
 
         <div class="col-md-4">
-            <div class="form-group">
                 <label>Radius</label>
                 <select class="form-control" ng-model="env.radius">
                     <option ng-repeat="item in env.zoom_radius" value="{{item.radius}}">{{item.radius}} km</option>
                 </select>
-            </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 animation" ng-show="env.display_map">
             <div id="map" style="width:100%;height:500px" ></div>
         </div>
 
-    </div>
 </div>
