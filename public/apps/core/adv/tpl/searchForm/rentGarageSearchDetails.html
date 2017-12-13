@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group form-inline">
-            <label ng-if="search.type=='rent'" translate>Cold rent in €</label>
+            <label ng-if="search.type=='rent'" translate>Rent price in €</label>
             <label ng-if="search.type=='sale'" translate>Sales price in €</label>
             <input type="number" class="form-control" placeholder="From" min="0" ng-model="search.price.from" id="focus">
             <input type="number" class="form-control" placeholder="To" min="0" ng-model="search.price.to">

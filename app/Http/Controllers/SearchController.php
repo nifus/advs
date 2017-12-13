@@ -60,7 +60,7 @@ class SearchController extends Controller
             abort(404);
         }
 
-        $search_back = $log->query['type'] == 'rent' ? route('adv.rent') : route('adv.sale');
+        $search_back = route('adv.search-offer');
         $search_back .= '?id=' . $id;
 
         return view('controller.search.result', [
@@ -102,18 +102,18 @@ class SearchController extends Controller
     {
         $configs = $request->only(['page', 'per_page']);
         $log = SearchLog::find($id);
-        $config = $log->config;
-        foreach ($configs as $field => $value) {
-            $config[$field] = $value;
-        }
-        $log->update(['config' => $config]);
+        //$config = $log->config;
+        //foreach ($configs as $field => $value) {
+         //   $config[$field] = $value;
+        //}
+        //$log->update(['config' => $config]);
         $user = User::getUser();
         $user_id = !is_null($user) ? $user->id : null;
         //$place = Place::find($log->query->city_id);
 
         //SELECT id, ( 3959 * acos( cos( radians(37) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( lat ) ) ) ) AS distance FROM markers HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;
         if ($log->type == 'advs') {
-            $advs = Adv::getByPage($log->config['page'], $log->config['per_page'], $log->query);
+            $advs = Adv::getByPage(null, null, $log->query);
 
             $result = [];
             foreach ($advs as $adv) {

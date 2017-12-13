@@ -2,7 +2,7 @@
     'use strict';
     angular.module('frontApp').controller('searchResultViewController', searchResultViewController);
 
-    searchResultViewController.$inject = ['$scope', 'advFactory','$q','$interval','$cookies'];
+    searchResultViewController.$inject = ['$scope', 'advFactory','$q','$interval','$cookies',''];
 
     function searchResultViewController($scope, advFactory, $q, $interval, $cookies) {
         console.log('searchResultViewController')
@@ -13,14 +13,11 @@
             submit: false
         };
         $scope.adv = null;
-        $scope.message = {
+        $scope.message = {};
 
-        };
 
-        var url = window.location.href.match(/\/([0-9]*)/);
-        console.log(url)
 
-        $scope.env.adv_id = url!=null && url[1]!=undefined ?  url[1]*1 : $scope.env.adv_id;
+
 
 
         var advPromise = advFactory.getById($scope.env.adv_id).then( function(response){

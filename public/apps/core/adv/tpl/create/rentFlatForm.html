@@ -8,8 +8,8 @@
   <div class="form-group" ng-class="{ 'has-error': adv_form.area.$invalid && env.submit==true }">
     <label class="control-label col-sm-3" translate>Living area</label>
     <div class="col-sm-9">
-      <div class="input-group ">
-        <input type="number" min="1" class="form-control" ng-model="model.living_area" name="area" required>
+      <div class="input-group short">
+        <input type="number" min="1" class="form-control " ng-model="model.living_area" name="area" required>
         <span class="input-group-addon">m<sup>2</sup></span>
       </div>
     </div>
@@ -18,7 +18,7 @@
 
   <div class="form-group" ng-class="{ 'has-error': adv_form.rooms.$invalid && env.submit==true }">
     <label class="control-label col-sm-3" translate>Number of rooms</label>
-    <div class="col-sm-9"><input type="number" min="1" class="form-control" placeholder="{{'Room/Rooms'|translate}}"
+    <div class="col-sm-9"><input type="number" min="1" class="form-control short" placeholder="{{'Room/Rooms'|translate}}"
                                  ng-model="model.rooms" required name="rooms"></div>
   </div>
 
@@ -26,7 +26,7 @@
   <div class="form-group" ng-class="{ 'has-error': adv_form.floor.$invalid  && env.submit==true }">
     <label class="control-label col-sm-3" translate>Floor</label>
     <div class="col-sm-9">
-      <input type="number" min="1" class="form-control" placeholder="{{'Your Floor'|translate}}"
+      <input type="number" min="1" class="form-control short" placeholder="{{'Your Floor'|translate}}"
              ng-model="model.floor" name="floor" required>
     </div>
   </div>
@@ -34,7 +34,7 @@
   <div class="form-group" ng-class="{ 'has-error': adv_form.rent.$invalid  && env.submit==true }">
     <label class="control-label col-sm-3" translate>Cold rent</label>
     <div class="col-sm-9">
-      <div class="input-group ">
+      <div class="input-group short">
         <input type="number" min="0" class="form-control" ng-model="model.price" required name="rent">
         <span class="input-group-addon">&euro;</span>
       </div>
@@ -101,7 +101,7 @@
       <label class="col-sm-3 control-label" translate>Build year</label>
 
       <div class="col-sm-9">
-        <input type="number" class="form-control" placeholder="{{'In year'|translate}}"
+        <input type="number" class="form-control short" placeholder="{{'In year'|translate}}"
                ng-model="model.props.build_year" name="build_year" minlength="4" maxlength="4" min="1500">
       </div>
     </div>
@@ -110,7 +110,7 @@
       <label class="col-sm-3 control-label" translate>All floors</label>
 
       <div class="col-sm-9">
-        <input type="number" class="form-control" ng-model="model.props.floors"  placeholder="{{'All Floors'|translate}}">
+        <input type="number" class="form-control short" ng-model="model.props.floors"  placeholder="{{'All Floors'|translate}}">
       </div>
     </div>
 
@@ -118,14 +118,14 @@
     <div class="form-group">
       <label class="col-sm-3 control-label" translate>Number of garage/parking space</label>
       <div class="col-sm-9 ">
-        <input type="number" class="form-control" ng-model="model.props.number_of_garage" min="0">
+        <input type="number" class="form-control short" ng-model="model.props.number_of_garage" min="0">
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-sm-3 control-label" translate>Type of garage/parking space</label>
       <div class="col-sm-9">
-        <select class="form-control" ng-model="model.props.garage">
+        <select class="form-control short" ng-model="model.props.garage">
           <option value="Outdoor parking" translate>Outdoor parking</option>
           <option value="Carport" translate>Carport</option>
           <option value="Duplex" translate>Duplex</option>
@@ -162,7 +162,7 @@
         <div class="dropdown">
           <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown"
              data-target="#" href="">
-            <div class="input-append"><input type="text" class="input-large form-control"
+            <div class="input-append"><input type="text" class="input-large form-control short"
                                              data-ng-model="model.move_date">
             </div>
           </a>
@@ -179,7 +179,7 @@
     <div class="form-group">
       <label class="col-sm-3 control-label" translate>Ancillary cost(in &euro;)</label>
       <div class="col-sm-9">
-        <input type="number" min="0" class="form-control" ng-model="model.finance.ancillary_cost">
+        <input type="number" min="0" class="form-control short" ng-model="model.finance.ancillary_cost">
       </div>
     </div>
 
@@ -192,30 +192,25 @@
           <li  ng-click="model.finance.ancillary_cost_included = '0'"
                ng-class="{'active' : model.finance.ancillary_cost_included=='0'}">{{'No'|translate}}</li>
 
+          <li class="input" ng-if="model.finance.ancillary_cost_included==0">
+            <input type="number" min="0" placeholder="Please enter the heating costs" class="form-control" ng-model="model.finance.heating_cost"
+                   >
+          </li>
         </ul>
       </div>
     </div>
 
     <div class="form-group">
-      <label class="col-sm-3 control-label" translate>Please enter the heating costs</label>
-      <div class="col-sm-9">
-        <input type="number" min="0" class="form-control" ng-model="model.finance.heating_cost"
-               ng-disabled="model.finance.ancillary_cost_included==1">
-      </div>
-    </div>
-
-
-    <div class="form-group">
       <label class="col-sm-3 control-label" translate>Total cost (in &euro;)</label>
       <div class="col-sm-9">
-        <input type="number" min="0" class="form-control" ng-model="model.finance.total_cost">
+        <input type="number" min="0" class="form-control short" ng-model="model.finance.total_cost">
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-sm-3 control-label" translate>Caution money (in &euro;)</label>
       <div class="col-sm-9">
-        <input type="number" min="0" class="form-control" ng-model="model.finance.caution_money">
+        <input type="number" min="0" class="form-control short" ng-model="model.finance.caution_money">
       </div>
     </div>
 

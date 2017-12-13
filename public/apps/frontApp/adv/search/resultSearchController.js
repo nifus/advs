@@ -1,21 +1,20 @@
 (function () {
   'use strict';
-  angular.module('frontApp').controller('searchResultController', searchResultController);
+  angular.module('frontApp').controller('resultSearchController', resultSearchController);
 
-  searchResultController.$inject = ['$scope', 'searchLogFactory', '$q', '$interval', '$filter', 'advFactory', '$cookies', '$http'];
+  resultSearchController.$inject = ['$scope', 'searchLogFactory', '$q', '$interval', '$filter', 'advFactory', '$cookies', '$state'];
 
-  function searchResultController($scope, searchLogFactory, $q, $interval, $filter, advFactory, $cookies, $http) {
-
+  function resultSearchController($scope, searchLogFactory, $q, $interval, $filter, advFactory, $cookies, $state) {
     $scope.adv = null;
     $scope.message = {};
     $scope.env = {
-      adv_id: null,
-      result_id: null,
+      adv_id: $state.params.advert,
+      search_id: $state.params.id,
       search: null,
       loading: true,
       per_page: 20,
       sortby: 'date_create',
-      page: 1,
+      page: (!$state.params.page ? 1 : $state.params.page),
       pages: null,
       current: [],
       display_map: false,
@@ -23,9 +22,14 @@
       map: null,
       submit: false,
       rows: null,
+      display_additional_fields: false
     };
+
     $scope.promises = [];
 
+    $scope.displayAdditionalFields = function (flag) {
+      $scope.env.display_additional_fields = !flag
+    };
 
     $scope.changePerPage = function (value, page, need_update) {
       $scope.env.per_page = value * 1;
@@ -49,9 +53,9 @@
 
     $scope.setPage = function (page) {
       if ($scope.env.page == 1 && page == 1) {
-
+        //$state.go('searchResult.paginate',{id: $scope.env.search_id, page: 1})
       } else {
-        window.location.href = "/search/" + $scope.env.result_id + "#/page" + page;
+        $state.go('searchResult.paginate',{id: $scope.env.search_id, page: page})
       }
       $scope.env.page = page;
       updatePagination();
@@ -144,18 +148,20 @@
     };
 
 
-
+    $scope.displayAdvert = function (advert) {
+      $scope.adv = advert;
+        $state.go('searchResult.ViewAdvert',{id: $scope.env.search_id, advert: advert.id})
+    };
 
     $scope.goBack = function () {
       $scope.adv = null;
-      if ($scope.env.rows) {
-        window.history.back()
-      } else {
-        window.location.href = '/search/' + $scope.env.result_id;
+      if (!$scope.env.rows) {
+        $state.go('searchResult',{id: $scope.env.search_id})
+       // window.location.href = '/search/' + $scope.env.search_id;
       }
     };
     $scope.backToSearchForm = function () {
-      window.location.href = '/search?id=' + $scope.env.search.id;
+      $state.go('searchFormRestore',{id: $scope.env.search_id})
     };
 
     $scope.newSearch = function () {
@@ -252,11 +258,11 @@
             $scope.env.zoom = response.config.zoom;
             $scope.env.lng = response.config.lng;
             $scope.env.lat = response.config.lat;
+            $scope.env.per_page = response.config.per_page;
           }
           if ($scope.env.rows == null) {
             $scope.env.search.getAdvertResult({}).then(function (response) {
               $scope.env.rows = response.rows;
-              console.log(response)
               defer.resolve();
             });
             // $scope.promises.push(advPromise);
@@ -299,13 +305,14 @@
       } else {
         var advPromise = advFactory.getById($scope.env.adv_id).then(function (response) {
           $scope.adv = response;
+          console.log(response)
         });
         $scope.promises.push(advPromise);
       }
 
 
       if ($scope.env.search == null) {
-        var searchPromise = searchLogFactory.getById($scope.env.result_id).then(function (response) {
+        var searchPromise = searchLogFactory.getById($scope.env.search_id).then(function (response) {
           $scope.env.search = response;
         });
         $scope.promises.push(searchPromise);
@@ -331,11 +338,10 @@
 
     }
 
-
-    if ($scope.base.search_id != null) {
-      initListing($scope.base.search_id);
-    } else {
+    if ($scope.env.adv_id != null) {
       initView();
+    } else {
+      initListing($scope.env.search_id);
     }
   }
 })();

@@ -1,28 +1,22 @@
 (function () {
   'use strict';
-  angular.module('frontApp').controller('searchAdvController', searchAdvController);
+  angular.module('frontApp').controller('formSearchController', formSearchController);
 
-  searchAdvController.$inject = ['$scope', 'advFactory', '$http', '$q', '$filter', 'searchLogFactory','$timeout'];
+  formSearchController.$inject = ['$scope', 'advFactory', '$http', '$q', '$filter', 'searchLogFactory','$timeout','$state'];
 
-  function searchAdvController($scope, advFactory, $http, $q, $filter, searchLogFactory, $timeout) {
+  function formSearchController($scope, advFactory, $http, $q, $filter, searchLogFactory, $timeout, $state) {
+
     $scope.env = {
-      detail_search: true,
-      loading: true,
-      submit: false,
-      address: {},
-      id: null,
+      categories: [],
+      subcats: [],
+      equipments: [],
       promises: [],
-      heating_systems: [
-        $filter('translate')('Any'),
-        $filter('translate')('Self-contained heating'),
-        $filter('translate')('Central heating'),
-        $filter('translate')('Teleheating'),
-      ],
-      display_city_field: true
+      address: {},
+      place: null,
+      detail_search: false,
+      submit: false,
+      search_id: $state.params.id
     };
-    if (window.location.search.indexOf('id=') !== -1) {
-      $scope.env.id = window.location.search.match(/id=([0-9]*)/)[1];
-    }
 
     var dataSetPromise = advFactory.getDataSets().then(function (response) {
       $scope.env.categories = response.categories;
@@ -31,9 +25,9 @@
     });
     $scope.env.promises.push(dataSetPromise);
 
-    if ($scope.env.id != null) {
+    if ($scope.env.search_id != null) {
       $scope.env.display_city_field = false;
-      var searchPromise = $http.get('/api/search/' + $scope.env.id).then(function (response) {
+      var searchPromise = $http.get('/api/search/' + $scope.env.search_id).then(function (response) {
         if (response.data.success == true) {
           $scope.search = response.data.search.query;
           $scope.env.address = {
@@ -48,6 +42,8 @@
       $scope.env.promises.push(searchPromise);
     }
     $q.all($scope.env.promises).then(function () {
+      $scope.env.loading = false;
+    }, function () {
       $scope.env.loading = false;
     });
 
@@ -73,9 +69,9 @@
         $timeout(function () {
           $('#focus').focus()
         },100)
-
       }
-    }
+    };
+
     $scope.changeSubCategory = function (category_id) {
       var index = $scope.search.subcategory.indexOf(category_id);
       if (index==-1){
@@ -83,7 +79,7 @@
       }else{
         $scope.search.subcategory.splice(index,1)
       }
-    }
+    };
     $scope.changeEquipment = function (eq_id) {
       var index = $scope.search.equipments.indexOf(eq_id);
       if (index==-1){
@@ -91,17 +87,18 @@
       }else{
         $scope.search.equipments.splice(index,1)
       }
-    }
+    };
 
     $scope.searchAdvs = function (data) {
       $scope.env.submit = true;
       searchLogFactory.storeAdvs(data).then(function (response) {
-        window.location.href = '/search/' + response.id;
+        //$scope.displaySearchResults( response.id)
+        $state.go('searchResult',{id: response.id})
+        //window.location.href = '/search/' + response.id;
       }, function () {
         //exception
       });
-
-    }
+    };
 
 
     $scope.$watch('search', function (value) {

@@ -4,7 +4,7 @@
             <tr class="info">
                 <td colspan="3" class="header">
                     <div class="title">
-                        <a ng-href="/search/{{env.result_id}}#view{{row.id}}">{{row.title}}</a>
+                        <a ui-sref="searchResultViewAdvert({id:env.search.id, advert: row.id})">{{row.title}}</a>
                     </div>
 
                     <div class="fav">
@@ -20,7 +20,7 @@
 
             <tr>
                 <td rowspan="5" style="width: 200px;padding:0" ng-if="row.MainPhoto.preview">
-                    <a ng-href="/search/{{env.result_id}}#view{{row.id}}"><div class="preview">
+                    <a ui-sref="searchResultViewAdvert({id:env.search.id, advert: row.id})"><div class="preview">
                         <div class="preview-item">
                             <div class="center">
                                 <img ng-src="{{row.MainPhoto.preview}}" alt="">

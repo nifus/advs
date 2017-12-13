@@ -1,0 +1,78 @@
+<div class="row" >
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate ng-if="env.search.query.type=='rent'">Price per year in €</label>
+      <label translate ng-if="env.search.query.type=='sale'">Sales price in €</label>
+
+      <input type="number" class="form-control" placeholder="From" min="0" ng-model="env.search.query.price.from">
+      <input type="number" class="form-control" placeholder="To" min="0" ng-model="env.search.query.price.to">
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Area in m<sup>2</sup></label>
+      <input type="number" class="form-control" placeholder="From" min="0" ng-model="env.search.query.area.from">
+      <input type="number" class="form-control" placeholder="To" min="0" ng-model="env.search.query.area.to">
+    </div>
+  </div>
+
+</div>
+
+
+<div class="row" >
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Area in m<sup>2</sup></label>
+      <input type="number" class="form-control" placeholder="From" min="0" ng-model="env.search.query.area.from">
+      <input type="number" class="form-control" placeholder="To" min="0" ng-model="env.search.query.area.to">
+    </div>
+  </div>
+  <div class="col-md-6" ng-if="env.search.query.type=='rent'">
+    <div class="form-group form-inline">
+      <label translate>Emphyteusis per year in €</label>
+      <input type="number" class="form-control" placeholder="From" min="0" ng-model="env.search.query.price_per_year.from">
+      <input type="number" class="form-control" placeholder="To" min="0" ng-model="env.search.query.price_per_year.to">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-12">
+    <label translate>Development</label>
+    <ul class="select">
+      <li ng-click="env.search.query.development = 'Any'"
+          ng-class="{'active' : env.search.query.development=='Any'}">{{'Any'|translate}}
+      </li>
+      <li ng-click="env.search.query.development = 'Developed'"
+          ng-class="{'active' : env.search.query.development=='Developed'}">{{'Developed'|translate}}
+      </li>
+      <li ng-click="env.search.query.development = 'Developed in part'"
+          ng-class="{'active' : env.search.query.development=='Developed in part'}">{{'Developed in part'|translate}}
+      </li>
+      <li ng-click="env.search.query.development = 'Undeveloped'"
+          ng-class="{'active' : env.search.query.development=='Undeveloped'}">{{'Undeveloped'|translate}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="form-group col-md-12">
+    <label translate>Building permission necessary</label>
+    <ul class="select">
+      <li ng-click="env.search.query.building_permission = 'Any'"
+          ng-class="{'active' : env.search.query.building_permission=='Any'}">{{'Any'|translate}}
+      </li>
+      <li ng-click="env.search.query.building_permission = 'Yes'"
+          ng-class="{'active' : env.search.query.building_permission=='Yes'}">{{'Yes'|translate}}
+      </li>
+      <li ng-click="env.search.query.building_permission = 'No'"
+          ng-class="{'active' : env.search.query.building_permission=='No'}">{{'No'|translate}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+

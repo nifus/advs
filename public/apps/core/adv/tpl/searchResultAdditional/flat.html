@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label ng-if="env.search.query.type=='rent'" translate>Cold rent in €</label>
+      <label ng-if="env.search.query.type=='sale'" translate>Sales price in €</label>
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.price.from">
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}" ng-model="env.search.query.price.to">
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Living area in m<sup>2</sup></label>
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.living_area.from">
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}"
+             ng-model="env.search.query.living_area.to">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Rooms</label>
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.rooms.from">
+
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}"
+             ng-model="env.search.query.rooms.to">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Floor</label>
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.floor.from">
+
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}"
+             ng-model="env.search.query.floor.to">
+
+    </div>
+  </div>
+</div>
+
+

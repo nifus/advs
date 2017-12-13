@@ -1,0 +1,82 @@
+<div class="row" >
+  <div class="col-md-4" ng-if="env.search.query.type=='rent'">
+    <div class="form-group form-inline">
+      <label translate>Price per month in €</label>
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.price_per_month.from">
+
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}"
+             ng-model="env.search.query.price_per_month.to">
+
+    </div>
+  </div>
+  <div class="col-md-4" ng-if="env.search.query.type=='rent'">
+    <div class="form-group form-inline">
+      <label translate>Price per m<sup>2</sup></label>
+
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.price_per_m2.from">
+
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}"
+             ng-model="env.search.query.price_per_m2.to">
+
+    </div>
+  </div>
+  <div class="col-md-4" ng-if="env.search.query.type=='sale'">
+    <div class="form-group form-inline">
+      <label translate>Sales price in €</label>
+      <input type="number" class="form-control" placeholder="From" min="0" ng-model="env.search.query.price.from"
+             id="focus">
+      <input type="number" class="form-control" placeholder="To" min="0" ng-model="env.search.query.price.to">
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group form-inline">
+      <label translate>Total area in m<sup>2</sup></label>
+
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.area.from">
+
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}" ng-model="env.search.query.area.to">
+
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group form-inline">
+      <label translate>Rooms</label>
+
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.rooms.from">
+
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}" ng-model="env.search.query.rooms.to">
+
+    </div>
+  </div>
+  <div class="col-md-4">
+
+    <div class="form-group form-inline">
+      <label translate>Number of floors</label>
+
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.floor.from">
+
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}" ng-model="env.search.query.floor.to">
+
+    </div>
+  </div>
+  <div class="col-md-4">
+
+    <div class="form-group form-inline">
+      <label translate>Number of beds / guests</label>
+
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.beds.from">
+
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}" ng-model="env.search.query.beds.to">
+
+    </div>
+  </div>
+</div>

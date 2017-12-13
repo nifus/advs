@@ -19,7 +19,7 @@
 
 
     function advPreviewController($scope) {
-
+      console.log($scope.adv)
       $scope.env = {
         display: $scope.adv.photos.length > 0 ? 'photos' : 'map',
         submit: false,

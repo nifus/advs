@@ -33,7 +33,7 @@
 <div class="form-group" ng-show="model.energy.pass=='Available' && model.energy.pass_date">
   <label class="control-label col-sm-3" translate>Energy pass type</label>
   <div class="col-sm-9">
-    <ul class="select">
+    <ul class="select ">
       <li ng-class="{'active' : model.energy.pass_type=='Consumption pass'}"
           ng-click="model.energy.pass_type = 'Consumption pass'">{{'Requirement pass'|translate}}
       </li>
@@ -48,7 +48,7 @@
 <div class="form-group" ng-show="model.energy.pass=='Available' && model.energy.pass_date && model.energy.pass_type">
   <label class="control-label col-sm-3" translate>Energy consumption value</label>
   <div class="col-sm-9">
-    <div class="input-group">
+    <div class="input-group short">
       <input type="text" class="form-control" ng-model="model.energy.consumption">
       <span class="input-group-addon" translate>kWh/(m<sup>2</sup>*a)</span>
     </div>

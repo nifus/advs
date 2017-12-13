@@ -68,7 +68,7 @@
             @endif
             <ul class="main-menu">
                 <li><a href="/">Home</a></li>
-                <li><a href="{{ route('adv.search-offer') }}">Search</a></li>
+                <li><a href="{{ route('adv.search-offer') }}#!/">Search</a></li>
                 <li><a href="{{ route('adv.offer') }}">{{ trans('main.offer')  }}</a></li>
             </ul>
 

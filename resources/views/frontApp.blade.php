@@ -76,7 +76,10 @@
     <script src="/apps/frontApp/login/loginController.js"></script>
     <script src="/apps/frontApp/mainController.js"></script>
     <script src="/apps/frontApp/adv/create/createAdvController.js"></script>
-    <script src="/apps/frontApp/adv/search/searchAdvController.js"></script>
+
+    <script src="/apps/frontApp/adv/search/formSearchController.js"></script>
+    <script src="/apps/frontApp/adv/search/resultSearchController.js"></script>
+
 
 
 
@@ -88,7 +91,6 @@
 
 
     <div id="content" class="container" >
-
         @yield('content')
     </div>
 

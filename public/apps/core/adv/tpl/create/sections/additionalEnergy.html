@@ -3,7 +3,7 @@
 <div class="form-group">
   <label class="col-sm-3 control-label" translate>Last modernization of the building (in year)</label>
   <div class="col-sm-9">
-    <input type="number" class="form-control" min="0"
+    <input type="number" class="form-control short" min="0"
            ng-model="model.energy.modernization_year">
   </div>
 </div>
@@ -11,7 +11,7 @@
 <div class="form-group">
   <label class="col-sm-3 control-label" translate>Energy source </label>
   <div class="col-sm-9">
-    <select class="form-control" ng-model="model.energy.source"
+    <select class="form-control short" ng-model="model.energy.source"
             ng-options="obj.id as obj.value for obj in env.energy_source">
       <option value="" translate>Please select</option>
     </select>
@@ -22,7 +22,7 @@
 <div class="form-group">
   <label class="col-sm-3 control-label" translate>Method of heating</label>
   <div class="col-sm-9">
-    <select class="form-control" ng-model="model.energy.heating"
+    <select class="form-control short" ng-model="model.energy.heating"
             ng-options="obj.id as obj.value for obj in env.heating">
       <option value="" translate>Please select</option>
     </select>
@@ -33,7 +33,7 @@
      ng-show="model.energy.pass_date=='After 01.05.14 (EnEV 2014)' && model.energy.pass=='Available'">
   <label class="col-sm-3 control-label" translate>Energy efficiency class</label>
   <div class="col-sm-9 ">
-    <select class="form-control" ng-model="model.energy.class"
+    <select class="form-control short" ng-model="model.energy.class"
             ng-options="obj.id as obj.value for obj in env.energy_class ">
       <option value="" translate>Please select</option>
     </select>

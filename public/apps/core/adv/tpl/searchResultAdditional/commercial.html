@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate ng-if="env.search.query.type=='rent'">Price per year in €</label>
+      <label translate ng-if="env.search.query.type=='sale'">Sales price in €</label>
+
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.price.from">
+
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}" ng-model="env.search.query.price.to">
+
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group form-inline">
+      <label translate>Total area in m<sup>2</sup></label>
+
+      <input type="number" class="form-control" placeholder="{{'From'|translate}}"
+             ng-model="env.search.query.area.from">
+
+      <input type="number" class="form-control" placeholder="{{'To'|translate}}" ng-model="env.search.query.area.to">
+
+    </div>
+  </div>
+
+</div>

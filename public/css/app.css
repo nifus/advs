@@ -765,8 +765,16 @@ div.pac-container {
     background-color: #31859C;
     box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.5)
 }
+#advert-form ul.select li.input {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 5px;
+    width:300px
+}
 
-
+#advert-form div.short, #advert-form input.short, #advert-form select.short{
+    width:50%
+}
 .btn, .btn-lg{
     border-radius: 0!important;
 }
