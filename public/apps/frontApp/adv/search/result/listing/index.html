@@ -1,0 +1,181 @@
+<div class="progress" ng-show="env.loading===true">
+  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+       aria-valuemax="100" style="width: 100%">
+  </div>
+</div>
+
+<div ng-show="env.loading===false" id="advert-form">
+  <h1>Search Adverts Results</h1>
+
+
+      <div class="row">
+        <div class="navbar-right navbar-form " >
+          <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group input-group" role="group" disable-all="env.display_map===true">
+              <span class="input-group-addon">Per page</span>
+              <button type="button" class="btn btn-default" ng-class="{'btn-primary':env.per_page==4}"
+                      ng-click="changePerPage(4, undefined, true)">4
+              </button>
+              <button type="button" class="btn btn-default"
+                      ng-class="{'btn-primary':env.per_page==10}"
+                      ng-click="changePerPage(10, undefined, true)">10
+              </button>
+              <button type="button" class="btn btn-default"
+                      ng-class="{'btn-primary':env.per_page==20}"
+                      ng-click="changePerPage(20, undefined, true)">20
+              </button>
+              <button type="button" class="btn btn-default"
+                      ng-class="{'btn-primary':env.per_page==50}"
+                      ng-click="changePerPage(50, undefined, true)">50
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="navbar-right navbar-form" disable-all="env.display_map===true">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Sort by</span>
+            <select class="form-control" ng-model="env.sortby" ng-change="changeSort(env.sortby, true)">
+              <option value="date_create">Date Created</option>
+              <option value="price_up">Price Up</option>
+              <option value="price_down">Price Down</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="navbar-left navbar-form" style="padding-left:0">
+          <button style="width:130px" type="button" class="btn btn-danger" ng-click="backToSearchForm()">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            Back to Form
+          </button>
+
+          <button style="width:130px" type="button" class="btn btn-success"
+                  ng-class="{'active': env.display_map===true}"
+                  ng-click="displayMap(!env.display_map, true)">
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+            {{env.display_map===false ? 'Display Map' : 'Hide Map'}}
+          </button>
+
+          <button style="width:130px" type="button" ng-click="displayAdditionalFields(env.display_additional_fields)" class="btn btn-primary"> Additional Filters</button>
+        </div>
+      </div>
+
+      <div class="row animation" style="margin:20px" ng-if="env.display_additional_fields==true">
+        <div
+                ng-include="'/apps/core/adv/tpl/searchResultAdditional/flat.html'"
+                ng-if="env.search.query.category==1"></div>
+        <div
+                ng-include="'/apps/core/adv/tpl/searchResultAdditional/house.html'"
+                ng-if="env.search.query.category==2"></div>
+        <div
+                ng-include="'/apps/core/adv/tpl/searchResultAdditional/garage.html'"
+                ng-if="env.search.query.category==3"></div>
+        <div
+                ng-include="'/apps/core/adv/tpl/searchResultAdditional/office.html'"
+                ng-if="env.search.query.category==4"></div>
+        <div
+                ng-include="'/apps/core/adv/tpl/searchResultAdditional/building.html'"
+                ng-if="env.search.query.category==5"></div>
+        <div
+                ng-include="'/apps/core/adv/tpl/searchResultAdditional/hotel.html'"
+                ng-if=" env.search.query.category==6"></div>
+        <div
+                ng-include="'/apps/core/adv/tpl/searchResultAdditional/hall.html'"
+                ng-if=" env.search.query.category==7"></div>
+        <div
+                ng-include="'/apps/core/adv/tpl/searchResultAdditional/retail.html'"
+                ng-if="env.search.query.category==8"></div>
+        <div
+                ng-include="'/apps/core/adv/tpl/searchResultAdditional/commercial.html'"
+                ng-if=" env.search.query.category==9"></div>
+
+        <div class="text-right">
+          <button style="width:130px" type="button" class="btn btn-danger"  ng-click="displayAdditionalFields(env.display_additional_fields)">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            Cancel
+          </button>
+          <button style="width:130px" type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            Search
+          </button>
+        </div>
+      </div>
+
+      <div class="row " id="listing" ng-if="env.display_map===false">
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_flat.html'"
+                ng-if="env.search.query.type=='rent' && env.search.query.category==1"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_house.html'"
+                ng-if="env.search.query.type=='rent' && env.search.query.category==2"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_garage.html'"
+                ng-if="env.search.query.type=='rent' && env.search.query.category==3"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_office.html'"
+                ng-if="env.search.query.type=='rent' && env.search.query.category==4"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_hotel.html'"
+                ng-if="env.search.query.type=='rent' && env.search.query.category==6"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_hall.html'"
+                ng-if="env.search.query.type=='rent' && env.search.query.category==7"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_retail.html'"
+                ng-if="env.search.query.type=='rent' && env.search.query.category==8"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/rent_commercial.html'"
+                ng-if="env.search.query.type=='rent' && env.search.query.category==9"></div>
+
+
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_flat.html'"
+                ng-if="env.search.query.type=='sale' && env.search.query.category==1"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_house.html'"
+                ng-if="env.search.query.type=='sale' && env.search.query.category==2"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_garage.html'"
+                ng-if="env.search.query.type=='sale' && env.search.query.category==3"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_office.html'"
+                ng-if="env.search.query.type=='sale' && env.search.query.category==4"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_building.html'"
+                ng-if="env.search.query.type=='sale' && env.search.query.category==5"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_hotel.html'"
+                ng-if="env.search.query.type=='sale' && env.search.query.category==6"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_hall.html'"
+                ng-if="env.search.query.type=='sale' && env.search.query.category==7"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_retail.html'"
+                ng-if="env.search.query.type=='sale' && env.search.query.category==8"></div>
+        <div
+                ng-include="'/apps/frontApp/adv/searchResult/listing/inc/sale_commercial.html'"
+                ng-if="env.search.query.type=='sale' && env.search.query.category==9"></div>
+      </div>
+
+
+      <div ng-show="env.display_map===true">
+        <div id="map" style="height: 500px"></div>
+      </div>
+
+      <nav class="navbar navbar-default" ng-if="env.display_map===false && env.pages!=null">
+        <div class="container-fluid">
+          <div class="navbar-left navbar-form">
+            <nav ng-show="env.pages!=null">
+              <ul class="pagination " style="margin:0px">
+                <li ng-repeat="n in range(1,env.pages)"
+                    ng-class="{'active':env.page==n,'disabled':env.display_map===true}">
+                  <a class="link" ng-click="setPage(n)">{{n}}</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+      </nav>
+    </div>

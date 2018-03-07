@@ -5,7 +5,6 @@
   formSearchController.$inject = ['$scope', 'advFactory', '$http', '$q', '$filter', 'searchLogFactory','$timeout','$state'];
 
   function formSearchController($scope, advFactory, $http, $q, $filter, searchLogFactory, $timeout, $state) {
-
     $scope.env = {
       categories: [],
       subcats: [],

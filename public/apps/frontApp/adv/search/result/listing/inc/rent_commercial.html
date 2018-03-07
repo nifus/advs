@@ -1,0 +1,51 @@
+<div class="row" style="margin-bottom: 20px" ng-repeat="group in env.current">
+    <div class="col-md-6 adv" ng-repeat="row in group">
+        <table class="table table-bordered preview">
+            <tr class="info">
+                <td colspan="3" class="header">
+                    <div class="title">
+                        <a ng-click="displayAdvert(row)" >{{row.title}}</a>
+                    </div>
+
+                    <div class="fav">
+                        <button
+                                ng-click="addToFav(row, !row.IsFav)"
+                                ng-class="{'btn-default':row.IsFav===false,'btn-danger':row.IsFav===true}"
+                                type="button" class="btn"><span class="glyphicon glyphicon-star"
+                                                                aria-hidden="true"></span></button>
+
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td rowspan="5" style="width: 200px;padding:0" ng-if="row.MainPhoto.preview">
+                    <a ng-click="displayAdvert(row)"><div class="preview">
+                        <div class="preview-item">
+                            <div class="center">
+                                <img ng-src="{{row.MainPhoto.preview}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </td>
+                <td class="element" translate>Plot area</td>
+                <td class="value">{{row.area}} m<sup>2</sup></td>
+            </tr>
+
+            <tr>
+                <td translate class="element">City</td>
+                <td class="value">{{row.address.city}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="private_account" ng-if="row.owner.isPrivateAccount()" translate>Private</td>
+                <td colspan="2" class="business_account" ng-if="!row.owner.isPrivateAccount()">{{row.author.company}}
+                </td>
+            </tr>
+            <tr>
+                <td class="element" translate>Price per year</td>
+                <td class="value">{{row.price|currency:'€'}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>   Main page</title>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans%3A400%2C400i%2C700%2C700i%7CPT+Sans+Narrow%3A400%2C700%7CPT+Serif" />
+    <link href="/css/app.css" rel="stylesheet" type="text/css">
+
+    <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+    <link rel="stylesheet" href="/components/angucomplete-alt/angucomplete-alt.css">
+    <link href="/components/alertify.js/themes/alertify.core.css" rel="stylesheet" type="text/css">
+    <link href="/components/alertify.js/themes/alertify.default.css" rel="stylesheet" type="text/css">
+
+
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,geometry&key=AIzaSyDhoywlfGZRVpt8hcYkJORK4ioyBeEIweU&language=de"></script>
+
+    <script src="/components/jquery/dist/jquery.min.js"></script>
+    <script src="/components/angular/angular.min.js"></script>
+    <script src="/components/angular-animate/angular-animate.min.js"></script>
+
+    <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <script src="/components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
+    <script src="/components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="/components/satellizer/dist/satellizer.min.js"></script>
+    <script src="/components/checklist-model/checklist-model.js"></script>
+    <script src="/components/moment/min/moment-with-locales.js"></script>
+
+    <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+    <script type="text/javascript" src="/components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+    <script src='/components/angular-gm/angular-gm.min.js'></script>
+    <script src='/components/ng-file-upload/ng-file-upload-shim.min.js'></script>
+    <script src='/components/ng-file-upload/ng-file-upload.min.js'></script>
+
+
+    <script src='/components/angular-gettext/dist/angular-gettext.min.js'></script>
+    <script src="/components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
+    <script src="/components/angular-disable-all/dist/angular-disable-all.js"></script>
+    <script src="/components/alertify.js/lib/alertify.min.js"></script>
+    <script src="/components/angular-text-counter/src/textCounter.js"></script>
+    <script src="/components/ngAutocomplete/src/ngAutocomplete.js"></script>
+    <script src="/components/markerclustererplus/dist/markerclusterer.min.js"></script>
+    <script src="/components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+
+    <script src="/apps/core/core.js"></script>
+    <script src="/apps/core/user/userFactory.js"></script>
+    <script src="/apps/core/user/userService.js"></script>
+    <script src="/apps/core/adv/advFactory.js"></script>
+    <script src="/apps/core/adv/advService.js"></script>
+    <script src="/apps/core/searchLog/searchLogFactory.js"></script>
+    <script src="/apps/core/searchLog/searchLogService.js"></script>
+    <script src="/apps/core/tariff/tariffFactory.js"></script>
+    <script src="/apps/core/advPayment/advPaymentFactory.js"></script>
+    <script src="/apps/core/tariff/businessTariffService.js"></script>
+    <script src="/apps/core/advPayment/advPaymentService.js"></script>
+
+
+    <script src="/apps/core/directives/advPreview/advPreview.js"></script>
+    <script src="/apps/core/directives/advForm/advForm.js"></script>
+    <script src="/apps/core/directives/paymentForm/paymentForm.js"></script>
+
+    <script src="/apps/frontApp/frontApp.js"></script>
+    <script src="/apps/frontApp/directives/citySelect/citySelect.js"></script>
+    <script src="/apps/frontApp/directives/cityDetect/cityDetect.js"></script>
+    <script src="/apps/frontApp/login/loginController.js"></script>
+    <script src="/apps/frontApp/mainController.js"></script>
+    <script src="/apps/frontApp/adv/create/createAdvController.js"></script>
+
+    <script src="/apps/frontApp/index/indexController.js"></script>
+    <script src="/apps/frontApp/contacts/contactsController.js"></script>
+    <script src="/apps/frontApp/agb/agbController.js"></script>
+    <script src="/apps/frontApp/impressum/impressumController.js"></script>
+
+    <script src="/apps/frontApp/adv/search/formSearchController.js"></script>
+    <script src="/apps/frontApp/adv/search/resultSearchController.js"></script>
+</head>
+<body ng-app="frontApp" ng-controller="mainController" >
+    <div ng-controller="loginController">
+        <nav id="login" class="navbar navbar-default navbar-fixed-top hide" ng-class="{'show':display_form}">
+            <div class="container">
+                <span class="glyphicon glyphicon-remove link close" aria-hidden="true" ng-click="hideForm()"></span>
+                <div class="login-form">
+                    <div class="alert alert-danger" role="alert" ng-show="env.error" ng-bind="env.error"></div>
+                    <div class="alert alert-success" role="alert" ng-show="env.message" ng-bind="env.message"></div>
+
+                    <form class="form-inline" name="login_form" ng-show="form_type=='login'">
+                        <div class="form-group" style="">
+                            <input type="email" class="form-control" name="email" ng-model="form.email"
+                            placeholder="Email" required>
+                        </div>
+                        <div class="form-group" style="height: 50px">
+                            <input type="password" class="form-control" name="password" ng-model="form.password"
+                            placeholder="Password" required>
+                            <br>
+                            <a class="link" ng-click="displayForgotForm()">Forgot password</a>
+                        </div>
+                        <input type="hidden" ng-model="form.remember" value="1">
+                    <!--<div class="checkbox" >
+                            <label>
+                                <input type="checkbox" ng-model="form.remember"> Remember me
+                            </label>
+                        </div>-->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" ng-click="loginSubmit()"
+                            ng-disabled="login_form.$invalid || env.submit">Login</button>
+                        </div>
+                    </form>
+                    <form class="form-inline" name="forgot_form"
+                    ng-show="form_type=='forgot' && display_reset_form==true">
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" ng-model="form.email"
+                        placeholder="Email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" ng-click="forgotSubmit()"
+                        ng-disabled="forgot_form.$invalid || env.submit">Forgot password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+    
+    <div id="head">
+        <div class="col-md-2 logo">
+        </div>
+        <div class="col-md-10 text-right">
+
+            <ul class="user-menu">
+                <li><a class="link" ng-click="displayLoginForm()"><span
+                    class="glyphicon glyphicon-user"></span> Login</a></li>
+                    <li><a href="http://adv.bunzya.ru/register/private">Sign In</a></li>
+                </ul>
+                <ul class="main-menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="http://adv.bunzya.ru/search#!/">Search</a></li>
+                    <li><a href="http://adv.bunzya.ru/offer">Offer</a></li>
+                </ul>
+
+                <city-detect city="Schierau"></city-detect>
+            </div>
+            <h1>ImmoStern</h1>
+        </div>
+    </div>
+
+
+
+    <div id="content" class="container" ui-view ></div>
+
+    <div id="footer-menu">
+        <h4>ImmoSterne.de</h4>
+        <hr>
+        <ul>
+            <li><a  ui-sref="index">Home</a></li>
+            <li><a  ui-sref="contacts">Contact</a></li>
+            <li><a ui-sref="agb" href="http://adv.bunzya.ru/agb">AGB</a></li>
+            <li><a ui-sref="impressum" href="http://adv.bunzya.ru/disclaimer">Impressum</a></li>
+        </ul>
+    </div>
+
+
+
+
+</body>
+</html>

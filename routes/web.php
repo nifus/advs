@@ -216,7 +216,7 @@ Route::group(['prefix' => 'api'], function () {
         return response()->json($sets);
     });
 
-    Route::post('/change-city', function (\Illuminate\Http\Request $request){
+    Route::post('/detect-city', function (\Illuminate\Http\Request $request){
         $data = $request->all();
 
         $place = \App\Place::findCity($data['country'], null, $data['city'],$data['place_id']);
@@ -247,7 +247,36 @@ Route::group(['prefix' => 'api'], function () {
         return response()->json([]);
     });
 
+    Route::post('/change-city', function (\Illuminate\Http\Request $request){
+        $data = $request->all();
 
+        $place = \App\Place::findCity($data['country'], null, $data['city'],$data['place_id']);
+        if(is_null($place)){
+            $cityDetect = [
+                'id' => null,
+                'found' => false,
+                'autodetect' => false,
+                'ip' => $_SERVER['REMOTE_ADDR'],
+                'city' => $data['city'],
+                'iso' => null,
+                'country' => $data['country'],
+            ];
+        }else{
+            $cityDetect = [
+                'id' => $place->id,
+                'found' => false,
+                'autodetect' => false,
+                'ip' => $_SERVER['REMOTE_ADDR'],
+                'city' => $data['city'],
+                'iso' => null,
+                'country' => $data['country'],
+            ];
+        }
+
+        Cookie::queue(
+            Cookie::make('city-detect', json_encode($cityDetect), 60 * 60 * 60));
+        return response()->json([]);
+    });
 });
 
 
